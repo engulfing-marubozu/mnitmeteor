@@ -8,6 +8,8 @@ import MoreIcon from '@mui/icons-material/More';
 export default function MenuBarCategory(props) {
   // ========================we can Handle page by this function
   const CategoryItemHandler = () => {
+    props.MenuBarClose();
+    props.CategoryClose();
     console.log("CategoryItemHandler ");
   };
   // ==============================

@@ -1,4 +1,5 @@
 import React from "react";
+import GlobalStyles from "@mui/material/GlobalStyles";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,10 +10,10 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { deepPurple } from "@mui/material/colors";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
+import { StyledMenu } from "./NavabarStyle";
 import MymenuBar from "./Categories/MenuBar";
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -34,72 +35,63 @@ const OutlinedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 1000,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-});
+export const theme = createTheme();
 
 function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles
+        styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
+      />
       <CssBaseline />
       <AppBar
-        position="relative"
-        p
-        color="transparent"
-        sx={{ flexDirection: "row", justifyContent: "center" }}
+        position="static"
+        color="default"
+        elevation={0}
+        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
       >
         <Toolbar>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
+          <Box sx={{ display: { xs: "flex", sm: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={handleClick}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+            <StyledMenu
+              id="demo-customized-menu"
+              MenuListProps={{
+                "aria-labelledby": "demo-customized-button",
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
             >
-              {/* Menu Bar function ++++++++=++++++++++++++++++++++ */}
-              <MymenuBar menuClose={handleCloseNavMenu} />
-              
-            </Menu>
+              <MymenuBar menuClose={handleClose} />
+            </StyledMenu>
           </Box>
-          <Stack direction="row" justifyContent="center" >
+          <Stack
+            direction="row"
+            justifyContent="center"
+            sx={{
+              flexGrow: 1,
+              justifyContent: "flex-left",
+              ml: { xs: 1, md: 5 },
+            }}
+          >
             <AcUnitIcon
               sx={{ display: { xs: "flex" }, fontSize: { xs: 18, sm: 24 } }}
             />
@@ -108,28 +100,48 @@ function Navbar() {
               color="inherit"
               noWrap
               sx={{
-                mr: { xs: 11, sm: 20, md: 50, lg: 75 },
                 fontWeight: 700,
                 fontSize: { xs: "15px", sm: "20px" },
                 display: { xs: "flex" },
               }}
             >
               Mnit Market
-            </Typography> 
+            </Typography>
           </Stack>
 
-          <Stack spacing={{ xs: 1, sm: 2, md: 4 }} direction="row">
-            <Stack  spacing={{ xs: 1, sm: 2, md: 3 }} direction="row" display={{ sm: "flex", xs: "none" } }>
-              <Button variant="text" color="inherit">
+          <Stack
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            sx={{ mr: { xs: 1, md: 5 } }}
+            direction="row"
+          >
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 3 }}
+              direction="row"
+              display={{ sm: "flex", xs: "none" }}
+            >
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ fontSize: { sm: "12px", md: "15px" } }}
+              >
                 Home
               </Button>
-              <Button variant="text" color="inherit">
+              <Button
+                variant="text"
+                color="inherit"
+                sx={{ fontSize: { sm: "12px", md: "15px" } }}
+              >
                 About
               </Button>
-              <OutlinedButton variant="outlined">Login</OutlinedButton>
+              <OutlinedButton
+                variant="outlined"
+                sx={{ fontSize: { sm: "12px", md: "15px" } }}
+              >
+                Login
+              </OutlinedButton>
             </Stack>
             <ColorButton
-              sx={{ fontSize: { xs: "9px", sm: "16px" } }}
+              sx={{ fontSize: { xs: "9px", sm: "12px", md: "15px" } }}
               variant="contained"
             >
               Sell Now

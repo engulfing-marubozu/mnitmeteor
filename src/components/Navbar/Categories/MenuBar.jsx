@@ -4,88 +4,57 @@ import CategoryIcon from "@mui/icons-material/Category";
 import SellIcon from "@mui/icons-material/Sell";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
-// import LogoutIcon from "@mui/icons-material/Logout";
+//  import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import Menu from "@mui/material/Menu"
 import MenuBarCategory from "./MenuBarCategories";
+import { StyledMenu } from "../NavabarStyle";
 
 export default function MymenuBar(props) {
   // ========================we can Handle page by this function
   const menuItemHandler = () => {
+    props.menuClose();
     console.log("menuItemHandler ");
   };
   // ==============================
-
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleClose = () => {
+    setAnchorEl(null);
   };
-
   return (
     <>
-      <MenuItem>
-        {" "}
-        <Stack direction="row" justifyContent="center">
-          <AcUnitIcon sx={{ mr: 2 }} />
-          <Typography
-            variant="h5"
-            color="inherit"
-            noWrap
-            sx={{
-              fontWeight: 700,
-              fontSize: "20px",
-              mr: 11,
-            }}
-          >
-            Mnit Market
-          </Typography>
-        </Stack>
-      </MenuItem>
       <MenuItem onClick={menuItemHandler}>
-        <HomeIcon sx={{ fontsize: 5, mr: 2 }} />
+        <HomeIcon sx={{ fontsize: 3, mr: 1 }} />
         Home
       </MenuItem>
       <MenuItem onClick={menuItemHandler}>
-        <InfoIcon sx={{ fontsize: 5, mr: 1 }} />
+        <InfoIcon sx={{ fontsize: 3, mr: 1 }} />
         About
       </MenuItem>
-      <MenuItem onClick={handleOpenNavMenu}>
-        <CategoryIcon sx={{ fontsize: 5, mr: 1 }} />
+      <MenuItem  onClick={handleClick}>
+        <CategoryIcon sx={{ fontsize: 3, mr: 1 }} />
         Categories
       </MenuItem>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorElNav}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+      <StyledMenu
+        id="demo-customized-menu"
+        MenuListProps={{
+          "aria-labelledby": "demo-customized-button",
         }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        open={Boolean(anchorElNav)}
-        onClose={handleCloseNavMenu}
-        sx={{
-          display: { xs: "block", md: "none" },
-        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
       >
-        {/* Menu Bar function ++++++++=++++++++++++++++++++++ */}
-        <MenuBarCategory menuClose={handleCloseNavMenu} />
-      </Menu>
+        <MenuBarCategory CategoryClose={props.menuClose} MenuBarClose={handleClose} />
+      </StyledMenu>
       <MenuItem onClick={menuItemHandler}>
-        <SellIcon sx={{ fontsize: 5, mr: 1 }} />
+        <SellIcon sx={{ fontsize: 3, mr: 1 }} />
         Sell Now
       </MenuItem>
       <MenuItem onClick={menuItemHandler}>
-        <LoginIcon sx={{ fontsize: 5, mr: 1 }} />
+        <LoginIcon sx={{ fontsize: 3, mr: 1 }} />
         Login
       </MenuItem>
     </>

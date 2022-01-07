@@ -26,6 +26,7 @@ export default function Uploadd() {
 
     const handleSubmitFile = (e) => {
         e.preventDefault();
+
         if (!selectedFile) return;
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);
@@ -36,11 +37,15 @@ export default function Uploadd() {
             console.error('AHHHHHHHH!!');
             // setErrMsg('something went wrong!');
         };
+        setSelectedFileText('');
+        setSelectedFile();
+        setPreviewSource('');
     };
     const uploadImage = async (base64EncodedImage) => {
         console.log("Here is your image: \n");
         console.log(base64EncodedImage);
-        
+        const sessionID = Math.floor((Math.random() * 1000) + 1000);
+        const rndID = Math.floor((Math.random() * 1000) + 1000);
         var url = 'http://localhost:3001/api/upload';
         try{ await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -53,10 +58,10 @@ export default function Uploadd() {
             },
             // redirect: 'follow', // manual, *follow, error
             // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify({data: base64EncodedImage}) // body data type must match "Content-Type" header
+            body: JSON.stringify({data: base64EncodedImage,id: sessionID,rndID: rndID }) // body data type must match "Content-Type" header
           });
         }catch{
-            console.log("Some error uploading Items images \n");
+            console.log("Some error uploading Items images, bhagwan jane \n");
         }
         //i got my image ab backend pe bhejna hai 
     }

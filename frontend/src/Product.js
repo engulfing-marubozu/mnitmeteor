@@ -9,8 +9,7 @@ export default function Product(props) {
     console.log("hello there");
     return (
         <div>
-            <h1> Please validate these {props.cloudLink} </h1>
-
+            <h1> Please validate these {props.sid} </h1>
         </div>
     );
 }

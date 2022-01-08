@@ -32,7 +32,11 @@ app.get('/',async (req,res)=>{
     // const query = await Product.find({isShown: false});
     const query = await Product.find({isShown: false});
     //we have got this fucking array 
-    
+    const exJson = {
+        'name': 'Harshit',
+        'sirname': 'garg'
+    }
+
     res.send(JSON.stringify(query));
     
     // console.log(query[0].cloudlink);

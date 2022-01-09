@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const bodyparser = require("body-parser")
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const {userSchema } = require("./Models/auth")
+const {userSchema } = require("./Models")
 require("dotenv").config();
 
 // variables

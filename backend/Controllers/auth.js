@@ -1,4 +1,4 @@
-const { User } = require("../Models/auth");
+const { User } = require("../Models");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 saltRounds = 8;

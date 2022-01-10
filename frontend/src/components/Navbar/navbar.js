@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
@@ -15,8 +15,9 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { StyledMenu } from "./NavabarStyle";
 import MymenuBar from "./Categories/MenuBar";
-
-const ColorButton = styled(Button)(({ theme }) => ({
+import { useNavigate } from "react-router-dom";
+import Model from "../loginForm/Model";
+export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(deepPurple[500]),
   backgroundColor: deepPurple[500],
   "&:hover": {
@@ -38,6 +39,7 @@ const OutlinedButton = styled(Button)(({ theme }) => ({
 export const theme = createTheme();
 
 function Navbar() {
+  const Navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -46,6 +48,25 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const [windowWidth,setwindowWidth]=useState(window.innerWidth);
+  
+  const sizeEventHandler=()=>{
+    setwindowWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize",sizeEventHandler)
+    return () => {
+     window.removeEventListener("resize",sizeEventHandler)
+    }
+  }, [windowWidth])
+
+
+const [loginModel,setloginModel]=useState(false);
+
+const LoginModelHandler=()=>{
+  setloginModel(false);
+}
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -54,10 +75,12 @@ function Navbar() {
       />
       <CssBaseline />
       <AppBar
-        position="static"
+        position="sticky"
         color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+        elevation={9}
+        sx={{
+          borderBottom: (theme) => `1px solid ${theme.palette.divider}`
+        }}
       >
         <Toolbar>
           <Box sx={{ display: { xs: "flex", sm: "none" } }}>
@@ -89,11 +112,16 @@ function Navbar() {
             sx={{
               flexGrow: 1,
               justifyContent: "flex-left",
-              ml: { xs: 1, md: 5 },
+              ml: { xs: 1, md: 10 },
             }}
           >
             <AcUnitIcon
-              sx={{ display: { xs: "flex" }, fontSize: { xs: 18, sm: 24 } }}
+              sx={{
+                color:"#512da8",
+                display: { xs: "flex" },
+                fontSize: { xs: 20, sm: 26 },
+                mr: 1,
+              }}
             />
             <Typography
               variant="h5"
@@ -101,17 +129,17 @@ function Navbar() {
               noWrap
               sx={{
                 fontWeight: 700,
-                fontSize: { xs: "15px", sm: "20px" },
+                fontSize: { xs: "18px", sm: "24px" },
                 display: { xs: "flex" },
               }}
             >
-              Mnit Market
+              MNIT  {windowWidth}
             </Typography>
           </Stack>
 
           <Stack
             spacing={{ xs: 1, sm: 2, md: 4 }}
-            sx={{ mr: { xs: 1, md: 5 } }}
+            sx={{ mr: { xs: 1, md: 10 } }}
             direction="row"
           >
             <Stack
@@ -122,30 +150,40 @@ function Navbar() {
               <Button
                 variant="text"
                 color="inherit"
-                sx={{ fontSize: { sm: "12px", md: "15px" } }}
+                sx={{ fontSize: { sm: "12px", md: "15px"  } ,fontWeight:"bold" }}
+                onClick={() => {
+                  Navigate("/");
+                }}
               >
                 Home
               </Button>
               <Button
                 variant="text"
                 color="inherit"
-                sx={{ fontSize: { sm: "12px", md: "15px" } }}
+                sx={{ fontSize: { sm: "12px", md: "15px" }  ,fontWeight:"bold" }}
+                onClick={() => {
+                  Navigate("/About");
+                }}
               >
-                About
+               About
               </Button>
               <OutlinedButton
                 variant="outlined"
-                sx={{ fontSize: { sm: "12px", md: "15px" } }}
+                sx={{ fontSize: { sm: "12px", md: "15px" } ,fontWeight:"bold"  }}
+                onClick={()=>{setloginModel(true)}}
               >
                 Login
               </OutlinedButton>
+            
             </Stack>
             <ColorButton
-              sx={{ fontSize: { xs: "9px", sm: "12px", md: "15px" } }}
+              sx={{ fontSize: { xs: "9px", sm: "12px", md: "15px" } ,fontWeight:"bold"  }}
               variant="contained"
+              onClick={()=>{setloginModel(true)}}
             >
               Sell Now
             </ColorButton>
+            {loginModel&&<Model onClose={LoginModelHandler}></Model>}
           </Stack>
         </Toolbar>
       </AppBar>

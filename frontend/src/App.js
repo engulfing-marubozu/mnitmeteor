@@ -1,24 +1,19 @@
-import "./App.css";
-// import styled from "styled-components";
-// import { AccountBox } from "./components/loginForm/AccountBox/accountBox";
-import Navbar from "./components/Navbar/navbar";
 
-// const AppContainer = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-// `;
+import "./App.css";
+import Navbar from "./components/Navbar/navbar.js";
+import Paper from "@mui/material/Paper";
+// import DiscriptionCard from "./components/Cards/DiscriptionCard";
+import RouterCon from "./components/RouterConfig/RouterCon";
 
 function App() {
   return (
-    // <AppContainer>
-    //   {/* <AccountBox /> */}
-       
-    // </AppContainer>
-    <Navbar/>
+    <>
+      <Paper sx={{bgcolor:"#ede7f6"}}>
+        <Navbar />
+        {/* {/* <DiscriptionCard></DiscriptionCard>   */}
+        <RouterCon />
+      </Paper>
+    </>
   );
 }
 

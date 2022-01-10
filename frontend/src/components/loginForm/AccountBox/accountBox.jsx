@@ -41,7 +41,7 @@ export function AccountBox(props) {
 
   return (
     <AccountContext.Provider value={contextValue}>
-      <BoxContainer>
+      <BoxContainer onClick={(e)=>{e.stopPropagation();}}>
         <HeaderContent
           activeAtrb={active}
           ExpandAtrb={isExpanded}

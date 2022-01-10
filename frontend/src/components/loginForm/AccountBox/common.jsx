@@ -25,7 +25,6 @@ export const MutedText = styled.p`
   color: rgba(91, 84, 84, 100);
   font-weight: 540;
   text-decoration: none;
-  
 `;
 
 export const BoldLink = styled.a`
@@ -83,15 +82,17 @@ export const SubmitButton = styled.button`
     filter: brightness(1.08);
   }
 `;
-export const Passwordlabel=styled.label`
-padding :10px 0px;
-color: rgba(91, 84, 84, 100);
-font-size: 12px;
+export const Passwordlabel = styled.label`
+  padding: 10px 0px;
+  color: rgba(91, 84, 84, 100);
+  font-size: 12px;
 `;
-export const Validationlabel=styled.label`
-padding :5px 0px;
-font-size: 10px;
-color:#FF0000`;
-export const Dogeimg=styled.img`
-width:200px;
-height:200px`;
+export const Validationlabel = styled.label`
+  padding: 5px 0px;
+  font-size: 10px;
+  color: #ff0000;
+`;
+export const Dogeimg = styled.img`
+  width: 200px;
+  height: 200px;
+`;

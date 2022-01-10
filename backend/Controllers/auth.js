@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 saltRounds = 8;
 
-const signUp = (req, res) => {
+const signUp = async  (req, res) => {
   console.log("came to sign up");
 
   try {
@@ -33,6 +33,10 @@ const signUp = (req, res) => {
     } 
  else 
     {
+      const findUser = await User.findOne({email});
+      if(findUser)
+      return res.status(400).send("already registered");
+      
       otp = Math.floor(Math.random() * 1000 + 1000);
       const sgMail = require("@sendgrid/mail");
       sgMail.setApiKey( process.env.API_KEY  );

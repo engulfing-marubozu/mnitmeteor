@@ -6,8 +6,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import HomeCard from "../Cards/HomeCard";
-import Paper from '@mui/material/Paper';
-
+import Paper from "@mui/material/Paper";
+import ScrollBar from "./Slider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 function Copyright() {
   return (
@@ -30,22 +30,24 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {/* +======================================================================= */}
-      <Paper display="flex" sx={{bgcolor:"#212121" ,height:150 }}>  </Paper>
-   
+      <Paper display="flex" sx={{ bgcolor: "#212121", height: 150 }}>
+        {" "}
+      </Paper>
+
       {/*  Bannner============================================================================== */}
 
-        {/*  CATEGORY BAR++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
-         
+      {/*  CATEGORY BAR++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
 
+      <ScrollBar />
 
-         {/* ======================================================================================== */}
+      {/* ======================================================================================== */}
       <main>
-        <Container sx={{ py: 2 }}  maxWidth={"lg"}>
+        <Container sx={{ py: 2 }} maxWidth={"lg"}>
           {/* End hero unit */}
           <Grid container spacing={{ xs: 2, sm: 4 }}>
             {Image.map((img, index) => {
               return (
-                <Grid item xs={6} sm={4}lg={3} key={index}>
+                <Grid item xs={6} sm={4} lg={3} key={index}>
                   <HomeCard />
                 </Grid>
               );
@@ -54,15 +56,11 @@ export default function Home() {
         </Container>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: "#5e35b1", p: 2}} component="footer">
+      <Box sx={{ bgcolor: "#5e35b1", p: 2 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          component="p"
-        >
+        <Typography variant="subtitle1" align="center" component="p">
           Something here to give the footer a purpose!
         </Typography>
         <Copyright />

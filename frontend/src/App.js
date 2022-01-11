@@ -10,6 +10,7 @@ function App() {
     <>
       <Paper sx={{bgcolor:"#ede7f6"}}>
         <Navbar />
+
         {/* {/* <DiscriptionCard></DiscriptionCard>   */}
         <RouterCon />
       </Paper>

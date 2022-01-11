@@ -1,11 +1,12 @@
 const { User } = require("../Models");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
+const { parse } = require("path/posix");
 saltRounds = 8;
 
 const signUp = async  (req, res) => {
   console.log("came to sign up");
-
+  console.log(req.body);
   try {
     console.log(req.body.email);
     console.log(Object.keys(req.body).length);
@@ -35,11 +36,11 @@ const signUp = async  (req, res) => {
     {
       const findUser = await User.findOne({email});
       if(findUser)
-      return res.status(400).send("already registered");
+      return res.status(200).send("already registered");
       
       otp = Math.floor(Math.random() * 1000 + 1000);
       const sgMail = require("@sendgrid/mail");
-      sgMail.setApiKey( process.env.API_KEY  );
+      sgMail.setApiKey( "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" );
       const sendH = "Your OTP is " + otp;
       const msg = {
         to: email, // Change to your recipient
@@ -82,10 +83,10 @@ const signIn = (req, res) => {
           bcrypt.compare(password, foundUser.password, function (err, result) {
             if (result === true) {
               console.log("password matched in server");
-              res.status(200).send({ status: "password  matched" });
+              res.status(200).send();
             } else {
-              console.log("password matched in server");
-              res.status(200).send({ status: "password not matched" });
+              console.log("password not  matched in server");
+              res.status(200).send({ status: "wrong password" });
             }
           });
         } else {

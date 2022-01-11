@@ -3,8 +3,11 @@ import { BoxContainer, SubmitButton } from "./common";
 import { AccountContext } from "./accountContext";
 import Dogeimage from "../images/Dogeimage.jpg";
 import { Dogeimg } from "./common";
+import axios from "axios";
 export function SignUpSuccessfully(props) {
-  const { Switch } = useContext(AccountContext);
+const { Switch } = useContext(AccountContext);
+
+
 
   return (
     <BoxContainer>
@@ -15,7 +18,8 @@ export function SignUpSuccessfully(props) {
         </FormContainer>
         <Marginer direction="vertical" margin={10} /> */}
       <Dogeimg src={Dogeimage} alt="doge.img" style></Dogeimg>
-      <SubmitButton type="submit" onClick={() => Switch({ active: "signin" })}>
+      <SubmitButton type="submit" onClick={() =>{  Switch({ active: "signin" })
+      }}>
         Login
       </SubmitButton>
       {/* <Marginer direction="vertical" margin="1em" />

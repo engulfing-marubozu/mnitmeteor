@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import {
   //   BoldLink,
   BoxContainer,
@@ -14,6 +15,19 @@ import { AccountContext } from "./accountContext";
 import { PasswordValidator } from "./validator";
 
 export function CreatePassword(props) {
+
+  // backend ----------------------------------------------------------------------------------------
+const Credentials = async (details)=>{
+        const {email , password} = details;
+        try{
+        const response = await axios.post("http://localhost:5000/signUp", {email, password});
+        }
+        catch(err)
+        {
+          console.log(err);
+        }
+}
+  //---------------------------------------------------------------------------------------------------
   const { Switch } = useContext(AccountContext);
   const initialValue = { newpassword: "", confirmpassword: "" };
   const [password, setPassword] = useState(initialValue);
@@ -41,6 +55,7 @@ export function CreatePassword(props) {
         password: password.newpassword,
       };
       console.log(details);
+      Credentials(details);
      Switch({...details,active:"signupsuccessfully"});
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

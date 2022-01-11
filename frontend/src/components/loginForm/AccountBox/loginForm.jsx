@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState, useContext } from "react";
+import axios from "axios";
 import Validatorfunc from "./validator.js"
 import {
   BoldLink,
@@ -14,6 +15,32 @@ import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 
 export function LoginForm(props) {
+
+  // backend ------------------------------------------------------------------------------------------------------------
+const loginfunc = async (signinFormValue)=>{
+        const {email, password}= signinFormValue;
+        try{
+         
+        const response = await axios.post("http://localhost:5000/signIn", {email, password});
+        //console.log(response.data);
+        if( response.data.status === "wrong password")
+        {
+          console.log("Wrong password, try again");
+        }
+        else if ( response.data.status === "user not found")
+        {
+          console.log("This email is not registered with us, please try using other email Id");
+        }
+        else 
+        {
+          console.log("Welcome");
+        }}
+        catch(err)
+        {
+          console.log(err);
+        }
+} 
+  //---------------------------------------------------------------------------------------------------------------------
   const { Switch} = useContext(AccountContext);
   const initialValues = { email: "", password: "" };
   const [signinFormValue, setSignInvalue] = useState(initialValues);
@@ -36,17 +63,15 @@ export function LoginForm(props) {
   }
   }
   const submitHandler=(event)=>{
+    event.preventDefault();
       setFormErrors(Validatorfunc(signinFormValue));
       setIsSubmit(true);
-    
-  //  event.preventDefault();
-   
-  }
+}
   useEffect(()=>{
       console.log(formErrors);
     if(Object.keys(formErrors).length===0 && isSubmit){
-      ////sing data which  will be sent on server 
-      console.log(signinFormValue)
+      { loginfunc(signinFormValue);
+      console.log(signinFormValue)}
     }
   },[formErrors]);
 
@@ -76,7 +101,7 @@ export function LoginForm(props) {
       <MutedLink href="#" >Forget your password?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
       <SubmitButton type="submit" onClick={submitHandler}
-      onKeyPress={KeyPressHandler}>Signin</SubmitButton>
+      >Signin</SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Don't have an accoun?{" "}

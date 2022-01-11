@@ -4,12 +4,12 @@ import { AccountContext } from "./accountContext";
 import { SignupForm } from "./signupForm";
 import { Otpform } from "./otpform";
 import { CreatePassword } from "./CreatePassword";
-import { ResetPassword } from "./ResetPassword";
 import { SignUpSuccessfully } from "./signUpSuccessfully";
 import HeaderContent from "./HeaderContent";
 import { BoxContainer, InnerContainer } from "./styledIndex";
 
-import {expandingTransition} from "./HeaderContent"
+import { expandingTransition } from "./HeaderContent";
+import { EmailForResetPassword } from "./ResetPassword/Email_forpasswordReset";
 //CREATING VARIABLE FOR STORING LOGIN DETAILS
 let signupData;
 //------------------------
@@ -26,9 +26,10 @@ export function AccountBox(props) {
 
   const Switch = (data) => {
     playExpandingAnimation();
-    if(data.active==="otpverify"){
-      const {email,otp}=data;
-      signupData={email:email,otp:otp};
+    if (data.active === "otpverify") {
+      console.log(data);
+      const { email, otp ,flag} = data;
+      signupData = { email: email, otp: otp,flag:flag };
     }
     setTimeout(() => {
       setActive(data.active);
@@ -41,7 +42,11 @@ export function AccountBox(props) {
 
   return (
     <AccountContext.Provider value={contextValue}>
-      <BoxContainer onClick={(e)=>{e.stopPropagation();}}>
+      <BoxContainer
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <HeaderContent
           activeAtrb={active}
           ExpandAtrb={isExpanded}
@@ -51,8 +56,9 @@ export function AccountBox(props) {
           {active === "signup" && <SignupForm />}
           {active === "otpverify" && <Otpform signUpDetails={signupData} />}
           {active === "createpassword" && <CreatePassword data={signupData} />}
-          {active === "signupsuccessfully" && <SignUpSuccessfully />}
-          {active === "resetpassword" && <ResetPassword />}
+          {(active === "signupsuccessfully" ||active==="passwordresetsuccessful") && <SignUpSuccessfully />}
+          {active==="emailforresetpassword"&&<EmailForResetPassword/>}
+          {active === "resetpassword" && <CreatePassword data={signupData} />}
         </InnerContainer>
       </BoxContainer>
     </AccountContext.Provider>

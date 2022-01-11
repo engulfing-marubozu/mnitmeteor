@@ -96,3 +96,6 @@ export const Dogeimg = styled.img`
   width: 200px;
   height: 200px;
 `;
+
+export const MarginTopBox=styled.div`
+margin-top:3.5rem`;

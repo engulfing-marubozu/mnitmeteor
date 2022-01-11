@@ -55,3 +55,12 @@ export function PasswordValidator(values) {
 
   return error;
 }
+ 
+
+
+// export function  loginUserValidator(values){
+//  const error={};
+//  if()
+
+
+// }

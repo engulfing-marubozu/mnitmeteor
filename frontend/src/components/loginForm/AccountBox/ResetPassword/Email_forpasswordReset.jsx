@@ -5,17 +5,17 @@ import {
   BoxContainer,
   FormContainer,
   Input,
+  MarginTopBox,
   MutedLink,
-  MutedText,
   SubmitButton,
   Validationlabel,
-} from "./common";
-import { Marginer } from "../marginer";
-import { AccountContext } from "./accountContext";
-import Validatorfunc from "./validator";
+} from "../common";
+import { Marginer } from "../../marginer";
+import { AccountContext } from "../accountContext";
+import Validatorfunc from "../validator";
 
-export function SignupForm(props) {
-  //  backend -----------------------------------------------------------------------------------------------
+export function EmailForResetPassword(props) {
+  //    backend -----------------------------------------------------------------------------------------------
   const verifySignUp = async () => {
     try {
       const { email } = signupEmail;
@@ -27,7 +27,7 @@ export function SignupForm(props) {
       else {
         const otpgen = response.data.otp;
         console.log(otpgen);
-        Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"createpassword" });
+        Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"resetpassword"});
       }
     } catch (err) {
       console.log(err);
@@ -52,7 +52,8 @@ export function SignupForm(props) {
   useEffect(() => {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      ////sink data which  will be sent on server
+      ///VERIFY EMAIL WITH EXISTING DATA
+
       verifySignUp();
       //console.log(signupEmail)
     }
@@ -60,30 +61,31 @@ export function SignupForm(props) {
   }, [formErrors]);
 
   return (
-    <BoxContainer>
-      <MutedText> Please enter your college email Id</MutedText>
-      <FormContainer>
-        <Input
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={signupEmail.email}
-          onChange={InputChangeHandler}
-        />
-        <Validationlabel>{formErrors.email}</Validationlabel>
-      </FormContainer>
-      <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit" onClick={OTPHandler}>
-        {" "}
-        Send OTP
-      </SubmitButton>
-      <Marginer direction="vertical" margin="1em" />
-      <MutedLink href="#">
-        Already have an account?
-        <BoldLink href="#" onClick={() => Switch({ active: "signin" })}>
-          Signin
-        </BoldLink>
-      </MutedLink>
-    </BoxContainer>
+    <MarginTopBox>
+      <BoxContainer>
+        <FormContainer>
+          <Input
+            type="email"
+            placeholder="Email"
+            name="email"
+            value={signupEmail.email}
+            onChange={InputChangeHandler}
+          />
+          <Validationlabel>{formErrors.email}</Validationlabel>
+        </FormContainer>
+        <Marginer direction="vertical" margin={10} />
+        <SubmitButton type="submit" onClick={OTPHandler}>
+          {" "}
+          Send OTP
+        </SubmitButton>
+        <Marginer direction="vertical" margin="1em" />
+        <MutedLink href="#">
+          Already have an account?
+          <BoldLink href="#" onClick={() => Switch({ active: "signin" })}>
+            Signin
+          </BoldLink>
+        </MutedLink>
+      </BoxContainer>
+    </MarginTopBox>
   );
 }

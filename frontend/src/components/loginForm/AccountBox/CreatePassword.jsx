@@ -56,7 +56,8 @@ const Credentials = async (details)=>{
       };
       console.log(details);
       Credentials(details);
-     Switch({...details,active:"signupsuccessfully"});
+      const active=(props.data.flag==="createpassword")?"signupsuccessfully":"passwordresetsuccessful";
+     Switch({...details,active:active});
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);
@@ -96,8 +97,8 @@ const Credentials = async (details)=>{
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <SubmitButton type="submit" onClick={RegisterHandler}>
-        {" "}
-        Register
+        {props.data.flag==="createpassword"&& "Register"}
+        {props.data.flag==="resetpassword"&& "Reset"}
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
     </BoxContainer>

@@ -53,23 +53,52 @@ function HeaderContent(props) {
         <HeaderContainer>
           <HeaderText>Email</HeaderText>
           <HeaderText>Verification</HeaderText>
-          <SmallText>please verify email to continue!</SmallText>
+          <SmallText>Please verify email to continue!</SmallText>
         </HeaderContainer>
       )}
       {props.activeAtrb === "createpassword" && (
         <HeaderContainer>
           <HeaderText>Create</HeaderText>
-          <HeaderText> New Password</HeaderText>
-          <SmallText>please set password to continue!</SmallText>
+          <HeaderText>Password</HeaderText>
+          <SmallText>Please set password to continue!</SmallText>
         </HeaderContainer>
       )}
       {props.activeAtrb === "signupsuccessfully" && (
         <HeaderContainer>
-          <HeaderText>SignUp</HeaderText>
-          <HeaderText>Successfull</HeaderText>
-          <SmallText>please press login button to continue!</SmallText>
+          <HeaderText>Sign Up</HeaderText>
+          <HeaderText>Successful</HeaderText>
+          <SmallText>Please press login button to continue!</SmallText>
         </HeaderContainer>
       )}
+      {
+        props.activeAtrb==="emailforresetpassword" &&(
+          <HeaderContainer>
+          <HeaderText>Reset </HeaderText>
+          <HeaderText>Password</HeaderText>
+          <SmallText>Please enter your registered email to continue! </SmallText>
+        </HeaderContainer>
+        )
+      }
+      {
+        props.activeAtrb==="resetpassword"&&(
+          <HeaderContainer>
+          <HeaderText>Create </HeaderText>
+          <HeaderText>New Password</HeaderText>
+          <SmallText>Please set new password to continue! </SmallText>
+          </HeaderContainer>
+        )
+      }
+
+
+      {
+        props.activeAtrb==="passwordresetsuccessful"&&(
+          <HeaderContainer>
+          <HeaderText>Password</HeaderText>
+          <HeaderText>Reset Successful</HeaderText>
+          <SmallText>please press login button to continue!</SmallText>
+        </HeaderContainer>
+        )
+      }
     </TopContainer>
   );
 }

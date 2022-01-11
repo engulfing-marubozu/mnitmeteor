@@ -1,4 +1,4 @@
-
+import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/navbar.js";
 import Paper from "@mui/material/Paper";

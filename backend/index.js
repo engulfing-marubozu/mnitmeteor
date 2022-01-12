@@ -15,7 +15,7 @@ const port = 5000;
 
 
 // Database connection
-database_url = "mongodb://marubozu:qwerty%40123@cluster0-shard-00-00.2vl8j.mongodb.net:27017,cluster0-shard-00-01.2vl8j.mongodb.net:27017,cluster0-shard-00-02.2vl8j.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-ivzclp-shard-0&authSource=admin&retryWrites=true&w=majority"
+database_url = process.env.MONGODB_ATLAS;
 mongoose.connect(database_url)
     .then( () => {
         console.log('Connected to database ')

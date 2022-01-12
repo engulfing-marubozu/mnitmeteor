@@ -10,7 +10,7 @@ const {userSchema } = require("./Models")
 require("dotenv").config();
 
 // variables
-const port = 5000
+const port = 5000;
 
 
 

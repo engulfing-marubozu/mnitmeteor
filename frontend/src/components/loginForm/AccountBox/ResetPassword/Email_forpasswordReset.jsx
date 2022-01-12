@@ -15,20 +15,24 @@ import { AccountContext } from "../accountContext";
 import Validatorfunc from "../validator";
 
 export function EmailForResetPassword(props) {
-  //    backend -----------------------------------------------------------------------------------------------
+//    backend -----------------------------------------------------------------------------------------------
   const verifySignUp = async () => {
     try {
       const { email } = signupEmail;
-      const response = await axios.post("http://localhost:5000/signUp", {
+      const response = await axios.post("http://localhost:5000/resetPassword", {
         email,
       });
-      if (response.data === "already registered")
-        console.log("already registered");
-      else {
-        const otpgen = response.data.otp;
-        console.log(otpgen);
-        Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"resetpassword"});
-      }
+       
+       if(response.data === "Use different e-mail")
+         {
+                console.log("Use different e-mail") 
+         }
+         else{
+           console.log(response.data.otp)
+          const  otpgen= response.data.otp;
+           Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"resetpassword"});
+         }
+     
     } catch (err) {
       console.log(err);
     }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
 import {
   BoldLink,
   BoxContainer,
@@ -13,6 +14,25 @@ import { AccountContext } from "./accountContext";
 import { OtpValidator } from "./validator";
 
 export function Otpform(props) {
+
+  // backend------------------------------------------------------------------------------------------
+ 
+const  resendOtp = async ()=>{
+  try {
+  const   email =  props.signUpDetails.email;
+    const response = await axios.post("http://localhost:5000/resendOtp", {
+      email
+    });
+     console.log(response.data.otp);
+     const otp = response.data.otp;
+     // PROCEED WITH OTP DEPAK
+   
+  } catch (err) {
+    console.log(err);
+  }
+};         
+
+  //-------------------------------------------------------------------------------------------
   const { Switch } = useContext(AccountContext);
   const [otpValue, setOptValue] = useState("");
   const [formErrors, setFormErrors] = useState({});
@@ -36,6 +56,7 @@ export function Otpform(props) {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(otpValue);
+    
       Switch({email:props.signUpDetails.email,active:props.signUpDetails.flag});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +85,7 @@ export function Otpform(props) {
       <Marginer direction="vertical" margin="1em" />
       <MutedText style={{ fontSize: "11px" }}>
         Didn't receive code?
-        <BoldLink href="#">Resend</BoldLink>
+        <BoldLink onClick={resendOtp}>Resend</BoldLink>
       </MutedText>
     </BoxContainer>
   );

@@ -2,9 +2,15 @@ const { User } = require("../Models");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 const { parse } = require("path/posix");
+sgMail.setApiKey(
+  "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"
+);
+
 saltRounds = 8;
 
-const signUp = async (req, res) => {
+
+///    SIGNUP FUNCTION
+const signUp = async (req, res) => {               
   console.log("came to sign up");
   console.log(req.body);
   try {
@@ -35,10 +41,7 @@ const signUp = async (req, res) => {
       if (findUser) return res.status(200).send("already registered");
 
       otp = Math.floor(Math.random() * 1000 + 1000);
-      const sgMail = require("@sendgrid/mail");
-      sgMail.setApiKey(
-        "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"
-      );
+
       const sendH = "Your OTP is " + otp;
       const msg = {
         to: email, // Change to your recipient
@@ -65,6 +68,7 @@ const signUp = async (req, res) => {
   }
 };
 
+///   SIGNIN FUNCTION
 const signIn = (req, res) => {
   try {
     const email = req.body.email;
@@ -99,4 +103,90 @@ const signIn = (req, res) => {
   }
 };
 
-module.exports = { signIn, signUp };
+
+
+// RESET_PASSWORD FUNCTION
+
+const resetPassword = async (req, res) => {
+  if (Object.keys(req.body).length === 1) {
+    const { email } = req.body;
+    try {
+      await User.findOne({ email: email }, function (err, foundUser) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (foundUser) {
+            otp = Math.floor(Math.random() * 1000 + 1000);
+            const sendH = "Your OTP is " + otp;
+            const msg = {
+              to: email, // Change to your recipient
+              from: "harshitgarg.edu@gmail.com", // Change to your verified sender
+              subject: "MNIT Selling Platform",
+              text: "Your OTP is " + otp,
+              html: sendH,
+            };
+            sgMail
+              .send(msg)
+              .then(() => {
+                console.log("Email sent");
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+
+            res.status(200).send({
+              otp: otp,
+            });
+          } else 
+           {res.status(200).send("Use different e-mail");}
+        }
+      }).clone();
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    try {
+      let { email, password } = req.body;
+      const findUser = await User.findOne({ email });
+      bcrypt.hash(password, saltRounds, function (err, hash) {
+        findUser.password = hash;
+        findUser.save(function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.status(200).send("password changed");
+          }
+        });
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+};
+
+const resendOtp = async (req, res)=>{
+   const  {email} = req.body;
+   otp = Math.floor(Math.random() * 1000 + 1000);
+
+   const sendH = "Your OTP is " + otp;
+   const msg = {
+     to: email, // Change to your recipient
+     from: "harshitgarg.edu@gmail.com", // Change to your verified sender
+     subject: "MNIT Selling Platform",
+     text: "Your OTP is " + otp,
+     html: sendH,
+   };
+   sgMail
+     .send(msg)
+     .then(() => {
+       console.log("Email sent");
+     })
+     .catch((error) => {
+       console.error(error);
+     });
+
+   res.status(200).send({
+     otp: otp,
+   });
+}
+module.exports = { signIn, signUp, resetPassword , resendOtp};

@@ -27,6 +27,19 @@ const Credentials = async (details)=>{
           console.log(err);
         }
 }
+
+const resetPassword = async (details)=>{
+  const {email , password} = details;
+  try{
+  const response = await axios.post("http://localhost:5000/resetPassword", {email, password});
+   console.log(response);
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
+}
+
   //---------------------------------------------------------------------------------------------------
   const { Switch } = useContext(AccountContext);
   const initialValue = { newpassword: "", confirmpassword: "" };
@@ -55,7 +68,10 @@ const Credentials = async (details)=>{
         password: password.newpassword,
       };
       console.log(details);
-      Credentials(details);
+      if(props.data.flag==="createpassword")
+         Credentials(details);
+        else
+        resetPassword(details); 
       const active=(props.data.flag==="createpassword")?"signupsuccessfully":"passwordresetsuccessful";
      Switch({...details,active:active});
     }

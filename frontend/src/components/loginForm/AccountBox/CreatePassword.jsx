@@ -21,6 +21,7 @@ const Credentials = async (details)=>{
         const {email , password} = details;
         try{
         const response = await axios.post("http://localhost:5000/signUp", {email, password});
+        console.log(response);
         }
         catch(err)
         {

@@ -18,15 +18,16 @@ import Validatorfunc from "../validator";
 
 export function EmailForResetPassword(props) {
   //    backend -----------------------------------------------------------------------------------------------
-  const verifySignUp = async () => {
+  const verifyResetPasswordEmail = async () => {
     try {
-      console.log(signupEmail);
+      // console.log(signupEmail);
       const { email } = signupEmail;
       const response = await axios.post("http://localhost:5000/resetPassword", {
         email,
       });
       if (response.data === "Use different e-mail") {
-        console.log("Use different e-mail");
+        // console.log("Use different e-mail");
+        notify("Email is not registered");
       } else {
         console.log(response.data.otp);
         const otpgen = response.data.otp;
@@ -39,7 +40,6 @@ export function EmailForResetPassword(props) {
       }
     } catch (err) {
       console.log(err);
-      notify("Email not registered");
     }
   };
 
@@ -65,7 +65,7 @@ export function EmailForResetPassword(props) {
     // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       ///VERIFY EMAIL WITH EXISTING DATA
-      verifySignUp();
+      verifyResetPasswordEmail();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);

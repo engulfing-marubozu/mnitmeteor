@@ -1,7 +1,7 @@
 import React from "react";
 import ImageGallery from "react-image-gallery";
 import styled from "styled-components";
-import Grid from "@mui/material/Grid";
+// import Grid from "@mui/material/Grid";
 export const BoxContainer = styled.div`
   width: 100%;
 

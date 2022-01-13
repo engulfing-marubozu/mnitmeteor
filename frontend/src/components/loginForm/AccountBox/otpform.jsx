@@ -26,7 +26,7 @@ const  resendOtp = async ()=>{
      console.log(response.data.otp);
      const otp = response.data.otp;
      // PROCEED WITH OTP DEPAK
-   
+     setRealOtp(otp);
   } catch (err) {
     console.log(err);
   }
@@ -48,11 +48,11 @@ const  resendOtp = async ()=>{
     );
     setIsSubmit(true);
   }
-  console.log(props.signUpDetails);
+  // console.log(props.signUpDetails);
   useEffect(() => {
-    console.log(formErrors);
+    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(otpValue);
+      // console.log(otpValue);
     
       Switch({email:props.signUpDetails.email,active:props.signUpDetails.flag});
     }

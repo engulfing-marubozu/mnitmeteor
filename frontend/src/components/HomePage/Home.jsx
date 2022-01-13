@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import HomeCard from "../Cards/HomeCard";
-// import Paper from "@mui/material/Paper";
+import Paper from "@mui/material/Paper";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import DiscriptionCard from "../Cards/DiscriptionCard";
@@ -26,17 +26,17 @@ function Copyright() {
 const theme = createTheme();
 
 export default function Home() {
-  // const Image = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const Image = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {/* +======================================================================= */}
-      {/* <Paper
+      <Paper
         display="flex"
         sx={{ bgcolor: "#212121", height: 150, borderRadius: 0 }}
       >
         {" "}
-      </Paper> */}
+      </Paper>
 
       {/*  Bannner============================================================================== */}
 
@@ -45,7 +45,7 @@ export default function Home() {
       {/* <DiscriptionCard></DiscriptionCard> */}
 
       {/* ======================================================================================== */}
-      {/* <main>
+      <main>
         <Container sx={{ py: 2 }} maxWidth={"lg"}>
           <Grid container spacing={{ xs: 2, sm: 4 }}>
             {Image.map((img, index) => {
@@ -57,7 +57,7 @@ export default function Home() {
             })}
           </Grid>
         </Container>
-      </main> */}
+      </main>
       {/* Footer */}
       <Box sx={{ bgcolor: "#5e35b1", p: 2 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>

@@ -179,7 +179,8 @@ const LoginModelHandler=()=>{
             <ColorButton
               sx={{ fontSize: { xs: "9px", sm: "12px", md: "15px" } ,fontWeight:"bold"  }}
               variant="contained"
-              onClick={()=>{setloginModel(true)}}
+              // onClick={()=>{setloginModel(true)}}
+              onClick={()=>{ Navigate("ProductSellCard");}}
             >
               Sell Now
             </ColorButton>

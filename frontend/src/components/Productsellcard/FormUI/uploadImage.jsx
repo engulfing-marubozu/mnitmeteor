@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ImageUploading from 'react-images-uploading';
+import ImageUpload from 'react-images-upload';
 
 const UploadImage = (props) => {
 	const [pictures, setPictures] = useState([]);
@@ -9,7 +9,7 @@ const UploadImage = (props) => {
 	};
 
 	return (
-		<ImageUploading
+		<ImageUpload
 			{...props}
 			withIcon={false}
 			onChange={onDrop}

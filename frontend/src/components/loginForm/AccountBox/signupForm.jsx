@@ -13,7 +13,8 @@ import {
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 import Validatorfunc from "./validator";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export function SignupForm(props) {
   //  backend -----------------------------------------------------------------------------------------------
   const verifySignUp = async () => {
@@ -22,12 +23,18 @@ export function SignupForm(props) {
       const response = await axios.post("http://localhost:5000/signUp", {
         email,
       });
-      if (response.data === "already registered")
+      if (response.data === "already registered") {
         console.log("already registered");
-      else {
+        notify("Already Registered");
+      } else {
         const otpgen = response.data.otp;
         console.log(otpgen);
-        Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"createpassword" });
+        Switch({
+          ...signupEmail,
+          otp: otpgen,
+          active: "otpverify",
+          flag: "createpassword",
+        });
       }
     } catch (err) {
       console.log(err);
@@ -41,6 +48,7 @@ export function SignupForm(props) {
   const [signupEmail, setSignUpEmail] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const notify = (value) => toast(value);
   function InputChangeHandler(event) {
     const { name, value } = event.target;
     setSignUpEmail({ [name]: value });
@@ -84,6 +92,7 @@ export function SignupForm(props) {
           Signin
         </BoldLink>
       </MutedLink>
+      <ToastContainer />
     </BoxContainer>
   );
 }

@@ -1,52 +1,45 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
+import React from "react";
+import ImageGallery from "react-image-gallery";
+import styled from "styled-components";
+import Grid from "@mui/material/Grid";
+export const BoxContainer = styled.div`
+  width: 100%;
 
-function Item(props) {
-  const { sx, ...other } = props;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+`;
+
+const images = [
+  {
+    original:  "https://source.unsplash.com/random",
+    thumbnail:  "https://source.unsplash.com/random",
+  },
+  {
+    original: "https://picsum.photos/id/1015/1000/600/",
+    thumbnail: "https://picsum.photos/id/1015/250/150/",
+  },
+  {
+    original: "https://picsum.photos/id/1019/1000/600/",
+    thumbnail: "https://picsum.photos/id/1019/250/150/",
+  },
+];
+
+function DiscriptionCard() {
   return (
-    <Box
-      sx={{
-        bgcolor: 'primary.main',
-        color: 'white',
-        p: 1,
-        borderRadius: 1,
-        textAlign: 'center',
-        fontSize: '1rem',
-        fontWeight: '700',
-        ...sx,
-      }}
-      {...other}
-    />
+    <BoxContainer>
+      <ImageGallery
+        className=""
+        originalHeig
+        showFullscreenButton={false}
+        autoplay={true}
+        items={images}
+        OriginalWidth="300"
+        OriginalHeight="300"
+      />
+    </BoxContainer>
   );
 }
 
-Item.propTypes = {
-  sx: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool]),
-    ),
-    PropTypes.func,
-    PropTypes.object,
-  ]),
-};
-
-export default function DiscriptionCard() {
-  return (
-    <div style={{ width: '100%' }}>
-      <Box
-        sx={{
-          display: 'grid',
-          gridAutoFlow: 'row',
-          gridTemplateColumns: 'repeat(14, 1fr)',
-          gridTemplateRows: 'repeat)',
-          gap: 2,
-        }}
-      >
-        <Item sx={{ gridColumn: '3/9', gridRow: '2 / 8' ,bgcolor:'#512da8'}}>1</Item>
-        <Item sx={{ gridColumn: '3/9' , gridRow:'8/10'}}>3</Item>
-        <Item sx={{ gridColumn: '9/13', gridRow: '2/ 10' }}>5</Item>
-      </Box>
-    </div>
-  );
-}
+export default DiscriptionCard;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   BoldLink,
   BoxContainer,
@@ -16,21 +18,22 @@ import Validatorfunc from "../validator";
 
 export function EmailForResetPassword(props) {
   //    backend -----------------------------------------------------------------------------------------------
-  const verifySignUp = async () => {
+  const verifySignUp= async () => {
     try {
+      console.log(signupEmail)
       const { email } = signupEmail;
       const response = await axios.post("http://localhost:5000/signUp", {
         email,
       });
       if (response.data === "already registered")
         console.log("already registered");
-      else {
         const otpgen = response.data.otp;
         console.log(otpgen);
         Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"resetpassword"});
-      }
+     
     } catch (err) {
       console.log(err);
+      notify("Email not registered");
     }
   };
 
@@ -41,21 +44,25 @@ export function EmailForResetPassword(props) {
   const [signupEmail, setSignUpEmail] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const notify = (value) => toast(value);
+
+
   function InputChangeHandler(event) {
     const { name, value } = event.target;
     setSignUpEmail({ [name]: value });
   }
+
+
+
   function OTPHandler() {
     setFormErrors(Validatorfunc(signupEmail));
     setIsSubmit(true);
   }
   useEffect(() => {
-    console.log(formErrors);
+    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       ///VERIFY EMAIL WITH EXISTING DATA
-
       verifySignUp();
-      //console.log(signupEmail)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);
@@ -86,6 +93,7 @@ export function EmailForResetPassword(props) {
           </BoldLink>
         </MutedLink>
       </BoxContainer>
+      <ToastContainer />
     </MarginTopBox>
   );
 }

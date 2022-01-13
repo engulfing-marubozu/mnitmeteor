@@ -15,6 +15,7 @@ import { OtpValidator } from "./validator";
 export function Otpform(props) {
   const { Switch } = useContext(AccountContext);
   const [otpValue, setOptValue] = useState("");
+  const [realOtp,setRealOtp]=useState(props.signUpDetails.otp);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   function otpInputHandler(event) {
@@ -23,14 +24,10 @@ export function Otpform(props) {
   function verifyOtpHandler() {
     console.log(otpValue);
     setFormErrors(
-      OtpValidator({ inputOtp: otpValue, realOtp: props.signUpDetails.otp })
+      OtpValidator({ inputOtp: otpValue, realOtp: realOtp })
     );
     setIsSubmit(true);
   }
-  // function OTPHandler(){
-  //  setFormErrors(Validatorfunc(signupEmail))  ;
-  //   setIsSubmit(true);
-  // }
   console.log(props.signUpDetails);
   useEffect(() => {
     console.log(formErrors);

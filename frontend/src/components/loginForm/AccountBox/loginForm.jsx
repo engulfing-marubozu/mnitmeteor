@@ -39,7 +39,7 @@ export function LoginForm(props) {
         notify("Email is not registered");
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
-        console.log("Welcome");
+        notify("Welcome");
       }
     } catch (err) {
       console.log(err);
@@ -52,15 +52,6 @@ export function LoginForm(props) {
       return { ...prev, [name]: value };
     });
   }
-  // const KeyPressHandler=(event)=>{
-  // console.log(event);
-  // if(event.keyCode===13){
-
-  //   setFormErrors(Validatorfunc(signinFormValue));
-  //   setIsSubmit(true);
-
-  // }
-  // }
   const submitHandler = (event) => {
     event.preventDefault();
     setFormErrors(Validatorfunc(signinFormValue));

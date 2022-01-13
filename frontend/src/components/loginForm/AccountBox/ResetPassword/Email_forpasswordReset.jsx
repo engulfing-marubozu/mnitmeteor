@@ -18,19 +18,25 @@ import Validatorfunc from "../validator";
 
 export function EmailForResetPassword(props) {
   //    backend -----------------------------------------------------------------------------------------------
-  const verifySignUp= async () => {
+  const verifySignUp = async () => {
     try {
-      console.log(signupEmail)
+      console.log(signupEmail);
       const { email } = signupEmail;
-      const response = await axios.post("http://localhost:5000/signUp", {
+      const response = await axios.post("http://localhost:5000/resetPassword", {
         email,
       });
-      if (response.data === "already registered")
-        console.log("already registered");
+      if (response.data === "Use different e-mail") {
+        console.log("Use different e-mail");
+      } else {
+        console.log(response.data.otp);
         const otpgen = response.data.otp;
-        console.log(otpgen);
-        Switch({ ...signupEmail, otp: otpgen, active: "otpverify",flag:"resetpassword"});
-     
+        Switch({
+          ...signupEmail,
+          otp: otpgen,
+          active: "otpverify",
+          flag: "resetpassword",
+        });
+      }
     } catch (err) {
       console.log(err);
       notify("Email not registered");
@@ -46,13 +52,10 @@ export function EmailForResetPassword(props) {
   const [isSubmit, setIsSubmit] = useState(false);
   const notify = (value) => toast(value);
 
-
   function InputChangeHandler(event) {
     const { name, value } = event.target;
     setSignUpEmail({ [name]: value });
   }
-
-
 
   function OTPHandler() {
     setFormErrors(Validatorfunc(signupEmail));

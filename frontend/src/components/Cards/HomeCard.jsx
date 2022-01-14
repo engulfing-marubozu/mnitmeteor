@@ -8,10 +8,30 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
+
+
+// ===============================================================
+// PRODUCT DATA BY PRODUCT ID 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const CardContentNoPadding = styled(CardContent)(`
 
@@ -27,12 +47,8 @@ const useStyles = makeStyles({
   },
 });
 
-// export const HoverCard = styled(Card)(({ theme }) => ({
-//   "&:hover": {
-//     elevation: 9,
-//   },
-// }));
 export default function HomeCard(props) {
+
   const [likeButton, setLikeButton] = useState(false);
   const LikeButtonHandler = () => {
     console.log("likeButtonHandler");
@@ -40,15 +56,18 @@ export default function HomeCard(props) {
   };
   const Classes = useStyles();
   return (
-    <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation="0">
-      <CardMedia
-        component="img"
-        classes={{ img: Classes.image }}
-        Width="280px"
-        sx={{ height: { xs: "160px", sm: "180px" } }}
-        image={Image}
-        alt="Image"
-      />
+    <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation="3">
+      <Link to={`/product/${props.productId}`}>
+        <CardMedia
+          component="img"
+          classes={{ img: Classes.image }}
+          Width="280px"
+          sx={{ height: { xs: "160px", sm: "180px" } }}
+          image={Image}
+          alt="Image"
+        />
+      </Link>
+
       <CardContentNoPadding
         sx={{ bgcolor: "#f5f5f5", pt: 0, px: 1, display: "flex" }}
       >

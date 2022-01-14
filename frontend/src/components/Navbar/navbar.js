@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
@@ -48,25 +48,23 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [windowWidth,setwindowWidth]=useState(window.innerWidth);
-  
-  const sizeEventHandler=()=>{
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
+
+  const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
-  }
+  };
   useEffect(() => {
-    window.addEventListener("resize",sizeEventHandler)
+    window.addEventListener("resize", sizeEventHandler);
     return () => {
-     window.removeEventListener("resize",sizeEventHandler)
-    }
-  }, [windowWidth])
+      window.removeEventListener("resize", sizeEventHandler);
+    };
+  }, [windowWidth]);
 
+  const [loginModel, setloginModel] = useState(false);
 
-const [loginModel,setloginModel]=useState(false);
-
-const LoginModelHandler=()=>{
-  setloginModel(false);
-}
-
+  const LoginModelHandler = () => {
+    setloginModel(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,7 +77,7 @@ const LoginModelHandler=()=>{
         color="default"
         elevation={9}
         sx={{
-          borderBottom: (theme) => `1px solid ${theme.palette.divider}`
+          borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
         }}
       >
         <Toolbar>
@@ -117,7 +115,7 @@ const LoginModelHandler=()=>{
           >
             <AcUnitIcon
               sx={{
-                color:"#512da8",
+                color: "#512da8",
                 display: { xs: "flex" },
                 fontSize: { xs: 20, sm: 26 },
                 mr: 1,
@@ -132,8 +130,11 @@ const LoginModelHandler=()=>{
                 fontSize: { xs: "18px", sm: "24px" },
                 display: { xs: "flex" },
               }}
+              onClick={() => {
+                Navigate("/Adminpanel");
+              }}
             >
-              MNIT  {windowWidth}
+              MNIT {windowWidth}
             </Typography>
           </Stack>
 
@@ -150,7 +151,10 @@ const LoginModelHandler=()=>{
               <Button
                 variant="text"
                 color="inherit"
-                sx={{ fontSize: { sm: "12px", md: "15px"  } ,fontWeight:"bold" }}
+                sx={{
+                  fontSize: { sm: "12px", md: "15px" },
+                  fontWeight: "bold",
+                }}
                 onClick={() => {
                   Navigate("/");
                 }}
@@ -160,31 +164,43 @@ const LoginModelHandler=()=>{
               <Button
                 variant="text"
                 color="inherit"
-                sx={{ fontSize: { sm: "12px", md: "15px" }  ,fontWeight:"bold" }}
+                sx={{
+                  fontSize: { sm: "12px", md: "15px" },
+                  fontWeight: "bold",
+                }}
                 onClick={() => {
                   Navigate("/About");
                 }}
               >
-               About
+                About
               </Button>
               <OutlinedButton
                 variant="outlined"
-                sx={{ fontSize: { sm: "12px", md: "15px" } ,fontWeight:"bold"  }}
-                onClick={()=>{setloginModel(true)}}
+                sx={{
+                  fontSize: { sm: "12px", md: "15px" },
+                  fontWeight: "bold",
+                }}
+                onClick={() => {
+                  setloginModel(true);
+                }}
               >
                 Login
               </OutlinedButton>
-            
             </Stack>
             <ColorButton
-              sx={{ fontSize: { xs: "9px", sm: "12px", md: "15px" } ,fontWeight:"bold"  }}
+              sx={{
+                fontSize: { xs: "9px", sm: "12px", md: "15px" },
+                fontWeight: "bold",
+              }}
               variant="contained"
               // onClick={()=>{setloginModel(true)}}
-              onClick={()=>{ Navigate("ProductSellCard");}}
+              onClick={() => {
+                Navigate("ProductSellCard");
+              }}
             >
               Sell Now
             </ColorButton>
-            {loginModel&&<Model onClose={LoginModelHandler}></Model>}
+            {loginModel && <Model onClose={LoginModelHandler}></Model>}
           </Stack>
         </Toolbar>
       </AppBar>

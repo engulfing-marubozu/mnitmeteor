@@ -11,22 +11,28 @@ const userSchema = new mongoose.Schema({
 
 	
 const productsSchema = new mongoose.Schema({
-    id: {
-        type: Number
+    title : {
+        type: String
     },
-    rid: {
-        type: Number
-    },
-    isShown: {
-        type : Boolean
-    },
-    cloudlink:{
+    category  : {
         type : String
+    },
+    description: {
+        type: String
+    },
+    images :{
+        type: []
+    },
+    is_verified:{
+        type : Boolean,
+        default : false
     }
     // img: {data: Buffer, contentType: String},
 },{timestamps: true});
 
+
 //make models
-const Product = mongoose.model('Product', productsSchema);
+const Product = mongoose.model("Product", productsSchema);
 const User = mongoose.model("User", userSchema);
+
 module.exports= {User, Product};

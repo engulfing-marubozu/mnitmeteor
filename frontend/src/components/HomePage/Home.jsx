@@ -1,14 +1,12 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
-import HomeCard from "../Cards/HomeCard";
 import Paper from "@mui/material/Paper";
-
+import { useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ProductCard from "./Product";
 // import DiscriptionCard from "../Cards/DiscriptionCard";
 function Copyright() {
   return (
@@ -26,7 +24,9 @@ function Copyright() {
 const theme = createTheme();
 
 export default function Home() {
-  const Image = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -42,22 +42,8 @@ export default function Home() {
 
       {/*  CATEGORY BAR++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
 
-      {/* <DiscriptionCard></DiscriptionCard> */}
+      <ProductCard />
 
-      {/* ======================================================================================== */}
-      <main>
-        <Container sx={{ py: 2 }} maxWidth={"lg"}>
-          <Grid container spacing={{ xs: 2, sm: 4 }}>
-            {Image.map((img, index) => {
-              return (
-                <Grid item xs={6} sm={4} lg={3} key={index}>
-                  <HomeCard />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Container>
-      </main>
       {/* Footer */}
       <Box sx={{ bgcolor: "#5e35b1", p: 2 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>

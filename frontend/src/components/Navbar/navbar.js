@@ -195,7 +195,7 @@ function Navbar() {
               variant="contained"
               // onClick={()=>{setloginModel(true)}}
               onClick={() => {
-                Navigate("ProductSellCard");
+                Navigate("SellProduct");
               }}
             >
               Sell Now

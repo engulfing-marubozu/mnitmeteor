@@ -196,6 +196,8 @@ function Navbar() {
               // onClick={()=>{setloginModel(true)}}
               onClick={() => {
                 Navigate("SellProduct");
+
+
               }}
             >
               Sell Now

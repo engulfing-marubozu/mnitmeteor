@@ -17,7 +17,7 @@ function Copyright() {
   }
 function Footer() {
     return (
-        <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+        <Box sx={{ bgcolor: "#5e35b1", p: 1 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>

@@ -57,7 +57,7 @@ export default function HomeCard(props) {
   const Classes = useStyles();
   return (
     <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation="3">
-      <Link to={`/product/${props.productId}`}>
+      <Link to={`/ProductDiscription/${props.productId}`}>
         <CardMedia
           component="img"
           classes={{ img: Classes.image }}

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 function Adminpanel() {
   const [data, setdata] = useState("");
-  const [flag, setflag] = useState(false);
+  const [flag, setflag] = useState(true);
 
   const ApproveRequest = async (id) => {
     const response = await axios.post("http://localhost:5000/admin_response", {

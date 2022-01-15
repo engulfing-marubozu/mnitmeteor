@@ -7,6 +7,9 @@ const userSchema = new mongoose.Schema({
      password :{
           type: String
      }
+    //  products_posted : {
+    //       type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+    //  }
 }, {timestamps: true});
 
 	
@@ -26,7 +29,10 @@ const productsSchema = new mongoose.Schema({
     is_verified:{
         type : Boolean,
         default : false
-    }
+    },
+//     likes : {
+//         type :  [{ type: Schema.Types.ObjectId, ref: 'User' }]
+//    }
     // img: {data: Buffer, contentType: String},
 },{timestamps: true});
 

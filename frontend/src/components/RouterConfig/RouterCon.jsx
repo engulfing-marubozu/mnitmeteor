@@ -10,7 +10,7 @@ function RouterCon() {
   return (
     <Routes>
       <Route path="/" element={<Home />}>
-        <Route index element={<ProductCard  Category="recommandation"/>} />   
+        <Route index element={<ProductCard  Category="recommendation"/>} />   
         <Route path="Product/:category" element={<ProductCard />} />
       </Route>
       <Route path="About" element={<About />} />

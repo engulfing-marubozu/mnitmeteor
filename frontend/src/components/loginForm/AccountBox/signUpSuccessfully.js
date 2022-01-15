@@ -3,7 +3,6 @@ import { BoxContainer, SubmitButton } from "./common";
 import { AccountContext } from "./accountContext";
 import Dogeimage from "../images/Dogeimage.jpg";
 import { Dogeimg } from "./common";
-import axios from "axios";
 export function SignUpSuccessfully(props) {
 const { Switch } = useContext(AccountContext);
 

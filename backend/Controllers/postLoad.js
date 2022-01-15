@@ -83,4 +83,36 @@ const admin_response = async (req, res) => {
   }
 };
 
-module.exports = { products, admin_postLoad, admin_response };
+
+ //fetch data to show live data
+const fetch = async (req, res) => {
+   console.log("reached to pick up data");
+    try{
+        const category = req.body.category;
+        console.log(category);
+        if(category === "recommendation")
+        {  console.log("hello");
+             const fetch_post = await Product
+                                       .where("is_verified")
+                                       .equals(true);
+            
+            console.log(fetch_post);
+            res.status(200).send(fetch_post);                          
+        }
+        else{
+          console.log("hemllo");
+        const fetch_post =await Product
+                                  .where("category")
+                                  .equals(category)
+                                  .where("is_verified")
+                                  .equals(true);
+              console.log(fetch_post);                    
+              res.status(200).send(fetch_post);                    
+        }                          
+    }
+  catch (err) {
+   console.log(err);
+   res.status(200).send(err);
+ }
+};
+module.exports = { products, admin_postLoad, admin_response , fetch };

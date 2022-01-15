@@ -85,7 +85,8 @@ const signIn = (req, res) => {
           bcrypt.compare(password, foundUser.password, function (err, result) {
             if (result === true) {
               console.log("password matched in server");
-              res.status(200).send();
+              foundUser.password="";
+              res.status(200).send(foundUser);
             } else {
               console.log("password not  matched in server");
               res.status(200).send({ status: "wrong password" });

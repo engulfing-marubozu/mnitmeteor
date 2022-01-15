@@ -18,21 +18,6 @@ import { styled } from "@mui/material/styles";
 // PRODUCT DATA BY PRODUCT ID 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const CardContentNoPadding = styled(CardContent)(`
 
   &:last-child {
@@ -48,7 +33,10 @@ const useStyles = makeStyles({
 });
 
 export default function HomeCard(props) {
+// ===================================================================================
 
+
+   
   const [likeButton, setLikeButton] = useState(false);
   const LikeButtonHandler = () => {
     console.log("likeButtonHandler");

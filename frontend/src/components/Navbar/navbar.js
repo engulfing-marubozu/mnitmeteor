@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import AppBar from "@mui/material/AppBar";
-import Stack from "@mui/material/Stack";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import {
+  GlobalStyles,
+  AppBar,
+  Stack,
+  CssBaseline,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Box,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { deepPurple } from "@mui/material/colors";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
-import Box from "@mui/material/Box";
 import { StyledMenu } from "./NavabarStyle";
 import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
-import Model from "../loginForm/Model";
+// import Model from "../loginForm/Model";
+import Userbar from "./Userbar";
+import { useSelector,useDispatch} from "react-redux";
+import {
+  SellNowclick,
+  modelPopUp 
+} from "../../AStatemanagement/Actions/userActions";
+
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(deepPurple[500]),
   backgroundColor: deepPurple[500],
@@ -42,14 +51,15 @@ function Navbar() {
   const Navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
+  // ===============================================================================
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
-
+  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
   };
@@ -59,13 +69,10 @@ function Navbar() {
       window.removeEventListener("resize", sizeEventHandler);
     };
   }, [windowWidth]);
-
-  const [loginModel, setloginModel] = useState(false);
-
-  const LoginModelHandler = () => {
-    setloginModel(false);
-  };
-
+  // =========================================================================================================================================
+  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  const dispatch=useDispatch();
+  console.log(`value of isLogged in ${isLoggedIn}`);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles
@@ -134,7 +141,7 @@ function Navbar() {
                 Navigate("/Adminpanel");
               }}
             >
-              MNIT {windowWidth}
+              MNIT Market
             </Typography>
           </Stack>
 
@@ -174,33 +181,38 @@ function Navbar() {
               >
                 About
               </Button>
-              <OutlinedButton
-                variant="outlined"
-                sx={{
-                  fontSize: { sm: "12px", md: "15px" },
-                  fontWeight: "bold",
-                }}
-                onClick={() => {
-                  setloginModel(true);
-                }}
-              >
-                Login
-              </OutlinedButton>
+              {!isLoggedIn && (
+                <OutlinedButton
+                  variant="outlined"
+                  sx={{
+                    fontSize: { sm: "12px", md: "15px" },
+                    fontWeight: "bold",
+                  }}
+                  onClick={() => {
+                   dispatch(modelPopUp(true));
+                    dispatch(SellNowclick(false));
+                  }}
+                >
+                  Login
+                </OutlinedButton>
+              )}
             </Stack>
+            {/* ================================================================================================= */}
+            {isLoggedIn &&<Userbar/>} 
             <ColorButton
               sx={{
                 fontSize: { xs: "9px", sm: "12px", md: "15px" },
                 fontWeight: "bold",
               }}
               variant="contained"
-              // onClick={()=>{setloginModel(true)}}
               onClick={() => {
-                Navigate("/SellProduct");
+                (!isLoggedIn&&dispatch(SellNowclick(true)));
+               ( !isLoggedIn&&(dispatch(modelPopUp(true))) );
+               (isLoggedIn && Navigate("/SellProduct"))
               }}
             >
               Sell Now
             </ColorButton>
-            {loginModel && <Model onClose={LoginModelHandler}></Model>}
           </Stack>
         </Toolbar>
       </AppBar>

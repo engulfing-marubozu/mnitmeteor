@@ -1,8 +1,13 @@
-import { AUTH_USER, LOGOUT_USER } from "../Actions/types";
+import {
+  AUTH_USER,
+  LOGOUT_USER,
+  MODEL_POPUP,
+  SELLNOW_CLICKED,
+} from "../Actions/types";
 
 const InitialState = {
-  login: false,
-  logout: true,
+  isLogin: false,
+  sellnowClicked: false,
 };
 
 export const loginlogoutReducer = (state = InitialState, action) => {
@@ -10,16 +15,30 @@ export const loginlogoutReducer = (state = InitialState, action) => {
     case AUTH_USER:
       return {
         ...state,
-        login: true,
-        logout: false,
+        isLogin: true,
         userData: action.payload,
       };
     case LOGOUT_USER:
       return {
         ...state,
-        login: false,
-        logout: true,
+        userData: {},
+        isLogin: false,
+        sellnowClicked: false,
       };
+    case SELLNOW_CLICKED:
+      return { ...state, sellnowClicked: action.payload };
+    default:
+      return state;
+  }
+};
+
+const modelPopInitialValue = {
+  popUp: false,
+};
+export const ModelPopUpReducer = (state = modelPopInitialValue, action) => {
+  switch (action.type) {
+    case MODEL_POPUP:
+      return { ...state, popUp: action.payload };
     default:
       return state;
   }

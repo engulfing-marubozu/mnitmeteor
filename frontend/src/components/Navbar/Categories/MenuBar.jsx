@@ -1,23 +1,30 @@
-import React, {useState} from "react";
+import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import CategoryIcon from "@mui/icons-material/Category";
 import SellIcon from "@mui/icons-material/Sell";
 import InfoIcon from "@mui/icons-material/Info";
 import LoginIcon from "@mui/icons-material/Login";
-//  import LogoutIcon from "@mui/icons-material/Logout";
+ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBarCategory from "./MenuBarCategories";
 import { StyledMenu } from "../NavabarStyle";
 import {useNavigate} from "react-router-dom";
-import Model from "../../loginForm/Model";
+import { useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
+import { LogoutUser, modelPopUp, SellNowclick } from "../../../AStatemanagement/Actions/userActions";
+
+
 export default function MymenuBar(props) {
 
 const Navigate=useNavigate();
-
+const dispatch=useDispatch();
+const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+console.log(`value of isLoggedIn ${isLoggedIn}`)
   // ========================we can Handle page by this function
   const menuItemHandler = (input="flag") => {
     input==="Home"&&Navigate("/");
     input==="About"&&Navigate("/About");
+     input==="Sellnow"&&Navigate("/SellProduct");
     props.menuClose();
     console.log("menuItemHandler ");
   };
@@ -31,14 +38,6 @@ const Navigate=useNavigate();
     setAnchorEl(null);
   };
 //========================================================================================LOGIN PAGE POP UP=====================================
-const [loginpop,setloginPop]=useState(false);
-
-const  loginCloseHandler=()=>{
-  console.log("close");
-  setloginPop(false);
-}
-
-
   return (
     <>
       <MenuItem onClick={()=>{menuItemHandler("Home")}}>
@@ -64,15 +63,24 @@ const  loginCloseHandler=()=>{
       >
         <MenuBarCategory CategoryClose={props.menuClose} MenuBarClose={handleClose} />
       </StyledMenu>
-      <MenuItem onClick={()=>{ setloginPop(true) }}>
+      <MenuItem onClick={()=>{ 
+        (!isLoggedIn && dispatch(SellNowclick(true)));
+        (!isLoggedIn&&dispatch(modelPopUp(true))); 
+        (isLoggedIn && menuItemHandler("Sellnow")) ;
+        props.menuClose();
+       }}>
         <SellIcon sx={{ fontsize: 3, mr: 1 }} />
         Sell Now
       </MenuItem>
-      <MenuItem onClick={()=>{ setloginPop(true) ;}}>
+      {!isLoggedIn&&<MenuItem onClick={()=>{ dispatch(modelPopUp(true)); dispatch(SellNowclick(false)); props.menuClose();}}>
         <LoginIcon sx={{ fontsize: 3, mr: 1 }} />
         Login
-      </MenuItem>
-      {loginpop&&<Model onClose={loginCloseHandler}></Model>}
+      </MenuItem>}
+      {isLoggedIn&&<MenuItem onClick={()=>{ dispatch(modelPopUp(false));dispatch(LogoutUser());menuItemHandler();}}>
+        <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />
+        Logout
+      </MenuItem>}
+   
     </>
   );
 }

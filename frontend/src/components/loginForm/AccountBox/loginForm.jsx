@@ -15,6 +15,10 @@ import {
 } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
+import { useDispatch ,useSelector } from "react-redux";
+import { AuthUser } from "../../../AStatemanagement/Actions/userActions.jsx";
+import {useNavigate} from "react-router-dom";
+
 
 export function LoginForm(props) {
   const { Switch } = useContext(AccountContext);
@@ -23,7 +27,9 @@ export function LoginForm(props) {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const notify = (value) => toast(value);
-
+  const dispatch = useDispatch();
+  const isSellNowClicked=useSelector((state)=>state.loginlogoutReducer.sellnowClicked)
+  const Navigate=useNavigate();
   // backend ------------------------------------------------------------------------------------------------------------
   const loginfunc = async (signinFormValue) => {
     const { email, password } = signinFormValue;
@@ -39,7 +45,9 @@ export function LoginForm(props) {
         notify("Email is not registered");
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
-        notify("Welcome");
+        // notify("Welcome");
+        dispatch(AuthUser(signinFormValue));
+        (isSellNowClicked&&Navigate("SellProduct"));
       }
     } catch (err) {
       console.log(err);

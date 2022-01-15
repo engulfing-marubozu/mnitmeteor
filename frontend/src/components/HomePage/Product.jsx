@@ -6,6 +6,11 @@ import { useParams } from 'react-router-dom';
 const Image = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 function ProductCard(props) {
     const params = useParams();
+
+
+
+
+    
     return (
         <main>
             <h1>this is {props.Category?props.Category:params.category}</h1>

@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+
 import ImageUpload from 'react-images-upload';
 
 const UploadImage = (props) => {
-	const [pictures, setPictures] = useState([]);
-	console.log(pictures);
-	const onDrop = (picture) => {
-		setPictures([...pictures, picture]);
-	};
 
 	return (
 		<ImageUpload
-			{...props}
 			withIcon={false}
-			onChange={onDrop}
+			onChange={props.OnDrop}
 			imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
 			maxFileSize={5242880}
 			withPreview={true}

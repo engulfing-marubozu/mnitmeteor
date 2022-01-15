@@ -1,6 +1,8 @@
-{
-	"BK": "Books",
-	"CY": "Cycles",
-	"CL": "Clothes",
-	"OT": "Others"
+ {
+	"Book": "Book",
+	"Cycle": "Cycle",
+	"Cloth": "Cloth",
+	"Electronics": "Electronics",
+	"Others": "Other"
+
 }

@@ -28,8 +28,8 @@ mongoose.connect(database_url)
 
 //auto load routes and middlewares
 app.use(cors());
-app.use(bodyparser.urlencoded());
-app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({limit: '50mb' , extended: true }));
+app.use(bodyparser.json({limit: '50mb'}));
 fs.readdirSync('./Routes').map((f)=> app.use('/', require(`./Routes/${f}`)))
 
 

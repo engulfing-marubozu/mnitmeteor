@@ -24,11 +24,11 @@ export default function Home() {
       {/*  CATEGORY BAR++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
       <button
         onClick={() => {
-          Navigate("/Product/Cycle");
+          Navigate("/Product/Cycles");
         }}
       >
         {" "}
-        cyle
+        cycles
       </button>
       <button
         onClick={() => {

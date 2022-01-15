@@ -71,6 +71,7 @@ const signUp = async (req, res) => {
 ///   SIGNIN FUNCTION
 const signIn = (req, res) => {
   try {
+    console.log("came to sign In");
     const email = req.body.email;
     const password = req.body.password;
     console.log("reached to match password");

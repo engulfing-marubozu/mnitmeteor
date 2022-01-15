@@ -206,15 +206,9 @@ function Navbar() {
               }}
               variant="contained"
               onClick={() => {
-<<<<<<< HEAD
                 (!isLoggedIn&&dispatch(SellNowclick(true)));
                ( !isLoggedIn&&(dispatch(modelPopUp(true))) );
                (isLoggedIn && Navigate("/SellProduct"))
-=======
-                Navigate("SellProduct");
-
-
->>>>>>> b3e28b242e663542cb81c54394e2ab21a3a718c2
               }}
             >
               Sell Now

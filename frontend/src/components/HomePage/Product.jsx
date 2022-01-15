@@ -9,13 +9,6 @@ let Image = [];
 
  function ProductCard(props) {
     const params = useParams();
-<<<<<<< HEAD
-
-
-
-
-    
-=======
     // const [category, setcategory] = useState();
   let  category =  props.Category?props.Category:params.category;
     
@@ -40,7 +33,6 @@ let Image = [];
     }
   ,[category]);
   
->>>>>>> b3e28b242e663542cb81c54394e2ab21a3a718c2
     return (
         <main>
             <h1>this is {props.Category?props.Category:params.category}</h1>

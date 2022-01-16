@@ -34,7 +34,7 @@ export const ColorButton = styled(Button)(({ theme }) => ({
     borderColor: deepPurple[700],
   },
 }));
-const OutlinedButton = styled(Button)(({ theme }) => ({
+ export const OutlinedButton = styled(Button)(({ theme }) => ({
   borderColor: deepPurple[500],
   color: "inherit",
   "&:hover": {
@@ -141,7 +141,7 @@ function Navbar() {
                 Navigate("/Adminpanel");
               }}
             >
-              MNIT Market
+              MNIT{windowWidth}
             </Typography>
           </Stack>
 

@@ -47,7 +47,7 @@ export function LoginForm(props) {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         // notify("Welcome");
         const userData=response.data;
-        dispatch(AuthUser(userData));
+         dispatch(AuthUser(userData));
         (isSellNowClicked&&Navigate("SellProduct"));
       }
     } catch (err) {

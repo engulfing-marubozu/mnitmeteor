@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-
+import {useSelector ,useDispatch} from "react-redux";
+import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
 
 // ===============================================================
 // PRODUCT DATA BY PRODUCT ID 
@@ -24,7 +25,7 @@ const CardContentNoPadding = styled(CardContent)(`
     padding-bottom: 8px;
   }
 `);
-const Image = "https://source.unsplash.com/random";
+
 const useStyles = makeStyles({
   image: {
     width: "100%",
@@ -34,13 +35,20 @@ const useStyles = makeStyles({
 
 export default function HomeCard(props) {
 // ===================================================================================
-
-
-   
+   const Image=props.cardData.images[0];
+   const title=props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
+   const date= new Date(props.cardData.createdAt);
+   const properDate=`${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}, ${date.getFullYear()}`;
+   const isLoggedIn=useSelector((state)=>state.loginlogoutReducer.isLogin);
+   const dispatch=useDispatch();
   const [likeButton, setLikeButton] = useState(false);
   const LikeButtonHandler = () => {
-    console.log("likeButtonHandler");
-    setLikeButton(!likeButton);
+    // console.log("likeButtonHandler");
+    if(isLoggedIn){
+    setLikeButton(!likeButton)}
+    else{
+      dispatch(modelPopUp(true));
+    }
   };
   const Classes = useStyles();
   return (
@@ -66,18 +74,18 @@ export default function HomeCard(props) {
             variant="h6"
             noWrap
             sx={{
-              maxWidth: { xs: 90, sm: 120 },
+              maxWidth: { xs: 90, sm: 140 },
               fontWeight: "bold",
               fontSize: { xs: "small", md: "default" },
             }}
           >
-            Herculus Cylceadsfdas
+           {title}
           </Typography>
           <Typography
             variant="body2"
             sx={{ maxWidth: 155, fontSize: { xs: "x-small", sm: "default" } }}
           >
-            Sep 14, 2016
+            {properDate}
           </Typography>
         </Box>
 

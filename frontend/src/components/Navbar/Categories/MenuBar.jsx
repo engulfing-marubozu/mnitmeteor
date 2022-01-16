@@ -76,7 +76,7 @@ console.log(`value of isLoggedIn ${isLoggedIn}`)
         <LoginIcon sx={{ fontsize: 3, mr: 1 }} />
         Login
       </MenuItem>}
-      {isLoggedIn&&<MenuItem onClick={()=>{ dispatch(modelPopUp(false));dispatch(LogoutUser());menuItemHandler();}}>
+      {isLoggedIn&&<MenuItem onClick={()=>{  window.localStorage.removeItem("auth"); dispatch(modelPopUp(false));dispatch(LogoutUser());menuItemHandler();}}>
         <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />
         Logout
       </MenuItem>}

@@ -12,16 +12,23 @@ const InitialState = {
 
 export const loginlogoutReducer = (state = InitialState, action) => {
   switch (action.type) {
+
+
+    
     case AUTH_USER:
       return {
         ...state,
         isLogin: true,
-        userData: action.payload,
+        userData: action.payload.user,
+        token : action.payload.token
       };
+
+
     case LOGOUT_USER:
       return {
         ...state,
-        userData: {},
+        userData: null,
+        token : null,
         isLogin: false,
         sellnowClicked: false,
       };

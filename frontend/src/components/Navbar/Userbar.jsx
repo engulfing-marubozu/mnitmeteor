@@ -69,6 +69,7 @@ function Userbar(props) {
           onClick={() => {
             dispatch(LogoutUser());
             // props.onClose();
+            window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
           }}
         >

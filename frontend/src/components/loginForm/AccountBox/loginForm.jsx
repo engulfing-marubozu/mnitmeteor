@@ -29,9 +29,10 @@ export function LoginForm(props) {
   const notify = (value) => toast(value);
   const dispatch = useDispatch();
   const isSellNowClicked=useSelector((state)=>state.loginlogoutReducer.sellnowClicked)
+ 
   const Navigate=useNavigate();
   // backend ------------------------------------------------------------------------------------------------------------
-  const loginfunc = async (signinFormValue) => {
+  const Loginfunc = async (signinFormValue) => {
     const { email, password } = signinFormValue;
     try {
       const response = await axios.post("http://localhost:5000/signIn", {
@@ -46,8 +47,10 @@ export function LoginForm(props) {
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         // notify("Welcome");
-        const userData=response.data;
-        dispatch(AuthUser(userData));
+        console.log(response.data);
+        dispatch(AuthUser(response.data));
+        window.localStorage.setItem('auth', JSON.stringify(response.data));
+
         (isSellNowClicked&&Navigate("SellProduct"));
       }
     } catch (err) {
@@ -69,7 +72,7 @@ export function LoginForm(props) {
   useEffect(() => {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      loginfunc(signinFormValue);
+      Loginfunc(signinFormValue);
     }
   }, [formErrors]);
 

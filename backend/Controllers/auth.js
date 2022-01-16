@@ -2,6 +2,7 @@ const { User } = require("../Models");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 const { parse } = require("path/posix");
+const jwt = require("jsonwebtoken");
 sgMail.setApiKey(
   "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"
 );
@@ -86,7 +87,9 @@ const signIn = (req, res) => {
             if (result === true) {
               console.log("password matched in server");
               foundUser.password="";
-              res.status(200).send(foundUser);
+             const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
+              res.status(200).json({user : foundUser
+                , token : token});
             } else {
               console.log("password not  matched in server");
               res.status(200).send({ status: "wrong password" });

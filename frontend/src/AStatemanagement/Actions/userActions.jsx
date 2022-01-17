@@ -2,6 +2,7 @@ import { AUTH_USER, LOGOUT_USER, MODEL_POPUP, SELLNOW_CLICKED } from "./types";
 // import { USER_SERVER } from "../components/Config.js";
 
 export const AuthUser = (data = {}) => {
+  
   return { type: AUTH_USER, payload: data };
 };
 export const LogoutUser = () => {

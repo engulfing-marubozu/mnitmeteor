@@ -115,4 +115,23 @@ const fetch = async (req, res) => {
    res.status(200).send(err);
  }
 };
-module.exports = { products, admin_postLoad, admin_response , fetch };
+
+const get_details = async (req,res)=>{
+   console.log(req);
+   res.status(200).send(req.user);
+}
+
+// upadte favourites
+
+const favourites_upadte= (req, res)=>
+{
+       console.log(req.user._id);
+       res.status(200).send("ok");
+}
+
+const send_favourites= (req, res)=>
+{     
+       console.log(req.user._id);
+       res.status(200).send("okay");
+}
+module.exports = { products, admin_postLoad, admin_response , fetch, get_details, send_favourites, favourites_upadte };

@@ -2,6 +2,7 @@ const { User } = require("../Models");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 const { parse } = require("path/posix");
+const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
 sgMail.setApiKey(
   "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"
@@ -194,4 +195,6 @@ const resendOtp = async (req, res)=>{
      otp: otp,
    });
 }
+
+
 module.exports = { signIn, signUp, resetPassword , resendOtp};

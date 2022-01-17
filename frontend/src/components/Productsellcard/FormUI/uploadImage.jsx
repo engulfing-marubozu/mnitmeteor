@@ -1,20 +1,76 @@
+import React from "react";
+import ImageUploading from "react-images-uploading";
+import { CustomButton } from "./PreviewImage";
+import PreviewImage from "./PreviewImage";
+export default function UploadImage() {
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 4;
 
-import ImageUpload from 'react-images-upload';
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  };
 
-const UploadImage = (props) => {
+  return (
+    <ImageUploading
+      multiple
+      value={images}
+      onChange={onChange}
+      maxNumber={maxNumber}
+      dataURLKey="data_url"
+    >
+      {({
+        imageList,
+        onImageUpload,
+        onImageUpdate,
+        onImageRemove,
+        isDragging,
+        dragProps,
+      }) => (
+        <div className="upload__image-wrapper">
+          <CustomButton
+            style={isDragging ? { color: "red" } : undefined}
+            onClick={onImageUpload}
+            {...dragProps}
+          >
+            Choose Images
+          </CustomButton>
+          &nbsp;
+          {imageList.map((image, index) => (
+            <div key={index} className="image-item">
+              <PreviewImage
+                imgSrc={image["data_url"]}
+                onClickUpdate={onImageUpdate}
+                onClickRemove={onImageRemove}
+                imgIndex={index}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+    </ImageUploading>
+  );
+}
+// VAlidation====================================
+// {({ imageList, onImageUpload, onImageRemoveAll, errors }) => (
+//     errors && <div>
+//       {errors.maxNumber && <span>Number of selected images exceed maxNumber</span>}
+//       {errors.acceptType && <span>Your selected file type is not allow</span>}
+//       {errors.maxFileSize && <span>Selected file size exceed maxFileSize</span>}
+//       {errors.resolution && <span>Selected file is not match your desired resolution</span>}
+//     </div>
+//   )}
 
-	return (
-		<ImageUpload
-			withIcon={false}
-			onChange={props.OnDrop}
-			imgExtension={[".jpg", ".gif", ".png", ".gif", ".jpeg"]}
-			maxFileSize={5242880}
-			withPreview={true}
-			label=""
-			singleImage={true}
-			fileContainerStyle={{ uploadIcon: { display: "none" } }}
-		/>
-	);
-};
+// DRAG AND DROP/
 
-export default UploadImage;
+//
+
+//   {({ imageList, dragProps, isDragging }) => (
+//     <div {...dragProps}>
+//       {isDragging ? "Drop here please" : "Upload space"}
+//       {imageList.map((image, index) => (
+//         <img key={index} src={image.data_url} />
+//       ))}
+//     </div>
+//   )}

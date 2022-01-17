@@ -4,6 +4,7 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import { useDispatch } from "react-redux";
 import { LogoutUser,modelPopUp } from "../../AStatemanagement/Actions/userActions";
 import InsertEmoticonSharpIcon from "@mui/icons-material/InsertEmoticonSharp";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   Tooltip,
   Avatar,
@@ -61,7 +62,7 @@ function Userbar(props) {
             <Typography textAlign="center">{setting}</Typography>
           </MenuItem>
         ))} */}
-        <MenuItem>Profile</MenuItem>
+        <MenuItem><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }}/>Profile</MenuItem>
         <MenuItem>
         <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
         </MenuItem>

@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-// import { makeStyles } from "@mui/styles";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Typography, Container, Grid } from "@mui/material";
 import TextfieldWrapper from "../FormUI/TextFieldWrapper";
 import SelectWrapper from "../FormUI/SelectWrapper";
-import countries from "../../../data/countries.json";
+import category from "../../../data/category.json";
 import "./SellForm.css";
 import UploadImage from "../FormUI/uploadImage";
 import ButtonWrapper from "../FormUI/ButtonWrapper";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-// import { mergeBreakpointsInOrder } from "@mui/system";
+
 
 const INITIAL_FORM_STATE = {};
 const FORM_VALIDATION = Yup.object().shape({
@@ -47,11 +46,11 @@ const SellForm = (props) => {
      }
   };
 
-  return props.trigger ? (
+  return  (
     <div className="sell-form-inner" /*ref={domNode}*/>
-      <button className="close-btn" onClick={() => props.setTrigger(false)}>
+      {/* <button className="close-btn" onClick={() => props.setTrigger(false)}>
         close
-      </button>
+      </button> */}
       <Grid container>
         <Grid item xs={12}>
           <Container maxWidth="md">
@@ -70,7 +69,7 @@ const SellForm = (props) => {
                   merge(values);
 
                   props.alertSent();
-                  props.setTrigger(false);
+                  // props.setTrigger(false);
                 }}
               >
                 <Form>
@@ -88,7 +87,7 @@ const SellForm = (props) => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Typography>Description</Typography>
+                      <Typography sx={{mt:1}}>Description</Typography>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -101,35 +100,26 @@ const SellForm = (props) => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Typography>Select a category</Typography>
+                      <Typography sx={{mt:1}}>Select a category</Typography>
                     </Grid>
                     <Grid item xs={12}>
                       <SelectWrapper
                         name="categories"
-                        options={countries}
+                        options={category}
                         size="small"
                       />
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Typography>
-                        Upload Image (less than 5mb, accepted: .jpg, .png)
+                      <Typography sx={{mt:2}}>
+                        Upload Image (less than 5mb, accepted: .jpg, .png, max 4 images )
                       </Typography>
                     </Grid>
 
-                    <Grid container>
-                      <Grid>
+                    <Grid container justifyContent={"center"}>
+
                         <UploadImage OnDrop={onDrop} />
-                      </Grid>
-                      <Grid>
-                        <UploadImage OnDrop={onDrop} />
-                      </Grid>
-                      <Grid>
-                        <UploadImage OnDrop={onDrop} />
-                      </Grid>
-                      <Grid>
-                        <UploadImage OnDrop={onDrop} />
-                      </Grid>
+                    
                     </Grid>
 
                     <Grid item xs={12}>
@@ -143,9 +133,7 @@ const SellForm = (props) => {
         </Grid>
       </Grid>
     </div>
-  ) : (
-    ""
-  );
+  ) ;
 };
 
 export default SellForm;

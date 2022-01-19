@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     objectFit: "contain",
   },
 });
- export const CustomButton = styled.button`
+export const CustomButton = styled.button`
   padding: 10px 23px;
   background: #3f4257;
   border-radius: 30px;
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   border: none;
 `;
 const CustomDiv = styled.div`
-  width:280px;
+  width: 280px;
   position: relative;
   display: inline-flex;
   flex-direction: column;
@@ -43,23 +43,39 @@ const TransparentDiv = styled.div`
 function PreviewImage(props) {
   const Classes = useStyles();
   return (
-    <CustomDiv>
-      <Card sx={{ Width: "280px", borderRadius: 1 }}>
-        <CardMedia
-          component="img"
-          classes={{ img: Classes.image }}
-          Width="280px"
-          sx={{ height: { xs: "180px" } }}
-          image={props.imgSrc}
-          alt="Image"
-        ></CardMedia>
-      </Card>
+    <div style={{ margin: "6px" }}>
+      <CustomDiv>
+        <Card sx={{ width: "280px", borderRadius: 1 }}>
+          <CardMedia
+            component="img"
+            classes={{ img: Classes.image }}
+            width="280px"
+            sx={{ height: { xs: "180px" } }}
+            image={props.imgSrc}
+            alt="Image"
+          ></CardMedia>
+        </Card>
 
-      <TransparentDiv>
-        <CustomButton type="button" onClick={()=>{props.onClickUpdate(props.imgIndex)}}>Update </CustomButton>
-        <CustomButton  type = "button" onClick={()=>{props.onClickRemove(props.imgIndex)}}>Remove </CustomButton>
-      </TransparentDiv>
-    </CustomDiv>
+        <TransparentDiv>
+          <CustomButton
+            type="button"
+            onClick={() => {
+              props.onClickUpdate(props.imgIndex);
+            }}
+          >
+            Update{" "}
+          </CustomButton>
+          <CustomButton
+            type="button"
+            onClick={() => {
+              props.onClickRemove(props.imgIndex);
+            }}
+          >
+            Remove{" "}
+          </CustomButton>
+        </TransparentDiv>
+      </CustomDiv>
+    </div>
   );
 }
 

@@ -1,22 +1,13 @@
-
 .sell-form-inner {
-	width: 70%;
-	margin: 0 auto;
-	height: auto;
-	max-height: 90vh;
-	margin-top: calc(90vh - 80vh - 20px);
-	background: #fff;
-	padding: 20px;
-	overflow: auto;
+  width: 70%;
+  height: auto;
+  margin: calc(90vh - 80vh - 20px) auto;
+  background: #fff;
+  padding: 20px;
+  padding-bottom: 30px;
 }
 @media (max-width: 768px) {
-	.sell-form-inner {
-		width: 90%;
-	}
+  .sell-form-inner {
+    width: 90%;
+  }
 }
-
-/* .sell-form-inner .close-btn {
-	position: absolute;
-	top: 16px;
-	right: 16px;
-} */

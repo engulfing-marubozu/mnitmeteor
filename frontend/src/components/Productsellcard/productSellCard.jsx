@@ -6,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function ProductSellCard() {
     // const [buttonPop, setButtonPop] = useState(false);
-	const alertHandler = () => {
-		toast.success("Ad Request Sent", {
+	const alertHandler = (warning) => {
+		toast.success(warning, {
 			position: "top-right",
 			autoClose: 2000,
 			hideProgressBar: false,

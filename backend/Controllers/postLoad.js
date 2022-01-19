@@ -17,7 +17,7 @@ const products = async (req, res) => {
 
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
-        const upload_response = await cloudinary.uploader.upload(image, {
+        const upload_response = await cloudinary.uploader.upload(image.data_url, {
           upload_preset: "dev_setups",
         });
         console.log("deepak");

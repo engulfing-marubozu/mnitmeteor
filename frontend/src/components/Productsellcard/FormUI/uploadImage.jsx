@@ -2,7 +2,7 @@ import React from "react";
 import ImageUploading from "react-images-uploading";
 import { CustomButton } from "./PreviewImage";
 import PreviewImage from "./PreviewImage";
-export default function UploadImage() {
+export default function UploadImage(props) {
   const [images, setImages] = React.useState([]);
   const maxNumber = 4;
 
@@ -10,6 +10,7 @@ export default function UploadImage() {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
+    props.onDrop(imageList);
   };
 
   return (
@@ -30,6 +31,7 @@ export default function UploadImage() {
       }) => (
         <div className="upload__image-wrapper">
           <CustomButton
+            type = "button"
             style={isDragging ? { color: "red" } : undefined}
             onClick={onImageUpload}
             {...dragProps}

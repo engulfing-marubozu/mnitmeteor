@@ -21,14 +21,9 @@ const FORM_VALIDATION = Yup.object().shape({
 
 const SellForm = (props) => {
   const [imagearray, setimagearray] = useState([]);
-
-  const onDrop = (picture) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(picture[0]);
-    reader.onloadend = () => {
-      console.log(reader.result);
-      setimagearray([...imagearray, reader.result]);
-    };
+  
+  const onDrop = (pictures) => {
+    setimagearray(pictures)
   };
   const merge = async (values) => {
     console.log(values);
@@ -118,7 +113,7 @@ const SellForm = (props) => {
 
                     <Grid container justifyContent={"center"}>
 
-                        <UploadImage OnDrop={onDrop} />
+                        <UploadImage onDrop={onDrop} />
                     
                     </Grid>
 

@@ -56,8 +56,8 @@ function PreviewImage(props) {
       </Card>
 
       <TransparentDiv>
-        <CustomButton onClick={()=>{props.onClickUpdate(props.imgIndex)}}>Update </CustomButton>
-        <CustomButton onClick={()=>{props.onClickRemove(props.imgIndex)}}>Remove </CustomButton>
+        <CustomButton type="button" onClick={()=>{props.onClickUpdate(props.imgIndex)}}>Update </CustomButton>
+        <CustomButton  type = "button" onClick={()=>{props.onClickRemove(props.imgIndex)}}>Remove </CustomButton>
       </TransparentDiv>
     </CustomDiv>
   );

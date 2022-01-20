@@ -8,6 +8,7 @@ import {
   REMOVE_FROM_FAVOURITES,
   SELLNOW_CLICKED,
 } from "./types";
+import axios from "axios"
 // import { USER_SERVER } from "../components/Config.js";
 
 export const AuthUser = (data = {}) => {
@@ -23,8 +24,14 @@ export const SellNowclick = (bool) => {
 export const modelPopUp = (bool) => {
   return { type: MODEL_POPUP, payload: bool };
 };
-export const addToFavourites = (data) => {
+export const addToFavourites =  (data) => {
   console.log(data);
+ const {}
+  const response = await axios.post("http://localhost:5000/favourites_update", {
+    headers : {
+      'Authorization': `Bearer ${token}`
+    }
+ })
   return {
     type: ADD_TO_FAVOURITES,
     payload: data,

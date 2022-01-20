@@ -52,12 +52,12 @@ export default function HomeCard(props) {
   };
   const Classes = useStyles();
   return (
-    <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation="3">
+    <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation={3}>
       <Link to={`/ProductDiscription/${props.productId}`}>
         <CardMedia
           component="img"
           classes={{ img: Classes.image }}
-          Width="280px"
+          width="280px"
           sx={{ height: { xs: "160px", sm: "180px" } }}
           image={Image}
           alt="Image"
@@ -90,7 +90,7 @@ export default function HomeCard(props) {
         </Box>
 
         <CardActions
-          container
+     
           disableSpacing
           sx={{
             bgcolor: "#f5f5f5",

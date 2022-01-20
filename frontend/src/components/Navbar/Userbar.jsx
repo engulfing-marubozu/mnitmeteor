@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { LogoutUser,modelPopUp } from "../../AStatemanagement/Actions/userActions";
 import InsertEmoticonSharpIcon from "@mui/icons-material/InsertEmoticonSharp";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from "react-router-dom";
 import {
   Tooltip,
   Avatar,
@@ -15,6 +16,7 @@ import {
 } from "@mui/material";
 function Userbar(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const Navigate=useNavigate();
   // ==================================================================== lOGIN ICON ===========================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -62,8 +64,8 @@ function Userbar(props) {
             <Typography textAlign="center">{setting}</Typography>
           </MenuItem>
         ))} */}
-        <MenuItem><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }}/>Profile</MenuItem>
-        <MenuItem>
+        <MenuItem onClick={ ()=>{Navigate("/Profile"); handleCloseUserMenu(); } }><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }}/>Profile</MenuItem>
+        <MenuItem onClick={()=>{Navigate("/Favourites");handleCloseUserMenu();}}>
         <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
         </MenuItem>
         <MenuItem
@@ -72,6 +74,7 @@ function Userbar(props) {
             // props.onClose();
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
+           Navigate("/");
           }}
         >
           <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />

@@ -20,6 +20,8 @@ export default function UploadImage(props) {
       onChange={onChange}
       maxNumber={maxNumber}
       dataURLKey="data_url"
+      acceptType={['jpg', 'png']	}
+      maxFileSize={5*1024*1024}
     >
       {({
         imageList,
@@ -28,51 +30,58 @@ export default function UploadImage(props) {
         onImageRemove,
         isDragging,
         dragProps,
+        errors,
       }) => (
-        <div className="upload__image-wrapper">
+        <div>
+          {errors && (
+            <div>
+              {errors.maxNumber && (
+                <span style={{ color: "	#FF0000" }}>
+                  Number of selected images exceed maxNumber
+                </span>
+              )}
+              {errors.acceptType && (
+                <span>Your selected file type is not allow</span>
+              )}
+              {errors.maxFileSize && (
+                <span>Selected file size exceed maxFileSize</span>
+              )}
+              {errors.resolution && (
+                <span>Selected file is not match your desired resolution</span>
+              )}
+            </div>
+          )}
           <CustomButton
-            type = "button"
-            style={isDragging ? { color: "red" } : undefined}
+            type="button"
+            style={
+              (isDragging ? { color: "red" } : undefined, { margin: "10px" })
+            }
             onClick={onImageUpload}
             {...dragProps}
           >
             Choose Images
           </CustomButton>
           &nbsp;
-          {imageList.map((image, index) => (
-            <div key={index} className="image-item">
-              <PreviewImage
-                imgSrc={image["data_url"]}
-                onClickUpdate={onImageUpdate}
-                onClickRemove={onImageRemove}
-                imgIndex={index}
-              />
-            </div>
-          ))}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {imageList.map((image, index) => (
+              <div key={index}>
+                <PreviewImage
+                  imgSrc={image["data_url"]}
+                  onClickUpdate={onImageUpdate}
+                  onClickRemove={onImageRemove}
+                  imgIndex={index}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </ImageUploading>
   );
 }
-// VAlidation====================================
-// {({ imageList, onImageUpload, onImageRemoveAll, errors }) => (
-//     errors && <div>
-//       {errors.maxNumber && <span>Number of selected images exceed maxNumber</span>}
-//       {errors.acceptType && <span>Your selected file type is not allow</span>}
-//       {errors.maxFileSize && <span>Selected file size exceed maxFileSize</span>}
-//       {errors.resolution && <span>Selected file is not match your desired resolution</span>}
-//     </div>
-//   )}
-
-// DRAG AND DROP/
-
-//
-
-//   {({ imageList, dragProps, isDragging }) => (
-//     <div {...dragProps}>
-//       {isDragging ? "Drop here please" : "Upload space"}
-//       {imageList.map((image, index) => (
-//         <img key={index} src={image.data_url} />
-//       ))}
-//     </div>
-//   )}

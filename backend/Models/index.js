@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = require('mongoose').Schema
 
 const userSchema = new mongoose.Schema({
     email:{
@@ -6,10 +7,13 @@ const userSchema = new mongoose.Schema({
     },
      password :{
           type: String
-     }
-    //  products_posted : {
-    //       type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }]
-    //  }
+     },
+     products_posted : {
+          type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+     },
+     favourites :{
+         type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+     } 
 }, {timestamps: true});
 
 	
@@ -30,10 +34,10 @@ const productsSchema = new mongoose.Schema({
         type : Boolean,
         default : false
     },
-//     likes : {
-//         type :  [{ type: Schema.Types.ObjectId, ref: 'User' }]
-//    }
-    // img: {data: Buffer, contentType: String},
+    likes : {
+        type :  [{ type: Schema.Types.ObjectId, ref: 'User' }]
+   },
+
 },{timestamps: true});
 
 

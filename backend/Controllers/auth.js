@@ -18,7 +18,7 @@ const signUp = async (req, res) => {
   try {
     console.log(req.body.email);
     console.log(Object.keys(req.body).length);
-    let email = req.body.email;
+    let email = req.body.email.toLowerCase();
     if (Object.keys(req.body).length !== 1) {
       //to store the incoming email and pass, and validate them
       console.log("reached api");
@@ -74,7 +74,7 @@ const signUp = async (req, res) => {
 const signIn = (req, res) => {
   try {
     console.log("came to sign In");
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     const password = req.body.password;
     console.log("reached to match password");
     console.log(email);

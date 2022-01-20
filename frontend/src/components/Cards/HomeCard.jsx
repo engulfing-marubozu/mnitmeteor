@@ -12,12 +12,16 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import {useSelector ,useDispatch} from "react-redux";
-import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  modelPopUp,
+  addToFavourites,
+  removeFromFavourites,
+} from "../../AStatemanagement/Actions/userActions";
+
 
 // ===============================================================
-// PRODUCT DATA BY PRODUCT ID 
-
+// PRODUCT DATA BY PRODUCT ID
 
 const CardContentNoPadding = styled(CardContent)(`
 
@@ -34,26 +38,41 @@ const useStyles = makeStyles({
 });
 
 export default function HomeCard(props) {
-// ===================================================================================
-   const Image=props.cardData.images[0];
-   const title=props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
-   const date= new Date(props.cardData.createdAt);
-   const properDate=`${date.toLocaleString('default', { month: 'short' })} ${date.getDate()}, ${date.getFullYear()}`;
-   const isLoggedIn=useSelector((state)=>state.loginlogoutReducer.isLogin);
-   const dispatch=useDispatch();
+  // console.log(props.cardData);
+  // =============================================CARD DATA==============================================================================================
+  const Image = props.cardData.images[0];
+  const title =
+    props.cardData.title.charAt(0).toUpperCase() +
+    props.cardData.title.slice(1);
+  const date = new Date(props.cardData.createdAt);
+  const properDate = `${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getDate()}, ${date.getFullYear()}`;
+
+  //  ============================================================================================================================================
+  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const dispatch = useDispatch();
+  // =========================================================================================================================================
+
   const [likeButton, setLikeButton] = useState(false);
   const LikeButtonHandler = () => {
     // console.log("likeButtonHandler");
-    if(isLoggedIn){
-    setLikeButton(!likeButton)}
-    else{
+    if (isLoggedIn) {
+      setLikeButton(!likeButton);
+      const likeData = { productId: props.cardData._id, userToken: token };
+      !likeButton && dispatch(addToFavourites({ ...likeData, isLiked: true }));
+       likeButton && dispatch(removeFromFavourites({ ...likeData, isLiked: false }));
+        
+    } else {
       dispatch(modelPopUp(true));
     }
   };
   const Classes = useStyles();
+
   return (
     <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation={3}>
-      <Link to={`/ProductDiscription/${props.productId}`}>
+      <Link to={`/ProductDiscription/${props.cardData._id}`}>
         <CardMedia
           component="img"
           classes={{ img: Classes.image }}
@@ -79,7 +98,7 @@ export default function HomeCard(props) {
               fontSize: { xs: "small", md: "default" },
             }}
           >
-           {title}
+            {title}
           </Typography>
           <Typography
             variant="body2"
@@ -90,7 +109,6 @@ export default function HomeCard(props) {
         </Box>
 
         <CardActions
-     
           disableSpacing
           sx={{
             bgcolor: "#f5f5f5",

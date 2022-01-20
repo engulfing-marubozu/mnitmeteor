@@ -4,6 +4,7 @@ import HomeCard from "../Cards/HomeCard";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
+
 // let Image = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
 function ProductCard(props) {

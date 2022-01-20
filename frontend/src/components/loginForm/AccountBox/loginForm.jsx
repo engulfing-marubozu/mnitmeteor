@@ -10,6 +10,7 @@ import {
   FormContainer,
   Input,
   MutedLink,
+  MutedText,
   SubmitButton,
   Validationlabel,
 } from "./common";
@@ -105,12 +106,12 @@ export function LoginForm(props) {
         Signin
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
-      <MutedLink href="#">
+      <MutedText style={{fontSize:"11px"}}>
         Don't have an accoun?{" "}
         <BoldLink href="#" onClick={() => Switch({ active: "signup" })}>
           Signup
         </BoldLink>
-      </MutedLink>
+      </MutedText>
       <ToastContainer />
     </BoxContainer>
   );

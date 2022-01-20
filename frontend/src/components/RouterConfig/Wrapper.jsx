@@ -15,14 +15,14 @@ function Wrapper(props) {
   };
   return (
     <>
-      <Paper sx={{ bgcolor: "#ede7f6" }}>
-        <Navbar />
-        {props.children}
-        <Footer />
-        {!isLoggedIn && loginModel && (
-          <Model onClose={LoginModelHandler}></Model>
-        )}
-      </Paper>
+        <Paper sx={{ bgcolor: "#ede7f6", height: "100%" }}>
+          <Navbar />
+          <div style={{ height: "100%" }}>{props.children}</div>
+          <Footer />
+          {!isLoggedIn && loginModel && (
+            <Model onClose={LoginModelHandler}></Model>
+          )}
+        </Paper>
     </>
   );
 }

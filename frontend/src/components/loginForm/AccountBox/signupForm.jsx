@@ -5,7 +5,6 @@ import {
   BoxContainer,
   FormContainer,
   Input,
-  MutedLink,
   MutedText,
   SubmitButton,
   Validationlabel,
@@ -86,12 +85,12 @@ export function SignupForm(props) {
         Send OTP
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
-      <MutedLink href="#">
+      <MutedText style={{fontSize:"11px"}}>
         Already have an account?
         <BoldLink href="#" onClick={() => Switch({ active: "signin" })}>
           Signin
         </BoldLink>
-      </MutedLink>
+      </MutedText>
       <ToastContainer />
     </BoxContainer>
   );

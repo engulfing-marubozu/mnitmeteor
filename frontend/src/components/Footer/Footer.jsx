@@ -1,23 +1,24 @@
-import React from 'react'
+import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 
 function Copyright() {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center">
-        {"Copyright © "}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{" "}
-        {new Date().getFullYear()}
-        {"."}
-      </Typography>
-    );
-  }
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 function Footer() {
-    return (
-        <Box sx={{ bgcolor: "#5e35b1", p: 1 }} component="footer">
+  return (
+    <div style={{ marginTop: "auto" }}>
+      <Box sx={{ bgcolor: "#5e35b1", p: 1 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
@@ -30,8 +31,9 @@ function Footer() {
           Something here to give the footer a purpose!
         </Typography>
         <Copyright />
-        </Box>
-    )
+      </Box>
+    </div>
+  );
 }
 
-export default Footer
+export default Footer;

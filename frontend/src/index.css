@@ -1,6 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap");
 @import "~react-image-gallery/styles/css/image-gallery.css";
 html,
+
+html{
+  height:100%;
+}
+
+body{
+  height:100%;
+  margin:0;
+  display:flex;
+  flex-direction: column;
+}
 #root {
   width: 100%;
   height: 100%;

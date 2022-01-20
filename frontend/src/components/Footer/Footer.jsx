@@ -17,7 +17,7 @@ function Copyright() {
 }
 function Footer() {
   return (
-    <div style={{ marginTop: "auto" }}>
+    <div style={{ marginTop:"auto"}}>
       <Box sx={{ bgcolor: "#5e35b1", p: 1 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Footer

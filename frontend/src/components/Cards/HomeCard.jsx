@@ -15,8 +15,8 @@ import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import {
   modelPopUp,
-  addToFavourites,
-  removeFromFavourites,
+  fetchDataForATF,
+  fetchDataForRTF,
 } from "../../AStatemanagement/Actions/userActions";
 
 
@@ -61,8 +61,8 @@ export default function HomeCard(props) {
     if (isLoggedIn) {
       setLikeButton(!likeButton);
       const likeData = { productId: props.cardData._id, userToken: token };
-      !likeButton && dispatch(addToFavourites({ ...likeData, isLiked: true }));
-       likeButton && dispatch(removeFromFavourites({ ...likeData, isLiked: false }));
+      !likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
+       likeButton && dispatch(fetchDataForRTF({ ...likeData, isLiked: false }));
         
     } else {
       dispatch(modelPopUp(true));

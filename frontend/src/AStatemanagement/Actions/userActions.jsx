@@ -50,3 +50,15 @@ export const removeFromOrders = (data) => {
     payload: data,
   };
 };
+
+export const fetchDataForATF=(likedata)=>{
+  return async (dispatch)=>{
+    // const response=await  
+  }
+}
+
+export const fetchDataForRTF=(dislikedata)=>{
+  return async(dispatch)=>{
+  //  const response=await 
+  }
+}

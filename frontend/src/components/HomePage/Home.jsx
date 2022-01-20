@@ -24,7 +24,7 @@ export default function Home() {
       {/*  CATEGORY BAR++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
       <button
         onClick={() => {
-          Navigate("/Product/Cycles");
+          Navigate("/Product/Cycle");
         }}
       >
         {" "}
@@ -40,7 +40,7 @@ export default function Home() {
       </button>
       <button
         onClick={() => {
-          Navigate("/Product/Clothes");
+          Navigate("/Product/Cloth");
         }}
       >
         {" "}
@@ -48,7 +48,7 @@ export default function Home() {
       </button>
       <button
         onClick={() => {
-          Navigate("/Product/Others");
+          Navigate("/Product/Other");
         }}
       >
         {" "}

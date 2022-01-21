@@ -5,7 +5,6 @@ import {
   DELETE_FROM_ORDERS,
   LOGOUT_USER,
   MODEL_POPUP,
-  REMOVE_FROM_FAVOURITES,
   SELLNOW_CLICKED,
 } from "./types";
 // import { USER_SERVER } from "../components/Config.js";
@@ -30,17 +29,16 @@ export const addToFavourites = (data) => {
     payload: data,
   };
 };
-export const removeFromFavourites = (data) => {
-  console.log(data);
-  return {
-    type: REMOVE_FROM_FAVOURITES,
-    payload: data,
-  };
-};
+// export const removeFromFavourites = (data) => {
+//   console.log(data);
+//   return {
+//     type: REMOVE_FROM_FAVOURITES,
+//     payload: data,
+//   };
+// };
 export const addToOrders = (data) => {
-  
   return {
-    type: ADD_TO_ORDERS,
+    type: ADD_TO_ORDERS,  
     payload: data,
   };
 };
@@ -51,14 +49,14 @@ export const removeFromOrders = (data) => {
   };
 };
 
-export const fetchDataForATF=(likedata)=>{
-  return async (dispatch)=>{
-    // const response=await  
-  }
-}
+export const fetchDataForATF = (likedata) => {
+  return async (dispatch) => {
+    // const response=await
+  };
+};
 
-export const fetchDataForRTF=(dislikedata)=>{
-  return async(dispatch)=>{
-  //  const response=await 
-  }
-}
+// export const fetchDataForRTF = (dislikedata) => {
+//   return async (dispatch) => {
+//     //  const response=await
+//   };
+// };

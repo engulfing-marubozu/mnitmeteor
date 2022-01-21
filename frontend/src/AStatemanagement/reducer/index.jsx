@@ -1,10 +1,15 @@
-import { combineReducers } from 'redux';
-import {loginlogoutReducer} from './UserReducer';
-import { ModelPopUpReducer } from './UserReducer';
+import { combineReducers } from "redux";
+import {
+  loginlogoutReducer,
+  ModelPopUpReducer,
+  FavouritesReducer,
+} from "./UserReducer";
+import {} from "./UserReducer";
 
 const rootReducer = combineReducers({
-   loginlogoutReducer,
-   ModelPopUpReducer,  
+  loginlogoutReducer,
+  ModelPopUpReducer,
+  FavouritesReducer,
 });
 
 export default rootReducer;

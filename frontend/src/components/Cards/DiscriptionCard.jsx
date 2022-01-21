@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  addToFavourites,
-  removeFromFavourites,
+  fetchDataForATF,
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 // import { useParams } from "react-router-dom";
@@ -47,9 +46,9 @@ function DiscriptionCard() {
       setIsAddedToFav(!isAddedToFav);
       const likeData = { productId: params.productId, userToken: token };
       !isAddedToFav &&
-        dispatch(addToFavourites({ ...likeData, isLiked: true }));
+        dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
       isAddedToFav &&
-        dispatch(removeFromFavourites({ ...likeData, isLiked: false }));
+        dispatch(fetchDataForATF({ ...likeData, isLiked: false }));
     } else {
       dispatch(modelPopUp(true));
     }

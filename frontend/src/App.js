@@ -6,8 +6,8 @@ import { AuthUser } from "./AStatemanagement/Actions/userActions.jsx";
 import {useEffect} from "react";
 
 
-
 function App() {
+  console.log("first");
   const dispatch = useDispatch();
 
   useEffect(()=>{

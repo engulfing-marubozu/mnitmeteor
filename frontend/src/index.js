@@ -1,3 +1,4 @@
+
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
@@ -8,6 +9,9 @@ import { createBrowserHistory } from "history";
 import { Provider } from 'react-redux';
 import storewithMiddleWare from "./AStatemanagement/Store";
 const history = createBrowserHistory();
+
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={storewithMiddleWare}>

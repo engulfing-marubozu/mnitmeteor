@@ -1,10 +1,8 @@
 // export const LOGIN_USER = 'login_user';
-export const LOGOUT_USER = 'logout_user';
-export const AUTH_USER="auth-user";
-export const SELLNOW_CLICKED="sellnow_clicked";
-export const   MODEL_POPUP="model_popup";
-export const ADD_TO_FAVOURITES = 'add_to_favourites';
-export const GET_USER_FAVOURITES_DATA = 'get_user_favourites_data';
-export const REMOVE_FROM_FAVOURITES = 'remove_from_favourites';
-export const  ADD_TO_ORDERS='add_to_profile';
-export const DELETE_FROM_ORDERS='delete_from_profile';
+export const LOGOUT_USER = "logout_user";
+export const AUTH_USER = "auth-user";
+export const SELLNOW_CLICKED = "sellnow_clicked";
+export const MODEL_POPUP = "model_popup";
+export const ADD_TO_FAVOURITES = "add_to_favourites";
+export const ADD_TO_ORDERS = "add_to_profile";
+export const DELETE_FROM_ORDERS = "delete_from_profile";

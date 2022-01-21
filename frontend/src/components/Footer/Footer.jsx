@@ -17,22 +17,20 @@ function Copyright() {
 }
 function Footer() {
   return (
-    <div style={{ marginTop:"auto"}}>
-      <Box sx={{ bgcolor: "#5e35b1", p: 1 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </Box>
-    </div>
+    <Box sx={{ bgcolor: "#5e35b1", p: 1 }} component="footer">
+      <Typography variant="h6" align="center" gutterBottom>
+        Footer
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        align="center"
+        color="text.secondary"
+        component="p"
+      >
+        Something here to give the footer a purpose!
+      </Typography>
+      <Copyright />
+    </Box>
   );
 }
 

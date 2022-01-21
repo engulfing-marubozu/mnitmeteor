@@ -1,4 +1,5 @@
 import {
+  ADD_TO_FAVOURITES,
   AUTH_USER,
   LOGOUT_USER,
   MODEL_POPUP,
@@ -12,23 +13,19 @@ const InitialState = {
 
 export const loginlogoutReducer = (state = InitialState, action) => {
   switch (action.type) {
-
-
-    
     case AUTH_USER:
       return {
         ...state,
         isLogin: true,
         userData: action.payload.user,
-        token : action.payload.token
+        token: action.payload.token,
       };
-
 
     case LOGOUT_USER:
       return {
         ...state,
         userData: null,
-        token : null,
+        token: null,
         isLogin: false,
         sellnowClicked: false,
       };
@@ -46,6 +43,19 @@ export const ModelPopUpReducer = (state = modelPopInitialValue, action) => {
   switch (action.type) {
     case MODEL_POPUP:
       return { ...state, popUp: action.payload };
+    default:
+      return state;
+  }
+};
+
+const favouritesInitialValue = {};
+export const FavouritesReducer = (state = favouritesInitialValue, action) => {
+  switch (action.type) {
+    case ADD_TO_FAVOURITES:
+      return {
+        ...state,
+        favouritesData: action.payload,
+      };
     default:
       return state;
   }

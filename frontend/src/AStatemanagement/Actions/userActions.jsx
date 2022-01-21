@@ -7,7 +7,7 @@ import {
   MODEL_POPUP,
   SELLNOW_CLICKED,
 } from "./types";
-import axios from "axios"
+import axios from "axios";
 // import { USER_SERVER } from "../components/Config.js";
 
 export const AuthUser = (data = {}) => {
@@ -30,15 +30,7 @@ export const addToFavourites = (data) => {
     payload: data,
   };
 };
-// export const removeFromFavourites = (data) => {
-//   console.log(data);
-//   return {
-//     type: REMOVE_FROM_FAVOURITES,
-//     payload: data,
-//   };
-// };
 export const addToOrders = (data) => {
-  
   return {
     type: ADD_TO_ORDERS,
     payload: data,
@@ -51,28 +43,23 @@ export const removeFromOrders = (data) => {
   };
 };
 
-export const fetchDataForATF=(likedata)=>{
+export const fetchDataForATF = (likedata) => {
   console.log(likedata);
-  return async (dispatch)=>{
-    try{
-      const { productId, userToken, isLiked} = likedata;
-       const response = await axios.post("http://localhost:5000/favourites_update", 
-       {productId, isLiked},
-         {headers : {
-           Authorization : `Bearer ${userToken}`
-         }},
-      )
-      dispatch( addToFavourites(response.data));
-     }
-      catch(err)
-      {
-        console.log(err);
-      }
-  }
-}
-
-// export const fetchDataForRTF=(dislikedata)=>{
-//   return async(dispatch)=>{
-//   //  const response=await 
-//   }
-// }
+  return async (dispatch) => {
+    try {
+      const { productId, userToken, isLiked } = likedata;
+      const response = await axios.post(
+        "http://localhost:5000/favourites_update",
+        { productId, isLiked },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      dispatch(addToFavourites(response.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};

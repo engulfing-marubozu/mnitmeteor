@@ -1,4 +1,4 @@
-const { Product } = require("../Models");
+const { Product, User } = require("../Models");
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
@@ -14,13 +14,15 @@ const products = async (req, res) => {
     const title = req.body.details.adTitle;
     const description = req.body.details.description;
     const category = req.body.details.categories;
-
+    const user_id = req.user._id;
+      // console.log(user_id);
+      // console.log(req.user);
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const upload_response = await cloudinary.uploader.upload(image.data_url, {
           upload_preset: "dev_setups",
         });
-        console.log("deepak");
+      
         return upload_response.url;
       })
     );
@@ -31,11 +33,14 @@ const products = async (req, res) => {
       title: title,
       category: category,
       description: description,
+      posted_by: user_id,
       images: image_cloud_link,
     });
     try {
-      Product_save.save();
-      res.status(200).send("product saved in database");
+      const saved_product = await Product_save.save();
+      console.log(saved_product);
+      await User.findByIdAndUpdate( user_id, {$addToSet :  { products_posted : saved_product._id }} );
+      res.status(200).send("unverified product saved in database with and user's orders updated");
     } catch (err) {
       console.log(err);
     }
@@ -85,38 +90,63 @@ const admin_response = async (req, res) => {
 
 
  //fetch data to show live data
-const fetch = async (req, res) => {
+const fetch_livedata = async (req, res) => {
+  // console.log(req.body.email);
    console.log("reached to pick up data");
     try{
+
+        const email = req.body.email;
         const category = req.body.category;
+        let fetch_post;
         console.log(category);
         if(category === "recommendation")
         {  console.log("hello");
-             const fetch_post = await Product
+              fetch_post = await Product
                                        .where("is_verified")
                                        .equals(true);
             
             console.log(fetch_post);
-            res.status(200).send(fetch_post);                          
+          //  res.status(200).send(fetch_post);                          
         }
         else{
           console.log("hemllo");
-        const fetch_post =await Product
+         fetch_post =await Product
                                   .where("category")
                                   .equals(category)
                                   .where("is_verified")
                                   .equals(true);
               console.log(fetch_post);                    
-              res.status(200).send(fetch_post);                    
-        }                          
+          //    res.status(200).send(fetch_post);                    
+        }   
+        
+        if(email)
+        {
+           const {favourites} = await User.findOne({email : email});
+           console.log(favourites);
+           
+           fetch_post.forEach((post)=>{
+             console.log(post._id);
+           if(favourites.indexOf( post._id ) !== -1)
+            {
+                  post.blue_heart = true;
+            }
+          console.log(post);
+           })
+           console.log(fetch_post);
+           res.status(200).send(fetch_post);
+        }
+        else
+        res.status(200).send(fetch_post);
+        
     }
   catch (err) {
    console.log(err);
    res.status(200).send(err);
  }
+
 };
 
 
 
 
-module.exports = { products, admin_postLoad, admin_response , fetch };
+module.exports = { products, admin_postLoad, admin_response , fetch_livedata };

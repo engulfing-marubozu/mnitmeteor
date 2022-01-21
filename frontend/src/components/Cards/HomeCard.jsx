@@ -50,14 +50,23 @@ export default function HomeCard(props) {
 
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  
+  
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
   // =========================================================================================================================================
-
-  const [likeButton, setLikeButton] = useState(false);
-  const LikeButtonHandler = () => {
+  console.log(props.cardData.blue_heart);
+ 
+  const [likeButton, setLikeButton] = useState();
+  React.useEffect(()=>{
+    setLikeButton(props.cardData.blue_heart);
+  },[props.cardData.blue_heart])
+  console.log(props.cardData.blue_heart);
+  console.log(likeButton);
+  const LikeButtonHandler = () => { 
     // console.log("likeButtonHandler");
     if (isLoggedIn) {
+      console.log(token);
       setLikeButton(!likeButton);
       const likeData = { productId: props.cardData._id, userToken: token };
       !likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
@@ -121,7 +130,7 @@ export default function HomeCard(props) {
             aria-label="add to favorites"
             onClick={LikeButtonHandler}
             sx={{
-              color: likeButton ? "#512da8" : "text.disabled",
+              color: likeButton  ? "#512da8" : "text.disabled",
               p: { xs: "4px", sm: "8px" },
             }}
           >

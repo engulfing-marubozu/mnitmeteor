@@ -9,11 +9,17 @@ const userSchema = new mongoose.Schema({
           type: String
      },
      products_posted : {
-          type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+          type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+          default:[]
      },
      favourites :{
-         type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }]
-     } 
+         type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+         default: []
+     },
+     interested : {
+         type : [ {type: Schema.Types.ObjectId, ref: 'Product' }],
+         default:[]
+     }
 }, {timestamps: true});
 
 	
@@ -27,6 +33,10 @@ const productsSchema = new mongoose.Schema({
     description: {
         type: String
     },
+    posted_by :{
+       type: Schema.Types.ObjectId,
+       ref: 'User' ,
+    },
     images :{
         type: []
     },
@@ -35,13 +45,18 @@ const productsSchema = new mongoose.Schema({
         default : false
     },
     likes : {
-        type :  [{ type: Schema.Types.ObjectId, ref: 'User' }]
+        type :  [{ type: Schema.Types.ObjectId, ref: 'User' }],
+        default:[]
    },
+   blue_heart : {
+       type : Boolean,
+       default : false
+   }
 
 },{timestamps: true});
 
 
-//make models
+
 const Product = mongoose.model("Product", productsSchema);
 const User = mongoose.model("User", userSchema);
 

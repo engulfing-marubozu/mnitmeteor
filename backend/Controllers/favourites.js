@@ -1,21 +1,38 @@
 const { Product ,User} = require("../Models");
 
 
-// this function will take jwt token and product _id and will update the user in product and product in user (many to many in mongoose)
+// this function will take jwt token and product _id and will update the user in product and product in user  after he/she likes any post(many to many in mongoose)
 const favourites_update= async (req, res)=>
 {
        console.log(req.user._id);
-       console.log(req.body.product_id);
+       console.log(req.body.productId);
        const user_id = req.user._id;
-       const product_id = req.body.product_id;
-  try{
-       await Product.findOneAndUpdate({_id : product_id , is_verified : true}, { $addToSet : {likes : user_id} });
-       await User.findOneAndUpdate({_id : user_id}, {$addToSet :  {favourites : product_id}} );
-     }
-  catch(err){
-      console.log(err);
-  }
-       res.status(200).send("ok");
+       const product_id = req.body.productId;
+       const is_liked = req.body.isLiked;
+       let updated_user ;
+       if(is_liked)
+              {try{
+                await Product.findOneAndUpdate({_id : product_id , is_verified : true}, { $addToSet : {likes : user_id} });
+                updated_user =  await User.findByIdAndUpdate( user_id, {$addToSet :  {favourites : product_id}} , {new : true} );
+               }
+            catch(err){
+                 console.log(err);
+               }
+          }
+          else{
+                 console.log("heya .. came to delete");
+               try{
+                  await Product.findOneAndUpdate({_id : product_id , is_verified : true} , {$pull  : {likes : user_id}});
+                  updated_user = await User.findByIdAndUpdate( user_id, {$pull : {favourites : product_id}}, {new : true});
+               }
+               catch(err)
+               {
+                     console.log(err);
+               }
+          }
+          console.log(updated_user);
+          res.status(200).json({updatedUser : updated_user});
+
 }
 
 

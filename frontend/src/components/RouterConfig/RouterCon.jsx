@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import Favourites from "../Favourites/Favourites";
 function RouterCon() {
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  
   console.log(isLoggedIn);
   return (
     <Routes>
@@ -29,7 +28,7 @@ function RouterCon() {
       />
       <Route
         path="Profile"
-        element={ <Profile /> }
+        element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
       />
       <Route
         path="Favourites"

@@ -6,7 +6,8 @@ const morgan = require("morgan");
 const bodyparser = require("body-parser")
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const {userSchema } = require("./Models")
+
+
 require("dotenv").config();
 
 // variables
@@ -25,6 +26,8 @@ mongoose.connect(database_url)
         console.error(`Error connecting to the database. \n${err}`);
     });
 
+// make models
+
 
 //auto load routes and middlewares
 app.use(cors());
@@ -37,4 +40,3 @@ fs.readdirSync('./Routes').map((f)=> app.use('/', require(`./Routes/${f}`)))
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`)
 })
-

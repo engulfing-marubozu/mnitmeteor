@@ -10,6 +10,7 @@ import UploadImage from "../FormUI/uploadImage";
 import ButtonWrapper from "../FormUI/ButtonWrapper";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import {useSelector} from "react-redux";
 import axios from "axios";
 
 const INITIAL_FORM_STATE = {};
@@ -21,7 +22,7 @@ const FORM_VALIDATION = Yup.object().shape({
 
 const SellForm = (props) => {
   const Navigate = useNavigate();
-
+  const token = useSelector((state) => state.loginlogoutReducer.token);
   const [imagearray, setimagearray] = useState([]);
   // const [isEntering, setIsEntering] = useState(false);
 
@@ -35,11 +36,16 @@ const SellForm = (props) => {
   const merge = async (values) => {
     console.log(values);
     // setimagearray([...imagearray, values]);
-
+     console.log(token);
     try {
       const response = await axios.post(
         "http://localhost:5000/product_details",
-        { images: imagearray, details: values }
+        { images: imagearray, details: values },
+        {
+          headers:{
+            Authorization : `Bearer ${token}`
+          }
+        }
       );
       console.log(response.data);
     } catch (err) {

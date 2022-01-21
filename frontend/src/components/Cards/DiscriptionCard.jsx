@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   addToFavourites,
-  removeFromFavourites,
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 // import { useParams } from "react-router-dom";
@@ -49,7 +48,7 @@ function DiscriptionCard() {
       !isAddedToFav &&
         dispatch(addToFavourites({ ...likeData, isLiked: true }));
       isAddedToFav &&
-        dispatch(removeFromFavourites({ ...likeData, isLiked: false }));
+        dispatch(addToFavourites({ ...likeData, isLiked: false }));
     } else {
       dispatch(modelPopUp(true));
     }

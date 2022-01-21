@@ -8,7 +8,9 @@ import {
 const InitialState = {
   isLogin: false,
   sellnowClicked: false,
+  userData: {email: undefined}
 };
+
 
 export const loginlogoutReducer = (state = InitialState, action) => {
   switch (action.type) {
@@ -27,7 +29,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
     case LOGOUT_USER:
       return {
         ...state,
-        userData: null,
+        userData: {email: undefined},
         token : null,
         isLogin: false,
         sellnowClicked: false,

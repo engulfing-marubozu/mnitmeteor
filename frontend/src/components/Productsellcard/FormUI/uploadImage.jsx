@@ -20,7 +20,7 @@ export default function UploadImage(props) {
       onChange={onChange}
       maxNumber={maxNumber}
       dataURLKey="data_url"
-      acceptType={['jpg', 'png']	}
+      acceptType={['jpg', 'png', 'jpeg', 'webp']	}
       maxFileSize={5*1024*1024}
     >
       {({

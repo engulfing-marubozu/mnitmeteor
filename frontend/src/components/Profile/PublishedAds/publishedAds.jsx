@@ -1,7 +1,9 @@
-import React from 'react';
+//import React, { useEffect, useState } from 'react';
 import CardForPublishedAd from './CardForPublishedAd';
 import Slider from "react-slick";
 import styled from "styled-components";
+// import axios from "axios";
+// import {useSelector} from "react-redux";
 export const SliderContainer = styled.div`
   width: 1200px;
   margin: 0px auto;
@@ -19,6 +21,19 @@ export const SliderContainer = styled.div`
 
 const arr = [1, 2, 3,4,5,6,7,8,9];
 function PublishedAds() {
+
+  //  useEffect(()=>{
+
+  //  async function call(){
+  //     const [arr, setarray] = useState([]);
+  //     const response = axios.get()
+  //  }
+
+  //   call();
+  //  })
+
+
+
   var settings = {
     dots: true,
     className: "innerDiv",

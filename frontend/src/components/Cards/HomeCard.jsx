@@ -129,7 +129,7 @@ export default function HomeCard(props) {
             aria-label="add to favorites"
             onClick={LikeButtonHandler}
             sx={{
-              color: likeButton ? "#512da8" : "text.disabled",
+              color: likeButton && isLoggedIn  ? "#512da8" : "text.disabled",
               p: { xs: "4px", sm: "8px" },
             }}
           >

@@ -10,7 +10,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 // import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-import Image1 from "../Cards/Images/Image1.jfif";
+// import Image1 from "../Cards/Images/Image1.jfif";
 // import { useState } from "react";
 import { styled } from "@mui/material/styles";
 // import { useSelector, useDispatch } from "react-redux";
@@ -36,16 +36,16 @@ const useStyles = makeStyles({
 });
 
 export default function FavouritesCard(props) {
-  // console.log(props.cardData);
+   console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-  //   const Image = props.cardData.images[0];
-  //   const title =
-  //     props.cardData.title.charAt(0).toUpperCase() +
-  //     props.cardData.title.slice(1);
-  //   const date = new Date(props.cardData.createdAt);
-  //   const properDate = `${date.toLocaleString("default", {
-  //     month: "short",
-  //   })} ${date.getDate()}, ${date.getFullYear()}`;
+    const Image = props.cardData.images[0];
+    const title =
+      props.cardData.title.charAt(0).toUpperCase() +
+      props.cardData.title.slice(1);
+    const date = new Date(props.cardData.createdAt);
+    const properDate = `${date.toLocaleString("default", {
+      month: "short",
+    })} ${date.getDate()}, ${date.getFullYear()}`;
 
   //  ============================================================================================================================================
   //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -83,7 +83,7 @@ export default function FavouritesCard(props) {
           classes={{ img: Classes.image }}
           width="280px"
           sx={{ height: { xs: "180px" } }}
-          image={Image1}
+          image={Image}
           alt="Image"
         />
 
@@ -106,7 +106,7 @@ export default function FavouritesCard(props) {
                 fontSize: { xs: "small", md: "default" },
               }}
             >
-              {/* {title} */}Hercules Cycle Bahot achhi hai
+              {title}
             </Typography>
             <Typography
               variant="body2"
@@ -115,7 +115,7 @@ export default function FavouritesCard(props) {
                 fontSize: { xs: "x-small", sm: "default" },
               }}
             >
-              {/* {properDate} */}sep 26,2020
+              {properDate}
             </Typography>
           </Box>
 

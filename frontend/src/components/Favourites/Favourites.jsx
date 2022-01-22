@@ -1,11 +1,10 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import FavouritesCard from "./favouriteCard";
-import HomeCard from "../Cards/HomeCard";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 
-const cardData = [1, 2, 3, 4];
+const cardData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 23, 14, 15, 16, 17];
 
 function Favourites() {
   return (

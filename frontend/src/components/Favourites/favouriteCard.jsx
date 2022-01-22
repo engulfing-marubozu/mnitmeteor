@@ -101,7 +101,7 @@ export default function FavouritesCard(props) {
               variant="h6"
               noWrap
               sx={{
-                maxWidth: { xs: 180, sm: 180 },
+                maxWidth: { xs: 100, sm: 180 },
                 fontWeight: "bold",
                 fontSize: { xs: "small", md: "default" },
               }}
@@ -142,7 +142,7 @@ export default function FavouritesCard(props) {
         </CardContentNoPadding>
       </Card>
 
-      <div style={{ zIndex: 11, position: "absolute" ,right:"0px" }}>
+      <div style={{ zIndex: 11, position: "absolute", right: "0px" }}>
         <IconButton>
           <CloseIcon sx={{ fontSize: "28px" }} />
         </IconButton>

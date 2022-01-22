@@ -39,7 +39,7 @@ const favourites_update= async (req, res)=>
 // always try to use async await in mongoose queries
 // this function will return all the favourites of any user and will fetch the user id from the jwt token
 const send_favourites= async(req, res)=>
-{     
+{      console.log("deepak madarchod");
        console.log(req.user._id);
        user_id = req.user._id;
        const user =await  User.findById(user_id);

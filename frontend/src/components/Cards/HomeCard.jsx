@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   modelPopUp,
   fetchDataForATF,
+  descriptionPageData,
 } from "../../AStatemanagement/Actions/userActions";
 
 // ===============================================================
@@ -55,18 +56,17 @@ export default function HomeCard(props) {
 
   const [likeButton, setLikeButton] = useState();
 
-  
   React.useEffect(() => {
     setLikeButton(props.cardData.blue_heart);
-  },[props.cardData.blue_heart])
+  }, [props.cardData.blue_heart]);
 
-  console.log(props.cardData.blue_heart);
+  // console.log(props.cardData.blue_heart);
 
-  console.log(likeButton);
-  const LikeButtonHandler = () => { 
+  // console.log(likeButton);
+  const LikeButtonHandler = () => {
     // console.log("likeButtonHandler");
     if (isLoggedIn) {
-      console.log(token);
+      // console.log(token);
       setLikeButton(!likeButton);
       const likeData = { productId: props.cardData._id, userToken: token };
       !likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
@@ -129,7 +129,7 @@ export default function HomeCard(props) {
             aria-label="add to favorites"
             onClick={LikeButtonHandler}
             sx={{
-              color: likeButton && isLoggedIn  ? "#512da8" : "text.disabled",
+              color: likeButton && isLoggedIn ? "#512da8" : "text.disabled",
               p: { xs: "4px", sm: "8px" },
             }}
           >

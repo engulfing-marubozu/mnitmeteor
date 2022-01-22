@@ -3,30 +3,33 @@ import { Typography } from "@mui/material";
 import FavouritesCard from "./favouriteCard";
 //import HomeCard from "../Cards/HomeCard";
 import Container from "@mui/material/Container";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
 
-
-
 function Favourites() {
-
-  const [cardData, setcardData] = useState([]);
-  const  token = useSelector ((state)=> state.loginlogoutReducer.token);
-      useEffect(()=>{
-        async function call(){
-         const response = await axios.get('http://localhost:5000/send_favourites', {
-            headers :{
-              authorization : `Bearer ${token}`
-            }
-          }) 
-          setcardData(response.data);
-          console.log(response.data);
+  const [cardData, setcardData] = useState();
+  
+  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const favouritesLength = useSelector(
+    (state) => state.FavouritesReducer.favouritesData?.userFavourites.length
+  );
+  useEffect(() => {
+    async function call() {
+      const response = await axios.get(
+        "http://localhost:5000/send_favourites",
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         }
-        call();
-      }, [cardData.length, token])
-    
-   
+      );
+      setcardData(response.data);
+      // console.log(response.data);
+    }
+    call();
+  }, [favouritesLength, token]);
+
   return (
     <div>
       <Typography
@@ -50,7 +53,7 @@ function Favourites() {
               cardData.map((data, index) => {
                 return (
                   <Grid item xs={6} sm={4} lg={3} key={index}>
-                    <FavouritesCard cardData = {data} />
+                    <FavouritesCard cardData={data} />
                   </Grid>
                 );
               })}

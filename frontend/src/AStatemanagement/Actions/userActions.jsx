@@ -24,7 +24,7 @@ export const modelPopUp = (bool) => {
   return { type: MODEL_POPUP, payload: bool };
 };
 export const addToFavourites = (data) => {
-  console.log(data);
+  // console.log(data);
   return {
     type: ADD_TO_FAVOURITES,
     payload: data,
@@ -44,7 +44,7 @@ export const removeFromOrders = (data) => {
 };
 
 export const fetchDataForATF = (likedata) => {
-  console.log(likedata);
+  // console.log("deepak");
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;

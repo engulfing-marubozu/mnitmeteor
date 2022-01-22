@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
@@ -34,13 +34,14 @@ const images = [
 ];
 
 function DiscriptionCard() {
-  const [isAddedToFav, setIsAddedToFav] = useState(false);
   const params = useParams();
   // =============================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
   // =============================================================================================================================
+  const [isAddedToFav, setIsAddedToFav] = useState();
+
   const favouriteClickHandler = () => {
     if (isLoggedIn) {
       setIsAddedToFav(!isAddedToFav);
@@ -53,6 +54,22 @@ function DiscriptionCard() {
       dispatch(modelPopUp(true));
     }
   };
+  // ================================================================CardData ===============================================================
+  // const Image = DescriptionPageData?.cardData.images[0];
+  // const title =
+  //   DescriptionPageData?.cardData.title.charAt(0).toUpperCase() +
+  //   DescriptionPageData?.cardData.title.slice(1);
+  // const date = new Date(DescriptionPageData?.cardData.createdAt);
+  // const properDate = `${date.toLocaleString("default", {
+  //   month: "short",
+  // })} ${date.getDate()}, ${date.getFullYear()}`;
+
+  // const Description=DescriptionPageData?.cardData.description;
+
+//=======================================================================================================================================
+
+
+
   const interesetedClickHandler = () => {};
 
   return (
@@ -71,13 +88,13 @@ function DiscriptionCard() {
               pt: { lg: 0, xs: 2 },
             }}
           >
-            Hercules Cylce
+            {/* {title} */}Hercules Cycle 
           </Typography>
           <Typography
             variant="body2"
             sx={{ fontWeight: "bold", px: { xs: 0, lg: 2 }, pt: 0, pb: 2 }}
           >
-            sep 26,2010
+          sep 26, 2020
           </Typography>
           <Stack
             spacing={{ xs: 1, sm: 2, md: 3 }}
@@ -117,7 +134,7 @@ function DiscriptionCard() {
               pb: { xs: 0 },
             }}
           >
-            Description
+           Description
           </Typography>
           <Typography
             variant="body1"
@@ -128,20 +145,14 @@ function DiscriptionCard() {
             magni natus quibusdam in exercitationem tenetur ullam minima! Eum
             explicabo reprehenderit in sed rerum. Quos animi corporis architecto
             vel hic quam quo tempore ducimus ex natus ab, cumque consectetur
-            eaque? Vitae, molestias.
+             eaque? Vitae, molestias.
+            {/* { Description} */}
+
           </Typography>
         </TextContainer>
       </Wrapper>
     </>
   );
 }
-
-// function DiscriptionCard() {
-//   let params = useParams();
-
-//   return (
-//     <BoxContainer>this is discription page of {params.productId};</BoxContainer>
-//   );
-// }
 
 export default DiscriptionCard;

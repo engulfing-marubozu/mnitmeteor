@@ -58,11 +58,12 @@ export default function HomeCard(props) {
   
   React.useEffect(() => {
     setLikeButton(props.cardData.blue_heart);
-  }, [props.cardData.blue_heart]);
+  },[props.cardData.blue_heart])
 
-  // console.log(props.cardData.blue_heart);
-  // console.log(likeButton);
-  const LikeButtonHandler = () => {
+  console.log(props.cardData.blue_heart);
+
+  console.log(likeButton);
+  const LikeButtonHandler = () => { 
     // console.log("likeButtonHandler");
     if (isLoggedIn) {
       console.log(token);

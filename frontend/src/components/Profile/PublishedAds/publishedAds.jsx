@@ -1,15 +1,15 @@
 import React from "react";
-// import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import CardForPublishedAd from "./CardForPublishedAd";
 import Slider from "react-slick";
 import styled from "styled-components";
-// import axios from "axios";
-// import {useSelector} from "react-redux";
-const arr = [1, 2, 3, 4, 5];
-const slides1500 = arr.length >= 4 ? 4 : arr.length;
-const slides1300 = arr.length >= 3 ? 3 : arr.length;
-const slides800 = arr.length >= 2 ? 2 : arr.length;
-const slides520 = arr.length >= 1 ? 1 : arr.length;
+ import axios from "axios";
+ import {useSelector} from "react-redux";
+let array = [1,2,3,4,5];
+const slides1500 = array >= 4 ? 4 : array;
+const slides1300 = array >= 3 ? 3 : array;
+const slides800 = array >= 2 ? 2 : array;
+const slides520 = array >= 1 ? 1 : array;
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -49,16 +49,26 @@ export const SliderContainer = styled.div`
 `;
 
 function PublishedAds() {
+  const [arr, setarr] = useState([]);
+  const  token = useSelector ((state)=> state.loginlogoutReducer.token);
 
-  //  useEffect(()=>{
+   useEffect(()=>{
+    async function call(){
+      const response = await axios.get('http://localhost:5000/send_published_Ads', {
+         headers :{
+           authorization : `Bearer ${token}`
+         }
+       }) 
+       setarr(response.data);
+       console.log(response.data);
+      }
 
-  //  async function call(){
-  //     const [arr, setarray] = useState([]);
-  //     const response = axios.get()
-  //  }
+      call();
+   }, [arr.length, token])
 
-  //   call();
-  //  })
+ 
+  
+  
 
 
 
@@ -106,7 +116,7 @@ function PublishedAds() {
       <Slider {...settings}>
         {arr &&
           arr.map((data, index) => {
-            return <CardForPublishedAd key={index} />;
+            return <CardForPublishedAd cardData = {data} key={index} />;
           })}
       </Slider>
     </SliderContainer>

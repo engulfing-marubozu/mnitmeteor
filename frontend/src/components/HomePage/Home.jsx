@@ -48,7 +48,7 @@ export default function Home() {
       </button>
       <button
         onClick={() => {
-          Navigate("/Product/Other");
+          Navigate("/Product/Others");
         }}
       >
         {" "}

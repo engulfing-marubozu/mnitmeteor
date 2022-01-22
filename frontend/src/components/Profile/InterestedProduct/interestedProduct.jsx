@@ -94,7 +94,7 @@ function InterestedProduct() {
       <Slider {...settings}>
         {arr &&
           arr.map((data, index) => {
-            return <CardForInterestedProduct key={index} />;
+            return <CardForInterestedProduct  key={index} />;
           })}
       </Slider>
     </SliderContainer>

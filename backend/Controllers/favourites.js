@@ -31,7 +31,7 @@ const favourites_update= async (req, res)=>
                }
           }
           console.log(updated_user);
-          res.status(200).json({updatedUser : updated_user});
+          res.status(200).json({updatedUser : updated_user.favourites});
 
 }
 

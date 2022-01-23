@@ -6,10 +6,10 @@ import styled from "styled-components";
  import axios from "axios";
  import {useSelector} from "react-redux";
 let array = [1,2,3,4,5];
-const slides1500 = array >= 4 ? 4 : array;
-const slides1300 = array >= 3 ? 3 : array;
-const slides800 = array >= 2 ? 2 : array;
-const slides520 = array >= 1 ? 1 : array;
+const slides1500 = array.length >= 4 ? 4 : array.length;
+const slides1300 = array.length >= 3 ? 3 : array.length;
+const slides800 = array.length >= 2 ? 2 : array.length;
+const slides520 = array.length >= 1 ? 1 : array.length;
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -67,12 +67,7 @@ function PublishedAds() {
    }, [arr.length, token])
 
  
-  
-  
-
-
-
-  var settings = {
+    var settings = {
     dots: true,
     className: "innerDiv",
     infinite: true,

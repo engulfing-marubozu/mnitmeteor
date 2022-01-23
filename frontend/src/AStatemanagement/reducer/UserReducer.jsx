@@ -1,5 +1,6 @@
 import {
   ADD_TO_FAVOURITES,
+  ADD_TO_INTERESTED,
   AUTH_USER,
   LOGOUT_USER,
   MODEL_POPUP,
@@ -61,3 +62,17 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
       return state;
   }
 };
+
+
+const interestedInitialValue={};
+export const InterestedReducer=(state =interestedInitialValue,action)=>{
+  switch(action.type){
+    case ADD_TO_INTERESTED:
+      return {
+        ...state,
+        interestedData:action.payload,
+      }
+      default:
+        return state;
+  }
+}

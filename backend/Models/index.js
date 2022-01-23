@@ -48,6 +48,10 @@ const productsSchema = new mongoose.Schema({
         type :  [{ type: Schema.Types.ObjectId, ref: 'User' }],
         default:[]
    },
+   interested_users : {
+    type :  [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    default:[]
+   },
    blue_heart : {
        type : Boolean,
        default : false

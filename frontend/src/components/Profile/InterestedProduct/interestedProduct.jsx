@@ -2,11 +2,15 @@ import React from "react";
 import CardForInterestedProduct from "./CardForInterestedProduct";
 import Slider from "react-slick";
 import styled from "styled-components";
-const arr = [1,2,3,4,5];
-const slides1500 = arr.length >= 4 ? 4 : arr.length;
-const slides1300 = arr.length >= 3 ? 3 : arr.length;
-const slides800 = arr.length >= 2 ? 2 : arr.length;
-const slides520 = arr.length >= 1 ? 2 : arr.length;
+import  { useEffect, useState } from 'react';
+import axios from "axios";
+import {useSelector} from "react-redux"
+let array = [1,2,3,4,5];
+const slides1500 = array.length >= 4 ? 4 : array.length;
+const slides1300 = array.length >= 3 ? 3 : array.length;
+const slides800 = array.length >= 2 ? 2 : array.length;
+const slides520 = array.length >= 1 ? 1 : array.length;
+
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -50,6 +54,25 @@ export const SliderContainer = styled.div`
 `;
 
 function InterestedProduct() {
+
+ const [arr, setarr] = useState([]);
+  const  token = useSelector ((state)=> state.loginlogoutReducer.token);
+
+   useEffect(()=>{
+    async function call(){
+      const response = await axios.get('http://localhost:5000/send_interested_products', {
+         headers :{
+           authorization : `Bearer ${token}`
+         }
+       }) 
+       setarr(response.data);
+       console.log(response.data);
+      }
+
+      call();
+   }, [arr.length, token])
+
+ 
   var settings = {
     dots: true,
     infinite: true,
@@ -94,7 +117,7 @@ function InterestedProduct() {
       <Slider {...settings}>
         {arr &&
           arr.map((data, index) => {
-            return <CardForInterestedProduct  key={index} />;
+            return <CardForInterestedProduct  cardData = {data} key={index} />;
           })}
       </Slider>
     </SliderContainer>

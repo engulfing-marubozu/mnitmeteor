@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
+  fetchDataForInterestedProduct,
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 // import { useParams } from "react-router-dom";
@@ -11,6 +12,7 @@ import { Typography, Stack } from "@mui/material";
 import { OutlinedButton, ColorButton } from "../Navbar/navbar";
 import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // RENDER DESCRIPTION DATA WITH THE HELP OF USE PARAMS
 
@@ -34,14 +36,47 @@ const images = [
 ];
 
 function DiscriptionCard() {
-  const params = useParams();
+  const params = useParams();                        
+ const  product_id = params.productId
   // =============================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
+  const email = useSelector((state) => state.loginlogoutReducer.userData.email);
   const dispatch = useDispatch();
-  // =============================================================================================================================
-  const [isAddedToFav, setIsAddedToFav] = useState();
+  // ============================================= FETCHING DATA================================================================================
+  const [cardData, setcardData] = useState()
 
+  useEffect (()=>
+  {  
+     const call = async ()=>{
+       try{
+        const response  = await axios.post("http://localhost:5000/send_specific_product", {email, product_id});
+         setcardData(response.data);
+       }
+       catch(err)
+       {
+         console.log(err);
+       }
+
+     }
+    call();
+  }, [email, product_id])
+// =====================================================INTERESTED======================================================================================
+  const [isInterested ,setIsInterested]=useState(false); 
+  const interesetedClickHandler = () => {
+    if(isLoggedIn){
+      setIsInterested(!isInterested);
+      const interestedData={productId:params.productId,userToken:token};
+      !isInterested && dispatch(fetchDataForInterestedProduct({...interestedData,isInterested:true}));
+      isInterested && dispatch(fetchDataForInterestedProduct({...interestedData,isInterested:false}))
+    }else{
+      dispatch(modelPopUp(true));
+    }
+   
+  };
+
+// ========================================================LIKESTATUS==========================================================================================
+  const [isAddedToFav, setIsAddedToFav] = useState();
   const favouriteClickHandler = () => {
     if (isLoggedIn) {
       setIsAddedToFav(!isAddedToFav);
@@ -55,22 +90,24 @@ function DiscriptionCard() {
     }
   };
   // ================================================================CardData ===============================================================
-  // const Image = DescriptionPageData?.cardData.images[0];
-  // const title =
-  //   DescriptionPageData?.cardData.title.charAt(0).toUpperCase() +
-  //   DescriptionPageData?.cardData.title.slice(1);
-  // const date = new Date(DescriptionPageData?.cardData.createdAt);
-  // const properDate = `${date.toLocaleString("default", {
-  //   month: "short",
-  // })} ${date.getDate()}, ${date.getFullYear()}`;
+  const Image = cardData?.images;
+  const title =
+    cardData?.title.charAt(0).toUpperCase() +
+    cardData?.title.slice(1);
+  const date = new Date(cardData?.createdAt);
+  const properDate = `${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getDate()}, ${date.getFullYear()}`;
 
-  // const Description=DescriptionPageData?.cardData.description;
+  const Description=cardData?.description;
+
+  
 
 //=======================================================================================================================================
 
 
 
-  const interesetedClickHandler = () => {};
+ 
 
   return (
     <>
@@ -88,13 +125,13 @@ function DiscriptionCard() {
               pt: { lg: 0, xs: 2 },
             }}
           >
-            {/* {title} */}Hercules Cycle 
+            {title}
           </Typography>
           <Typography
             variant="body2"
             sx={{ fontWeight: "bold", px: { xs: 0, lg: 2 }, pt: 0, pb: 2 }}
           >
-          sep 26, 2020
+        {properDate}
           </Typography>
           <Stack
             spacing={{ xs: 1, sm: 2, md: 3 }}
@@ -110,7 +147,8 @@ function DiscriptionCard() {
               }}
               onClick={interesetedClickHandler}
             >
-              Interested
+                {!isInterested && "Interested"}
+              {isInterested && "Un-Interested"}
             </OutlinedButton>
             <ColorButton
               sx={{
@@ -140,13 +178,7 @@ function DiscriptionCard() {
             variant="body1"
             sx={{ pt: { xs: 0 }, px: { lg: 2, xs: 0 } }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos
-            distinctio dolore vitae voluptate sint soluta. Aliquid, error. Eum
-            magni natus quibusdam in exercitationem tenetur ullam minima! Eum
-            explicabo reprehenderit in sed rerum. Quos animi corporis architecto
-            vel hic quam quo tempore ducimus ex natus ab, cumque consectetur
-             eaque? Vitae, molestias.
-            {/* { Description} */}
+         {Description}
 
           </Typography>
         </TextContainer>

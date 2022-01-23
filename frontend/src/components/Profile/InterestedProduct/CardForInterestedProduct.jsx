@@ -11,10 +11,9 @@ import {
   Button,
 } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-import Image4 from "../../Cards/Images/Image4.jfif";
+//import Image4 from "../../Cards/Images/Image4.jfif";
 import ShareIcon from "@mui/icons-material/Share";
-import { makeStyles } from "@mui/styles";
-// import { Link } from "react-router-dom";
+ import { makeStyles } from "@mui/styles"; import { Link } from "react-router-dom";
 // import { useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // // import {
@@ -54,14 +53,14 @@ const ColorButton = styled(Button)(({ theme }) => ({
 export default function CardForInterestedProduct(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-  //   const Image = props.cardData.images[0];
-  //   const title =
-  //     props.cardData.title.charAt(0).toUpperCase() +
-  //     props.cardData.title.slice(1);
-  //   const date = new Date(props.cardData.createdAt);
-  //   const properDate = `${date.toLocaleString("default", {
-  //     month: "short",
-  //   })} ${date.getDate()}, ${date.getFullYear()}`;
+    const Image = props.cardData.images[0];
+    const title =
+      props.cardData.title.charAt(0).toUpperCase() +
+      props.cardData.title.slice(1);
+    const date = new Date(props.cardData.createdAt);
+    const properDate = `${date.toLocaleString("default", {
+      month: "short",
+    })} ${date.getDate()}, ${date.getFullYear()}`;
 
   //  ============================================================================================================================================
   //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -78,16 +77,16 @@ export default function CardForInterestedProduct(props) {
         margin: { lg: "20px", xs: "10px" },
       }}
     >
-      {/* <Link to={`/ProductDiscription/${props.cardData._id}`}> */}
+      <Link to={`/ProductDiscription/${props.cardData._id}`}>
       <CardMedia
         component="img"
         classes={{ img: Classes.image }}
         width="260px"
         sx={{ height: { xs: "160px", sm: "180px" } }}
-        image={Image4}
+        image={Image}
         alt="Image"
       />
-      {/* </Link> */}
+      </Link>
 
       <CardContentNoPadding
         sx={{
@@ -107,7 +106,7 @@ export default function CardForInterestedProduct(props) {
             py: "5px",
           }}
         >
-          {/* {title} */} Hercules Cycleyfyugyugyui
+          {title}
         </Typography>
 
         <Box
@@ -124,7 +123,7 @@ export default function CardForInterestedProduct(props) {
               fontSize: { xs: "x-small", sm: "default" },
             }}
           >
-            {/* {properDate} */}sep 23,2202
+            {properDate}
           </Typography>
 
           <CardActions

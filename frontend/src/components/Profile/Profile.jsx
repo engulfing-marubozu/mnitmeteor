@@ -34,9 +34,9 @@ function Profile() {
           justifyContent: "flex-end",
         }}
       >
-      Your Orders
+        Your Orders
       </Typography>
-      <InterestedProduct/>
+      <InterestedProduct length={0} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
-import React from "react";
-import CardForInterestedProduct from "./CardForInterestedProduct";
 import Slider from "react-slick";
+import CardForPublishedAds from "./CardForPublishedAd";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -30,13 +29,13 @@ const useStyles = makeStyles({
     },
   },
 });
-
-function InterestedProduct(props) {
-  console.log(props.length);
-  const slides1500 = props.length >= 4 ? 4 : props.length;
-  const slides1300 = props.length >= 3 ? 3 : props.length;
-  const slides800 = props.length >= 2 ? 2 : props.length;
-  const slides520 = props.length >= 1 ? 1 : props.length;
+function StylingPublishedAds(props) {
+  const arrlength = props.length === 0 ? 1 : props.length;
+  //   console.log(props.length);
+  const slides1500 = arrlength >= 4 ? 4 : arrlength;
+  const slides1300 = arrlength >= 3 ? 3 : arrlength;
+  const slides800 = arrlength >= 2 ? 2 : arrlength;
+  const slides520 = arrlength >= 1 ? 1 : arrlength;
   const v1 = `${slides1500 * 260 + 40 * slides1500}px`;
   const v2 = `${slides1500 * 240 + 20 * slides1500}px`;
   const v3 = `${slides1300 * 260 + 20 * slides1300}px`;
@@ -55,9 +54,9 @@ function InterestedProduct(props) {
     v7: v7,
     v8: v8,
   };
-  console.log(styleObject);
+  //   console.log(styleObject);
   const classes = useStyles(styleObject);
-  const settings = {
+  let settings = {
     dots: true,
     speed: 500,
     slidesToShow: slides1500,
@@ -91,16 +90,16 @@ function InterestedProduct(props) {
       },
     ],
   };
-  const array = [];
   return (
     <div className={classes.divStyle}>
       <Slider {...settings}>
-        {array &&
-          array.map((data, index) => {
-            return <CardForInterestedProduct key={index} />;
+        {props.arr &&
+          props.arr.map((data, index) => {
+            return <CardForPublishedAds cardData={data} key={index} />;
           })}
       </Slider>
     </div>
   );
 }
-export default InterestedProduct;
+
+export default StylingPublishedAds;

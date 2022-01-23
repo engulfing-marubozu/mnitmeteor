@@ -73,16 +73,16 @@ export default function CardForInterestedProduct(props) {
   return (
     <Card
       sx={{
-        maxWidth: "260px",
+        maxwidth: "260px",
         borderRadius: 1,
-        margin: { lg: "20px", xs: "10px" },
+        margin: { lg: "10px", xs: "10px" },
       }}
     >
       {/* <Link to={`/ProductDiscription/${props.cardData._id}`}> */}
       <CardMedia
         component="img"
         classes={{ img: Classes.image }}
-        width="260px"
+        maxwidth="260px"
         sx={{ height: { xs: "160px", sm: "180px" } }}
         image={Image4}
         alt="Image"

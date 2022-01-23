@@ -10,6 +10,7 @@ const InitialState = {
   isLogin: false,
   sellnowClicked: false,
   userData: { email: undefined },
+
 };
 
 export const loginlogoutReducer = (state = InitialState, action) => {
@@ -26,7 +27,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
       return {
         ...state,
         userData: { email: undefined },
-        token: null,
+        token: undefined,
         isLogin: false,
         sellnowClicked: false,
       };

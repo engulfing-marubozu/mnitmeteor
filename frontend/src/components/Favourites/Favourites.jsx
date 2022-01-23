@@ -12,7 +12,7 @@ function Favourites() {
   
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const favouritesLength = useSelector(
-    (state) => state.FavouritesReducer.favouritesData?.userFavourites.length
+    (state) => state.FavouritesReducer.favouritesData
   );
   useEffect(() => {
     async function call() {

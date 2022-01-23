@@ -4,13 +4,12 @@ import {
   fetchDataForATF,
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
 import { Typography, Stack } from "@mui/material";
 import { OutlinedButton, ColorButton } from "../Navbar/navbar";
 import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
-import { useParams } from "react-router-dom";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // RENDER DESCRIPTION DATA WITH THE HELP OF USE PARAMS
 
@@ -35,11 +34,34 @@ const images = [
 
 function DiscriptionCard() {
   const params = useParams();
+  console.log(params);
   // =============================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userEmail=useSelector((state)=> state.loginlogoutReducer.userData.email)
+  console.log(userEmail);
   const dispatch = useDispatch();
   // =============================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const [isAddedToFav, setIsAddedToFav] = useState();
 
   const favouriteClickHandler = () => {

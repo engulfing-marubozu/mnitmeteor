@@ -138,4 +138,25 @@ const fetch_livedata = async (req, res) => {
   }
 };
 
-module.exports = { products, admin_postLoad, admin_response, fetch_livedata };
+// sends the data of a unique card with is like value of true or false to show on the bigger page when the user clicks on ant specific post
+
+const send_specific_product = async (req, res)=>{
+  console.log("heelo");
+  try{
+     const {email, product_id} = req.body;
+     const product = await Product.findById(product_id);
+     if(email)
+     {
+           const user = await User.findOne({email}) ;
+          
+              if (user.favourites.indexOf(product_id) !== -1) 
+                 product.blue_heart = true;
+     }
+    res.status(200).send(product);
+}
+catch(err){
+  console.log(err);
+}}
+
+
+module.exports = { products, admin_postLoad, admin_response, fetch_livedata, send_specific_product };

@@ -1,8 +1,7 @@
 import {
   ADD_TO_FAVOURITES,
-  ADD_TO_ORDERS,
+  ADD_TO_INTERESTED,
   AUTH_USER,
-  DELETE_FROM_ORDERS,
   LOGOUT_USER,
   MODEL_POPUP,
   SELLNOW_CLICKED,
@@ -30,18 +29,13 @@ export const addToFavourites = (data) => {
     payload: data,
   };
 };
-export const addToOrders = (data) => {
+export const addToInterested = (data) => {
   return {
-    type: ADD_TO_ORDERS,
+    type: ADD_TO_INTERESTED,
     payload: data,
   };
 };
-export const removeFromOrders = (data) => {
-  return {
-    type: DELETE_FROM_ORDERS,
-    payload: data,
-  };
-};
+
 
 export const fetchDataForATF = (likedata) => {
   // console.log("deepak");
@@ -63,3 +57,26 @@ export const fetchDataForATF = (likedata) => {
     }
   };
 };
+
+
+  export const fetchDataForInterestedProduct=(interestedData)=>{
+    return async(dispatch)=>{
+      try{
+        const {productId,userToken,isInterested}=interestedData;
+
+
+        const response = await axios.post(
+          "http://localhost:5000/interested_update",
+          { productId, isInterested },
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
+     dispatch(addToInterested(response.data));
+      }catch(err){
+        console.log(err);
+      }
+    }
+  }

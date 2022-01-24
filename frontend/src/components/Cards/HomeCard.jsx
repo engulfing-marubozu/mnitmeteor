@@ -18,6 +18,7 @@ import {
   fetchDataForATF,
   descriptionPageData,
 } from "../../AStatemanagement/Actions/userActions";
+import { TimeSince } from "../TimeElapsed/timecalc";
 
 // ===============================================================
 // PRODUCT DATA BY PRODUCT ID
@@ -44,10 +45,11 @@ export default function HomeCard(props) {
     props.cardData.title.charAt(0).toUpperCase() +
     props.cardData.title.slice(1);
   const date = new Date(props.cardData.createdAt);
-  const properDate = `${date.toLocaleString("default", {
-    month: "short",
-  })} ${date.getDate()}, ${date.getFullYear()}`;
-
+  // const properDate = `${date.toLocaleString("default", {
+  //   month: "short",
+  // })} ${date.getDate()}, ${date.getFullYear()}`;
+  const properDate=TimeSince(date); 
+  
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);

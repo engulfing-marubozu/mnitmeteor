@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
   fetchDataForInterestedProduct,
-  modelPopUp
+  modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import { Typography, Stack } from "@mui/material";
 import { OutlinedButton, ColorButton } from "../Navbar/navbar";
 import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
 import axios from "axios";
+import { TimeSince } from "../TimeElapsed/timecalc";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // RENDER DESCRIPTION DATA WITH THE HELP OF USE PARAMS
 
@@ -42,46 +43,45 @@ function DiscriptionCard() {
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const email = useSelector((state) => state.loginlogoutReducer.userData.email);
   const dispatch = useDispatch();
-// ========================================================LIKESTATUS==========================================================================================
-const [isAddedToFav, setIsAddedToFav] = useState(false);
-const favouriteClickHandler = () => {
-  if (isLoggedIn) {
-    setIsAddedToFav(!isAddedToFav);
-    const likeData = { productId: params.productId, userToken: token };
-    !isAddedToFav &&
-      dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
-    isAddedToFav &&
-      dispatch(fetchDataForATF({ ...likeData, isLiked: false }));
-  } else {
-    dispatch(modelPopUp(true));
-  }
-};
+  // ========================================================LIKESTATUS==========================================================================================
+  const [isAddedToFav, setIsAddedToFav] = useState(false);
+  const favouriteClickHandler = () => {
+    if (isLoggedIn) {
+      setIsAddedToFav(!isAddedToFav);
+      const likeData = { productId: params.productId, userToken: token };
+      !isAddedToFav &&
+        dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
+      isAddedToFav &&
+        dispatch(fetchDataForATF({ ...likeData, isLiked: false }));
+    } else {
+      dispatch(modelPopUp(true));
+    }
+  };
 
-// =====================================================INTERESTED======================================================================================
-const [isInterested, setIsInterested] = useState(false);
-const interesetedClickHandler = () => {
-  if (isLoggedIn) {
-    setIsInterested(!isInterested);
-    const interestedData = { productId: params.productId, userToken: token };
-    !isInterested &&
-      dispatch(
-        fetchDataForInterestedProduct({
-          ...interestedData,
-          isInterested: true,
-        })
-      );
-    isInterested &&
-      dispatch(
-        fetchDataForInterestedProduct({
-          ...interestedData,
-          isInterested: false,
-        })
-      );
-  } else {
-    dispatch(modelPopUp(true));
-  }
-};
-
+  // =====================================================INTERESTED======================================================================================
+  const [isInterested, setIsInterested] = useState(false);
+  const interesetedClickHandler = () => {
+    if (isLoggedIn) {
+      setIsInterested(!isInterested);
+      const interestedData = { productId: params.productId, userToken: token };
+      !isInterested &&
+        dispatch(
+          fetchDataForInterestedProduct({
+            ...interestedData,
+            isInterested: true,
+          })
+        );
+      isInterested &&
+        dispatch(
+          fetchDataForInterestedProduct({
+            ...interestedData,
+            isInterested: false,
+          })
+        );
+    } else {
+      dispatch(modelPopUp(true));
+    }
+  };
 
   // ============================================= FETCHING DATA================================================================================
   const [cardData, setcardData] = useState();
@@ -103,15 +103,17 @@ const interesetedClickHandler = () => {
     };
     call();
   }, [email, product_id]);
-  
+
   // ================================================================CardData ===============================================================
   // const Image = cardData?.images;
   const title =
     cardData?.title.charAt(0).toUpperCase() + cardData?.title.slice(1);
   const date = new Date(cardData?.createdAt);
-  const properDate = `${date.toLocaleString("default", {
-    month: "short",
-  })} ${date.getDate()}, ${date.getFullYear()}`;
+  // const properDate = `${date.toLocaleString("default", {
+  //   month: "short",
+  // })} ${date.getDate()}, ${date.getFullYear()}`;
+ 
+  const properDate=TimeSince(date);
 
   const Description = cardData?.description;
 
@@ -150,7 +152,7 @@ const interesetedClickHandler = () => {
             <OutlinedButton
               variant="outlined"
               sx={{
-                fontSize: { sm: "10px", md: "15px" },
+                fontSize: { xs: "10px", md: "15px" },
                 fontWeight: "bold",
               }}
               onClick={interesetedClickHandler}

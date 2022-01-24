@@ -16,6 +16,7 @@ import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForInterestedProduct } from "../../../AStatemanagement/Actions/userActions";
+import { TimeSince } from "../../TimeElapsed/timecalc";
 
 const CardContentNoPadding = styled(CardContent)(`
 
@@ -51,9 +52,10 @@ export default function CardForInterestedProduct(props) {
     props.cardData?.title.charAt(0).toUpperCase() +
     props.cardData?.title.slice(1);
   const date = new Date(props.cardData?.createdAt);
-  const properDate = `${date.toLocaleString("default", {
-    month: "short",
-  })} ${date.getDate()}, ${date.getFullYear()}`;
+  // const properDate = `${date.toLocaleString("default", {
+  //   month: "short",
+  // })} ${date.getDate()}, ${date.getFullYear()}`;
+   const properDate=TimeSince(date);
 
   //  ============================================================================================================================================
   const token = useSelector((state) => state.loginlogoutReducer.token);

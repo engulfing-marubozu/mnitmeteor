@@ -91,9 +91,16 @@ export const fetchDataForATF = (likedata) => {
 
 
   export const fetchDataForDeletingPublishedAds =(deletingData)=>{
+    console.log(deletingData);
+    const {token , productId} = deletingData;
   return async (dispatch)=>{
     try {
-
+      const response = await axios.post ("http://localhost:5000/delete_published_Ads", {productId}, {
+        headers : {
+          Authorization : `Bearer ${token}`
+        }
+      })
+      dispatch(deletePublishedProduct(response.data));
     }catch(err){
       console.log(err);
     }

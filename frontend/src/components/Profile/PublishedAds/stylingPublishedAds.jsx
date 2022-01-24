@@ -93,7 +93,7 @@ function StylingPublishedAds(props) {
   return (
     <div className={classes.divStyle}>
       <Slider {...settings}>
-        {props.arr &&
+        {props.arr[0]!==null &&
           props.arr.map((data, index) => {
             return <CardForPublishedAds cardData={data} key={index} />;
           })}

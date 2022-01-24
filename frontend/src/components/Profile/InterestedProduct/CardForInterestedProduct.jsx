@@ -44,13 +44,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function CardForInterestedProduct(props) {
-  // console.log(props.cardData);
+  console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-  const Image = props.cardData.images[0];
+  const Image = props.cardData?.images[0];
   const title =
-    props.cardData.title.charAt(0).toUpperCase() +
-    props.cardData.title.slice(1);
-  const date = new Date(props.cardData.createdAt);
+    props.cardData?.title.charAt(0).toUpperCase() +
+    props.cardData?.title.slice(1);
+  const date = new Date(props.cardData?.createdAt);
   const properDate = `${date.toLocaleString("default", {
     month: "short",
   })} ${date.getDate()}, ${date.getFullYear()}`;
@@ -60,7 +60,7 @@ export default function CardForInterestedProduct(props) {
   const dispatch = useDispatch();
   // =========================================================================================================================================
   const removeInteresetedClickHandler = () => {
-    const interestedData = { productId: props.cardData._id, userToken: token };
+    const interestedData = { productId: props.cardData?._id, userToken: token };
     dispatch(
       fetchDataForInterestedProduct({
         ...interestedData,
@@ -78,7 +78,7 @@ export default function CardForInterestedProduct(props) {
         margin: { lg: "20px", xs: "10px" },
       }}
     >
-      <Link to={`/ProductDiscription/${props.cardData._id}`}>
+      <Link to={`/ProductDiscription/${props.cardData?._id}`}>
         <CardMedia
           component="img"
           classes={{ img: Classes.image }}

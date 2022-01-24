@@ -8,7 +8,7 @@ function PublishedAds(props) {
   // ================================================================== DATA FETCHING=============================================================================================
   const [arr, setarr] = useState([]);
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  const publishedAdsData=useSelector((state)=>state.DeletePublishedAdsReducer.publishedAdsData)
+  const publishedAdsData=useSelector((state)=>state.DeletePublishedAdsReducer?.publishedAdsData)
   useEffect(() => {
     async function call() {
       const response = await axios.get(

@@ -8,19 +8,11 @@ import {
   Typography,
   Box,
   styled,
-  Button,
 } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
 import ShareIcon from "@mui/icons-material/Share";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
-// import { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// // import {
-//   modelPopUp,
-//   fetchDataForATF,
-// } from "../../AStatemanagement/Actions/userActions";
-
+import ProductDeleteAlert  from "../ModelPopUP/deleteAlert";
 // ===============================================================
 // PRODUCT DATA BY PRODUCT ID
 
@@ -36,18 +28,6 @@ const useStyles = makeStyles({
     objectFit: "contain",
   },
 });
-const ColorButton = styled(Button)(({ theme }) => ({
-  lineHeight: 1.5,
-  borderColor: deepPurple[700],
-  color: "black",
-  fontSize: "0.6rem",
-  backgroundColor: "transparent",
-  "&:hover": {
-    borderColor: deepPurple[700],
-    color: "white",
-    backgroundColor: deepPurple[700],
-  },
-}));
 
 export default function CardForPublishedAds(props) {
   // console.log(props.cardData);
@@ -61,10 +41,6 @@ export default function CardForPublishedAds(props) {
     month: "short",
   })} ${date.getDate()}, ${date.getFullYear()}`;
 
-  //  ============================================================================================================================================
-  //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  //   const token = useSelector((state) => state.loginlogoutReducer.token);
-  //   const dispatch = useDispatch();
   // =========================================================================================================================================
   const Classes = useStyles();
 
@@ -144,7 +120,7 @@ export default function CardForPublishedAds(props) {
             >
               <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
             </IconButton>
-            <ColorButton variant="outlined"> Delete </ColorButton>
+           <ProductDeleteAlert productId={props.cardData._id} />
           </CardActions>
         </Box>
       </CardContentNoPadding>

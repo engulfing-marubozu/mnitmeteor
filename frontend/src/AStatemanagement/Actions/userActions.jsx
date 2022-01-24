@@ -5,6 +5,7 @@ import {
   LOGOUT_USER,
   MODEL_POPUP,
   SELLNOW_CLICKED,
+  DELETE_PUBLISHED_ADS,
 } from "./types";
 import axios from "axios";
 // import { USER_SERVER } from "../components/Config.js";
@@ -36,6 +37,14 @@ export const addToInterested = (data) => {
   };
 };
 
+export const deletePublishedProduct =(data)=>{
+  return {
+    type:DELETE_PUBLISHED_ADS,
+    payload:data,
+  }
+}
+
+
 
 export const fetchDataForATF = (likedata) => {
   // console.log("deepak");
@@ -63,8 +72,6 @@ export const fetchDataForATF = (likedata) => {
     return async(dispatch)=>{
       try{
         const {productId,userToken,isInterested}=interestedData;
-
-
         const response = await axios.post(
           "http://localhost:5000/interested_update",
           { productId, isInterested },
@@ -80,4 +87,15 @@ export const fetchDataForATF = (likedata) => {
         console.log(err);
       }
     }
+  }
+
+
+  export const fetchDataForDeletingPublishedAds =(deletingData)=>{
+  return async (dispatch)=>{
+    try {
+
+    }catch(err){
+      console.log(err);
+    }
+  }
   }

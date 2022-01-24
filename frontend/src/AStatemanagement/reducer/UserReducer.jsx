@@ -2,6 +2,7 @@ import {
   ADD_TO_FAVOURITES,
   ADD_TO_INTERESTED,
   AUTH_USER,
+  DELETE_PUBLISHED_ADS,
   LOGOUT_USER,
   MODEL_POPUP,
   SELLNOW_CLICKED,
@@ -63,13 +64,29 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
   }
 };
 
-const interestedInitialValue = { interestedData:"undefined" };
+const interestedInitialValue = { interestedData: "undefined" };
 export const InterestedReducer = (state = interestedInitialValue, action) => {
   switch (action.type) {
     case ADD_TO_INTERESTED:
       return {
         ...state,
         interestedData: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const publishedAdInitialData = { publishedAdsData: "undefined" };
+export const DeletePublishedAdsReducer = (
+  state = publishedAdInitialData,
+  action
+) => {
+  switch (action.type) {
+    case DELETE_PUBLISHED_ADS:
+      return {
+        ...state,
+        publishedAdsData: action.payload,
       };
     default:
       return state;

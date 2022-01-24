@@ -26,7 +26,7 @@ const delete_published_Ads = async (req, res)=>
           product_id = req.body.productId;
 
           await  Product.findByIdAndDelete(product_id);
-          updated_user = await User.findByIdAndUpdate( user_id, {$pull : {products_posted : product_id}}, {new : true});
+          updated_user = await User.findByIdAndUpdate( user_id, {$pull : { products_posted : product_id}}, {new : true});
     }
     catch(err)
     {

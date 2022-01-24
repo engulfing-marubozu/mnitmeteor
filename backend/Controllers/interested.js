@@ -54,5 +54,7 @@ const send_interested_products = async (req, res) => {
     console.log(data);
     res.status(200).send(data);
   };
-  module.exports = { send_interested_products, interested_update};
+
+
+  module.exports = { send_interested_products, interested_update };
   

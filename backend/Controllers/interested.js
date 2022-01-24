@@ -55,24 +55,6 @@ const send_interested_products = async (req, res) => {
     res.status(200).send(data);
   };
 
-// if any user want to cancel any order/interest
 
-const delete_interested_product = async (res, req)=>
-{
-    try{     
-          user_id = req.user._id;
-          product_id = req.body.productId;
-
-          await  Product.findByIdAndDelete(product_id);
-          updated_user = await User.findByIdAndUpdate( user_id, {$pull : {interested : product_id}}, {new : true});
-    }
-    catch(err)
-    {
-      console.log(err);
-    }
-
-    res.status(200).send(updatedUser.interested);
-
-}
-  module.exports = { send_interested_products, interested_update , delete_interested_product};
+  module.exports = { send_interested_products, interested_update };
   

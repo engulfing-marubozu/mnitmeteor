@@ -5,4 +5,5 @@ export const SELLNOW_CLICKED = "sellnow_clicked";
 export const MODEL_POPUP = "model_popup";
 export const ADD_TO_FAVOURITES = "add_to_favourites";
 export const ADD_TO_INTERESTED = "add_to_interested";
+export const DELETE_PUBLISHED_ADS="delete_published_ads";
 

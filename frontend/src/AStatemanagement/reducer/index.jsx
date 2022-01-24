@@ -3,7 +3,8 @@ import {
   loginlogoutReducer,
   ModelPopUpReducer,
   FavouritesReducer,
-  InterestedReducer
+  InterestedReducer,
+  DeletePublishedAdsReducer
 } from "./UserReducer";
 import {} from "./UserReducer";
 
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   loginlogoutReducer,
   ModelPopUpReducer,
   FavouritesReducer,
-  InterestedReducer
+  InterestedReducer,
+  DeletePublishedAdsReducer,
 });
 
 export default rootReducer;

@@ -64,7 +64,7 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
   }
 };
 
-const interestedInitialValue = { interestedData: "undefined" };
+const interestedInitialValue = {};
 export const InterestedReducer = (state = interestedInitialValue, action) => {
   switch (action.type) {
     case ADD_TO_INTERESTED:
@@ -77,7 +77,7 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
   }
 };
 
-const publishedAdInitialData = { publishedAdsData: "undefined" };
+const publishedAdInitialData = {};
 export const DeletePublishedAdsReducer = (
   state = publishedAdInitialData,
   action

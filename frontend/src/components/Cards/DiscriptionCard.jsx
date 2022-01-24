@@ -57,6 +57,32 @@ const favouriteClickHandler = () => {
   }
 };
 
+// =====================================================INTERESTED======================================================================================
+const [isInterested, setIsInterested] = useState(false);
+const interesetedClickHandler = () => {
+  if (isLoggedIn) {
+    setIsInterested(!isInterested);
+    const interestedData = { productId: params.productId, userToken: token };
+    !isInterested &&
+      dispatch(
+        fetchDataForInterestedProduct({
+          ...interestedData,
+          isInterested: true,
+        })
+      );
+    isInterested &&
+      dispatch(
+        fetchDataForInterestedProduct({
+          ...interestedData,
+          isInterested: false,
+        })
+      );
+  } else {
+    dispatch(modelPopUp(true));
+  }
+};
+
+
   // ============================================= FETCHING DATA================================================================================
   const [cardData, setcardData] = useState();
 
@@ -69,6 +95,7 @@ const favouriteClickHandler = () => {
         );
         console.log(response.data);
         setIsAddedToFav(response.data.blue_heart);
+        setIsInterested(response.data.show_interested);
         setcardData(response.data);
       } catch (err) {
         console.log(err);
@@ -76,31 +103,6 @@ const favouriteClickHandler = () => {
     };
     call();
   }, [email, product_id]);
-  // =====================================================INTERESTED======================================================================================
-  const [isInterested, setIsInterested] = useState(false);
-  const interesetedClickHandler = () => {
-    if (isLoggedIn) {
-      setIsInterested(!isInterested);
-      const interestedData = { productId: params.productId, userToken: token };
-      !isInterested &&
-        dispatch(
-          fetchDataForInterestedProduct({
-            ...interestedData,
-            isInterested: true,
-          })
-        );
-      isInterested &&
-        dispatch(
-          fetchDataForInterestedProduct({
-            ...interestedData,
-            isInterested: false,
-          })
-        );
-    } else {
-      dispatch(modelPopUp(true));
-    }
-  };
-
   
   // ================================================================CardData ===============================================================
   // const Image = cardData?.images;

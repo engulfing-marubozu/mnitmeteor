@@ -91,10 +91,11 @@ function StylingInterestedProduct (props) {
       },
     ],
   };
+  console.log(props.arr);
   return (
     <div className={classes.divStyle}>
       <Slider {...settings}>
-        {props.arr &&
+        {props.arr[0]!==null &&
           props.arr.map((data, index) => {
             return <CardForInterestedProduct  cardData = {data} key={index} />;
           })}

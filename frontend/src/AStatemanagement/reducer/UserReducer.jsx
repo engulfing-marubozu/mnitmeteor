@@ -27,7 +27,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
       return {
         ...state,
         userData: { email: undefined },
-        token: null,
+        token: undefined,
         isLogin: false,
         sellnowClicked: false,
       };
@@ -63,16 +63,15 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
   }
 };
 
-
-const interestedInitialValue={};
-export const InterestedReducer=(state =interestedInitialValue,action)=>{
-  switch(action.type){
+const interestedInitialValue = { interestedData:"undefined" };
+export const InterestedReducer = (state = interestedInitialValue, action) => {
+  switch (action.type) {
     case ADD_TO_INTERESTED:
       return {
         ...state,
-        interestedData:action.payload,
-      }
-      default:
-        return state;
+        interestedData: action.payload,
+      };
+    default:
+      return state;
   }
-}
+};

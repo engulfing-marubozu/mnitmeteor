@@ -11,7 +11,6 @@ import {
   Button,
 } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-//import Image2 from "../../Cards/Images/Image2.jfif";
 import ShareIcon from "@mui/icons-material/Share";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -42,7 +41,6 @@ const ColorButton = styled(Button)(({ theme }) => ({
   borderColor: deepPurple[700],
   color: "black",
   fontSize: "0.6rem",
-  // backgroundColor: purple[700],
   backgroundColor: "transparent",
   "&:hover": {
     borderColor: deepPurple[700],
@@ -51,17 +49,17 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export default function CardForInterestedProduct(props) {
+export default function CardForPublishedAds(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-    const Image = props.cardData.images[0];
-    const title =
-      props.cardData.title.charAt(0).toUpperCase() +
-      props.cardData.title.slice(1);
-    const date = new Date(props.cardData.createdAt);
-    const properDate = `${date.toLocaleString("default", {
-      month: "short",
-    })} ${date.getDate()}, ${date.getFullYear()}`;
+  const Image = props.cardData.images[0];
+  const title =
+    props.cardData.title.charAt(0).toUpperCase() +
+    props.cardData.title.slice(1);
+  const date = new Date(props.cardData.createdAt);
+  const properDate = `${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getDate()}, ${date.getFullYear()}`;
 
   //  ============================================================================================================================================
   //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -73,20 +71,20 @@ export default function CardForInterestedProduct(props) {
   return (
     <Card
       sx={{
-        maxWidth: "260px",
+        maxwidth: "260px",
         borderRadius: 1,
         margin: { lg: "20px", xs: "10px" },
       }}
     >
       <Link to={`/ProductDiscription/${props.cardData._id}`}>
-      <CardMedia
-        component="img"
-        classes={{ img: Classes.image }}
-        width="260px"
-        sx={{ height: { xs: "160px", sm: "180px" } }}
-        image={Image}
-        alt="Image"
-      />
+        <CardMedia
+          component="img"
+          classes={{ img: Classes.image }}
+          width="260px"
+          sx={{ height: { xs: "160px", sm: "180px" } }}
+          image={Image}
+          alt="Image"
+        />
       </Link>
 
       <CardContentNoPadding
@@ -120,7 +118,7 @@ export default function CardForInterestedProduct(props) {
           <Typography
             variant="body2"
             sx={{
-              maxWidth: "100px",
+              maxwidth: "100px",
               fontSize: { xs: "x-small", sm: "default" },
             }}
           >

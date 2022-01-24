@@ -1,34 +1,37 @@
 const mongoose = require("mongoose");
-const Schema = require('mongoose').Schema
+const Schema = require("mongoose").Schema;
 
-const userSchema = new mongoose.Schema({
-    email:{
-          type: String
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
     },
-     password :{
-          type: String
-     },
-     products_posted : {
-          type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }],
-          default:[]
-     },
-     favourites :{
-         type :  [{ type: Schema.Types.ObjectId, ref: 'Product' }],
-         default: []
-     },
-     interested : {
-         type : [ {type: Schema.Types.ObjectId, ref: 'Product' }],
-         default:[]
-     }
-}, {timestamps: true});
+    password: {
+      type: String,
+    },
+    products_posted: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+      default: [],
+    },
+    favourites: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+      default: [],
+    },
+    interested: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+      default: [],
+    },
+  },
+  { timestamps: true }
+);
 
-	
-const productsSchema = new mongoose.Schema({
-    title : {
-        type: String
+const productsSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
     },
-    category  : {
-        type : String
+    category: {
+      type: String,
     },
     description: {
         type: String
@@ -68,4 +71,4 @@ const productsSchema = new mongoose.Schema({
 const Product = mongoose.model("Product", productsSchema);
 const User = mongoose.model("User", userSchema);
 
-module.exports= {User, Product};
+module.exports = { User, Product };

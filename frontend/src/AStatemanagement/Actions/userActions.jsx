@@ -74,6 +74,7 @@ export const fetchDataForATF = (likedata) => {
             },
           }
         );
+        console.log(response.data);
      dispatch(addToInterested(response.data));
       }catch(err){
         console.log(err);

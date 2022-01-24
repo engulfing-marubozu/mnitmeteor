@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Paper, Typography ,Box} from "@mui/material";
 import React from "react";
 import InterestedProduct from "./InterestedProduct/interestedProduct";
 import PublishedAds from "./PublishedAds/publishedAds";
@@ -6,7 +6,15 @@ import PublishedAds from "./PublishedAds/publishedAds";
 function Profile() {
   return (
     <div>
-      <Paper sx={{ bgcolor: "#212121", height: "400px" }} />
+      <Paper sx={{ height: "400px" }}>
+        <Box> 
+
+
+
+
+        </Box>
+      </Paper>
+    
       <Typography
         variant={"h4"}
         fontWeight={"bold"}
@@ -34,9 +42,9 @@ function Profile() {
           justifyContent: "flex-end",
         }}
       >
-      Your Orders
+        Your Orders
       </Typography>
-      <InterestedProduct/>
+      <InterestedProduct length={0} />
     </div>
   );
 }

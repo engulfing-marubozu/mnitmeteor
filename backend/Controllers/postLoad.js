@@ -141,17 +141,24 @@ const fetch_livedata = async (req, res) => {
 // sends the data of a unique card with is like value of true or false to show on the bigger page when the user clicks on ant specific post
 
 const send_specific_product = async (req, res)=>{
-  console.log("heelo");
+
+  console.log(req.body);
   try{
      const {email, product_id} = req.body;
      const product = await Product.findById(product_id);
      if(email)
-     {
+     {     
            const user = await User.findOne({email}) ;
+           console.log(user);
           
               if (user.favourites.indexOf(product_id) !== -1) 
                  product.blue_heart = true;
+
+             if (user.interested.indexOf(product_id) !== -1) 
+                   product.show_interested = true;
+                    
      }
+     console.log(product);
     res.status(200).send(product);
 }
 catch(err){

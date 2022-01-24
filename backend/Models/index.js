@@ -58,6 +58,10 @@ const productsSchema = new mongoose.Schema(
    blue_heart : {
        type : Boolean,
        default : false
+   },
+   show_interested :{
+       type : Boolean,
+       default : false
    }
 
 },{timestamps: true});

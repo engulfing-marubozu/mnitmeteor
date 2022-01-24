@@ -42,6 +42,21 @@ function DiscriptionCard() {
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const email = useSelector((state) => state.loginlogoutReducer.userData.email);
   const dispatch = useDispatch();
+// ========================================================LIKESTATUS==========================================================================================
+const [isAddedToFav, setIsAddedToFav] = useState(false);
+const favouriteClickHandler = () => {
+  if (isLoggedIn) {
+    setIsAddedToFav(!isAddedToFav);
+    const likeData = { productId: params.productId, userToken: token };
+    !isAddedToFav &&
+      dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
+    isAddedToFav &&
+      dispatch(fetchDataForATF({ ...likeData, isLiked: false }));
+  } else {
+    dispatch(modelPopUp(true));
+  }
+};
+
   // ============================================= FETCHING DATA================================================================================
   const [cardData, setcardData] = useState();
 
@@ -52,6 +67,8 @@ function DiscriptionCard() {
           "http://localhost:5000/send_specific_product",
           { email, product_id }
         );
+        console.log(response.data);
+        setIsAddedToFav(response.data.blue_heart);
         setcardData(response.data);
       } catch (err) {
         console.log(err);
@@ -84,20 +101,7 @@ function DiscriptionCard() {
     }
   };
 
-  // ========================================================LIKESTATUS==========================================================================================
-  const [isAddedToFav, setIsAddedToFav] = useState();
-  const favouriteClickHandler = () => {
-    if (isLoggedIn) {
-      setIsAddedToFav(!isAddedToFav);
-      const likeData = { productId: params.productId, userToken: token };
-      !isAddedToFav &&
-        dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
-      isAddedToFav &&
-        dispatch(fetchDataForATF({ ...likeData, isLiked: false }));
-    } else {
-      dispatch(modelPopUp(true));
-    }
-  };
+  
   // ================================================================CardData ===============================================================
   // const Image = cardData?.images;
   const title =

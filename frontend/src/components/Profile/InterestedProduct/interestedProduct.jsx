@@ -7,7 +7,7 @@ import StylingInterestedProduct from "./stylingInterestedProduct";
 function InterestedProduct(props) {
   const [arr, setarr] = useState([]);
   const token = useSelector((state) => state.loginlogoutReducer.token);
-
+  const interestedList=useSelector((state)=>state.InterestedReducer.interestedData)
   useEffect(() => {
     async function call() {
       const response = await axios.get(
@@ -23,7 +23,7 @@ function InterestedProduct(props) {
     }
 
     call();
-  }, [token]);
+  }, [interestedList,token]);
 
   // ====================================================================================================================================
   return (

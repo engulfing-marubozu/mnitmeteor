@@ -11,18 +11,11 @@ import {
   Button,
 } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-//import Image4 from "../../Cards/Images/Image4.jfif";
 import ShareIcon from "@mui/icons-material/Share";
- import { makeStyles } from "@mui/styles"; import { Link } from "react-router-dom";
-// import { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// // import {
-//   modelPopUp,
-//   fetchDataForATF,
-// } from "../../AStatemanagement/Actions/userActions";
-
-// ===============================================================
-// PRODUCT DATA BY PRODUCT ID
+import { makeStyles } from "@mui/styles";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDataForInterestedProduct } from "../../../AStatemanagement/Actions/userActions";
 
 const CardContentNoPadding = styled(CardContent)(`
 
@@ -53,39 +46,47 @@ const ColorButton = styled(Button)(({ theme }) => ({
 export default function CardForInterestedProduct(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-    const Image = props.cardData.images[0];
-    const title =
-      props.cardData.title.charAt(0).toUpperCase() +
-      props.cardData.title.slice(1);
-    const date = new Date(props.cardData.createdAt);
-    const properDate = `${date.toLocaleString("default", {
-      month: "short",
-    })} ${date.getDate()}, ${date.getFullYear()}`;
+  const Image = props.cardData.images[0];
+  const title =
+    props.cardData.title.charAt(0).toUpperCase() +
+    props.cardData.title.slice(1);
+  const date = new Date(props.cardData.createdAt);
+  const properDate = `${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getDate()}, ${date.getFullYear()}`;
 
   //  ============================================================================================================================================
-  //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  //   const token = useSelector((state) => state.loginlogoutReducer.token);
-  //   const dispatch = useDispatch();
+  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const dispatch = useDispatch();
   // =========================================================================================================================================
-  const Classes = useStyles();
+  const removeInteresetedClickHandler = () => {
+    const interestedData = { productId: props.cardData._id, userToken: token };
+    dispatch(
+      fetchDataForInterestedProduct({
+        ...interestedData,
+        isInterested: false,
+      })
+    );
+  };
 
+  const Classes = useStyles();
   return (
     <Card
       sx={{
         maxwidth: "260px",
         borderRadius: 1,
-        margin: { lg: "10px", xs: "10px" },
+        margin: { lg: "20px", xs: "10px" },
       }}
     >
       <Link to={`/ProductDiscription/${props.cardData._id}`}>
-      <CardMedia
-        component="img"
-        classes={{ img: Classes.image }}
-        maxwidth="260px"
-        sx={{ height: { xs: "160px", sm: "180px" } }}
-        image={Image}
-        alt="Image"
-      />
+        <CardMedia
+          component="img"
+          classes={{ img: Classes.image }}
+          maxwidth="260px"
+          sx={{ height: { xs: "160px", sm: "180px" } }}
+          image={Image}
+          alt="Image"
+        />
       </Link>
 
       <CardContentNoPadding
@@ -145,7 +146,7 @@ export default function CardForInterestedProduct(props) {
             >
               <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
             </IconButton>
-            <ColorButton variant="outlined"> Remove </ColorButton>
+            <ColorButton variant="outlined" onClick={removeInteresetedClickHandler}> Remove </ColorButton>
           </CardActions>
         </Box>
       </CardContentNoPadding>

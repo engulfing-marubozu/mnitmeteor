@@ -34,32 +34,6 @@ const productsSchema = new mongoose.Schema(
       type: String,
     },
     description: {
-<<<<<<< HEAD
-      type: String,
-    },
-    posted_by: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    images: {
-      type: [],
-    },
-    is_verified: {
-      type: Boolean,
-      default: false,
-    },
-    likes: {
-      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
-      default: [],
-    },
-    blue_heart: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  { timestamps: true }
-);
-=======
         type: String
     },
     posted_by :{
@@ -89,7 +63,6 @@ const productsSchema = new mongoose.Schema(
 },{timestamps: true});
 
 
->>>>>>> 7fde9e9f36dc597a669d9c8176e1a6bc5fb54765
 
 const Product = mongoose.model("Product", productsSchema);
 const User = mongoose.model("User", userSchema);

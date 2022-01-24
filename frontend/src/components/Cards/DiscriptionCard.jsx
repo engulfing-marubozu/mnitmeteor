@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
   fetchDataForInterestedProduct,
-  modelPopUp,
+  modelPopUp
 } from "../../AStatemanagement/Actions/userActions";
 // import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";

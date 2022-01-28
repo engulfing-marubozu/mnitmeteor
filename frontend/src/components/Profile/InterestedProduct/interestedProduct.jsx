@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 import StylingInterestedProduct from "./stylingInterestedProduct";
 
 function InterestedProduct(props) {
-  const [arr, setarr] = useState([]);
+  const [arr, setarr] = useState();
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const interestedList=useSelector((state)=>state.InterestedReducer?.interestedData)
   useEffect(() => {
+    let isSubscribed =true;
     async function call() {
       const response = await axios.get(
         "http://localhost:5000/send_interested_products",
@@ -17,18 +18,23 @@ function InterestedProduct(props) {
             authorization: `Bearer ${token}`,
           },
         }
-      );
-      setarr(response.data);
-      console.log(response.data);
+      );if(isSubscribed){
+        setarr(response.data);
+        // console.log(response.data);
+      }
+      
     }
 
     call();
+    return()=>{
+    return   isSubscribed=false;
+    }
   }, [interestedList,token]);
 
-      // const arrlength=arr?arr.length:0;
+      const arrlength=typeof(arr)==="undefined"?0:arr.length;
   // ====================================================================================================================================
   return (
-    <StylingInterestedProduct length={arr.length} arr={arr}></StylingInterestedProduct>
+    <StylingInterestedProduct length={arrlength} arr={arr}></StylingInterestedProduct>
   );
 }
 export default InterestedProduct;

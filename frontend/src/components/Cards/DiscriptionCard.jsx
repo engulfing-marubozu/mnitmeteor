@@ -13,6 +13,9 @@ import { OutlinedButton, ColorButton } from "../Navbar/navbar";
 import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
 import axios from "axios";
 import { TimeSince } from "../TimeElapsed/timecalc";
+import POPUPElement from "../ModelPopUP/POPUPElement";
+import InterestedAlert from "../ModelPopUP/InterestedAlert";
+import GetPhoneNo from "../ContactDetails/GetPhoneNo";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // RENDER DESCRIPTION DATA WITH THE HELP OF USE PARAMS
 
@@ -37,7 +40,10 @@ const images = [
 
 function DiscriptionCard() {
   const params = useParams();
+  const [modelPopup, setModelPopup] = useState(false);
+  const [contactModel, setContactModel] = useState(false);
   const product_id = params.productId;
+  const [isInterested, setIsInterested] = useState(false);
   // =============================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -57,11 +63,9 @@ function DiscriptionCard() {
       dispatch(modelPopUp(true));
     }
   };
-
-  // =====================================================INTERESTED======================================================================================
-  const [isInterested, setIsInterested] = useState(false);
-  const interesetedClickHandler = () => {
-    if (isLoggedIn) {
+  // ========================================================INTERESTEDMODELPOPUPINPUTHANDLER====================================================================
+  const modelInputHandler = (input) => {
+    if (input === true) {
       setIsInterested(!isInterested);
       const interestedData = { productId: params.productId, userToken: token };
       !isInterested &&
@@ -78,6 +82,17 @@ function DiscriptionCard() {
             isInterested: false,
           })
         );
+    }
+  };
+
+  // =====================================================INTERESTED======================================================================================
+  const interesetedClickHandler = () => {
+    if (isLoggedIn) {
+      if (!isInterested) {
+        setModelPopup(true);
+      } else if (isInterested) {
+        modelInputHandler(true);
+      }
     } else {
       dispatch(modelPopUp(true));
     }
@@ -87,35 +102,42 @@ function DiscriptionCard() {
   const [cardData, setcardData] = useState();
 
   useEffect(() => {
+    let isSubscribed = true;
     const call = async () => {
       try {
         const response = await axios.post(
           "http://localhost:5000/send_specific_product",
           { email, product_id }
         );
-        console.log(response.data);
-        setIsAddedToFav(response.data.blue_heart);
-        setIsInterested(response.data.show_interested);
-        setcardData(response.data);
+        if (isSubscribed) {
+          // console.log(response.data);
+          setIsAddedToFav(response.data.blue_heart);
+          setIsInterested(response.data.show_interested);
+          setcardData(response.data);
+        }
       } catch (err) {
         console.log(err);
       }
     };
     call();
+    return () => {
+      isSubscribed = false;
+    };
   }, [email, product_id]);
 
   // ================================================================CardData ===============================================================
   // const Image = cardData?.images;
-  const title =
-    cardData?.title.charAt(0).toUpperCase() + cardData?.title.slice(1);
-  const date = new Date(cardData?.createdAt);
+  const title = cardData
+    ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1)
+    : " ";
+  const date = cardData ? new Date(cardData.createdAt) : "";
   // const properDate = `${date.toLocaleString("default", {
   //   month: "short",
   // })} ${date.getDate()}, ${date.getFullYear()}`;
- 
-  const properDate=TimeSince(date);
 
-  const Description = cardData?.description;
+  const properDate = date ? TimeSince(date) : " ";
+
+  const Description = cardData ? cardData.description : " ";
 
   //=======================================================================================================================================
 
@@ -192,6 +214,33 @@ function DiscriptionCard() {
           </Typography>
         </TextContainer>
       </Wrapper>
+      {/* ================================================================================================================================== */}
+      {modelPopup && isLoggedIn && (
+        <POPUPElement
+          open={modelPopup}
+          onClose={setModelPopup}
+          portelId={"alertPortal"}
+        >
+          <InterestedAlert
+            setContactModel={setContactModel}
+            modelInputHandler={modelInputHandler}
+            onClose={setModelPopup}
+          />
+        </POPUPElement>
+      )}
+      {contactModel && isLoggedIn && (
+        <POPUPElement
+          open={contactModel}
+          onClose={setContactModel}
+          portelId={"contactDetailPortal"}
+        >
+          <GetPhoneNo
+            // modelInputHandler={modelInputHandler}
+            onClose={setContactModel}
+          ></GetPhoneNo>
+        </POPUPElement>
+      )}
+      {/* ==========================================================================================================================================      */}
     </>
   );
 }

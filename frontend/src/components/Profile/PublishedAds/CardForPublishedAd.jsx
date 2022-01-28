@@ -12,7 +12,7 @@ import {
 import ShareIcon from "@mui/icons-material/Share";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
-import ProductDeleteAlert from "../ModelPopUP/deleteAlert";
+import ProductDeleteAlert from "../../ModelPopUP/deleteAlert";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 // ===============================================================
 // PRODUCT DATA BY PRODUCT ID

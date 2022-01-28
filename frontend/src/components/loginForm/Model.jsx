@@ -23,11 +23,11 @@ const AppContainer = styled.div`
 function Model(props) {
   return ReactDom.createPortal(
     <>
-    <AppContainer onClick={props.onClose}>
-    <AccountBox></AccountBox>
-    </AppContainer>  
+      <AppContainer onClick={props.onClose}>
+        <AccountBox></AccountBox>
+      </AppContainer>
     </>,
-    document.getElementById("portel")
+    document.getElementById("portal")
   );
 }
 

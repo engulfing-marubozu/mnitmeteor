@@ -16,7 +16,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   modelPopUp,
   fetchDataForATF,
-  descriptionPageData,
 } from "../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../TimeElapsed/timecalc";
 
@@ -48,8 +47,8 @@ export default function HomeCard(props) {
   // const properDate = `${date.toLocaleString("default", {
   //   month: "short",
   // })} ${date.getDate()}, ${date.getFullYear()}`;
-  const properDate=TimeSince(date); 
-  
+  const properDate = TimeSince(date);
+
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);

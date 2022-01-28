@@ -81,15 +81,12 @@ export function SignupForm(props) {
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <SubmitButton type="submit" onClick={OTPHandler}>
-        {" "}
         Send OTP
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
-      <MutedText style={{fontSize:"11px"}}>
+      <MutedText style={{ fontSize: "11px" }}>
         Already have an account?
-        <BoldLink href="#" onClick={() => Switch({ active: "signin" })}>
-          Signin
-        </BoldLink>
+        <BoldLink onClick={() => Switch({ active: "signin" })}>Signin</BoldLink>
       </MutedText>
       <ToastContainer />
     </BoxContainer>

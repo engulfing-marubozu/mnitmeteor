@@ -26,7 +26,7 @@ mongoose.connect(database_url)
         console.error(`Error connecting to the database. \n${err}`);
     });
 
-// make models
+
 
 
 //auto load routes and middlewares

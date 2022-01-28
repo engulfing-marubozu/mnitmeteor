@@ -2,7 +2,7 @@ const jwt = require ("jsonwebtoken");
 const expressjwt = require("express-jwt")
 
 const authorization = (req, res, next) => {
-    // console.log(req.headers);
+    
     const authHeader = req.headers.authorization;
     console.log(authHeader);
     if (authHeader) {
@@ -21,4 +21,7 @@ const authorization = (req, res, next) => {
         res.sendStatus(401);
     }
 };
+
+
+
 module.exports = {authorization};

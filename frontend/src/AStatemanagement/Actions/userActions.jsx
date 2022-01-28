@@ -69,10 +69,13 @@ export const fetchDataForATF = (likedata) => {
 
 
   export const fetchDataForInterestedProduct=(interestedData)=>{
+    let response ;
     return async(dispatch)=>{
       try{
         const {productId,userToken,isInterested}=interestedData;
-        const response = await axios.post(
+        
+        if(isInterested)
+        { response = await axios.post(
           "http://localhost:5000/interested_update",
           { productId, isInterested },
           {
@@ -81,10 +84,23 @@ export const fetchDataForATF = (likedata) => {
             },
           }
         );
-        console.log(response.data);
-     dispatch(addToInterested(response.data));
+        }
+         else{
+          response = await axios.post(
+            "http://localhost:5000/un_interested_update",
+            { productId, isInterested },
+            {
+              headers: {
+                Authorization: `Bearer ${userToken}`,
+              },
+            }
+          );
+         }
+      console.log(response.data);
+       dispatch(addToInterested(response.data));
       }catch(err){
         console.log(err);
+        alert("too many attempts, please try again later");
       }
     }
   }

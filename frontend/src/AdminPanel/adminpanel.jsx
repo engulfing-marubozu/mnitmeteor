@@ -24,19 +24,24 @@ function Adminpanel() {
     setflag(!flag);
   };
   useEffect(() => {
+    let isSubscribed =true;
     const admin_post_load = async () => {
       try {
         const response = await axios.get(
           "http://localhost:5000/admin_postLoad"
         );
-        console.log(response.data.data);
-        setdata(response.data.data);
+        if(isSubscribed){
+          // console.log(response.data.data);
+          setdata(response.data.data);
+        }
+    
       } catch (err) {
         console.log(err);
       }
     };
 
     admin_post_load();
+    return ()=>{isSubscribed=false}
   }, [flag]);
 
   return (

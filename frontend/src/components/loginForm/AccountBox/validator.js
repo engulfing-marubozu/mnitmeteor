@@ -35,19 +35,20 @@ export function OtpValidator(values) {
 }
 export function PasswordValidator(values) {
   const error = {};
-  if (!values.newpassword &&!values.confirmpassword) {
+  if (!values.newpassword && !values.confirmpassword) {
     error.Password = "Password is required ";
     error.highLighter = false;
   } else if (values.newpassword.length < 8) {
     error.highLighter = true;
-  } else if (values.newpassword.length >=8 && !values.confirmpassword) {
+  } else if (values.newpassword.length >= 8 && !values.confirmpassword) {
     error.highLighter = false;
     error.confirmPassword = "Confirm Password";
   }
 
-   if (
+  if (
     values.confirmpassword &&
-    values.newpassword !== values.confirmpassword &&values.newpassword.length>=8 
+    values.newpassword !== values.confirmpassword &&
+    values.newpassword.length >= 8
   ) {
     error.highLighter = false;
     error.confirmPassword = " Both password must be same";
@@ -55,12 +56,15 @@ export function PasswordValidator(values) {
 
   return error;
 }
- 
 
+export function PhoneNumberValidator(value) {
+  const errors = {};
+  console.log(value);
 
-// export function  loginUserValidator(values){
-//  const error={};
-//  if()
-
-
-// }
+  if (!value) {
+    errors.phoneNo = "Phone number is required";
+  } else if (value.length !== 10) {
+    errors.phoneNo = "Please enter valid phone number.";
+  }
+  return errors;
+}

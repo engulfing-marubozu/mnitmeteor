@@ -90,17 +90,25 @@ function StylingPublishedAds(props) {
       },
     ],
   };
+
+  // console.log(typeof props.arr);
   // console.log(props.arr);
+  // console.log(typeof props.arr !== "undefined" && props.arr.length !== 0);
   return (
     <div className={classes.divStyle}>
       <Slider {...settings}>
-        {props.arr!=null &&
+        {typeof props.arr !== "undefined" &&
+          props.arr.length !== 0 &&
           props.arr.map((data, index) => {
-            return <CardForPublishedAds cardData={data} key={index} />;
+            if (data !== null) {
+              return <CardForPublishedAds cardData={data} key={index} />;
+            }
+            else 
+            return null;
           })}
       </Slider>
     </div>
   );
-        }
+}
 
 export default StylingPublishedAds;

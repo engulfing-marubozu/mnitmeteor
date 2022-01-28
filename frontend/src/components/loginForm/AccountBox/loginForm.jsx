@@ -16,10 +16,9 @@ import {
 } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
-import { useDispatch ,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "../../../AStatemanagement/Actions/userActions.jsx";
-import {useNavigate} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export function LoginForm(props) {
   const { Switch } = useContext(AccountContext);
@@ -29,9 +28,11 @@ export function LoginForm(props) {
   const [isSubmit, setIsSubmit] = useState(false);
   const notify = (value) => toast(value);
   const dispatch = useDispatch();
-  const isSellNowClicked=useSelector((state)=>state.loginlogoutReducer.sellnowClicked)
- 
-  const Navigate=useNavigate();
+  const isSellNowClicked = useSelector(
+    (state) => state.loginlogoutReducer.sellnowClicked
+  );
+
+  const Navigate = useNavigate();
   // backend ------------------------------------------------------------------------------------------------------------
   const Loginfunc = async (signinFormValue) => {
     const { email, password } = signinFormValue;
@@ -50,9 +51,9 @@ export function LoginForm(props) {
         // notify("Welcome");
         console.log(response.data);
         dispatch(AuthUser(response.data));
-        window.localStorage.setItem('auth', JSON.stringify(response.data));
+        window.localStorage.setItem("auth", JSON.stringify(response.data));
 
-        (isSellNowClicked&&Navigate("SellProduct"));
+        isSellNowClicked && Navigate("SellProduct");
       }
     } catch (err) {
       console.log(err);
@@ -100,17 +101,21 @@ export function LoginForm(props) {
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
 
-      <MutedLink href="#" onClick={()=>{Switch({active:"emailforresetpassword"})}}>Forget your password?</MutedLink>
+      <MutedLink
+        onClick={() => {
+          Switch({ active: "emailforresetpassword" });
+        }}
+      >
+        Forget your password?
+      </MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
       <SubmitButton type="submit" onClick={submitHandler}>
         Signin
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
-      <MutedText style={{fontSize:"11px"}}>
+      <MutedText style={{ fontSize: "11px" }}>
         Don't have an accoun?{" "}
-        <BoldLink href="#" onClick={() => Switch({ active: "signup" })}>
-          Signup
-        </BoldLink>
+        <BoldLink onClick={() => Switch({ active: "signup" })}>Signup</BoldLink>
       </MutedText>
       <ToastContainer />
     </BoxContainer>

@@ -9,12 +9,13 @@ import axios from "axios";
 
 function Favourites() {
   const [cardData, setcardData] = useState();
-  
+
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const favouritesLength = useSelector(
     (state) => state.FavouritesReducer.favouritesData
   );
   useEffect(() => {
+    let isSubscribed = true;
     async function call() {
       const response = await axios.get(
         "http://localhost:5000/send_favourites",
@@ -24,12 +25,16 @@ function Favourites() {
           },
         }
       );
-      setcardData(response.data);
+      isSubscribed && setcardData(response.data);
+
       // console.log(response.data);
     }
     call();
+    return()=>{
+      isSubscribed=false;
+    }
   }, [favouritesLength, token]);
-
+  console.log(cardData);
   return (
     <div>
       <Typography

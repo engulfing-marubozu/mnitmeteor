@@ -1,27 +1,13 @@
-import { Paper, Typography, Box, Stack } from "@mui/material";
+import { Paper, Typography, Box } from "@mui/material";
 import React from "react";
 import InterestedProduct from "./InterestedProduct/interestedProduct";
+import ProfilePage from "./ProfilePage/ProfilePage";
 import PublishedAds from "./PublishedAds/publishedAds";
 
 function Profile() {
   return (
     <div>
-      <Paper sx={{ height: "400px" }}>
-        <Box>
-          <Box>
-           
-          </Box>
-          <Box sx={{display:"flex", flexDirection:"column",justifyContent:"center"}}>
-            <Typography variant="h6">Email : 2019ume1827@mnit.ac.in</Typography>
-            {/* <Typography></Typography> */}
-            <Typography variant="h6"> Phone No:7000083820</Typography>
-            <Typography></Typography>
-            <span> 20 Favourites</span>
-            <span> 13 Published Ads</span>
-            <span> 2 Orders</span>
-          </Box>
-        </Box>
-      </Paper>
+      <ProfilePage />
 
       <Typography
         variant={"h4"}

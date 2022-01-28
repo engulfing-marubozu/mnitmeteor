@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     },
   },
 });
-function StylingInterestedProduct (props) {
+function StylingInterestedProduct(props) {
   const arrlength = props.length === 0 ? 1 : props.length;
   //   console.log(props.length);
   const slides1500 = arrlength >= 4 ? 4 : arrlength;
@@ -91,13 +91,18 @@ function StylingInterestedProduct (props) {
       },
     ],
   };
-  console.log(props.arr);
+  // console.log(typeof props.arr);
+  // console.log(props.arr);
+  // console.log(typeof props.arr !== "undefined" && props.arr.length !== 0);
   return (
     <div className={classes.divStyle}>
       <Slider {...settings}>
-        {props.arr[0]!==null &&
+        {typeof props.arr !== "undefined" &&
+          props.arr.length !== 0 &&
           props.arr.map((data, index) => {
-            return <CardForInterestedProduct  cardData = {data} key={index} />;
+            if (data !== null) {
+              return <CardForInterestedProduct cardData={data} key={index} />;
+            } else return null;
           })}
       </Slider>
     </div>

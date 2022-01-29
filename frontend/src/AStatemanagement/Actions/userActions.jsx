@@ -71,16 +71,12 @@ export const fetchDataForATF = (likedata) => {
      console.log(err);
   };
 };
-<<<<<<< HEAD
 }
-=======
-
 export const fetchDataForInterestedProduct = (interestedData) => {
   let response;
   return async (dispatch) => {
     try {
       const { productId, userToken, isInterested } = interestedData;
->>>>>>> 02a1bdd580f0b0c460618a307092e69500ee516b
 
       if (isInterested) {
         response = await axios.post(
@@ -92,7 +88,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-<<<<<<< HEAD
         console.log(response.data);
         dispatch(addToInterested(response.data));
         }
@@ -119,25 +114,13 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         
       }catch(err){
         console.log(err);
-=======
-      } else {
-        response = await axios.post(
-          "http://localhost:5000/un_interested_update",
-          { productId, isInterested },
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          }
-        );
->>>>>>> 02a1bdd580f0b0c460618a307092e69500ee516b
       }
       console.log(response.data);
-      dispatch(addToInterested(response.data));
-    } catch (err) {
-      console.log(err);
-      alert("too many attempts, please try again later");
-    }
+    //   dispatch(addToInterested(response.data));
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("too many attempts, please try again later");
+    // }
   };
 };
 

@@ -5,7 +5,7 @@ import {
   FavouritesReducer,
   InterestedReducer,
   DeletePublishedAdsReducer,
- PhoneAuthReducer,
+  PhoneAuthReducer,
 } from "./UserReducer";
 import {} from "./UserReducer";
 

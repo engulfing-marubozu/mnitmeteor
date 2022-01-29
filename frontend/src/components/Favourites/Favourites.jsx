@@ -56,13 +56,13 @@ function Favourites() {
           <Grid container spacing={{ xs: 2, sm: 4 }}>
             {cardData &&
               cardData.map((data, index) => {
-                if (data !== null) {
-                  return (
-                    <Grid item xs={6} sm={4} lg={3} key={index}>
-                      <FavouritesCard cardData={data} />
-                    </Grid>
-                  );
-                }else 
+                if(data!==null)
+                {return (
+                  <Grid item xs={6} sm={4} lg={3} key={index}>
+                    <FavouritesCard cardData={data} />
+                  </Grid>
+                );}
+                else
                 return null;
               })}
           </Grid>

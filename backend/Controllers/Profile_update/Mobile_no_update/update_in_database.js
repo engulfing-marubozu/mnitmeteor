@@ -1,10 +1,9 @@
 const  { User} = require ("../../../Models")
 
-const update_mobile_no_in_database = (email, mobile_no)=>{
-    const email = email;
-    const mobile_no = mobile_no;
+const update_mobile_no_in_database = async (Id, mobile_no)=>{
     try{
-   const user =  await User.findOneAndUpdate({email:email}, {Mobile_no : mobile_no}, {new: true});
+        console.log(mobile_no);
+   const user =  await User.findOneAndUpdate({_id:Id}, {Mobile_no : mobile_no}, {new: true});
    return(user);
     }
     catch(err)

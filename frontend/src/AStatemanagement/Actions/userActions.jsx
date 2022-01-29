@@ -52,7 +52,7 @@ export const phoneAuth = (data) => {
 };
 
 export const fetchDataForATF = (likedata) => {
-   console.log("deepak");
+  console.log("deepak");
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;
@@ -65,12 +65,12 @@ export const fetchDataForATF = (likedata) => {
           },
         }
       );
-    console.log(response.data);    
-    dispatch(addToFavourites(response.data));
-   }catch(err){
-     console.log(err);
+      console.log(response.data);
+      dispatch(addToFavourites(response.data));
+    } catch (err) {
+      console.log(err);
+    }
   };
-}
 };
 
 export const fetchDataForInterestedProduct = (interestedData) => {
@@ -91,40 +91,39 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         );
         console.log(response.data);
         dispatch(addToInterested(response.data));
-        }
-         else{
-          response = await axios.post(
-            "http://localhost:5000/un_interested_update",
-            { productId, isInterested },
-            {
-              headers: {
-                Authorization: `Bearer ${userToken}`,
-              },
-            }
-          );
+      } else {
+        response = await axios.post(
+          "http://localhost:5000/un_interested_update",
+          { productId, isInterested },
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
 
-          if(response.data.status)
-         {   
-        alert(`${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds` )
-        dispatch(addToFavourites(response.data.updatedUser));
-         }
-       else{
-        alert(`max attempts done. Please retry after ${response.data.ttl_seconds} seconds` )
-         }
-         } 
-        
-      }catch(err){
-        console.log(err);
+        if (response.data.status) {
+          alert(
+            `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
+          );
+          dispatch(addToFavourites(response.data.updatedUser));
+        } else {
+          alert(
+            `max attempts done. Please retry after ${response.data.ttl_seconds} seconds`
+          );
+        }
       }
-       console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(response.data);
     //   dispatch(addToInterested(response.data));
     // } catch (err) {
     //   console.log(err);
     //   alert("too many attempts, please try again later");
     //
-   }
   };
-
+};
 
 export const fetchDataForDeletingPublishedAds = (deletingData) => {
   console.log(deletingData);
@@ -147,39 +146,41 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
   };
 };
 
-export const fetchDataForPhoneNoAuth =  (phoneData) => {
+export const fetchDataForPhoneNoAuth = (phoneData) => {
   console.log(phoneData);
-  const { token, phoneNo , flag} = phoneData;
+  const { token, phoneNo, flag } = phoneData;
   console.log(token);
   return async (dispatch) => {
     try {
       console.log(flag);
-    const response = await axios.post('http://localhost:5000/mobile_no_update', {phoneNo, flag}, {
-      headers :{
-        Authorization: `Bearer ${token}`,
+      const response = await axios.post(
+        "http://localhost:5000/mobile_no_update",
+        { phoneNo, flag },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+
+      if (flag === false) {
+        dispatch(phoneAuth(response.data));
+      } else {
+        const { token } = JSON.parse(window.localStorage.getItem("auth"));
+        const { user } = response.data;
+        console.log(token);
+        const data = {
+          token: token,
+          user: user,
+        };
+        window.localStorage.setItem("auth", JSON.stringify(data));
+        console.log(JSON.parse(window.localStorage.getItem("auth")));
+        dispatch(AuthUser(response.data));
       }
-    })
-  console.log(response.data);
-  
-  if(flag===false){
-    dispatch(phoneAuth(response.data));
-  }
-  else{
-
-   const {token} =  JSON.parse(window.localStorage.setItem("auth"));
-   const data = {
-    token: token,
-     user : response.data
-   }
-   window.localStorage.setItem("auth", JSON.stringify(data));
-  console.log(JSON.parse(window.localStorage.getItem("auth")));
-  dispatch(AuthUser(response.data));
-  }
-
     } catch (err) {
       console.log(err);
     }
   };
 };
-
-

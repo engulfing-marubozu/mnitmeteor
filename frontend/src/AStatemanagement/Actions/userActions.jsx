@@ -65,13 +65,13 @@ export const fetchDataForATF = (likedata) => {
           },
         }
       );
-    console.log(response.data);    
-    dispatch(addToInterested(response.data));
-   }catch(err){
-     console.log(err);
+      console.log(response.data);
+      dispatch(addToFavourites(response.data));
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
-}
 export const fetchDataForInterestedProduct = (interestedData) => {
   let response;
   return async (dispatch) => {
@@ -90,32 +90,32 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         );
         console.log(response.data);
         dispatch(addToInterested(response.data));
-        }
-         else{
-          response = await axios.post(
-            "http://localhost:5000/un_interested_update",
-            { productId, isInterested },
-            {
-              headers: {
-                Authorization: `Bearer ${userToken}`,
-              },
-            }
-          );
+      } else {
+        response = await axios.post(
+          "http://localhost:5000/un_interested_update",
+          { productId, isInterested },
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
 
-          if(response.data.status)
-         {   
-        alert(`${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds` )
-        dispatch(addToFavourites(response.data.updatedUser));
-         }
-       else{
-        alert(`max attempts done. Please retry after ${response.data.ttl_seconds} seconds` )
-         }
-         } 
-        
-      }catch(err){
-        console.log(err);
+        if (response.data.status) {
+          alert(
+            `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
+          );
+          dispatch(addToFavourites(response.data.updatedUser));
+        } else {
+          alert(
+            `max attempts done. Please retry after ${response.data.ttl_seconds} seconds`
+          );
+        }
       }
-      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(response.data);
     //   dispatch(addToInterested(response.data));
     // } catch (err) {
     //   console.log(err);
@@ -150,9 +150,6 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
   // const { token, phoneNo } = otpSendData;
   // return async (dispatch) => {
   //   try {
-
-
-
 
   //     dispatch(otpSenderForPhone(response.data));
   //   } catch (err) {

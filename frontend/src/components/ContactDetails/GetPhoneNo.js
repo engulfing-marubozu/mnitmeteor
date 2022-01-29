@@ -14,15 +14,23 @@ import {
   PhoneNumberValidator,
   OtpValidator,
 } from "../loginForm/AccountBox/validator";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDataForPhoneNoAuth } from "../../AStatemanagement/Actions/userActions";
 
 // ================================================================Main FUNCTION =========================================================
 export default function GetPhoneNo(props) {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const phoneOtp=useSelector((state)=>state.PhoneAuthReducer?.phoneAuthentication);
+  // =======================================================================================================================================
+
   const phoneNoRef = useRef();
   const [showSubmit, setShowSubmit] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [getOtp, setGetOpt] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-// =================================================================OTP HANDLER=========================================================================
+
+  // =================================================================OTP HANDLER=========================================================================
   function PhoneNoHandler() {
     const phoneNo = phoneNoRef.current.value;
     setFormErrors(PhoneNumberValidator(phoneNo));
@@ -30,14 +38,22 @@ export default function GetPhoneNo(props) {
   }
   function OtpHandler() {
     const Otp = phoneNoRef.current.value;
-    const values = { realOtp: 1234, inputOtp: Otp };
+    const realOtp=phoneOtp?.otp;
+    const values = { realOtp: realOtp, inputOtp: Otp };
     setFormErrors(OtpValidator(values));
     setIsSubmit(true);
   }
   useEffect(() => {
-    // console.log(formErrors);
+    // console.log(formErrors)
     if (!showSubmit) {
       if (Object.keys(formErrors).length === 0 && getOtp) {
+        const data = {
+          token: token,
+          phoneNo: phoneNoRef.current.value,
+          flag: false,
+        };
+        // console.log(phoneNoRef.current.value,token );
+        dispatch(fetchDataForPhoneNoAuth(data));
         setShowSubmit(true);
       }
     } else if (showSubmit) {

@@ -46,10 +46,12 @@ const send_favourites = async (req, res) => {
   console.log(user);
   const favourites_id = user.favourites;
   console.log(favourites_id);
-    const data =await Promise.all (favourites_id.map(async (favourite_id)=>{
-           const datee = await Product.findById(favourite_id);
-           return datee;
-    }));
+  const data = await Promise.all(
+    favourites_id.map(async (favourite_id) => {
+      const datee = await Product.findById(favourite_id);
+      return datee;
+    })
+  );
   console.log(data);
   res.status(200).send(data);
 };

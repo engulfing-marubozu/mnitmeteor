@@ -6,6 +6,7 @@ import {
   MODEL_POPUP,
   SELLNOW_CLICKED,
   DELETE_PUBLISHED_ADS,
+  PHONE_NUMBER_AUTH,
 } from "./types";
 import axios from "axios";
 // import { USER_SERVER } from "../components/Config.js";
@@ -37,14 +38,18 @@ export const addToInterested = (data) => {
   };
 };
 
-export const deletePublishedProduct =(data)=>{
+export const deletePublishedProduct = (data) => {
   return {
-    type:DELETE_PUBLISHED_ADS,
-    payload:data,
-  }
-}
-
-
+    type: DELETE_PUBLISHED_ADS,
+    payload: data,
+  };
+};
+export const otpSenderForPhone = (data) => {
+  return {
+    type: PHONE_NUMBER_AUTH,
+    payload: data,
+  };
+};
 
 export const fetchDataForATF = (likedata) => {
    console.log("deepak");
@@ -66,16 +71,19 @@ export const fetchDataForATF = (likedata) => {
      console.log(err);
   };
 };
+<<<<<<< HEAD
 }
+=======
 
-  export const fetchDataForInterestedProduct=(interestedData)=>{
-    let response ;
-    return async(dispatch)=>{
-      try{
-        const {productId,userToken,isInterested}=interestedData;
-        
-        if(isInterested)
-        { response = await axios.post(
+export const fetchDataForInterestedProduct = (interestedData) => {
+  let response;
+  return async (dispatch) => {
+    try {
+      const { productId, userToken, isInterested } = interestedData;
+>>>>>>> 02a1bdd580f0b0c460618a307092e69500ee516b
+
+      if (isInterested) {
+        response = await axios.post(
           "http://localhost:5000/interested_update",
           { productId, isInterested },
           {
@@ -84,6 +92,7 @@ export const fetchDataForATF = (likedata) => {
             },
           }
         );
+<<<<<<< HEAD
         console.log(response.data);
         dispatch(addToInterested(response.data));
         }
@@ -110,24 +119,61 @@ export const fetchDataForATF = (likedata) => {
         
       }catch(err){
         console.log(err);
+=======
+      } else {
+        response = await axios.post(
+          "http://localhost:5000/un_interested_update",
+          { productId, isInterested },
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+            },
+          }
+        );
+>>>>>>> 02a1bdd580f0b0c460618a307092e69500ee516b
       }
+      console.log(response.data);
+      dispatch(addToInterested(response.data));
+    } catch (err) {
+      console.log(err);
+      alert("too many attempts, please try again later");
     }
-  }
+  };
+};
 
-
-  export const fetchDataForDeletingPublishedAds =(deletingData)=>{
-    console.log(deletingData);
-    const {token , productId} = deletingData;
-  return async (dispatch)=>{
+export const fetchDataForDeletingPublishedAds = (deletingData) => {
+  console.log(deletingData);
+  const { token, productId } = deletingData;
+  return async (dispatch) => {
     try {
-      const response = await axios.post ("http://localhost:5000/delete_published_Ads", {productId}, {
-        headers : {
-          Authorization : `Bearer ${token}`
+      const response = await axios.post(
+        "http://localhost:5000/delete_published_Ads",
+        { productId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
+      );
       dispatch(deletePublishedProduct(response.data));
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
-  }
-  }
+  };
+};
+
+export const fetchDataForPhoneNoAuth = (phoneData) => {
+  console.log(phoneData);
+  // const { token, phoneNo } = otpSendData;
+  // return async (dispatch) => {
+  //   try {
+
+
+
+
+  //     dispatch(otpSenderForPhone(response.data));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+};

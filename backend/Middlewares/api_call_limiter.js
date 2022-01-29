@@ -2,8 +2,8 @@ const Redis = require("redis");
 const redis = Redis.createClient();
 redis.connect();
 
-// used redis to stop any kind of spam by allowing only 3 un_interest request by any specific user.This has been done with by making a variabe in redis database(which is stored in the ram of the server) and setting its 
-// expiry to the time we want the user to stop until next request. 
+// used redis to stop any kind of spam by allowing only 3 un_interest request by any specific user.This has been done with by making a variabe in redis database(which is stored in the ram of the server) and setting its
+// expiry to the time we want the user to stop until next request.
 
 // a very good thing to note here is how we pass variables from one middleware to the other by just making the variable by the name as (req.{variable}= {variable_value})    instead of     (const {variable} = {variable_value})
 

@@ -4,7 +4,8 @@ import {
   ModelPopUpReducer,
   FavouritesReducer,
   InterestedReducer,
-  DeletePublishedAdsReducer
+  DeletePublishedAdsReducer,
+  otpForPhoneReducer
 } from "./UserReducer";
 import {} from "./UserReducer";
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   FavouritesReducer,
   InterestedReducer,
   DeletePublishedAdsReducer,
+  PhoneAuthReducer,
 });
 
 export default rootReducer;

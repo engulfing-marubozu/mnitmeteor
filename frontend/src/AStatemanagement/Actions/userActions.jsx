@@ -52,7 +52,7 @@ export const otpSenderForPhone = (data) => {
 };
 
 export const fetchDataForATF = (likedata) => {
-   console.log("deepak");
+  //  console.log("deepak");
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;

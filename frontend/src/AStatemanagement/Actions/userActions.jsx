@@ -52,11 +52,7 @@ export const phoneAuth = (data) => {
 };
 
 export const fetchDataForATF = (likedata) => {
-<<<<<<< HEAD
-  console.log("deepak");
-=======
   //  console.log("deepak");
->>>>>>> 458966be792827facf7660426a61dbc9a519f7fe
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;
@@ -111,6 +107,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           );
           dispatch(addToFavourites(response.data.updatedUser));
         } else {
+
           alert(
             `max attempts done. Please retry after ${response.data.ttl_seconds} seconds`
           );
@@ -119,7 +116,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
     } catch (err) {
       console.log(err);
     }
-    console.log(response.data);
+   // console.log(response.data);
     //   dispatch(addToInterested(response.data));
     // } catch (err) {
     //   console.log(err);

@@ -22,7 +22,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
         ...state,
         isLogin: true,
         userData: action.payload.user,
-        token: action.payload.token,
+       token:action.payload.token,
       };
 
     case LOGOUT_USER:

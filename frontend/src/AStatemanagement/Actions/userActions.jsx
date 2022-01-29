@@ -44,7 +44,7 @@ export const deletePublishedProduct = (data) => {
     payload: data,
   };
 };
-export const otpSenderForPhone = (data) => {
+export const phoneAuth = (data) => {
   return {
     type: PHONE_NUMBER_AUTH,
     payload: data,
@@ -70,17 +70,14 @@ export const fetchDataForATF = (likedata) => {
    }catch(err){
      console.log(err);
   };
-};
-<<<<<<< HEAD
 }
-=======
+};
 
 export const fetchDataForInterestedProduct = (interestedData) => {
   let response;
   return async (dispatch) => {
     try {
       const { productId, userToken, isInterested } = interestedData;
->>>>>>> 02a1bdd580f0b0c460618a307092e69500ee516b
 
       if (isInterested) {
         response = await axios.post(
@@ -92,7 +89,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-<<<<<<< HEAD
         console.log(response.data);
         dispatch(addToInterested(response.data));
         }
@@ -119,27 +115,16 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         
       }catch(err){
         console.log(err);
-=======
-      } else {
-        response = await axios.post(
-          "http://localhost:5000/un_interested_update",
-          { productId, isInterested },
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          }
-        );
->>>>>>> 02a1bdd580f0b0c460618a307092e69500ee516b
       }
-      console.log(response.data);
-      dispatch(addToInterested(response.data));
-    } catch (err) {
-      console.log(err);
-      alert("too many attempts, please try again later");
-    }
+       console.log(response.data);
+    //   dispatch(addToInterested(response.data));
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("too many attempts, please try again later");
+    //
+   }
   };
-};
+
 
 export const fetchDataForDeletingPublishedAds = (deletingData) => {
   console.log(deletingData);
@@ -162,18 +147,31 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
   };
 };
 
-export const fetchDataForPhoneNoAuth = (phoneData) => {
+export const fetchDataForPhoneNoAuth =  (phoneData) => {
   console.log(phoneData);
-  // const { token, phoneNo } = otpSendData;
-  // return async (dispatch) => {
-  //   try {
+  const { token, phoneNo , flag} = phoneData;
+  console.log(token);
+  return async (dispatch) => {
+    try {
+      console.log(flag);
+    const response = await axios.post('http://localhost:5000/mobile_no_update', {phoneNo, flag}, {
+      headers :{
+        Authorization: `Bearer ${token}`,
+      }
+    })
+  console.log(response.data);
+  if(flag===false){
+    dispatch(phoneAuth(response.data));
+  }
+  else{
+    console.log(JSON.parse(window.document.auth));
+ dispatch(AuthUser(response.data));
+  }
 
-
-
-
-  //     dispatch(otpSenderForPhone(response.data));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+    } catch (err) {
+      console.log(err);
+    }
+  };
 };
+
+

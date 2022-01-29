@@ -15,13 +15,13 @@ import {
   OtpValidator,
 } from "../loginForm/AccountBox/validator";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDataForPhoneNoAuth } from "../../AStatemanagement/Actions/userActions";
+import { fetchDataForPhoneNoAuth} from "../../AStatemanagement/Actions/userActions";
 
 // ================================================================Main FUNCTION =========================================================
 export default function GetPhoneNo(props) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  const phoneOtp=useSelector((state)=>state.PhoneAuthReducer?.phoneAuthentication);
+  const phoneAuthDetails=useSelector((state)=>state.PhoneAuthReducer.phoneAuthentication);
   // =======================================================================================================================================
 
   const phoneNoRef = useRef();
@@ -38,7 +38,8 @@ export default function GetPhoneNo(props) {
   }
   function OtpHandler() {
     const Otp = phoneNoRef.current.value;
-    const realOtp=phoneOtp?.otp;
+    // console.log(phoneOtp)
+    const realOtp=phoneAuthDetails?.otp;
     const values = { realOtp: realOtp, inputOtp: Otp };
     setFormErrors(OtpValidator(values));
     setIsSubmit(true);
@@ -58,6 +59,8 @@ export default function GetPhoneNo(props) {
       }
     } else if (showSubmit) {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
+        const data={token:token,phoneNo:phoneAuthDetails.mobile_no, flag:true}
+        dispatch(fetchDataForPhoneNoAuth(data));
         console.log("number registered");
       }
     }

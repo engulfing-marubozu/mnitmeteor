@@ -17,7 +17,7 @@ const api_call_limiter = async (req, res, next) => {
   let token;
   req.ttl;
   if (authHeader) token = authHeader.split(" ")[1];
-  else res.send(401);
+  else res.send(200);
   req.number_of_req = await redis.incr(token);
   if (req.number_of_req === 1) {
     await redis.expire(token, allowed_time_in_seconds);
@@ -26,7 +26,7 @@ const api_call_limiter = async (req, res, next) => {
   req.ttl = await redis.ttl(token);
 
   if (req.number_of_req > req.allowed_hits)
-    return res.status(503).json({
+    return res.status(200).json({
       status: false,
       ttl_seconds: req.ttl,
     });

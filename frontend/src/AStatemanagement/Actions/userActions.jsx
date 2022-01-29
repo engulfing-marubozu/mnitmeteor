@@ -52,7 +52,11 @@ export const phoneAuth = (data) => {
 };
 
 export const fetchDataForATF = (likedata) => {
+<<<<<<< HEAD
   console.log("deepak");
+=======
+  //  console.log("deepak");
+>>>>>>> 458966be792827facf7660426a61dbc9a519f7fe
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;
@@ -72,7 +76,6 @@ export const fetchDataForATF = (likedata) => {
     }
   };
 };
-
 export const fetchDataForInterestedProduct = (interestedData) => {
   let response;
   return async (dispatch) => {
@@ -162,18 +165,15 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           },
         }
       );
-
       console.log(response.data);
 
       if (flag === false) {
         dispatch(phoneAuth(response.data));
       } else {
         const { token } = JSON.parse(window.localStorage.getItem("auth"));
-        const { user } = response.data;
-        console.log(token);
         const data = {
           token: token,
-          user: user,
+          user: response.data,
         };
         window.localStorage.setItem("auth", JSON.stringify(data));
         console.log(JSON.parse(window.localStorage.getItem("auth")));

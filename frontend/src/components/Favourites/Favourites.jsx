@@ -30,9 +30,9 @@ function Favourites() {
       // console.log(response.data);
     }
     call();
-    return()=>{
-      isSubscribed=false;
-    }
+    return () => {
+      isSubscribed = false;
+    };
   }, [favouritesLength, token]);
   console.log(cardData);
   return (

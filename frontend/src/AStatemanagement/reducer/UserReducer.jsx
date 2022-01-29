@@ -12,7 +12,7 @@ import {
 const InitialState = {
   isLogin: false,
   sellnowClicked: false,
-  userData: { email: undefined },
+  userData: { email: undefined},
 };
 
 export const loginlogoutReducer = (state = InitialState, action) => {

@@ -61,6 +61,7 @@ export default function GetPhoneNo(props) {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
         const data={token:token,phoneNo:phoneAuthDetails.mobile_no, flag:true}
         dispatch(fetchDataForPhoneNoAuth(data));
+        props.onClose();
         console.log("number registered");
       }
     }

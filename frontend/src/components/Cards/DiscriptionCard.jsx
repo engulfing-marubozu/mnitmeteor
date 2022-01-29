@@ -91,6 +91,7 @@ function DiscriptionCard() {
       if (!isInterested) {
         setModelPopup(true);
       } else if (isInterested) {
+        //"show pop for how many attempt are left for uninterested "
         modelInputHandler(true);
       }
     } else {

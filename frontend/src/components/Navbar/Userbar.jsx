@@ -3,7 +3,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import { useDispatch } from "react-redux";
 import { LogoutUser,modelPopUp } from "../../AStatemanagement/Actions/userActions";
-import InsertEmoticonSharpIcon from "@mui/icons-material/InsertEmoticonSharp";
+// import InsertEmoticonSharpIcon from "@mui/icons-material/InsertEmoticonSharp";
+import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
 import {
@@ -39,7 +40,8 @@ function Userbar(props) {
               fontWeight: "bold",
             }}
           >
-            <InsertEmoticonSharpIcon />
+            {/* <InsertEmoticonSharpIcon /> */}
+            <PersonIcon/>
           </Avatar>
         </IconButton>
       </Tooltip>

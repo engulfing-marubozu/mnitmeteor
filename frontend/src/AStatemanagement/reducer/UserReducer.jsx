@@ -5,6 +5,7 @@ import {
   DELETE_PUBLISHED_ADS,
   LOGOUT_USER,
   MODEL_POPUP,
+  PHONE_NUMBER_AUTH,
   SELLNOW_CLICKED,
 } from "../Actions/types";
 
@@ -87,6 +88,20 @@ export const DeletePublishedAdsReducer = (
       return {
         ...state,
         publishedAdsData: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const phoneAuth = {};
+export const PhoneAuthReducer = (state = phoneAuth, action) => {
+  switch (action.type) {
+    case PHONE_NUMBER_AUTH:
+      return {
+        ...state,
+
+        phoneAuthentication: action.payload,
       };
     default:
       return state;

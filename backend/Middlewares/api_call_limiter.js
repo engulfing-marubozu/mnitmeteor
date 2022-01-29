@@ -9,6 +9,7 @@ redis.connect();
 
 
 const api_call_limiter = async (req, res, next) => {
+  console.log("land bc")
   const allowed_time_in_seconds = 10;
   req.allowed_hits = 3;
   const authHeader = req.headers.authorization;

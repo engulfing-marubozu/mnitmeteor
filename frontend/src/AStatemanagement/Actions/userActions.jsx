@@ -47,7 +47,7 @@ export const deletePublishedProduct =(data)=>{
 
 
 export const fetchDataForATF = (likedata) => {
-  // console.log("deepak");
+   console.log("deepak");
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;
@@ -60,13 +60,13 @@ export const fetchDataForATF = (likedata) => {
           },
         }
       );
-      dispatch(addToFavourites(response.data));
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(response.data);    
+    dispatch(addToInterested(response.data));
+   }catch(err){
+     console.log(err);
   };
 };
-
+}
 
   export const fetchDataForInterestedProduct=(interestedData)=>{
     let response ;
@@ -84,6 +84,8 @@ export const fetchDataForATF = (likedata) => {
             },
           }
         );
+        console.log(response.data);
+        dispatch(addToInterested(response.data));
         }
          else{
           response = await axios.post(
@@ -95,13 +97,19 @@ export const fetchDataForATF = (likedata) => {
               },
             }
           );
+
+          if(response.data.status)
+         {   
+        alert(`${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds` )
+        dispatch(addToFavourites(response.data.updatedUser));
          }
-      console.log(response.data);
-       {}
-       dispatch(addToInterested(response.data));
+       else{
+        alert(`max attempts done. Please retry after ${response.data.ttl_seconds} seconds` )
+         }
+         } 
+        
       }catch(err){
         console.log(err);
-        alert("too many attempts, please try again later");
       }
     }
   }

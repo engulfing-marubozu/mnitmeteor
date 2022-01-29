@@ -1,8 +1,9 @@
 const { Product, User } = require("../Models");
+//const {twilio_msg} = require("../Message_service/Twilio_message/otp")
 
 // this function will take jwt token and product _id and will update the user in product and product in user  after he/she likes any post(many to many in mongoose)
 const favourites_update= async (req, res)=>
-{
+{  
        console.log(req.user._id);
        console.log(req.body.productId);
        const user_id = req.user._id;

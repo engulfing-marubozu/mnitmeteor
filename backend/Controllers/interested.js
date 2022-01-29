@@ -1,8 +1,10 @@
 const { Product, User } = require("../Models");
 
+
 // this function will take jwt token and product _id and will update the user in product and product in user  after he/she has clicked interested any post
 const interested_update= async (req, res)=>
 {  console.log("deepak_very_big_madarchod");
+      
        console.log(req.user._id);
        console.log(req.body.productId);
        const user_id = req.user._id;

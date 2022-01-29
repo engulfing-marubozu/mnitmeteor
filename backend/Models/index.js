@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],
     },
+    Mobile_no : {
+      type: Number,
+      default : ""
+    }
   },
   { timestamps: true }
 );

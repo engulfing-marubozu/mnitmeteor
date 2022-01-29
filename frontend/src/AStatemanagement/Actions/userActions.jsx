@@ -66,7 +66,7 @@ export const fetchDataForATF = (likedata) => {
         }
       );
     console.log(response.data);    
-    dispatch(addToInterested(response.data));
+    dispatch(addToFavourites(response.data));
    }catch(err){
      console.log(err);
   };
@@ -160,12 +160,20 @@ export const fetchDataForPhoneNoAuth =  (phoneData) => {
       }
     })
   console.log(response.data);
+  
   if(flag===false){
     dispatch(phoneAuth(response.data));
   }
   else{
-    console.log(JSON.parse(window.document.auth));
- dispatch(AuthUser(response.data));
+
+   const {token} =  JSON.parse(window.localStorage.setItem("auth"));
+   const data = {
+    token: token,
+     user : response.data
+   }
+   window.localStorage.setItem("auth", JSON.stringify(data));
+  console.log(JSON.parse(window.localStorage.getItem("auth")));
+  dispatch(AuthUser(response.data));
   }
 
     } catch (err) {

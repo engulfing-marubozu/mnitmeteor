@@ -14,7 +14,8 @@ const mobile_no_update = async (req, res)=>{
   }
   else
   {
-      
+    //   if(mobile_no.startsWith("+91") || mobile_no.startsWith("+91"))
+    //      mobile_no = ``
    const user = await update_mobile_no_in_database(Id, mobile_no);
    res.status(200).send({user});
   }

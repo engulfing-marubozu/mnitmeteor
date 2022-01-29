@@ -236,7 +236,7 @@ function DiscriptionCard() {
           portelId={"contactDetailPortal"}
         >
           <GetPhoneNo
-            // modelInputHandler={modelInputHandler}
+            modelInputHandler={modelInputHandler}
             onClose={setContactModel}
           ></GetPhoneNo>
         </POPUPElement>

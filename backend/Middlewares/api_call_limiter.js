@@ -9,7 +9,7 @@ redis.connect();
 
 
 const api_call_limiter = async (req, res, next) => {
-  console.log("land bc")
+
   const allowed_time_in_seconds = 100;
   req.allowed_hits = 3;
   const authHeader = req.headers.authorization;
@@ -30,7 +30,10 @@ const api_call_limiter = async (req, res, next) => {
       status: false,
       ttl_seconds: req.ttl,
     });
-  else next();
+
+  else {
+    console.log("land bc")
+    next();}
 };
 
 module.exports = { api_call_limiter };

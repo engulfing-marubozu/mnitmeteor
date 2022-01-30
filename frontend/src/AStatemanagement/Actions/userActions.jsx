@@ -89,7 +89,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           }
         );
         console.log(response.data);
-        dispatch(addToInterested(response.data));
+        dispatch(addToInterested(response.data.updatedUser));
       } else {
         response = await axios.post(
           "http://localhost:5000/un_interested_update",
@@ -105,7 +105,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           alert(
             `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
           );
-          dispatch(addToFavourites(response.data.updatedUser));
+          dispatch(addToInterested(response.data.updatedUser));
         } else {
 
           alert(
@@ -170,11 +170,12 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
         const { token } = JSON.parse(window.localStorage.getItem("auth"));
         const data = {
           token: token,
-          user: response.data,
+          user: response.data.user,
         };
         window.localStorage.setItem("auth", JSON.stringify(data));
         console.log(JSON.parse(window.localStorage.getItem("auth")));
-        dispatch(AuthUser(response.data));
+        console.log(data);
+        dispatch(AuthUser(data));
       }
     } catch (err) {
       console.log(err);

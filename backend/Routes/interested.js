@@ -1,5 +1,6 @@
 const express = require("express");
-const { send_interested_products, interested_update , un_interested_update}= require("../controllers/interested");
+const { send_interested_products, interested_update }= require("../controllers/interested/interested");
+const { un_interested_update}= require("../controllers/interested/un_interested");
 const {authorization} = require("../Middlewares/authorization")
 const {api_call_limiter} = require("../Middlewares/api_call_limiter")
 const router = express.Router();

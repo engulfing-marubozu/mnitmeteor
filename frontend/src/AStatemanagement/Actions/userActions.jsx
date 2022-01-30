@@ -88,7 +88,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           }
         );
         console.log(response.data);
-        dispatch(addToInterested(response.data));
+        dispatch(addToInterested(response.data.updatedUser));
       } else {
         response = await axios.post(
           "http://localhost:5000/un_interested_update",

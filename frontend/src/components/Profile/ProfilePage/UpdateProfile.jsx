@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
-import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { BoldLink } from "../../loginForm/AccountBox/common";
 import {
   FormContainer,
@@ -14,35 +13,60 @@ import {
   PhoneNumberValidator,
   OtpValidator,
 } from "../../loginForm/AccountBox/validator";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDataForPhoneNoAuth } from "../../../AStatemanagement/Actions/userActions";
 
 // ================================================================Main FUNCTION =========================================================
 export default function UpdatePhoneNo(props) {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const phoneAuthDetails = useSelector(
+    (state) => state.PhoneAuthReducer.phoneAuthentication
+  );
+
+  //  =================================================================================================================================
   const phoneNoRef = useRef();
   const [showSubmit, setShowSubmit] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [getOtp, setGetOpt] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   // =================================================================OTP HANDLER=========================================================================
-  function PhoneNoHandler() {
+  const PhoneNoHandler = () => {
     const phoneNo = phoneNoRef.current.value;
     setFormErrors(PhoneNumberValidator(phoneNo));
     setGetOpt(true);
-  }
-  function OtpHandler() {
+  };
+  const OtpHandler = () => {
     const Otp = phoneNoRef.current.value;
-    const values = { realOtp: 1234, inputOtp: Otp };
+    const realOtp = phoneAuthDetails?.otp;
+    const values = { realOtp: realOtp, inputOtp: Otp };
     setFormErrors(OtpValidator(values));
     setIsSubmit(true);
-  }
+  };
   useEffect(() => {
     // console.log(formErrors);
     if (!showSubmit) {
       if (Object.keys(formErrors).length === 0 && getOtp) {
+        const data = {
+          token: token,
+          phoneNo: phoneNoRef.current.value,
+          flag: false,
+        };
+        // console.log(phoneNoRef.current.value,token );
+        dispatch(fetchDataForPhoneNoAuth(data));
         setShowSubmit(true);
       }
     } else if (showSubmit) {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
-        console.log("number registered");
+        const data = {
+          token: token,
+          phoneNo: phoneAuthDetails.mobile_no,
+          flag: true,
+        };
+        dispatch(fetchDataForPhoneNoAuth(data));
+        props.closeUpdate();
+        props.notify("Successfully Updated");
+        // console.log("number registered");
       }
     }
 

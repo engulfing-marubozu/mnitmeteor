@@ -49,7 +49,7 @@ export function LoginForm(props) {
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         // notify("Welcome");
-        console.log(response.data);
+        // console.log(response.data);
         dispatch(AuthUser(response.data));
         window.localStorage.setItem("auth", JSON.stringify(response.data));
 
@@ -72,7 +72,7 @@ export function LoginForm(props) {
     setIsSubmit(true);
   };
   useEffect(() => {
-    console.log(formErrors);
+    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       Loginfunc(signinFormValue);
     }

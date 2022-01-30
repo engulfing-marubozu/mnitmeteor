@@ -41,7 +41,7 @@ function Userbar(props) {
             }}
           >
             {/* <InsertEmoticonSharpIcon /> */}
-            <PersonIcon/>
+            <PersonIcon sx={{ fontSize:{  xs:16, sm:24 } }}/>
           </Avatar>
         </IconButton>
       </Tooltip>

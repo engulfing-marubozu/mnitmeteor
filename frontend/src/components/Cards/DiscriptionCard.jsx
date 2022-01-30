@@ -48,6 +48,7 @@ function DiscriptionCard() {
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const email = useSelector((state) => state.loginlogoutReducer.userData.email);
+  const userInterestedData = useSelector((state) => state.InterestedReducer)
   const dispatch = useDispatch();
   // ========================================================LIKESTATUS==========================================================================================
   const [isAddedToFav, setIsAddedToFav] = useState(false);
@@ -92,7 +93,28 @@ function DiscriptionCard() {
         setModelPopup(true);
       } else if (isInterested) {
         //"show pop for how many attempt are left for uninterested "
-        modelInputHandler(true);
+        // console.log(userInterestedData);
+        const { attempts_left, status, ttl_seconds } = userInterestedData;
+        console.log(attempts_left, status, ttl_seconds);
+        if (status) {
+          alert(
+            `${attempts_left - 1} attempts left for another ${ttl_seconds} seconds`
+          );
+          modelInputHandler(true);
+        } else {
+          const interestedData = { productId: params.productId, userToken: token };
+          dispatch(
+            fetchDataForInterestedProduct({
+              ...interestedData,
+              isInterested: false,
+            })
+          );
+          alert(
+            `max attempts done. Please retry after ${ttl_seconds} seconds`
+          );
+
+        }
+
       }
     } else {
       dispatch(modelPopUp(true));
@@ -127,6 +149,7 @@ function DiscriptionCard() {
   }, [email, product_id]);
 
   // ================================================================CardData ===============================================================
+  // console.log(cardData);
   // const Image = cardData?.images;
   const title = cardData
     ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1)
@@ -236,7 +259,7 @@ function DiscriptionCard() {
           portelId={"contactDetailPortal"}
         >
           <GetPhoneNo
-            // modelInputHandler={modelInputHandler}
+            modelInputHandler={modelInputHandler}
             onClose={setContactModel}
           ></GetPhoneNo>
         </POPUPElement>

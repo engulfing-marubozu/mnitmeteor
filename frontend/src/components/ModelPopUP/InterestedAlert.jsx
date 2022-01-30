@@ -4,20 +4,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { ModelColorButton, ModelOutlinedButton } from "./ModelPopUpStyling";
 import { useSelector } from "react-redux";
-// import POPUPElement from "./POPUPElement";
-
 // ========================================================MAIN FUNCTION=================================================================
 
 export default function InterestedAlert(props) {
   // ==========================================================GETTING DETAILS FROM STATE-REDUX =================================================
-  //  const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const phoneNumber = useSelector(
     (state) => state.loginlogoutReducer.userData.Mobile_no
   );
-  console.log(phoneNumber);
-  //  const token = useSelector((state) => state.loginlogoutReducer.token);
-  //  const email = useSelector((state) => state.loginlogoutReducer.userData.email);
+  // console.log(phoneNumber);
 
   // ==============================================AGREE-DISAGREE HANDLER===================================================================================
   const AgreeHandler = () => {
@@ -25,8 +20,6 @@ export default function InterestedAlert(props) {
       props.onClose();
       props.setContactModel(true);
     } else if (phoneNumber && isLoggedIn) {
-      // ===============================send data to backend for sending email to both user ==================================================
-
       props.modelInputHandler(true);
       props.onClose();
     }

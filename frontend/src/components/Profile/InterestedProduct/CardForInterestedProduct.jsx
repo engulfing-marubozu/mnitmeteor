@@ -45,7 +45,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function CardForInterestedProduct(props) {
-  console.log(props.cardData);
+  // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
   const Image = props.cardData?.images[0];
   const title =

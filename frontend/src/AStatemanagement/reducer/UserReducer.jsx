@@ -12,7 +12,7 @@ import {
 const InitialState = {
   isLogin: false,
   sellnowClicked: false,
-  userData: { email: undefined},
+  userData: { email: undefined },
 };
 
 export const loginlogoutReducer = (state = InitialState, action) => {
@@ -22,7 +22,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
         ...state,
         isLogin: true,
         userData: action.payload.user,
-       token:action.payload.token,
+        token: action.payload.token,
       };
 
     case LOGOUT_USER:
@@ -65,13 +65,20 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
   }
 };
 
-const interestedInitialValue = {};
+const interestedInitialValue = {
+  interestedData: '', attempts_left: 3, status: true, ttl_seconds: 100
+};
 export const InterestedReducer = (state = interestedInitialValue, action) => {
   switch (action.type) {
     case ADD_TO_INTERESTED:
       return {
         ...state,
-        interestedData: action.payload,
+        interestedData: action.payload.updatedUser,
+        ...(typeof (action.payload.attempts_left) !== "undefined" && { attempts_left: action.payload.attempts_left }),
+        ...(typeof (action.payload.status) !== "undefined" && { status: action.payload.status }),
+        ...(typeof (action.payload.ttl_seconds) !== "undefined" && { ttl_seconds: action.payload.ttl_seconds }),
+        // status: true,
+        // ttl_seconds: 31
       };
     default:
       return state;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Stack, Typography } from "@mui/material";
@@ -14,14 +15,15 @@ import {
   PhoneNumberValidator,
   OtpValidator,
 } from "../loginForm/AccountBox/validator";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchDataForPhoneNoAuth} from "../../AStatemanagement/Actions/userActions";
+import { fetchDataForPhoneNoAuth } from "../../AStatemanagement/Actions/userActions";
 
 // ================================================================Main FUNCTION =========================================================
 export default function GetPhoneNo(props) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  const phoneAuthDetails=useSelector((state)=>state.PhoneAuthReducer.phoneAuthentication);
+  const phoneAuthDetails = useSelector(
+    (state) => state.PhoneAuthReducer.phoneAuthentication
+  );
   // =======================================================================================================================================
 
   const phoneNoRef = useRef();
@@ -39,7 +41,7 @@ export default function GetPhoneNo(props) {
   function OtpHandler() {
     const Otp = phoneNoRef.current.value;
     // console.log(phoneOtp)
-    const realOtp=phoneAuthDetails?.otp;
+    const realOtp = phoneAuthDetails?.otp;
     const values = { realOtp: realOtp, inputOtp: Otp };
     setFormErrors(OtpValidator(values));
     setIsSubmit(true);
@@ -53,20 +55,21 @@ export default function GetPhoneNo(props) {
           phoneNo: phoneNoRef.current.value,
           flag: false,
         };
-        // console.log(phoneNoRef.current.value,token );
+
         dispatch(fetchDataForPhoneNoAuth(data));
         setShowSubmit(true);
       }
     } else if (showSubmit) {
       if (Object.keys(formErrors).length === 0 && isSubmit) {
-        const data={token:token,phoneNo:phoneAuthDetails.mobile_no, flag:true}
+        const data = {
+          token: token,
+          phoneNo: phoneAuthDetails.mobile_no,
+          flag: true,
+        };
         dispatch(fetchDataForPhoneNoAuth(data));
         props.modelInputHandler(true);
         props.onClose();
-
-
-        //// SEND EMAIL TO BOTH USERS AFTER SUBMISSION AND UPDATE TO UN-INTERESTED 
-        console.log("number registered");
+        // console.log("number registered");
       }
     }
 

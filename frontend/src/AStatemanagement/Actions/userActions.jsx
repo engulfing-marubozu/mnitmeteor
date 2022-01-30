@@ -65,7 +65,7 @@ export const fetchDataForATF = (likedata) => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       dispatch(addToFavourites(response.data));
     } catch (err) {
       console.log(err);
@@ -77,7 +77,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
   return async (dispatch) => {
     try {
       const { productId, userToken, isInterested } = interestedData;
-
       if (isInterested) {
         response = await axios.post(
           "http://localhost:5000/interested_update",
@@ -101,32 +100,24 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           }
         );
 
-        if (response.data.status) {
-          alert(
-            `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
-          );
-          dispatch(addToFavourites(response.data.updatedUser));
-        } else {
-
-          alert(
-            `max attempts done. Please retry after ${response.data.ttl_seconds} seconds`
-          );
-        }
+      //   if (response.data.status) {
+      //     alert(
+      //       `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
+      //     );
+          // dispatch(addToFavourites(response.data.updatedUser));
+      //   } else {
+      //     
+      console.log(response.data);
+       dispatch(addToInterested(response.data));
       }
     } catch (err) {
       console.log(err);
     }
-   // console.log(response.data);
-    //   dispatch(addToInterested(response.data));
-    // } catch (err) {
-    //   console.log(err);
-    //   alert("too many attempts, please try again later");
-    //
   };
 };
 
 export const fetchDataForDeletingPublishedAds = (deletingData) => {
-  console.log(deletingData);
+  // console.log(deletingData);
   const { token, productId } = deletingData;
   return async (dispatch) => {
     try {
@@ -147,12 +138,12 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 };
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  console.log(phoneData);
+  // console.log(phoneData);
   const { token, phoneNo, flag } = phoneData;
-  console.log(token);
+  // console.log(token);
   return async (dispatch) => {
     try {
-      console.log(flag);
+      // console.log(flag);
       const response = await axios.post(
         "http://localhost:5000/mobile_no_update",
         { phoneNo, flag },
@@ -162,7 +153,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
 
       if (flag === false) {
         dispatch(phoneAuth(response.data));
@@ -170,14 +161,30 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
         const { token } = JSON.parse(window.localStorage.getItem("auth"));
         const data = {
           token: token,
-          user: response.data,
+          user: response.data.user,
         };
+        // console.log(data);
+        // console.log(response.data);
         window.localStorage.setItem("auth", JSON.stringify(data));
         console.log(JSON.parse(window.localStorage.getItem("auth")));
-        dispatch(AuthUser(response.data));
+        dispatch(AuthUser(data));
       }
     } catch (err) {
       console.log(err);
     }
   };
 };
+
+
+// export const  fetchDataForSendingEmails=(data)=>{
+//   // const {token,productId,flag}=data;
+//  return async (dispatch)=>{
+//    try{
+
+
+//    }catch (err){
+//      console.log(err);
+//    }
+//  }
+
+// }

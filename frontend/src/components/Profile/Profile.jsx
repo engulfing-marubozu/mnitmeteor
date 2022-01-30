@@ -1,4 +1,4 @@
-import { Paper, Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import React from "react";
 import InterestedProduct from "./InterestedProduct/interestedProduct";
 import ProfilePage from "./ProfilePage/ProfilePage";

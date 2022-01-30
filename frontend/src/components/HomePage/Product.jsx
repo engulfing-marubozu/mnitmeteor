@@ -25,7 +25,7 @@ function ProductCard(props) {
   const category = props.Category ? props.Category : params.category;
   const [cardData, setCardData] = useState("");
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
-  const email = useSelector((state) => state.loginlogoutReducer.userData.email);
+  const email = useSelector((state) => state.loginlogoutReducer.userData?.email);
 
   useEffect(() => {
     // console.log(category);

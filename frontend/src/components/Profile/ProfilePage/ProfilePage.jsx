@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Typography, Stack, Paper, Button } from "@mui/material";
-// import { useSelector } from "react-redux";
+import { Typography, Paper, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 import profileIcon from "./profileIcon.svg";
 import UpdatePhoneNo from "./UpdateProfile";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // ========================================================MAIN FUNCTION=================================================================
 
 export default function ProfilePage(props) {
@@ -11,9 +13,10 @@ export default function ProfilePage(props) {
   //  const dispatch = useDispatch();
   // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   //  const token = useSelector((state) => state.loginlogoutReducer.token);
-  //  const email = useSelector((state) => state.loginlogoutReducer.userData.email);
+   const userData = useSelector((state) => state.loginlogoutReducer.userData);
   // ==================================================HANDLERS ====================================================================================
   const [openUpdate, setOpenUpdate] = useState(false);
+  const notify = (value) => toast(value);
   // const styles = {
   //   transition: "all 4000ms ease-out",
   // };
@@ -71,7 +74,7 @@ export default function ProfilePage(props) {
                 Email:
               </Typography>
               <Typography variant="body2" sx={{ pt: "0.2rem", px: "1.4rem" }}>
-                2019ume1827@mnit.ac.in
+             {userData?.email}
               </Typography>
             </Box>
 
@@ -80,7 +83,7 @@ export default function ProfilePage(props) {
                 Phone:
               </Typography>
               <Typography variant="body2" sx={{ pt: "0.2rem", px: "1rem" }}>
-                7000083820
+               {userData?.Mobile_no}
               </Typography>
             </Box>
           </Box>
@@ -99,16 +102,8 @@ export default function ProfilePage(props) {
           </Box>
         </Box>
 
-        {openUpdate && <UpdatePhoneNo />}
-        {/* <div
-          style={{
-            ...styles,
-            display: openUpdate.display,
-            transform: "display",
-          }}
-        >
-          <UpdatePhoneNo />
-        </div> */}
+        {openUpdate && <UpdatePhoneNo closeUpdate={updateHandler}  notify={notify}/>}
+        <ToastContainer />
       </Box>
     </div>
   );

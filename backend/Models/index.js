@@ -45,7 +45,7 @@ const productsSchema = new mongoose.Schema(
        ref: 'User' ,
     },
     images :{
-        type: []
+        type: [{}]
     },
     is_verified:{
         type : Boolean,

@@ -19,14 +19,25 @@ const products = async (req, res) => {
     // console.log(req.user);
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
-        const upload_response = await cloudinary.uploader.upload(
-          image.data_url,
-          {
-            upload_preset: "dev_setups",
-          }
+        const image_upload_response = await cloudinary.v2.uploader.upload(
+          image.data_url,{
+            overwrite: true,
+            invalidate: true,
+            width: 250, height: 150, 
+            crop: "fill_pad",
+            background: "auto", 
+            gravity: "auto",
+        }
         );
-
-        return upload_response.url;
+        const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
+          image.data_url,{
+            overwrite: true,
+            invalidate: true,
+            width: 250, height: 150, 
+            crop: "thumb",
+        }
+        );
+        return {image : image_upload_response.url , thumbnail :thumbnail_upload_response.url} ;
       })
     );
 

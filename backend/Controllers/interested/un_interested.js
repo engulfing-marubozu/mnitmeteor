@@ -21,7 +21,7 @@ const un_interested_update= async (req, res)=>
                   product = await Product.findOneAndUpdate({_id : product_id , is_verified : true} , {$pull  : {interested_users : id}});
                   buyer = await User.findByIdAndUpdate( id, {$pull : {interested : product_id}}, {new : true});
                   seller = await User.findById(product.posted_by);
-                  await send_un_interested_email(seller.email, seller.Mobile_no, product.title);
+                //  await send_un_interested_email(seller.email, seller.Mobile_no, product.title);
                }
                catch(err)
                {

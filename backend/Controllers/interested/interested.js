@@ -20,7 +20,7 @@ const interested_update= async (req, res)=>
                 product = await Product.findOneAndUpdate({_id : product_id , is_verified : true}, { $addToSet : {interested_users : id}});
                 buyer =  await User.findByIdAndUpdate( id, {$addToSet :  {interested : product_id}} , {new : true} );
                 seller = await User.findById(product.posted_by)
-                await send_interested_email(seller.email , buyer.email, product.title, seller.Mobile_no , buyer.Mobile_no )
+           //     await send_interested_email(seller.email , buyer.email, product.title, seller.Mobile_no , buyer.Mobile_no )
                }
             catch(err){
                  console.log(err);

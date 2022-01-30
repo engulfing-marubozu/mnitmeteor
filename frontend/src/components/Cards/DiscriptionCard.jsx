@@ -16,38 +16,40 @@ import { TimeSince } from "../TimeElapsed/timecalc";
 import POPUPElement from "../ModelPopUP/POPUPElement";
 import InterestedAlert from "../ModelPopUP/InterestedAlert";
 import GetPhoneNo from "../ContactDetails/GetPhoneNo";
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import DiscriptionProductDelete from "../ModelPopUP/DiscriptionDeleteButton";
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // RENDER DESCRIPTION DATA WITH THE HELP OF USE PARAMS
-
-const images = [
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-];
+// const images = [
+//   {
+//     original: "https://picsum.photos/id/1015/1000/600/",
+//     thumbnail: "https://picsum.photos/id/1015/250/150/",
+//   },
+//   {
+//     original: "https://picsum.photos/id/1019/1000/600/",
+//     thumbnail: "https://picsum.photos/id/1019/250/150/",
+//   },
+//   {
+//     original: "https://picsum.photos/id/1019/1000/600/",
+//     thumbnail: "https://picsum.photos/id/1019/250/150/",
+//   },
+//   {
+//     original: "https://picsum.photos/id/1019/1000/600/",
+//     thumbnail: "https://picsum.photos/id/1019/250/150/",
+//   },
+// ];
 
 function DiscriptionCard() {
   const params = useParams();
   const [modelPopup, setModelPopup] = useState(false);
   const [contactModel, setContactModel] = useState(false);
+  const [deletePopUp, setDeletePopUp] = useState(false);
   const product_id = params.productId;
   const [isInterested, setIsInterested] = useState(false);
   // =============================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  const email = useSelector((state) => state.loginlogoutReducer.userData.email);
+  const userData = useSelector((state) => state.loginlogoutReducer.userData);
+  const { email, _id: userId } = userData;
   const userInterestedData = useSelector((state) => state.InterestedReducer)
   const dispatch = useDispatch();
   // ========================================================LIKESTATUS==========================================================================================
@@ -112,9 +114,7 @@ function DiscriptionCard() {
           alert(
             `max attempts done. Please retry after ${ttl_seconds} seconds`
           );
-
         }
-
       }
     } else {
       dispatch(modelPopUp(true));
@@ -150,20 +150,37 @@ function DiscriptionCard() {
 
   // ================================================================CardData ===============================================================
   // console.log(cardData);
-  // const Image = cardData?.images;
-  const title = cardData
-    ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1)
-    : " ";
+  const Image = cardData?.images;
+  // console.log(Image);
+  const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
   const date = cardData ? new Date(cardData.createdAt) : "";
   // const properDate = `${date.toLocaleString("default", {
   //   month: "short",
   // })} ${date.getDate()}, ${date.getFullYear()}`;
-
   const properDate = date ? TimeSince(date) : " ";
-
   const Description = cardData ? cardData.description : " ";
-
+  const postedbyId = cardData ? cardData.posted_by : " ";
+  const productId = cardData ? cardData._id : " ";
   //=======================================================================================================================================
+  const images = [
+    {
+      original: `${Image}`,
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+  ];
+  // =======================================================================================================================
 
   return (
     <>
@@ -195,7 +212,9 @@ function DiscriptionCard() {
             display={{ sm: "flex" }}
             sx={{ pl: { lg: 2, xs: 0 } }}
           >
-            <OutlinedButton
+
+            {/* =========================================INTERESTED UNINTERESTED BUTTON================================================================================= */}
+            {isLoggedIn&&userId !== postedbyId && (<OutlinedButton
               variant="outlined"
               sx={{
                 fontSize: { xs: "10px", md: "15px" },
@@ -205,7 +224,32 @@ function DiscriptionCard() {
             >
               {!isInterested && "Interested"}
               {isInterested && "Un-Interested"}
-            </OutlinedButton>
+            </OutlinedButton>)}
+            {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ========================================================================================== */}
+            {!isLoggedIn && (<OutlinedButton
+              variant="outlined"
+              sx={{
+                fontSize: { xs: "10px", md: "15px" },
+                fontWeight: "bold",
+              }}
+              onClick={interesetedClickHandler}
+            >
+              {!isInterested && "Interested"}
+              {isInterested && "Un-Interested"}
+            </OutlinedButton>)}
+
+            {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================================================================          */}
+            {isLoggedIn && userId === postedbyId && (<OutlinedButton
+              variant="outlined"
+              sx={{
+                fontSize: { xs: "10px", md: "15px" },
+                fontWeight: "bold",
+              }}
+              onClick={() => { setDeletePopUp(true) }}
+            >
+              Delete
+            </OutlinedButton>)}
+            {/* =================================================================================================================================== */}
             <ColorButton
               sx={{
                 fontSize: { xs: "10px", md: "15px" },
@@ -238,7 +282,7 @@ function DiscriptionCard() {
           </Typography>
         </TextContainer>
       </Wrapper>
-      {/* ================================================================================================================================== */}
+      {/* ===================================================================ALERTS ===================================================== */}
       {modelPopup && isLoggedIn && (
         <POPUPElement
           open={modelPopup}
@@ -264,6 +308,21 @@ function DiscriptionCard() {
           ></GetPhoneNo>
         </POPUPElement>
       )}
+
+      {
+        deletePopUp && isLoggedIn && (
+          <POPUPElement
+            open={deletePopUp}
+            onClose={setDeletePopUp}
+            portelId={"alertPortal"}
+          >
+            <DiscriptionProductDelete
+              productId={productId}
+              onClose={setDeletePopUp}
+            />
+          </POPUPElement>
+        )
+      }
       {/* ==========================================================================================================================================      */}
     </>
   );

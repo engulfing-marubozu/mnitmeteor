@@ -26,6 +26,7 @@ function ProductCard(props) {
   const [cardData, setCardData] = useState("");
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
   const email = useSelector((state) => state.loginlogoutReducer.userData?.email);
+  // console.log(email);
 
   useEffect(() => {
     // console.log(category);
@@ -52,14 +53,14 @@ function ProductCard(props) {
     <main>
       {/* <Typography variant="h4">{props.Category ? props.Category : params.category}</Typography> */}
       <Container
-        sx={{ pt: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 5 } }}
-        maxWidth={"lg"}
+        sx={{ pt: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 5 }, maxWidth: {  xs: "xs", sm: "sm",md:"md" ,lg: "lg" } }}
+
       >
-        <Grid container spacing={{ xs: 2, sm: 4 }}>
+        <Grid container spacing={{ xs: 2, sm: 4 , lg: 4 }}>
           {cardData &&
             cardData.map((data, index) => {
               return (
-                <Grid item xs={6} sm={4} lg={3} key={index}>
+                <Grid item xs={6} md={4} lg={3} key={index} >
                   <HomeCard cardData={data} />
                 </Grid>
               );

@@ -58,7 +58,7 @@ const delete_published_Ads = async (req, res) => {
           return user.email;
         })
       );
-      delete_product_email(interested_users_email, title);
+      // delete_product_email(interested_users_email, title);
     }
   } catch (err) {
     console.log(err);

@@ -101,7 +101,7 @@ export default function HomeCard(props) {
             variant="h6"
             noWrap
             sx={{
-              maxWidth: { xs: 90, sm: 140 },
+              maxWidth: { xs: 90, sm: 170 },
               fontWeight: "bold",
               fontSize: { xs: "small", md: "default" },
             }}

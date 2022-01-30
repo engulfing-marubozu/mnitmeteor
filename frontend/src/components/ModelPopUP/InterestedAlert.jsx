@@ -17,15 +17,15 @@ export default function InterestedAlert(props) {
   // ==============================================AGREE-DISAGREE HANDLER===================================================================================
   const AgreeHandler = () => {
     if (!phoneNumber && isLoggedIn) {
-      props.onClose();
+      props.onClose(false);
       props.setContactModel(true);
     } else if (phoneNumber && isLoggedIn) {
       props.modelInputHandler(true);
-      props.onClose();
+      props.onClose(false);
     }
   };
   const DisagreeHandler = () => {
-    props.onClose();
+    props.onClose(false);
   };
   // =======================================================================================================================================
   return (
@@ -41,7 +41,7 @@ export default function InterestedAlert(props) {
           <IconButton
             sx={{ p: "4px" }}
             onClick={() => {
-              props.onClose();
+              props.onClose(false);
             }}
           >
             <CloseIcon />

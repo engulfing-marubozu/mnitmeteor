@@ -1,9 +1,9 @@
 import React from "react";
 // import GetPhoneNo from "../ContactDetails/GetPhoneNo";
 // import InterestedAlert from "../ModelPopUP/InterestedAlert";
-import { Paper, Box } from "@mui/material";
-import ProfilePage from "../Profile/ProfilePage/ProfilePage";
-import banner3 from "./banner3.png";
+import { Box } from "@mui/material";
+// import ProfilePage from "../Profile/ProfilePage/ProfilePage";
+// import banner3 from "./banner3.png";
 function About() {
   return (
     <>
@@ -13,9 +13,8 @@ function About() {
           alt="banner"
           style={{ width: "100%", margin: 0, padding: 0 }}
         /> */}
-       
+      this is about page
       </Box>
-      <ProfilePage/>
     </>
   );
 }

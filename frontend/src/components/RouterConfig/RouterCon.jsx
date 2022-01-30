@@ -13,6 +13,7 @@ function RouterCon() {
   console.log(isLoggedIn);
   return (
     <Routes>
+      {/* <Route path="/home" element ={<Home/>}/> */}
       <Route path="/" element={<Home />}>
         <Route index element={<ProductCard Category="recommendation" />} />
         <Route path="Product/:category" element={<ProductCard />} />

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { CardComponent } from "./card_component";
 import axios from "axios";
 import { useEffect } from "react";
+import AdminPanelPage from "./adminPanelPage";
+import { Typography } from "@mui/material";
 
 function Adminpanel() {
   const [data, setdata] = useState("");
   const [flag, setflag] = useState(true);
-
+  // ===================================================================================================================================================================
   const ApproveRequest = async (id) => {
     const response = await axios.post("http://localhost:5000/admin_response", {
       id,
@@ -23,41 +24,48 @@ function Adminpanel() {
     console.log(response);
     setflag(!flag);
   };
+  // ===================================================Fetching Data=================================================================================================
   useEffect(() => {
-    let isSubscribed =true;
+    let isSubscribed = true;
     const admin_post_load = async () => {
       try {
         const response = await axios.get(
           "http://localhost:5000/admin_postLoad"
         );
-        if(isSubscribed){
+        if (isSubscribed) {
           // console.log(response.data.data);
           setdata(response.data.data);
         }
-    
+
       } catch (err) {
         console.log(err);
       }
     };
 
     admin_post_load();
-    return ()=>{isSubscribed=false}
+    return () => { isSubscribed = false }
   }, [flag]);
-
+  // =====================================================================================================================================================================
   return (
     <>
-      <h2>This is Admin Panel</h2>
-      {data &&
-        data.map((product,index) => {
-          return (
-            <CardComponent
-            key={index}
-              product={product}
-              ApproveRequest={ApproveRequest}
-              DeclineRequest={DeclineRequest}
-            />
-          );
-        })}
+
+      <Typography variant="h5" sx={{ px: { xs: 3.5, lg: 14 }, py: { xs: 2, lg: 3 } }} > This is admin panel</Typography>
+        {
+    data &&
+    data.map((product, index) => {
+      return (
+        <AdminPanelPage
+          index={index}
+          key={index}
+          cardData={product}
+          ApproveRequest={ApproveRequest}
+          DeclineRequest={DeclineRequest}
+        />
+      );
+    })
+  }
+   
+
     </>
   );
 }

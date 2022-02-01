@@ -8,7 +8,7 @@ import {
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
-import { Typography, Stack } from "@mui/material";
+import { Typography, Stack} from "@mui/material";
 import { OutlinedButton, ColorButton } from "../Navbar/navbar";
 import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
 import axios from "axios";
@@ -17,27 +17,8 @@ import POPUPElement from "../ModelPopUP/POPUPElement";
 import InterestedAlert from "../ModelPopUP/InterestedAlert";
 import GetPhoneNo from "../ContactDetails/GetPhoneNo";
 import DiscriptionProductDelete from "../ModelPopUP/DiscriptionDeleteButton";
+// import styles from  "./ImageStyle.css";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// RENDER DESCRIPTION DATA WITH THE HELP OF USE PARAMS
-// const images = [
-//   {
-//     original: "https://picsum.photos/id/1015/1000/600/",
-//     thumbnail: "https://picsum.photos/id/1015/250/150/",
-//   },
-//   {
-//     original: "https://picsum.photos/id/1019/1000/600/",
-//     thumbnail: "https://picsum.photos/id/1019/250/150/",
-//   },
-//   {
-//     original: "https://picsum.photos/id/1019/1000/600/",
-//     thumbnail: "https://picsum.photos/id/1019/250/150/",
-//   },
-//   {
-//     original: "https://picsum.photos/id/1019/1000/600/",
-//     thumbnail: "https://picsum.photos/id/1019/250/150/",
-//   },
-// ];
-
 function DiscriptionCard() {
   const params = useParams();
   const [modelPopup, setModelPopup] = useState(false);
@@ -197,7 +178,7 @@ function DiscriptionCard() {
           </Typography>
           <Typography
             variant="body2"
-            sx={{ fontWeight: "bold", px: { xs: 0, lg: 2 }, pt: 0, pb: 2 }}
+            sx={{ fontWeight: "bold", px: { xs: 1, lg: 3 }, pt: 0, pb: 2 }}
           >
             {properDate}
           </Typography>

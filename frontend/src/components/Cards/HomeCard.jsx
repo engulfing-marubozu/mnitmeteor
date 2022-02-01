@@ -43,7 +43,7 @@ const HoverCard = styled(Card)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    // objectFit: "contain", 
+    objectFit: "fill", 
   },
 });
 

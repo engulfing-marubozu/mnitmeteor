@@ -48,9 +48,10 @@ function Adminpanel() {
     <>
       <h2>This is Admin Panel</h2>
       {data &&
-        data.map((product) => {
+        data.map((product,index) => {
           return (
             <CardComponent
+            key={index}
               product={product}
               ApproveRequest={ApproveRequest}
               DeclineRequest={DeclineRequest}

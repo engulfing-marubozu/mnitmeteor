@@ -1,20 +1,9 @@
 import React from "react";
-// import GetPhoneNo from "../ContactDetails/GetPhoneNo";
-// import InterestedAlert from "../ModelPopUP/InterestedAlert";
-import { Box } from "@mui/material";
-// import ProfilePage from "../Profile/ProfilePage/ProfilePage";
-// import banner3 from "./banner3.png";
+import SellFormNew from "../SellnowNew/sellnowform";
 function About() {
   return (
     <>
-      <Box sx={{ m: 0, p: 0 }}>
-        {/* <img
-          src={banner3}
-          alt="banner"
-          style={{ width: "100%", margin: 0, padding: 0 }}
-        /> */}
-      this is about page
-      </Box>
+      <SellFormNew />
     </>
   );
 }

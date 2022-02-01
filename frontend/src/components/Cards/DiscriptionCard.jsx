@@ -150,7 +150,8 @@ function DiscriptionCard() {
 
   // ================================================================CardData ===============================================================
   // console.log(cardData);
-  const Image = cardData?.images;
+  const imageThumbnail = cardData?.images;
+  // console.log(Images);
   // console.log(Image);
   const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
   const date = cardData ? new Date(cardData.createdAt) : "";
@@ -161,25 +162,19 @@ function DiscriptionCard() {
   const Description = cardData ? cardData.description : " ";
   const postedbyId = cardData ? cardData.posted_by : " ";
   const productId = cardData ? cardData._id : " ";
-  //=======================================================================================================================================
-  const images = [
-    {
-      original: `${Image}`,
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+  //==============================================IMAGE PRODUCER ======================================================================
+
+  const images = typeof (imageThumbnail) !== "undefined" ? (
+    imageThumbnail.map((img, index) => {
+      return {
+        original: `${imageThumbnail[index]?.image}`,
+        thumbnail: `${imageThumbnail[index]?.thumbnail}`,
+      }
+    })
+  )
+  :false;
+
+
   // =======================================================================================================================
 
   return (
@@ -187,7 +182,7 @@ function DiscriptionCard() {
       {/* <BoxContainer>this is discription page of </BoxContainer> */}
       <Wrapper>
         <BoxContainer>
-          <ImageGallery items={images} />
+          {images && <ImageGallery items={images} />}
         </BoxContainer>
         <TextContainer>
           <Typography
@@ -214,7 +209,7 @@ function DiscriptionCard() {
           >
 
             {/* =========================================INTERESTED UNINTERESTED BUTTON================================================================================= */}
-            {isLoggedIn&&userId !== postedbyId && (<OutlinedButton
+            {isLoggedIn && userId !== postedbyId && (<OutlinedButton
               variant="outlined"
               sx={{
                 fontSize: { xs: "10px", md: "15px" },

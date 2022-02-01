@@ -23,7 +23,7 @@ export const ModelOutlinedButton = styled(Button)(({ theme }) => ({
 function ProductCard(props) {
   const params = useParams();
   const category = props.Category ? props.Category : params.category;
-  const [cardData, setCardData] = useState("");
+  const [cardData, setCardData] = useState();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
   const email = useSelector((state) => state.loginlogoutReducer.userData?.email);
   // console.log(email);
@@ -48,16 +48,16 @@ function ProductCard(props) {
     Call();
     return () => (isSubscribed = false);
   }, [category, email, isLoggedIn]);
-
+ 
+  console.log(cardData);
   return (
     <main>
       {/* <Typography variant="h4">{props.Category ? props.Category : params.category}</Typography> */}
       <Container
-        sx={{ pt: { xs: 5, sm: 10 }, pb: { xs: 5, sm: 5 }, maxWidth: {  xs: "xs", sm: "sm",md:"md" ,lg: "lg" } }}
-
+        sx={{pt:{ xs: 5, sm: 10 },pb: { xs: 5, sm: 5 },maxWidth:{  xs: "xs", sm: "sm",md:"md" ,lg: "lg" }}}
       >
         <Grid container spacing={{ xs: 2, sm: 4 , lg: 4 }}>
-          {cardData &&
+          {typeof(cardData)!=="undefined" &&
             cardData.map((data, index) => {
               return (
                 <Grid item xs={6} md={4} lg={3} key={index} >

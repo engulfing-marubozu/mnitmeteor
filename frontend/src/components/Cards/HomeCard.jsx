@@ -23,46 +23,49 @@ import { TimeSince } from "../TimeElapsed/timecalc";
 // PRODUCT DATA BY PRODUCT ID
 
 const CardContentNoPadding = styled(CardContent)(`
-
   &:last-child {
     padding-bottom: 8px;
   }
 `);
+const HoverCard = styled(Card)(`
+&:hover{
+  transform:scale(1.12);
+  box-shadow: 0px 5px 6px -3px rgb(0 0 0 / 15%), 0px 9px 12px 1px rgb(0 0 0 / 14%), 0px 3px 16px 2px rgb(0 0 0 / 14%);
+   @media (max-width: 600px) 
+   {
+   transform:scale(1.06);}
+  @media (max-width: 502px) 
+  {
+    transform:scale(1.04);
+  }  
+}`);
 
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    objectFit: "contain",
+    // objectFit: "contain", 
   },
 });
 
 export default function HomeCard(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-  const Image = props.cardData.images[0];
-  const title =
-    props.cardData.title.charAt(0).toUpperCase() +
-    props.cardData.title.slice(1);
+  const Image = props.cardData?.images[0].image;
+  const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
   const date = new Date(props.cardData.createdAt);
-  // const properDate = `${date.toLocaleString("default", {
-  //   month: "short",
-  // })} ${date.getDate()}, ${date.getFullYear()}`;
+  // const properDate = `${date.toLocaleString("default", {month: "short", })} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = TimeSince(date);
-
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
-  // =========================================================================================================================================
-
+  // ==================================================================================================================================
   const [likeButton, setLikeButton] = useState();
 
   React.useEffect(() => {
     setLikeButton(props.cardData.blue_heart);
   }, [props.cardData.blue_heart]);
-
   // console.log(props.cardData.blue_heart);
-
   // console.log(likeButton);
   const LikeButtonHandler = () => {
     // console.log("likeButtonHandler");
@@ -77,9 +80,8 @@ export default function HomeCard(props) {
     }
   };
   const Classes = useStyles();
-
   return (
-    <Card sx={{ maxWidth: "280px", borderRadius: 1 }} elevation={3}>
+    <HoverCard sx={{ maxWidth: "280px", borderRadius: 1, transition: `500ms transform ease` }} >
       <Link to={`/ProductDiscription/${props.cardData._id}`}>
         <CardMedia
           component="img"
@@ -101,7 +103,7 @@ export default function HomeCard(props) {
             variant="h6"
             noWrap
             sx={{
-              maxWidth: { xs: 90, sm: 140 },
+              maxWidth: { xs: 90, sm: 170 },
               fontWeight: "bold",
               fontSize: { xs: "small", md: "default" },
             }}
@@ -148,6 +150,6 @@ export default function HomeCard(props) {
           </IconButton>
         </CardActions>
       </CardContentNoPadding>
-    </Card>
+    </HoverCard>
   );
 }

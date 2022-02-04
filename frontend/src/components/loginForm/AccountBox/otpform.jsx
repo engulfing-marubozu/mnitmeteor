@@ -53,7 +53,6 @@ const  resendOtp = async ()=>{
     // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       // console.log(otpValue);
-    
       Switch({email:props.signUpDetails.email,active:props.signUpDetails.flag});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

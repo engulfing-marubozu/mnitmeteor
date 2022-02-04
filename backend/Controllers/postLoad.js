@@ -20,15 +20,12 @@ const products = async (req, res) => {
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
-          image.data_url,{
-            width: 1000, height: 600, 
-            crop: "pad",
-        }
+          image.data_url,
         );
         const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
-          image.data_url,{       
+          image.data_url,{
             width: 250, height: 150, 
-            crop: "thumb",
+            crop: "thumb"
         }
         );
         return {image : image_upload_response.url , thumbnail :thumbnail_upload_response.url} ;

@@ -32,6 +32,8 @@ function InterestedProduct(props) {
   }, [interestedList,token]);
 
       const arrlength=typeof(arr)==="undefined"?0:arr.length;
+      // console.log(arrlength);
+      // console.log(arr); 
   // ====================================================================================================================================
   return (
     <StylingInterestedProduct length={arrlength} arr={arr}></StylingInterestedProduct>

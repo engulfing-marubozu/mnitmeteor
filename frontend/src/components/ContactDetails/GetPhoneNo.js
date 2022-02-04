@@ -68,7 +68,7 @@ export default function GetPhoneNo(props) {
         };
         dispatch(fetchDataForPhoneNoAuth(data));
         props.modelInputHandler(true);
-        props.onClose();
+        props.onClose(false);
         // console.log("number registered");
       }
     }
@@ -89,7 +89,7 @@ export default function GetPhoneNo(props) {
           <IconButton
             sx={{ p: "4px" }}
             onClick={() => {
-              props.onClose();
+              props.onClose(false);
             }}
           >
             <CloseIcon />

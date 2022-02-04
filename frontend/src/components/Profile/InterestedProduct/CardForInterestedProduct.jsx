@@ -27,7 +27,7 @@ const CardContentNoPadding = styled(CardContent)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    objectFit: "contain",
+    // objectFit: "contain",
   },
 });
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -47,7 +47,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 export default function CardForInterestedProduct(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-  const Image = props.cardData?.images[0];
+  const Image = props.cardData?.images[0].image
+  ;
   const title =
     props.cardData?.title.charAt(0).toUpperCase() +
     props.cardData?.title.slice(1);

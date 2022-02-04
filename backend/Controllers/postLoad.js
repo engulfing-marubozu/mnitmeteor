@@ -21,18 +21,12 @@ const products = async (req, res) => {
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url,{
-            overwrite: true,
-            invalidate: true,
-            width: 250, height: 150, 
-            crop: "fill_pad",
-            background: "auto", 
-            gravity: "auto",
+            width: 1000, height: 600, 
+            crop: "pad",
         }
         );
         const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
-          image.data_url,{
-            overwrite: true,
-            invalidate: true,
+          image.data_url,{       
             width: 250, height: 150, 
             crop: "thumb",
         }

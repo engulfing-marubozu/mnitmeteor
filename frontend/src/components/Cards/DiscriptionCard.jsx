@@ -8,7 +8,7 @@ import {
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
-import { Typography, Stack} from "@mui/material";
+import { Typography, Stack } from "@mui/material";
 import { OutlinedButton, ColorButton } from "../Navbar/navbar";
 import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
 import axios from "axios";
@@ -17,7 +17,7 @@ import POPUPElement from "../ModelPopUP/POPUPElement";
 import InterestedAlert from "../ModelPopUP/InterestedAlert";
 import GetPhoneNo from "../ContactDetails/GetPhoneNo";
 import DiscriptionProductDelete from "../ModelPopUP/DiscriptionDeleteButton";
-// import styles from  "./ImageStyle.css";
+import "./ImageStyle.css";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function DiscriptionCard() {
   const params = useParams();
@@ -153,8 +153,7 @@ function DiscriptionCard() {
       }
     })
   )
-  :false;
-
+    : false;
 
   // =======================================================================================================================
 

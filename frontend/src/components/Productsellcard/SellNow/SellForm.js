@@ -17,12 +17,14 @@ const FORM_VALIDATION = Yup.object().shape({
   adTitle: Yup.string().required("Required"),
   description: Yup.string().required("Required"),
   categories: Yup.string().required("Required"),
+  images:Yup.array().required("Required"),
 });
 
 const SellForm = (props) => {
   const Navigate = useNavigate();
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const [imagearray, setimagearray] = useState([]);
+  console.log(imagearray);
   // const [isEntering, setIsEntering] = useState(false);
 
   // const onFocusHandler = () => {
@@ -123,7 +125,7 @@ const SellForm = (props) => {
                       </Grid>
 
                       <Grid container justifyContent={"center"}>
-                        <UploadImage onDrop={onDrop} />
+                        <UploadImage  name="images" onDrop={onDrop} />
                       </Grid>
 
                       <Grid item xs={12}>

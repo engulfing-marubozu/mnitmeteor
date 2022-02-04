@@ -43,12 +43,12 @@ const HoverCard = styled(Card)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    objectFit: "fill", 
+    // objectFit: "contain", 
   },
 });
 
 export default function HomeCard(props) {
-  console.log(props.cardData);
+  // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
   const Image = props.cardData?.images[0].image;
   const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);

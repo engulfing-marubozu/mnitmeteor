@@ -17,7 +17,7 @@ import { TimeSince } from "../TimeElapsed/timecalc";
 
 // ===============================================================
 // PRODUCT DATA BY PRODUCT ID
-const HoverCard=styled(Card)(`
+const HoverCard = styled(Card)(`
 &:hover{
   transform:scale(1.12);
   box-shadow: 0px 5px 6px -3px rgb(0 0 0 / 15%), 0px 9px 12px 1px rgb(0 0 0 / 14%), 0px 3px 16px 2px rgb(0 0 0 / 14%);
@@ -38,18 +38,25 @@ const CardContentNoPadding = styled(CardContent)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    // objectFit: "contain",
+    // objectFit: "fill",
   },
+  crossIconButton:{
+    color:"black",
+    backgroundColor: "white",
+    "&:hover": {
+      backgroundColor: "white",
+    },
+  }
 });
 
 export default function FavouritesCard(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
   const Image = props.cardData.images[0].image;
-  const title =props.cardData.title.charAt(0).toUpperCase() +props.cardData.title.slice(1);
+  const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
   const date = new Date(props.cardData.createdAt);
   // const properDate = `${date.toLocaleString("default", { month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
-  const properDate=TimeSince(date);
+  const properDate = TimeSince(date);
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -79,7 +86,7 @@ export default function FavouritesCard(props) {
 
       }}
     >
-      <HoverCard sx={{ maxwidth: "280px", borderRadius: 1 ,transition: `500ms transform ease`}} elevation={3}>
+      <HoverCard sx={{ maxwidth: "280px", borderRadius: 1, transition: `500ms transform ease` }} elevation={3}>
         <Link to={`/ProductDiscription/${props.cardData._id}`}>
           <CardMedia
             component="img"
@@ -146,8 +153,8 @@ export default function FavouritesCard(props) {
       </HoverCard>
 
       <div style={{ zIndex: 11, position: "absolute", right: "0px" }}>
-        <IconButton onClick={removeFromFavouritesHandler}>
-          <CloseIcon sx={{ fontSize: "28px" }} />
+        <IconButton onClick={removeFromFavouritesHandler} sx={{m:0.4}} classes={{ root: Classes.crossIconButton }} size="small" >
+          <CloseIcon sx={{ fontSize: "20px",}} />
         </IconButton>
       </div>
     </div>

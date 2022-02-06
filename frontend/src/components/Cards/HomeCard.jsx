@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RWebShare } from 'react-web-share';
 import Card from "@mui/material/Card";
 import { Box } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
@@ -43,7 +44,7 @@ const HoverCard = styled(Card)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    // objectFit: "contain", 
+    objectFit: "contain", 
   },
 });
 
@@ -138,16 +139,24 @@ export default function HomeCard(props) {
           >
             <FavoriteIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
           </IconButton>
-
-          <IconButton
-            aria-label="share"
-            sx={{
-              color: "#512da8",
-              p: { xs: "4px", sm: "8px" },
+          <RWebShare
+            data={{
+              text: "Mnit Market",
+              url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+              title: `${title}`,
             }}
+            onClick={() => console.log("shared successfully!")}
           >
-            <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
-          </IconButton>
+            <IconButton
+              aria-label="share"
+              sx={{
+                color: "#512da8",
+                p: { xs: "4px", sm: "8px" },
+              }}
+            >
+              <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+            </IconButton>
+          </RWebShare>
         </CardActions>
       </CardContentNoPadding>
     </HoverCard>

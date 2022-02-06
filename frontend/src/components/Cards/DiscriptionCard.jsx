@@ -136,9 +136,7 @@ function DiscriptionCard() {
   // console.log(Image);
   const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
   const date = cardData ? new Date(cardData.createdAt) : "";
-  // const properDate = `${date.toLocaleString("default", {
-  //   month: "short",
-  // })} ${date.getDate()}, ${date.getFullYear()}`;
+  // const properDate = `${date.toLocaleString("default", month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = date ? TimeSince(date) : " ";
   const Description = cardData ? cardData.description : " ";
   const postedbyId = cardData ? cardData.posted_by : " ";

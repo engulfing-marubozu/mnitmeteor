@@ -17,7 +17,7 @@ const FORM_VALIDATION = Yup.object().shape({
   adTitle: Yup.string().required("Required"),
   description: Yup.string().required("Required"),
   categories: Yup.string().required("Required"),
-  images:Yup.array().required("Required"),
+
 });
 
 const SellForm = (props) => {

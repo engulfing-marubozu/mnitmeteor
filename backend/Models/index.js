@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 
-const userSchema = new mongoose.Schema(
+const user_schema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const productsSchema = new mongoose.Schema(
+const products_schema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -70,9 +70,32 @@ const productsSchema = new mongoose.Schema(
 
 },{timestamps: true});
 
+const thread_schema = new mongoose.Schema({
+  posted_by: {
+    type : Object,
+    default: null
+  },
+  users_mnit_id:{
+    type : String,
+    default: ""
+  },
+  title :{
+    type : String,
+    default: ""
+  },
+  description:{
+    type : String,
+    default: "" 
+  },
+  discussions : {
+   type : [{type : Object, content : {
+     type : String,
+     default : ""
+   }}]
+  }
+},{timestamps: true})
 
-
-const Product = mongoose.model("Product", productsSchema);
-const User = mongoose.model("User", userSchema);
-
-module.exports = { User, Product };
+const Product = mongoose.model("Product", products_schema);
+const User = mongoose.model("User", user_schema);
+const Thread = mongoose.model("Thread", thread_schema );
+module.exports = { User, Product, Thread };

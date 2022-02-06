@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RWebShare } from "react-web-share";
 import {
   Card,
   CardMedia,
@@ -26,7 +27,7 @@ const CardContentNoPadding = styled(CardContent)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    // objectFit: "contain",
+    objectFit: "contain",
   },
 });
 
@@ -34,80 +35,88 @@ export default function CardForPublishedAds(props) {
 
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-    const Image = props.cardData?.images[0].image;
-    const title = props.cardData.title.charAt(0).toUpperCase() +props.cardData.title.slice(1);
-    const date = new Date(props.cardData.createdAt);
-    // const properDate = `${date.toLocaleString("default", { month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
-    const properDate = TimeSince(date);
+  const Image = props.cardData?.images[0].image;
+  const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
+  const date = new Date(props.cardData.createdAt);
+  // const properDate = `${date.toLocaleString("default", { month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
+  const properDate = TimeSince(date);
 
-    // =========================================================================================================================================
-   
-    const Classes = useStyles();
-    return (
-      <Card
+  // =========================================================================================================================================
+
+  const Classes = useStyles();
+  return (
+    <Card
+      sx={{
+        maxwidth: "260px",
+        borderRadius: 1,
+        margin: { lg: "20px", xs: "10px" },
+      }}
+    >
+      <Link to={`/ProductDiscription/${props.cardData._id}`}>
+        <CardMedia
+          component="img"
+          classes={{ img: Classes.image }}
+          width="260px"
+          sx={{ height: { xs: "160px", sm: "180px" } }}
+          image={Image}
+          alt="Image"
+        />
+      </Link>
+
+      <CardContentNoPadding
         sx={{
-          maxwidth: "260px",
-          borderRadius: 1,
-          margin: { lg: "20px", xs: "10px" },
+          bgcolor: "#f5f5f5",
+          pt: 0,
+          px: 1,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Link to={`/ProductDiscription/${props.cardData._id}`}>
-          <CardMedia
-            component="img"
-            classes={{ img: Classes.image }}
-            width="260px"
-            sx={{ height: { xs: "160px", sm: "180px" } }}
-            image={Image}
-            alt="Image"
-          />
-        </Link>
-
-        <CardContentNoPadding
+        <Typography
+          variant="h6"
+          noWrap
           sx={{
-            bgcolor: "#f5f5f5",
-            pt: 0,
-            px: 1,
+            fontWeight: "bold",
+            fontSize: { xs: "medium" },
+            py: "5px",
+          }}
+        >
+          {title}
+        </Typography>
+
+        <Box
+          sx={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
         >
           <Typography
-            variant="h6"
-            noWrap
+            variant="body2"
             sx={{
-              fontWeight: "bold",
-              fontSize: { xs: "medium" },
-              py: "5px",
+              maxwidth: "100px",
+              fontSize: { xs: "x-small", sm: "default" },
             }}
           >
-            {title}
+            {properDate}
           </Typography>
 
-          <Box
+          <CardActions
+            disableSpacing
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
+              bgcolor: "#f5f5f5",
+              px: 0,
+              py: 0,
+              alignItems: "flex-start",
             }}
           >
-            <Typography
-              variant="body2"
-              sx={{
-                maxwidth: "100px",
-                fontSize: { xs: "x-small", sm: "default" },
+            <RWebShare
+              data={{
+                text: "Mnit Market",
+                url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+                title: title,
               }}
-            >
-              {properDate}
-            </Typography>
-
-            <CardActions
-              disableSpacing
-              sx={{
-                bgcolor: "#f5f5f5",
-                px: 0,
-                py: 0,
-                alignItems: "flex-start",
-              }}
+              onClick={() => console.log("shared successfully!")}
             >
               <IconButton
                 aria-label="share"
@@ -119,10 +128,12 @@ export default function CardForPublishedAds(props) {
               >
                 <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
               </IconButton>
-              <ProductDeleteAlert productId={props.cardData._id} />
-            </CardActions>
-          </Box>
-        </CardContentNoPadding>
-      </Card>
-    );
+            </RWebShare>
+
+            <ProductDeleteAlert productId={props.cardData._id} />
+          </CardActions>
+        </Box>
+      </CardContentNoPadding>
+    </Card>
+  );
 }

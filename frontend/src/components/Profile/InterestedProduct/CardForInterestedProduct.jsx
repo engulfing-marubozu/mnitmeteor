@@ -1,4 +1,5 @@
 import * as React from "react";
+import {RWebShare} from 'react-web-share';
 import {
   Card,
   CardMedia,
@@ -27,7 +28,7 @@ const CardContentNoPadding = styled(CardContent)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    // objectFit: "contain",
+    objectFit: "contain",
   },
 });
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -48,7 +49,7 @@ export default function CardForInterestedProduct(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
   const Image = props.cardData?.images[0].image
-  ;
+    ;
   const title =
     props.cardData?.title.charAt(0).toUpperCase() +
     props.cardData?.title.slice(1);
@@ -56,7 +57,7 @@ export default function CardForInterestedProduct(props) {
   // const properDate = `${date.toLocaleString("default", {
   //   month: "short",
   // })} ${date.getDate()}, ${date.getFullYear()}`;
-   const properDate=TimeSince(date);
+  const properDate = TimeSince(date);
 
   //  ============================================================================================================================================
   const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -139,16 +140,26 @@ export default function CardForInterestedProduct(props) {
               alignItems: "flex-start",
             }}
           >
-            <IconButton
-              aria-label="share"
-              sx={{
-                color: "#512da8",
-                p: "0.25rem",
-                mr: "0.3rem",
+            <RWebShare
+              data={{
+                text: "Mnit Market",
+                url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+                title: title,
               }}
+              onClick={() => console.log("shared successfully!")}
             >
-              <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
-            </IconButton>
+              <IconButton
+                aria-label="share"
+                sx={{
+                  color: "#512da8",
+                  p: "0.25rem",
+                  mr: "0.3rem",
+                }}
+              >
+                <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+              </IconButton>
+            </RWebShare>
+
             <ColorButton variant="outlined" onClick={removeInteresetedClickHandler}> Remove </ColorButton>
           </CardActions>
         </Box>

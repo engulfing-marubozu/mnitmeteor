@@ -5,7 +5,7 @@ const { parse } = require("path/posix");
 const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
 sgMail.setApiKey(
-  "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"
+  process.env.SENDGRID_API_KEY
 );
 
 saltRounds = 8;

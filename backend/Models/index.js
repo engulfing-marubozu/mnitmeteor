@@ -13,6 +13,10 @@ const user_schema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],
     },
+    threads_posted: {
+      type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
+      default: [],
+    },
     favourites: {
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],
@@ -88,10 +92,15 @@ const thread_schema = new mongoose.Schema({
     default: "" 
   },
   discussions : {
-   type : [{type : Object, content : {
-     type : String,
-     default : ""
-   }}]
+   type : [{
+     mnit_id : {
+              type: String
+                }, 
+    content : {
+           type : String,
+           default : ""
+     }
+  }]
   }
 },{timestamps: true})
 

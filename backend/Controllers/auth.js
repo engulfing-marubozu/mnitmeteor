@@ -1,11 +1,12 @@
 const { User } = require("../Models");
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 const { parse } = require("path/posix");
 const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
 sgMail.setApiKey(
-  process.env.SENDGRID_API_KEY
+ process.env.SENDGRID_API_KEY
 );
 
 saltRounds = 8;

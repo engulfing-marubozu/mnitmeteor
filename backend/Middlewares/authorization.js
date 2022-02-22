@@ -11,6 +11,7 @@ const authorization = (req, res, next) => {
 
         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
             if (err) {
+                console.log("error");
                 return res.status(403).send("unauthorized user");
             }
 

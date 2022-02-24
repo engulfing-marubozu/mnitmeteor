@@ -41,7 +41,7 @@ export default function UploadImage(props) {
                 </span>
               )}
               {errors.acceptType && (
-                <span>Your selected file type is not allow</span>
+                <span>Your selected file type is not allowed</span>
               )}
               {errors.maxFileSize && (
                 <span>Selected file size exceed maxFileSize</span>

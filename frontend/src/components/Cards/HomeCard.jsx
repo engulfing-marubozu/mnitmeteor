@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RWebShare } from 'react-web-share';
 import Card from "@mui/material/Card";
-import { Box } from "@mui/material";
+import { Box} from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -49,12 +49,11 @@ const useStyles = makeStyles({
 });
 
 export default function HomeCard(props) {
-  // console.log(props.cardData);
+    //  console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
-  const Image = props.cardData?.images[0].image;
+  const Image = props.cardData?.images[0]?.image;
   const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
   const date = new Date(props.cardData.createdAt);
-  // const properDate = `${date.toLocaleString("default", {month: "short", })} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = TimeSince(date);
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -66,8 +65,6 @@ export default function HomeCard(props) {
   React.useEffect(() => {
     setLikeButton(props.cardData.blue_heart);
   }, [props.cardData.blue_heart]);
-  // console.log(props.cardData.blue_heart);
-  // console.log(likeButton);
   const LikeButtonHandler = () => {
     // console.log("likeButtonHandler");
     if (isLoggedIn) {

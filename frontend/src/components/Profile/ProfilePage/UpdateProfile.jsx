@@ -24,6 +24,8 @@ export default function UpdatePhoneNo(props) {
     (state) => state.PhoneAuthReducer.phoneAuthentication
   );
 
+  const [timer, setTimer] = useState(5);
+  const [isActive, setIsActive] = useState(false);
   //  =================================================================================================================================
   const phoneNoRef = useRef();
   const [showSubmit, setShowSubmit] = useState(false);
@@ -31,12 +33,15 @@ export default function UpdatePhoneNo(props) {
   const [getOtp, setGetOpt] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   // =================================================================OTP HANDLER=========================================================================
-  const PhoneNoHandler = () => {
+  const PhoneNoHandler = (event) => {
+    event.preventDefault();
     const phoneNo = phoneNoRef.current.value;
     setFormErrors(PhoneNumberValidator(phoneNo));
     setGetOpt(true);
+    setIsActive(true);
   };
-  const OtpHandler = () => {
+  const OtpHandler = (event) => {
+    event.preventDefault();
     const Otp = phoneNoRef.current.value;
     const realOtp = phoneAuthDetails?.otp;
     const values = { realOtp: realOtp, inputOtp: Otp };
@@ -45,6 +50,18 @@ export default function UpdatePhoneNo(props) {
   };
   useEffect(() => {
     // console.log(formErrors);
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        if (timer === 0) {
+          setIsActive(false);
+          setTimer(30);
+        } else {
+          setTimer((prevtime) => prevtime - 1);
+        }
+
+      }, 1000)
+    }
     if (!showSubmit) {
       if (Object.keys(formErrors).length === 0 && getOtp) {
         const data = {
@@ -69,22 +86,23 @@ export default function UpdatePhoneNo(props) {
         // console.log("number registered");
       }
     }
+    return () => clearInterval(interval);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formErrors]);
+  }, [formErrors, isActive, timer]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{ display: "flex", justifyContent: "center",  borderTop:'solid 0.2px', }}>
       <Box
         sx={{
           maxWidth: { sm: 600, xs: 320 },
-
+         
           borderRadius: "7px",
         }}
       >
         <Box sx={{ px: "1.8rem" }}>
-          <FormContainer>
-            {!showSubmit && (
+          {!showSubmit && (
+            <FormContainer onSubmit={PhoneNoHandler}>
               <Stack direction="column" spacing={0.5} alignItems="center">
                 <Input
                   type="number"
@@ -94,32 +112,46 @@ export default function UpdatePhoneNo(props) {
                   ref={phoneNoRef}
                 />
                 <Validationlabel>{formErrors.phoneNo}</Validationlabel>
-                <CustomizeButton type="button" onClick={PhoneNoHandler}>
+                <CustomizeButton type="submit">
                   Get OTP
                 </CustomizeButton>
               </Stack>
-            )}
-            {showSubmit && (
-              <>
-                <Stack direction="column" spacing={0.5} alignItems="center">
-                  <Input
-                    type="number"
-                    name="OTP"
-                    placeholder="OTP"
-                    ref={phoneNoRef}
-                  />
-                  <Validationlabel>{formErrors.otp}</Validationlabel>
-                  <CustomizeButton type="button" onClick={OtpHandler}>
-                    Submit
-                  </CustomizeButton>
-                </Stack>
-                <MutedText>
-                  Didn't receive code?
-                  <BoldLink>Resend</BoldLink>
+            </FormContainer>
+          )}
+          {showSubmit && (
+            <FormContainer onSubmit={OtpHandler}>
+              <Stack direction="column" spacing={0.5} alignItems="center">
+                {/* <MutedText style={{ textAlign: "center", margin: "7px 0px"  ,fontSize:"14px"}}>
+                  We have sent code to your phone number 
+                  <span style={{ color: " #5b2da3" ,fontSize:'11px',marginLeft:"5px"}}>{`   ${phoneAuthDetails?.mobile_no}`}</span>
+                </MutedText> */}
+
+
+                <Input
+                  type="number"
+                  name="OTP"
+                  placeholder="OTP"
+                  ref={phoneNoRef}
+                />
+                <Validationlabel>{formErrors.otp}</Validationlabel>
+                <CustomizeButton type="button">
+                  Submit
+                </CustomizeButton>
+              </Stack>
+              {!isActive &&
+                <MutedText style={{ fontSize: "12px" }}>
+                  Didn't receive code ?
+                  <BoldLink >Resend</BoldLink>
+                </MutedText>}
+              {isActive &&
+                <MutedText style={{ fontSize: "12px" }}>
+                  Resend OTP in  {<span style={{ color: " #5b2da3" }}>00:{timer >= 10 ? timer : `0${timer}`}</span>}
                 </MutedText>
-              </>
-            )}
-          </FormContainer>
+              }
+
+            </FormContainer>
+          )}
+
         </Box>
       </Box>
     </div>

@@ -154,7 +154,7 @@ export default function FavouritesCard(props) {
                   color: "#512da8",
                   p: { xs: "4px", sm: "8px" },
                 }}
-                
+
               >
                 <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
               </IconButton>
@@ -165,8 +165,8 @@ export default function FavouritesCard(props) {
       </HoverCard>
 
       <div style={{ zIndex: 11, position: "absolute", right: "0px" }}>
-        <IconButton onClick={removeFromFavouritesHandler} sx={{ m: 0.4 }} classes={{ root: Classes.crossIconButton }} size="small" >
-          <CloseIcon sx={{ fontSize: "20px", }} />
+        <IconButton onClick={removeFromFavouritesHandler} sx={{ m: 0.6 }} classes={{ root: Classes.crossIconButton }} size="small" >
+          <CloseIcon sx={{ fontSize:{xs:'14px' ,sm:'16px'}, }} />
         </IconButton>
       </div>
     </div>

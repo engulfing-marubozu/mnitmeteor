@@ -3,7 +3,7 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
 
- export const StyledMenu = styled((props) => (
+export const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
     anchorOrigin={{

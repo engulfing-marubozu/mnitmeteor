@@ -18,15 +18,14 @@ export function ResetPassword() {
         We have sent code to your email<br></br>
         2019UME1827@mnit.ac.in
       </MutedText>
-      <FormContainer>
+      <FormContainer onSubmit={switchToPasswordSet}>
         <Input type="password" placeholder="New Password" />
         <Input type="password" placeholder="New Password" />
+        <Marginer direction="vertical" margin={10} />
+        <SubmitButton type="submit" onClick={switchToPasswordSet}>
+          Verify Account
+        </SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit" onClick={switchToPasswordSet}>
-        {" "}
-        Verify Account
-      </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedText style={{ fontSize: "11px" }}>
         Didn't receive code?

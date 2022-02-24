@@ -23,7 +23,7 @@ export function SignupForm(props) {
         email,
       });
       if (response.data === "already registered") {
-        console.log("already registered");
+        // console.log("already registered");
         notify("Already Registered");
       } else {
         const otpgen = response.data.otp;
@@ -52,16 +52,16 @@ export function SignupForm(props) {
     const { name, value } = event.target;
     setSignUpEmail({ [name]: value });
   }
-  function OTPHandler() {
+  function OTPHandler(event) {
+    event.preventDefault();
     setFormErrors(Validatorfunc(signupEmail));
     setIsSubmit(true);
   }
   useEffect(() => {
-    console.log(formErrors);
+    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       ////sink data which  will be sent on server
       verifySignUp();
-      //console.log(signupEmail)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);
@@ -69,7 +69,7 @@ export function SignupForm(props) {
   return (
     <BoxContainer>
       <MutedText> Please enter your college email Id</MutedText>
-      <FormContainer>
+      <FormContainer onSubmit={OTPHandler}>
         <Input
           type="email"
           placeholder="Email"
@@ -78,14 +78,14 @@ export function SignupForm(props) {
           onChange={InputChangeHandler}
         />
         <Validationlabel>{formErrors.email}</Validationlabel>
+        <Marginer direction="vertical" margin={10} />
+        <SubmitButton type="submit">
+          Send OTP
+        </SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit" onClick={OTPHandler}>
-        Send OTP
-      </SubmitButton>
-      <Marginer direction="vertical" margin="1em" />
+      <Marginer direction="vertical" margin="0.5em" />
       <MutedText style={{ fontSize: "11px" }}>
-        Already have an account?
+        Already have an account ?
         <BoldLink onClick={() => Switch({ active: "signin" })}>Signin</BoldLink>
       </MutedText>
       <ToastContainer />

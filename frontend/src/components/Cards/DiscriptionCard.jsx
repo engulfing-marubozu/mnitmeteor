@@ -106,6 +106,7 @@ function DiscriptionCard() {
   const [cardData, setcardData] = useState();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     let isSubscribed = true;
     const call = async () => {
       try {

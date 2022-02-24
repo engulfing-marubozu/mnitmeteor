@@ -27,7 +27,7 @@ export function AccountBox(props) {
   const Switch = (data) => {
     playExpandingAnimation();
     if (data.active === "otpverify") {
-      console.log(data);
+      // console.log(data);
       const { email, otp ,flag} = data;
       signupData = { email: email, otp: otp,flag:flag };
     }

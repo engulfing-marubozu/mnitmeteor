@@ -19,12 +19,24 @@ export const MutedLink = styled.a`
   color: rgba(200, 200, 200, 0.8);
   font-weight: 500;
   text-decoration: none;
+  text-align:center;
+
+  &:hover {
+    cursor:pointer 
+   }
 `;
 export const MutedText = styled.p`
   font-size: 14px;
   color: rgba(91, 84, 84, 100);
   font-weight: 540;
   text-decoration: none;
+`;
+export const ColoredEmail = styled.p`
+font-size: 12px;
+color: #5b2da3;
+font-weight: 500;
+text-decoration: none;
+margin-top:0;
 `;
 
 export const BoldLink = styled.a`
@@ -33,6 +45,9 @@ export const BoldLink = styled.a`
   font-weight: 500;
   text-decoration: none;
   margin: 0 4px;
+  &:hover {
+   cursor:pointer 
+  }
 `;
 
 export const Input = styled.input`
@@ -97,5 +112,5 @@ export const Dogeimg = styled.img`
   height: 200px;
 `;
 
-export const MarginTopBox=styled.div`
+export const MarginTopBox = styled.div`
 margin-top:3.5rem`;

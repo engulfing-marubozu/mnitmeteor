@@ -8,7 +8,7 @@ import {
   FormContainer,
   Input,
   MarginTopBox,
-  MutedLink,
+  MutedText,
   SubmitButton,
   Validationlabel,
 } from "../common";
@@ -57,7 +57,8 @@ export function EmailForResetPassword(props) {
     setSignUpEmail({ [name]: value });
   }
 
-  function OTPHandler() {
+  function OTPHandler(event) {
+    event.preventDefault();
     setFormErrors(Validatorfunc(signupEmail));
     setIsSubmit(true);
   }
@@ -73,7 +74,7 @@ export function EmailForResetPassword(props) {
   return (
     <MarginTopBox>
       <BoxContainer>
-        <FormContainer>
+        <FormContainer onSubmit={OTPHandler}>
           <Input
             type="email"
             placeholder="Email"
@@ -82,19 +83,18 @@ export function EmailForResetPassword(props) {
             onChange={InputChangeHandler}
           />
           <Validationlabel>{formErrors.email}</Validationlabel>
+          <Marginer direction="vertical" margin={10} />
+          <SubmitButton type="submit">
+            Send OTP
+          </SubmitButton>
         </FormContainer>
-        <Marginer direction="vertical" margin={10} />
-        <SubmitButton type="submit" onClick={OTPHandler}>
-          {" "}
-          Send OTP
-        </SubmitButton>
         <Marginer direction="vertical" margin="1em" />
-        <MutedLink href="#">
+        <MutedText style={{ fontSize: "11px" }}>
           Already have an account?
           <BoldLink href="#" onClick={() => Switch({ active: "signin" })}>
             Signin
           </BoldLink>
-        </MutedLink>
+        </MutedText>
       </BoxContainer>
       <ToastContainer />
     </MarginTopBox>

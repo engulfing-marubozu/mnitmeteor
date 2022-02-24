@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Badge, Drawer } from '@mui/material';
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import { useDispatch } from "react-redux";
-import { LogoutUser,modelPopUp } from "../../AStatemanagement/Actions/userActions";
-// import InsertEmoticonSharpIcon from "@mui/icons-material/InsertEmoticonSharp";
+import { LogoutUser, modelPopUp } from "../../AStatemanagement/Actions/userActions";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,8 @@ import {
 } from "@mui/material";
 function Userbar(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
+  const [drawer, setDrawer] = useState(false);
   // ==================================================================== lOGIN ICON ===========================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -29,6 +31,26 @@ function Userbar(props) {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
+      <IconButton sx={{ p: 0.65, mr: { xs: 0.5, sm: 2 }, display: { xs: "none", md: "initial" } }}>
+        <Badge badgeContent={12} color="error">
+          <NotificationsIcon sx={{
+            fontSize: { xs: 16, sm: 24 },
+            color: "#263238",
+          }}
+            onClick={() => { setDrawer(true) }} />
+        </Badge>
+      </IconButton>
+      <Drawer
+        anchor='right'
+        open={drawer}
+        onClose={() => { setDrawer(false) }}
+      >
+        {/* {list('right')} */}
+        my name deepak
+        Ritik madarchod hai or rahul sabse bada madarchod hai
+      </Drawer>
+
+      {/* {drawer&&NotificationBox} */}
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
@@ -40,8 +62,7 @@ function Userbar(props) {
               fontWeight: "bold",
             }}
           >
-            {/* <InsertEmoticonSharpIcon /> */}
-            <PersonIcon sx={{ fontSize:{  xs:16, sm:24 } }}/>
+            <PersonIcon sx={{ fontSize: { xs: 16, sm: 24 } }} />
           </Avatar>
         </IconButton>
       </Tooltip>
@@ -61,14 +82,24 @@ function Userbar(props) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {/* {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))} */}
-        <MenuItem onClick={ ()=>{Navigate("/Profile"); handleCloseUserMenu(); } }><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }}/>Profile</MenuItem>
-        <MenuItem onClick={()=>{Navigate("/Favourites");handleCloseUserMenu();}}>
-        <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
+
+        <MenuItem onClick={() => { Navigate("/Profile"); handleCloseUserMenu(); }}><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }} />Profile</MenuItem>
+        <MenuItem onClick={() => { Navigate("/Favourites"); handleCloseUserMenu(); }}>
+          <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
+        </MenuItem>
+        <MenuItem sx={{ display: { md: "none", xs: "initial" } }} onClick={() => { handleCloseUserMenu(); setDrawer(true) }}>
+          <Badge badgeContent={15} color="error" anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}>
+            <NotificationsIcon sx={{
+              fontsize: { xs: 16, sm: 24 },
+              color: "#263238",
+              mr: 1
+            }}
+            />
+          </Badge>
+          Notifications
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -76,7 +107,7 @@ function Userbar(props) {
             // props.onClose();
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
-           Navigate("/");
+            Navigate("/");
           }}
         >
           <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />
@@ -84,6 +115,7 @@ function Userbar(props) {
         </MenuItem>
       </Menu>
     </Box>
+
   );
 }
 

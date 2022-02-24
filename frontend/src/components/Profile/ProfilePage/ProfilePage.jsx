@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Box from "@mui/material/Box";
 import { Typography, Paper, Button } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -20,6 +20,9 @@ export default function ProfilePage(props) {
   // const styles = {
   //   transition: "all 4000ms ease-out",
   // };
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  })
   const updateHandler = () => {
     // setOpenUpdate({ display: "block" });
     setOpenUpdate(!openUpdate);}

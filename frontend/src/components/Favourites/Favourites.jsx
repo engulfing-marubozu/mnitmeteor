@@ -15,6 +15,7 @@ function Favourites() {
     (state) => state.FavouritesReducer.favouritesData
   );
   useEffect(() => {
+    window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
       const response = await axios.get(

@@ -1,25 +1,14 @@
-<<<<<<< HEAD
-import * as React from "react";
-import { useState, useContext } from "react";
-=======
 import  React , { useContext } from "react";
->>>>>>> 302391a09dfaa34f66b1d4cf1ca404103db19fa3
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import { Outlet } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CategorySlider from "./Slider";
-<<<<<<< HEAD
-import { useSelector } from "react-redux";
-import { AccountContext } from "../-context/accountContext";
-=======
 import { AccountContext } from "../_ContextFolder/accountContext";
->>>>>>> 302391a09dfaa34f66b1d4cf1ca404103db19fa3
 const theme = createTheme();
 //const { io } = require("socket.io-client");
 //const socket = io("http://localhost:5000", { reconnection: true });
 
-function Home() {
 
   //...............................................................................................................................................................
   // SOCKET IO Implemented
@@ -39,12 +28,9 @@ function Home() {
 //..................................................................................................................................................................
 
 
-<<<<<<< HEAD
-=======
 export default function Home() {
   const userData = useContext(AccountContext)
   console.log(userData);
->>>>>>> 302391a09dfaa34f66b1d4cf1ca404103db19fa3
   return (
  
     <ThemeProvider theme={theme}>
@@ -66,5 +52,4 @@ export default function Home() {
   );
 }
 
-export default Home;
 //export { socket };

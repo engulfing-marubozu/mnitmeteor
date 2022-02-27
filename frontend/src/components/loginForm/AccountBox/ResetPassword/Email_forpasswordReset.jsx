@@ -13,7 +13,7 @@ import {
   Validationlabel,
 } from "../common";
 import { Marginer } from "../../marginer";
-import { AccountContext } from "../accountContext";
+import { AccountContext } from "../../../_ContextFolder/accountContext";
 import Validatorfunc from "../validator";
 
 export function EmailForResetPassword(props) {
@@ -76,6 +76,7 @@ export function EmailForResetPassword(props) {
       <BoxContainer>
         <FormContainer onSubmit={OTPHandler}>
           <Input
+            autoFocus={true}
             type="email"
             placeholder="Email"
             name="email"

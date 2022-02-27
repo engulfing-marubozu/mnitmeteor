@@ -10,7 +10,7 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "./accountContext";
+import { AccountContext } from "../../_ContextFolder/accountContext";
 import Validatorfunc from "./validator";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -71,6 +71,7 @@ export function SignupForm(props) {
       <MutedText> Please enter your college email Id</MutedText>
       <FormContainer onSubmit={OTPHandler}>
         <Input
+          autoFocus={true}
           type="email"
           placeholder="Email"
           name="email"

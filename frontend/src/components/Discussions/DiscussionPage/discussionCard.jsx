@@ -3,7 +3,7 @@ import { Typography, Box, Paper, Avatar, Stack, styled } from "@mui/material";
 import MessageIcon from '@mui/icons-material/Message';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import Comments from './Comment';
+import Comments from './comment';
 import AddCommentBox from './addCommentBox';
 import Collapse from '@mui/material/Collapse';
 

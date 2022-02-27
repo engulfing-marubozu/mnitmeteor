@@ -3,8 +3,7 @@ import { TextField } from "@mui/material";
 import { useField } from "formik";
 
 const TextfieldWrapper = ({ name, ...otherProps }) => {
-	const [field, mata] = useField(name);
-
+	const [field, meta] = useField(name);
 	const configTextfield = {
 		...field,
 		...otherProps,
@@ -12,9 +11,9 @@ const TextfieldWrapper = ({ name, ...otherProps }) => {
 		variant: "outlined",
 	};
 
-	if (mata && mata.touched && mata.error) {
+	if (meta && meta.touched && meta.error) {
 		configTextfield.error = true;
-		configTextfield.helperText = mata.error;
+		configTextfield.helperText = meta.error;
 	}
 
 	return <TextField {...configTextfield} />;

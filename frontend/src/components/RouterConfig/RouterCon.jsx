@@ -3,7 +3,7 @@ import Home from "../HomePage/Home";
 import About from "../About/About";
 import Discussions from "../Discussions/discussion";
 import LostFound from "../Lost&Found/lostFound";
-import ProductSellCard from "../Productsellcard/productSellCard";
+import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
 import DiscriptionCard from "../Cards/DiscriptionCard";
 import Profile from "../Profile/Profile";
@@ -25,7 +25,7 @@ function RouterCon() {
       <Route path="LostFound" element={<LostFound />} />
       <Route
         path="Sellproduct"
-        element={isLoggedIn ? <ProductSellCard /> : <Navigate to="/" />}
+        element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}
       />
       <Route
         path="ProductDiscription/:productId"

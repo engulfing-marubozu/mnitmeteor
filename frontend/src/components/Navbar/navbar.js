@@ -161,8 +161,8 @@ function Navbar() {
                 Navigate("/Adminpanel");
               }}
             >
-              {/* {windowWidth} */}
-              MNIT Market
+              {windowWidth}
+              {/* MNIT Market */}
             </Typography>
           </Stack>
           <Stack display={{ sm: "flex", xs: "none" }} >

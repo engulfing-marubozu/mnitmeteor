@@ -2,26 +2,32 @@ import React from "react";
 import ImageUploading from "react-images-uploading";
 import { CustomButton } from "./PreviewImage";
 import PreviewImage from "./PreviewImage";
+import { useField, useFormikContext } from "formik";
 export default function UploadImage(props) {
+  const { setFieldValue } = useFormikContext();
+  // const [field, meta] = useField(props.name);
+  // console.log(field, meta);
   const [images, setImages] = React.useState([]);
   const maxNumber = 4;
 
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
+    setFieldValue(props.name, imageList);
     setImages(imageList);
     props.onDrop(imageList);
   };
 
   return (
     <ImageUploading
+      inputProps={{ name: 'images' }}
       multiple
       value={images}
       onChange={onChange}
       maxNumber={maxNumber}
       dataURLKey="data_url"
-      acceptType={['jpg', 'png', 'jpeg', 'webp',"jfif"]	}
-      maxFileSize={5*1024*1024}
+      acceptType={['jpg', 'png', 'jpeg', 'webp', "jfif"]}
+      maxFileSize={5 * 1024 * 1024}
     >
       {({
         imageList,
@@ -61,7 +67,7 @@ export default function UploadImage(props) {
           >
             Choose Images
           </CustomButton>
-          &nbsp;
+          {/* &nbsp; */}
           <div
             style={{
               display: "flex",

@@ -1,12 +1,15 @@
-import * as React from "react";
+import  React , { useContext } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import { Outlet } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CategorySlider from "./Slider";
+import { AccountContext } from "../_ContextFolder/accountContext";
 const theme = createTheme();
 
 export default function Home() {
+  const userData = useContext(AccountContext)
+  console.log(userData);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

@@ -1,8 +1,8 @@
-import React ,{useState} from 'react'
+import React, { useState } from 'react'
 import { Typography, Box, Avatar, Stack, styled } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { ReplyButton, CommentDeleteButton } from './discussionStyling';
+import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from './discussionStyling';
 import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
 
@@ -16,11 +16,29 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const ExpandMoreReplies = styled((props) => {
+  const { expand, ...other } = props;
+  if (!expand) {
+    return <ViewRepliesButton{...other}>View Replies</ViewRepliesButton>
+  } else {
+    return <ViewRepliesButton{...other}>Hide Replies</ViewRepliesButton>
+  }
+})(({ theme, expand }) => ({
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 function Reply() {
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const [expandedReplies, setExpandedReplies] = useState(false);
+  const handleViewRepliesClick = () => {
+    setExpandedReplies(!expandedReplies);
+  };
+
   return (
     <Box sx={{ mt: 2 }}>
       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -40,20 +58,33 @@ function Reply() {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
             Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,
           </Typography>
-          <Box>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-            >
-            </ExpandMore>
-            <CommentDeleteButton>Delete</CommentDeleteButton>
+          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+            <Box>
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+              >
+              </ExpandMore>
+              <CommentDeleteButton>Delete</CommentDeleteButton>
+            </Box>
+            <Box>
+              <ExpandMoreReplies
+                expand={expandedReplies}
+                onClick={handleViewRepliesClick}
+                aria-expanded={expandedReplies}
+              >
+              </ExpandMoreReplies>
+            </Box>
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <ReplyCommentBox  handleExpandClick={handleExpandClick}/>
+            <ReplyCommentBox handleExpandClick={handleExpandClick} />
           </Collapse>
         </Box>
       </Box>
+      <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
+        <Reply />
+      </Collapse>
     </Box>
 
   )

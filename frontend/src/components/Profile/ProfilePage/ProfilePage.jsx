@@ -1,10 +1,11 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import { Typography, Paper, Button } from "@mui/material";
+import { Typography, Paper, Button, styled } from "@mui/material";
 import { useSelector } from "react-redux";
 import profileIcon from "./profileIcon.svg";
 import UpdatePhoneNo from "./UpdateProfile";
 import { ToastContainer, toast } from "react-toastify";
+import Collapse from '@mui/material/Collapse';
 import "react-toastify/dist/ReactToastify.css";
 // ========================================================MAIN FUNCTION=================================================================
 
@@ -13,19 +14,36 @@ export default function ProfilePage(props) {
   //  const dispatch = useDispatch();
   // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   //  const token = useSelector((state) => state.loginlogoutReducer.token);
-   const userData = useSelector((state) => state.loginlogoutReducer.userData);
+  const userData = useSelector((state) => state.loginlogoutReducer.userData);
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <Button sx={{ color: "#5e35b1", py: 0.2 }} {...other}>
+      {!expand && "update"}
+      {expand && "cancel"}
+    </Button>
+  })(({ theme, expand }) => ({
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+  const [expanded, setExpanded] = useState(false);
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   // ==================================================HANDLERS ====================================================================================
   const [openUpdate, setOpenUpdate] = useState(false);
   const notify = (value) => toast(value);
   // const styles = {
   //   transition: "all 4000ms ease-out",
   // };
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo(0, 0);
   })
   const updateHandler = () => {
     // setOpenUpdate({ display: "block" });
-    setOpenUpdate(!openUpdate);}
+    setOpenUpdate(!openUpdate);
+  }
   return (
     <div>
       <Paper
@@ -77,7 +95,7 @@ export default function ProfilePage(props) {
                 Email:
               </Typography>
               <Typography variant="body2" sx={{ pt: "0.2rem", px: "1.4rem" }}>
-             {userData?.email}
+                {userData?.email}
               </Typography>
             </Box>
 
@@ -86,7 +104,7 @@ export default function ProfilePage(props) {
                 Phone:
               </Typography>
               <Typography variant="body2" sx={{ pt: "0.2rem", px: "1rem" }}>
-               {userData?.Mobile_no}
+                {userData?.Mobile_no}
               </Typography>
             </Box>
           </Box>
@@ -97,15 +115,17 @@ export default function ProfilePage(props) {
               display: { xs: "flex", justifyContent: "flex-end" },
             }}
           >
-            <Button sx={{ color: "#5e35b1", py: 0.2 }} onClick={updateHandler}>
-              {/* update  */}
-              {!openUpdate &&"update"}
-              {openUpdate&&"cancel"}
-            </Button>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+            >
+            </ExpandMore>
           </Box>
         </Box>
-
-        {openUpdate && <UpdatePhoneNo closeUpdate={updateHandler}  notify={notify}/>}
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <UpdatePhoneNo closeUpdate={updateHandler} notify={notify} />
+        </Collapse>
         <ToastContainer />
       </Box>
     </div>

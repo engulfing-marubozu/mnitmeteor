@@ -1,6 +1,5 @@
-import React from 'react'
-import SellFormNew from "../SellnowNew/sellnowform";
-// import SellForm from "./SellNow/SellForm"
+import React, { useEffect } from 'react'
+import SellFormNew from "./sellnowform";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 const theme = createTheme({
@@ -13,12 +12,15 @@ const theme = createTheme({
 		},
 	},
 });
-function ProductSellCard() {
+
+function AproductSellCard() {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	})
 	return (
 		<ThemeProvider theme={theme}>
-			{/* <SellForm /> */}
 			<SellFormNew />
 		</ThemeProvider >
 	);
 }
-export default ProductSellCard;
+export default AproductSellCard;

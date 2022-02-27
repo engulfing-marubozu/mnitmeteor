@@ -15,7 +15,7 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "./accountContext";
+import { AccountContext } from "../../_ContextFolder/accountContext";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "../../../AStatemanagement/Actions/userActions.jsx";
 import { useNavigate } from "react-router-dom";
@@ -82,6 +82,7 @@ export function LoginForm(props) {
     <BoxContainer>
       <FormContainer onSubmit={submitHandler} >
         <Input
+          autoFocus={true}
           type="email"
           placeholder="Email"
           name="email"

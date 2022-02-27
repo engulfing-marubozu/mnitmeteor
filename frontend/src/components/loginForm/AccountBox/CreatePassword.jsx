@@ -11,7 +11,7 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "./accountContext";
+import { AccountContext } from "../../_ContextFolder/accountContext";
 import { PasswordValidator } from "./validator";
 
 export function CreatePassword(props) {
@@ -84,6 +84,7 @@ export function CreatePassword(props) {
       </MutedText> */}
       <FormContainer onSubmit={RegisterHandler}>
         <Input
+          autoFocus={true}
           type="password"
           placeholder="New Password"
           name="newpassword"

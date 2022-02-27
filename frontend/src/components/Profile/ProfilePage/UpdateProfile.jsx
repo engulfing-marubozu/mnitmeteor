@@ -24,7 +24,7 @@ export default function UpdatePhoneNo(props) {
     (state) => state.PhoneAuthReducer.phoneAuthentication
   );
 
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(30);
   const [isActive, setIsActive] = useState(false);
   //  =================================================================================================================================
   const phoneNoRef = useRef();
@@ -48,6 +48,11 @@ export default function UpdatePhoneNo(props) {
     setFormErrors(OtpValidator(values));
     setIsSubmit(true);
   };
+  // ===================================================ResendOtp========================================================================================
+  const ResendOtp = () => {
+    setIsActive(true);
+  }
+  // =======================================================================================================================================================
   useEffect(() => {
     // console.log(formErrors);
     let interval = null;
@@ -92,11 +97,11 @@ export default function UpdatePhoneNo(props) {
   }, [formErrors, isActive, timer]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center",  borderTop:'solid 0.2px', }}>
+    <div style={{ display: "flex", justifyContent: "center", borderTop: 'solid 0.2px', }}>
       <Box
         sx={{
           maxWidth: { sm: 600, xs: 320 },
-         
+
           borderRadius: "7px",
         }}
       >
@@ -105,6 +110,7 @@ export default function UpdatePhoneNo(props) {
             <FormContainer onSubmit={PhoneNoHandler}>
               <Stack direction="column" spacing={0.5} alignItems="center">
                 <Input
+                  autoFocus={true}
                   type="number"
                   id="phone"
                   name="phone"
@@ -128,6 +134,7 @@ export default function UpdatePhoneNo(props) {
 
 
                 <Input
+                  autoFocus={true}
                   type="number"
                   name="OTP"
                   placeholder="OTP"
@@ -141,17 +148,15 @@ export default function UpdatePhoneNo(props) {
               {!isActive &&
                 <MutedText style={{ fontSize: "12px" }}>
                   Didn't receive code ?
-                  <BoldLink >Resend</BoldLink>
+                  <BoldLink onClick={ResendOtp}>Resend</BoldLink>
                 </MutedText>}
               {isActive &&
                 <MutedText style={{ fontSize: "12px" }}>
                   Resend OTP in  {<span style={{ color: " #5b2da3" }}>00:{timer >= 10 ? timer : `0${timer}`}</span>}
                 </MutedText>
               }
-
             </FormContainer>
           )}
-
         </Box>
       </Box>
     </div>

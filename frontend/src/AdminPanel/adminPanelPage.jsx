@@ -9,7 +9,7 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
     // ================================================================CardData ===============================================================
     // console.log(cardData);
     const imageThumbnail = cardData?.images;
-    const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
+    const title = cardData ? cardData.title?.charAt(0).toUpperCase() + cardData.title?.slice(1) : " ";
     const date = cardData ? new Date(cardData.createdAt) : "";
     // const properDate = `${date.toLocaleString("default", { month: "short", })} ${date.getDate()}, ${date.getFullYear()}`;
     const properDate = date ? TimeSince(date) : " ";
@@ -29,8 +29,8 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
     return (
         <>
             {/* <BoxContainer>this is discription page of </BoxContainer> */}
-            <Box sx={{ pt: {xs:1} ,pb:4,bgcolor:"transparent",borderTop:`solid 2px`}}>
-                <Typography variant="h5" sx={{ textAlign: "center", fontWeight: "bold",pb: 2}}> Request {index + 1}</Typography>
+            <Box sx={{ pt: { xs: 1 }, pb: 4, bgcolor: "transparent", borderTop: `solid 2px` }}>
+                <Typography variant="h5" sx={{ textAlign: "center", fontWeight: "bold", pb: 2 }}> Request {index + 1}</Typography>
                 <AdminWrapper>
                     <AdminBoxContainer>
                         {images && <ImageGallery items={images} />}
@@ -94,7 +94,7 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
                             fontSize: { xs: "10px", md: "15px" },
                             fontWeight: "bold",
                         }}
-                    onClick={() => { DeclineRequest(cardData._id)}}
+                        onClick={() => { DeclineRequest(cardData._id) }}
                     >
                         Decline Request
                     </OutlinedButton>
@@ -104,7 +104,7 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
                             fontWeight: "bold",
                         }}
                         variant="contained"
-                    onClick={()=>{ ApproveRequest(cardData._id)}}
+                        onClick={() => { ApproveRequest(cardData._id) }}
                     >
                         Approve Request
                     </ColorButton>

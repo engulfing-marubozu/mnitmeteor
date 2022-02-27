@@ -38,7 +38,6 @@ font-weight: 500;
 text-decoration: none;
 margin-top:0;
 `;
-
 export const BoldLink = styled.a`
   font-size: 11px;
   color: #5b2da3;

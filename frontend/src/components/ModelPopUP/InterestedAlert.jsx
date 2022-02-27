@@ -32,7 +32,7 @@ export default function InterestedAlert(props) {
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Box
         sx={{
-          width: { sm: 600, xs: 320 },
+          width: { md:600,sm: 480, xs: 320 },
           backgroundColor: "white ",
           borderRadius: "7px",
         }}

@@ -12,12 +12,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-const INITIAL_FORM_STATE = {};
+const INITIAL_FORM_STATE = { adTitle: "", description: "" ,categories:"Book"};
 const FORM_VALIDATION = Yup.object().shape({
   adTitle: Yup.string().required("Required"),
   description: Yup.string().required("Required"),
   categories: Yup.string().required("Required"),
-  
+  images: Yup.array().min(1).max(4).required("Required"),
 });
 
 const SellForm = (props) => {
@@ -25,21 +25,15 @@ const SellForm = (props) => {
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const [imagearray, setimagearray] = useState([]);
   console.log(imagearray);
-  // const [isEntering, setIsEntering] = useState(false);
-
-  // const onFocusHandler = () => {
-  //   console.log("focused");
-  //   setIsEntering(true);
-  // };
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
   const merge = async (values) => {
-    console.log(values);
-    // setimagearray([...imagearray, values]);
+    // console.log(values);
     console.log(token);
     try {
-      const response = await axios.post(
+      // const response =
+      await axios.post(
         "http://localhost:5000/product_details",
         { images: imagearray, details: values },
         {
@@ -48,7 +42,7 @@ const SellForm = (props) => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -72,7 +66,7 @@ const SellForm = (props) => {
                   validationSchema={FORM_VALIDATION}
                   onSubmit={(values) => {
                     merge(values);
-                    props.alertSent("Ad Request Sent");
+                    // props.alertSent("Ad Request Sent");
                     Navigate("/Profile");
                     // props.setTrigger(false);
                   }}
@@ -124,8 +118,16 @@ const SellForm = (props) => {
                         </Typography>
                       </Grid>
 
-                      <Grid container justifyContent={"center"}>
-                        <UploadImage  name="images" onDrop={onDrop} />
+                      <Grid
+                        container
+                        justifyContent={"center"}
+                        sx={{
+                          border: "1px solid #bdbdbd",
+                          borderRadius: "4px",
+                          my: 2,
+                        }}
+                      >
+                        <UploadImage name="images" onDrop={onDrop} />
                       </Grid>
 
                       <Grid item xs={12}>

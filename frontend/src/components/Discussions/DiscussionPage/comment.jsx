@@ -17,14 +17,16 @@ const ExpandMoreComment = styled((props) => {
         duration: theme.transitions.duration.shortest,
     }),
 }));
+
+
 const ExpandMoreReplies = styled((props) => {
-    const { expandReplies, ...other } = props;
-    if (!expandReplies) {
-        return <ViewRepliesButton{...other}>View Replies</ViewRepliesButton>
-    } else {
-        return <ViewRepliesButton{...other}>Hide Replies</ViewRepliesButton>
-    }
-})(({ theme, expandReplies }) => ({
+    const { expand, ...other } = props;
+    return (
+        <ViewRepliesButton {...other}>
+            {!expand && " View Replies"}
+            {expand && "Hide Replies"}
+        </ViewRepliesButton>);
+})(({ theme, expand }) => ({
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
         duration: theme.transitions.duration.shortest,
@@ -80,16 +82,13 @@ function Comments() {
                             </Box>
 
                         </Box>
-
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <ReplyCommentBox handleExpandClick={handleExpandClick} />
                         </Collapse>
                         <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
                             <Reply />
                         </Collapse>
-
                     </Box>
-
                 </Box>
             </Box>
         </Box>

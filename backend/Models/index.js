@@ -28,6 +28,10 @@ const user_schema = new mongoose.Schema(
     Mobile_no : {
       type: String,
       default : null
+    },
+    notification:{
+      type : [{type:String}],
+      default:[]
     }
   },
   { timestamps: true }

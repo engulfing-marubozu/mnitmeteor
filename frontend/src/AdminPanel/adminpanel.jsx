@@ -3,12 +3,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import AdminPanelPage from "./adminPanelPage";
 import { Typography } from "@mui/material";
+//import {socket} from "./../components/HomePage/Home"
 
 function Adminpanel() {
   const [data, setdata] = useState("");
   const [flag, setflag] = useState(true);
   // ===================================================================================================================================================================
   const ApproveRequest = async (id) => {
+   // socket.emit("admin approve event", "true");
     const response = await axios.post("http://localhost:5000/admin_response", {
       id,
       response: true,

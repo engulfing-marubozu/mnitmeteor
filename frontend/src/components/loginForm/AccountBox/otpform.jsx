@@ -10,7 +10,7 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "./accountContext";
+import { AccountContext } from "../../-context/accountContext";
 import { OtpValidator } from "./validator";
 
 export function Otpform(props) {

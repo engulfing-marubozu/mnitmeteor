@@ -32,7 +32,7 @@ const products = async (req, res) => {
       })
     );
 
-    console.log(image_cloud_link);
+  //  console.log(image_cloud_link);
 
     const Product_save = new Product({
       title: title,
@@ -43,7 +43,7 @@ const products = async (req, res) => {
     });
     try {
       const saved_product = await Product_save.save();
-      console.log(saved_product);
+   //   console.log(saved_product);
       await User.findByIdAndUpdate(user_id, {
         $addToSet: { products_posted: saved_product._id },
       });
@@ -65,9 +65,9 @@ const products = async (req, res) => {
 const admin_postLoad = async (req, res) => {
   try {
     const data = await Product.find({ is_verified: false });
-    console.log(data);
+ //   console.log(data);
     data.map((iterator) => {
-      console.log(iterator.images);
+  //    console.log(iterator.images);
     });
     res.status(200).send({ data: data });
   } catch (err) {
@@ -98,40 +98,40 @@ const admin_response = async (req, res) => {
 //fetch data to show live data
 const fetch_livedata = async (req, res) => {
   // console.log(req.body.email);
-  console.log("reached to pick up data");
+//  console.log("reached to pick up data");
   try {
     const email = req.body.email;
     const category = req.body.category;
     let fetch_post;
-    console.log(category);
+ //   console.log(category);
     if (category === "recommendation") {
-      console.log("hello");
+    //  console.log("hello");
       fetch_post = await Product.where("is_verified").equals(true);
 
-      console.log(fetch_post);
+   //   console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
-      console.log("hemllo");
+    //  console.log("hemllo");
       fetch_post = await Product.where("category")
         .equals(category)
         .where("is_verified")
         .equals(true);
-      console.log(fetch_post);
+    //  console.log(fetch_post);
       //    res.status(200).send(fetch_post);
     }
 
     if (email) {
       const { favourites } = await User.findOne({ email: email });
-      console.log(favourites);
+    //  console.log(favourites);
 
       fetch_post.forEach((post) => {
-        console.log(post._id);
+     //   console.log(post._id);
         if (favourites.indexOf(post._id) !== -1) {
           post.blue_heart = true;
         }
-        console.log(post);
+      //  console.log(post);
       });
-      console.log(fetch_post);
+ //     console.log(fetch_post);
       res.status(200).send(fetch_post);
     } else res.status(200).send(fetch_post);
   } catch (err) {

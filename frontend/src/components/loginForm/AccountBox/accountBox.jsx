@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { LoginForm } from "./loginForm";
-import { AccountContext } from "./accountContext";
+import { AccountContext } from "../../-context/accountContext";
 import { SignupForm } from "./signupForm";
 import { Otpform } from "./otpform";
 import { CreatePassword } from "./CreatePassword";

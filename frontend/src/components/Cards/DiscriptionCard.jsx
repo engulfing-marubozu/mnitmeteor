@@ -106,6 +106,7 @@ function DiscriptionCard() {
   const [cardData, setcardData] = useState();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     let isSubscribed = true;
     const call = async () => {
       try {
@@ -277,8 +278,14 @@ function DiscriptionCard() {
         >
           <GetPhoneNo
             modelInputHandler={modelInputHandler}
+            flag={true}
             onClose={setContactModel}
-          ></GetPhoneNo>
+          >
+           ====Content for Discription prompt =================================
+            Et et tempor labore in.Sint ullamco anim incididunt cillum quis et
+            id velit laboris magna.Sint eiusmod elit quis amet dolore.Anim
+            aliquip elit incididunt eu enim sint officia enim quis.
+          </GetPhoneNo>
         </POPUPElement>
       )}
 

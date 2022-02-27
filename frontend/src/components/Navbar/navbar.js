@@ -20,11 +20,12 @@ import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
 // import Model from "../loginForm/Model";
 import Userbar from "./Userbar";
-import { useSelector,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   SellNowclick,
-  modelPopUp 
+  modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
+import NavbarTabs from "./navbarTabs";
 
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(deepPurple[500]),
@@ -34,7 +35,7 @@ export const ColorButton = styled(Button)(({ theme }) => ({
     borderColor: deepPurple[700],
   },
 }));
- export const OutlinedButton = styled(Button)(({ theme }) => ({
+export const OutlinedButton = styled(Button)(({ theme }) => ({
   borderColor: deepPurple[500],
   color: "inherit",
   "&:hover": {
@@ -45,7 +46,22 @@ export const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const theme = createTheme();
+export const theme = createTheme({
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  },
+});
 
 function Navbar() {
   const Navigate = useNavigate();
@@ -59,6 +75,11 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  // const [value, setValue] = React.useState(1);
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
   // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
@@ -71,8 +92,8 @@ function Navbar() {
   }, [windowWidth]);
   // =========================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const dispatch=useDispatch();
-  console.log(`value of isLogged in ${isLoggedIn}`);
+  const dispatch = useDispatch();
+  // console.log(`value of isLogged in ${isLoggedIn}`);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles
@@ -90,8 +111,8 @@ function Navbar() {
         <Toolbar>
           <Box sx={{ display: { xs: "flex", sm: "none" } }}>
             <IconButton
+              sx={{ p: 1 }}
               size="large"
-              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleClick}
@@ -112,12 +133,11 @@ function Navbar() {
             </StyledMenu>
           </Box>
           <Stack
+            alignItems={"center"}
             direction="row"
-            justifyContent="center"
             sx={{
               flexGrow: 1,
-              justifyContent: "flex-left",
-              ml: { xs: 1, md: 10 },
+              ml: { xs: 0, md: 4 ,lg :6},
             }}
           >
             <AcUnitIcon
@@ -125,7 +145,7 @@ function Navbar() {
                 color: "#512da8",
                 display: { xs: "flex" },
                 fontSize: { xs: 20, sm: 26 },
-                mr: 1,
+                mr: { xs: 0.5, sm: 1 },
               }}
             />
             <Typography
@@ -134,62 +154,42 @@ function Navbar() {
               noWrap
               sx={{
                 fontWeight: 700,
-                fontSize: { xs: "18px", sm: "24px" },
+                fontSize: { xs: "18px",md: "24px" },
                 display: { xs: "flex" },
               }}
               onClick={() => {
                 Navigate("/Adminpanel");
               }}
             >
-              MNIT{windowWidth}
+              {windowWidth}
+              {/* MNIT Market */}
             </Typography>
           </Stack>
-
+          <Stack display={{ sm: "flex", xs: "none" }} >
+            <NavbarTabs />
+          </Stack>
           <Stack
-            spacing={{ xs: 1, sm: 2, md: 4 }}
-            sx={{ mr: { xs: 1, md: 10 } }}
+            spacing={{ xs: 1, sm: 2 }}
+            sx={{ mr: { xs: 0, md: 4 , lg :6 } }}
             direction="row"
           >
             <Stack
-              spacing={{ xs: 1, sm: 2, md: 3 }}
+              spacing={{ xs: 1, sm: 2 }}
               direction="row"
               display={{ sm: "flex", xs: "none" }}
             >
-              <Button
-                variant="text"
-                color="inherit"
-                sx={{
-                  fontSize: { sm: "12px", md: "15px" },
-                  fontWeight: "bold",
-                }}
-                onClick={() => {
-                  Navigate("/");
-                }}
-              >
-                Home
-              </Button>
-              <Button
-                variant="text"
-                color="inherit"
-                sx={{
-                  fontSize: { sm: "12px", md: "15px" },
-                  fontWeight: "bold",
-                }}
-                onClick={() => {
-                  Navigate("/About");
-                }}
-              >
-                About
-              </Button>
+            
               {!isLoggedIn && (
+
                 <OutlinedButton
                   variant="outlined"
                   sx={{
                     fontSize: { sm: "12px", md: "15px" },
                     fontWeight: "bold",
+                    ml:2,
                   }}
                   onClick={() => {
-                   dispatch(modelPopUp(true));
+                    dispatch(modelPopUp(true));
                     dispatch(SellNowclick(false));
                   }}
                 >
@@ -197,8 +197,8 @@ function Navbar() {
                 </OutlinedButton>
               )}
             </Stack>
+            {isLoggedIn && <Userbar />}
             {/* ================================================================================================= */}
-            {isLoggedIn &&<Userbar/>} 
             <ColorButton
               sx={{
                 fontSize: { xs: "9px", sm: "12px", md: "15px" },
@@ -206,9 +206,9 @@ function Navbar() {
               }}
               variant="contained"
               onClick={() => {
-                (!isLoggedIn&&dispatch(SellNowclick(true)));
-               ( !isLoggedIn&&(dispatch(modelPopUp(true))) );
-               (isLoggedIn && Navigate("/SellProduct"))
+                !isLoggedIn && dispatch(SellNowclick(true));
+                !isLoggedIn && dispatch(modelPopUp(true));
+                isLoggedIn && Navigate("/SellProduct");
               }}
             >
               Sell Now

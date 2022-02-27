@@ -1,33 +1,24 @@
 import React from 'react'
-import SellForm from "./SellNow/SellForm";
-// import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import SellFormNew from "../SellnowNew/sellnowform";
+// import SellForm from "./SellNow/SellForm"
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
+const theme = createTheme({
+	palette: {
+		primary: {
+			main: '#512da8',
+		},
+		secondary: {
+			main: '#edf2ff',
+		},
+	},
+});
 function ProductSellCard() {
-    // const [buttonPop, setButtonPop] = useState(false);
-	const alertHandler = (warning) => {
-		toast.success(warning, {
-			position: "top-right",
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
-	};
-
 	return (
-		<div className="App">
-			<ToastContainer />
-			<SellForm
-				// trigger={buttonPop}
-				// setTrigger={setButtonPop}
-				alertSent={alertHandler}
-			/>
-		</div>
-    );
+		<ThemeProvider theme={theme}>
+			{/* <SellForm /> */}
+			<SellFormNew />
+		</ThemeProvider >
+	);
 }
-
 export default ProductSellCard;

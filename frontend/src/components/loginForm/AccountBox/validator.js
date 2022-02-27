@@ -1,14 +1,13 @@
 function Validatorfunc(values) {
   const errors = {};
   const regex = new RegExp("[a-z0-9]+@mnit.ac.in");
-
   if (typeof values.email !== "undefined" && !values.email) {
     errors.email = "Email is required";
   } else if (!regex.test(values.email)) {
     errors.email = "This is not a valid email";
   }
 
-  if (typeof values.password !== "undefined" && !values.password) {
+  else if (typeof values.password !== "undefined" && !values.password) {
     errors.password = "Password is required ";
   } else if (
     typeof values.password !== "undefined" &&
@@ -22,7 +21,7 @@ function Validatorfunc(values) {
 export default Validatorfunc;
 
 export function OtpValidator(values) {
-  console.log([values.inputOtp, values.realOtp]);
+  // console.log([values.inputOtp, values.realOtp]);
   const errors = {};
   if (!values.inputOtp) {
     errors.otp = "OTP is required ";
@@ -59,8 +58,6 @@ export function PasswordValidator(values) {
 
 export function PhoneNumberValidator(value) {
   const errors = {};
-  console.log(value);
-
   if (!value) {
     errors.phoneNo = "Phone number is required";
   } else if (value.length !== 10) {

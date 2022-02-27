@@ -17,9 +17,9 @@ export default function MenuBarCategory(props) {
   // ==============================
   return (
     <>
-      <MenuItem onClick={()=>{CategoryItemHandler("Books")}}><BookIcon sx={{fontsize:5 ,mr:2}} />Books</MenuItem>
-      <MenuItem onClick={()=>{CategoryItemHandler("Clothes")}}><CheckroomIcon sx={{fontsize:5 ,mr:2}} />Clothes</MenuItem>
-      <MenuItem onClick={()=>{CategoryItemHandler("Cycles")}}><DirectionsBikeIcon sx={{fontsize:5 ,mr:2}} />Cycles</MenuItem>
+      <MenuItem onClick={()=>{CategoryItemHandler("Book")}}><BookIcon sx={{fontsize:5 ,mr:2}} />Books</MenuItem>
+      <MenuItem onClick={()=>{CategoryItemHandler("Cloth")}}><CheckroomIcon sx={{fontsize:5 ,mr:2}} />Clothes</MenuItem>
+      <MenuItem onClick={()=>{CategoryItemHandler("Cycle")}}><DirectionsBikeIcon sx={{fontsize:5 ,mr:2}} />Cycles</MenuItem>
       <MenuItem onClick={()=>{CategoryItemHandler("Electronics")}}><CableIcon sx={{fontsize:5 ,mr:2}} />Electronics</MenuItem>
       <MenuItem onClick={()=>{CategoryItemHandler("Others")}}><MoreIcon sx={{fontsize:5 ,mr:2}} />Others</MenuItem>
     </>

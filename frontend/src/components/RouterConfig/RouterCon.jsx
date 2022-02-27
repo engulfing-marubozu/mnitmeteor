@@ -1,7 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../HomePage/Home";
 import About from "../About/About";
-import ProductSellCard from "../Productsellcard/productSellCard";
+import Discussions from "../Discussions/discussion";
+import LostFound from "../Lost&Found/lostFound";
+import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
 import DiscriptionCard from "../Cards/DiscriptionCard";
 import Profile from "../Profile/Profile";
@@ -19,9 +21,11 @@ function RouterCon() {
         <Route path="Product/:category" element={<ProductCard />} />
       </Route>
       <Route path="About" element={<About />} />
+      <Route path="Discussions" element={<Discussions />} />
+      <Route path="LostFound" element={<LostFound />} />
       <Route
         path="Sellproduct"
-        element={isLoggedIn ? <ProductSellCard /> : <Navigate to="/" />}
+        element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}
       />
       <Route
         path="ProductDiscription/:productId"

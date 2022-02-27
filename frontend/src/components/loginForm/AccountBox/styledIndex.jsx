@@ -10,6 +10,10 @@ export const BoxContainer = styled.div`
   box-shadow: 0 0 2px rgba(15, 15, 15, 0.28);
   position: relative;
   overflow: hidden;
+  @media (max-width: 400px) {
+   width:330px;
+   min-height:530px;
+  }
 `;
 
 export const TopContainer = styled.div`

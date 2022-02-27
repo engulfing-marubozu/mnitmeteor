@@ -11,35 +11,35 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "../../-context/accountContext";
+import { AccountContext } from "../../_ContextFolder/accountContext";
 import { PasswordValidator } from "./validator";
 
 export function CreatePassword(props) {
 
   // backend ----------------------------------------------------------------------------------------
-const Credentials = async (details)=>{
-        const {email , password} = details;
-        try{
-        const response = await axios.post("http://localhost:5000/signUp", {email, password});
-        console.log(response);
-        }
-        catch(err)
-        {
-          console.log(err);
-        }
-}
+  const Credentials = async (details) => {
+    const { email, password } = details;
+    try {
+      // const response =
+       await axios.post("http://localhost:5000/signUp", { email, password });
+      // console.log(response);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
-const resetPassword = async (details)=>{
-  const {email , password} = details;
-  try{
-  const response = await axios.post("http://localhost:5000/resetPassword", {email, password});
-   console.log(response);
+  const resetPassword = async (details) => {
+    const { email, password } = details;
+    try {
+      // const response = 
+      await axios.post("http://localhost:5000/resetPassword", { email, password });
+      // console.log(response);
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
-  catch(err)
-  {
-    console.log(err);
-  }
-}
 
   //---------------------------------------------------------------------------------------------------
   const { Switch } = useContext(AccountContext);
@@ -56,34 +56,35 @@ const resetPassword = async (details)=>{
 
   const RegisterHandler = (event) => {
     event.preventDefault();
-    console.log(password);
+    // console.log(password);
     setFormErrors(PasswordValidator(password));
     setIsSubmit(true);
   };
   useEffect(() => {
-    console.log(formErrors);
+    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(props.data);
+      // console.log(props.data);
       const details = {
-        email:props.data.email,
+        email: props.data.email,
         password: password.newpassword,
       };
-      console.log(details);
-      if(props.data.flag==="createpassword")
-         Credentials(details);
-        else
-        resetPassword(details); 
-      const active=(props.data.flag==="createpassword")?"signupsuccessfully":"passwordresetsuccessful";
-     Switch({...details,active:active});
+      // console.log(details);
+      if (props.data.flag === "createpassword")
+        Credentials(details);
+      else
+        resetPassword(details);
+      const active = (props.data.flag === "createpassword") ? "signupsuccessfully" : "passwordresetsuccessful";
+      Switch({ ...details, active: active });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);
   return (
     <BoxContainer>
       {/* <MutedText style={{textAlign:"center",margin:"0px,0px"}}>
       </MutedText> */}
-      <FormContainer>
+      <FormContainer onSubmit={RegisterHandler}>
         <Input
+          autoFocus={true}
           type="password"
           placeholder="New Password"
           name="newpassword"
@@ -95,7 +96,7 @@ const resetPassword = async (details)=>{
             color: formErrors.highLighter ? "#FF0000" : "rgba(91, 84, 84, 100)",
           }}
         >
-        Must contain atleast 8 characters
+          Must contain atleast 8 characters
         </Passwordlabel>
         <Input
           type="password"
@@ -111,12 +112,12 @@ const resetPassword = async (details)=>{
         {formErrors.confirmPassword && (
           <Validationlabel>{formErrors.confirmPassword}</Validationlabel>
         )}
+        <Marginer direction="vertical" margin={10} />
+        <SubmitButton type="submit">
+          {props.data.flag === "createpassword" && "Register"}
+          {props.data.flag === "resetpassword" && "Reset"}
+        </SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit" onClick={RegisterHandler}>
-        {props.data.flag==="createpassword"&& "Register"}
-        {props.data.flag==="resetpassword"&& "Reset"}
-      </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
     </BoxContainer>
   );

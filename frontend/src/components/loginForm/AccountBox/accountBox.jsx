@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { LoginForm } from "./loginForm";
-import { AccountContext } from "../../-context/accountContext";
+import { AccountContext } from "../../_ContextFolder/accountContext";
 import { SignupForm } from "./signupForm";
 import { Otpform } from "./otpform";
 import { CreatePassword } from "./CreatePassword";
@@ -27,7 +27,7 @@ export function AccountBox(props) {
   const Switch = (data) => {
     playExpandingAnimation();
     if (data.active === "otpverify") {
-      console.log(data);
+      // console.log(data);
       const { email, otp ,flag} = data;
       signupData = { email: email, otp: otp,flag:flag };
     }

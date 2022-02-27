@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
 });
 export const CustomButton = styled.button`
-  padding: 10px 23px;
+  padding: 8px 20px;
   background: #3f4257;
   border-radius: 30px;
   color: white;

@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Box } from "@mui/material";
+import { Button} from "@mui/material";
 // import { borderColor } from "@mui/system";
 import { deepPurple } from "@mui/material/colors";
 import { styled } from "@mui/material";
@@ -49,14 +49,14 @@ function ProductCard(props) {
     return () => (isSubscribed = false);
   }, [category, email, isLoggedIn]);
  
-  console.log(cardData);
+  // console.log(cardData);
   return (
     <main>
       {/* <Typography variant="h4">{props.Category ? props.Category : params.category}</Typography> */}
       <Container
         sx={{pt:{ xs: 5, sm: 10 },pb: { xs: 5, sm: 5 },maxWidth:{  xs: "xs", sm: "sm",md:"md" ,lg: "lg" }}}
       >
-        <Grid container spacing={{ xs: 2, sm: 4 , lg: 4 }}>
+        <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
           {typeof(cardData)!=="undefined" &&
             cardData.map((data, index) => {
               return (
@@ -67,9 +67,9 @@ function ProductCard(props) {
             })}
         </Grid>
       </Container>
-      <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+      {/* <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
         <ModelOutlinedButton variant="outlined">Load More</ModelOutlinedButton>
-      </Box>
+      </Box> */}
     </main>
   );
 }

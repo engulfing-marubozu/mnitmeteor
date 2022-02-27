@@ -15,7 +15,7 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "../../-context/accountContext";
+import { AccountContext } from "../../_ContextFolder/accountContext";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "../../../AStatemanagement/Actions/userActions.jsx";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,6 @@ export function LoginForm(props) {
         notify("Email is not registered");
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
-        // notify("Welcome");
         // console.log(response.data);
         dispatch(AuthUser(response.data));
         window.localStorage.setItem("auth", JSON.stringify(response.data));
@@ -71,6 +70,7 @@ export function LoginForm(props) {
     setFormErrors(Validatorfunc(signinFormValue));
     setIsSubmit(true);
   };
+
   useEffect(() => {
     // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -80,8 +80,9 @@ export function LoginForm(props) {
 
   return (
     <BoxContainer>
-      <FormContainer>
+      <FormContainer onSubmit={submitHandler} >
         <Input
+          autoFocus={true}
           type="email"
           placeholder="Email"
           name="email"
@@ -98,23 +99,23 @@ export function LoginForm(props) {
           onChange={OnChangeHandler}
         />
         <Validationlabel>{formErrors.password}</Validationlabel>
-      </FormContainer>
-      <Marginer direction="vertical" margin={10} />
+        <Marginer direction="vertical" margin={6} />
 
-      <MutedLink
-        onClick={() => {
-          Switch({ active: "emailforresetpassword" });
-        }}
-      >
-        Forget your password?
-      </MutedLink>
-      <Marginer direction="vertical" margin="1.6em" />
-      <SubmitButton type="submit" onClick={submitHandler}>
-        Signin
-      </SubmitButton>
-      <Marginer direction="vertical" margin="1em" />
+        <MutedLink
+          onClick={() => {
+            Switch({ active: "emailforresetpassword" });
+          }}
+        >
+          Forget your password ?
+        </MutedLink>
+        <Marginer direction="vertical" margin="0.8em" />
+        <SubmitButton type="submit">
+          Signin
+        </SubmitButton>
+      </FormContainer>
+      <Marginer direction="vertical" margin="0.5em" />
       <MutedText style={{ fontSize: "11px" }}>
-        Don't have an accoun?{" "}
+        Don't have an account ?{" "}
         <BoldLink onClick={() => Switch({ active: "signup" })}>Signup</BoldLink>
       </MutedText>
       <ToastContainer />

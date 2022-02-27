@@ -8,12 +8,12 @@ import {
   FormContainer,
   Input,
   MarginTopBox,
-  MutedLink,
+  MutedText,
   SubmitButton,
   Validationlabel,
 } from "../common";
 import { Marginer } from "../../marginer";
-import { AccountContext } from "../../../-context/accountContext";
+import { AccountContext } from "../../../_ContextFolder/accountContext";
 import Validatorfunc from "../validator";
 
 export function EmailForResetPassword(props) {
@@ -57,7 +57,8 @@ export function EmailForResetPassword(props) {
     setSignUpEmail({ [name]: value });
   }
 
-  function OTPHandler() {
+  function OTPHandler(event) {
+    event.preventDefault();
     setFormErrors(Validatorfunc(signupEmail));
     setIsSubmit(true);
   }
@@ -73,8 +74,9 @@ export function EmailForResetPassword(props) {
   return (
     <MarginTopBox>
       <BoxContainer>
-        <FormContainer>
+        <FormContainer onSubmit={OTPHandler}>
           <Input
+            autoFocus={true}
             type="email"
             placeholder="Email"
             name="email"
@@ -82,19 +84,18 @@ export function EmailForResetPassword(props) {
             onChange={InputChangeHandler}
           />
           <Validationlabel>{formErrors.email}</Validationlabel>
+          <Marginer direction="vertical" margin={10} />
+          <SubmitButton type="submit">
+            Send OTP
+          </SubmitButton>
         </FormContainer>
-        <Marginer direction="vertical" margin={10} />
-        <SubmitButton type="submit" onClick={OTPHandler}>
-          {" "}
-          Send OTP
-        </SubmitButton>
         <Marginer direction="vertical" margin="1em" />
-        <MutedLink href="#">
+        <MutedText style={{ fontSize: "11px" }}>
           Already have an account?
           <BoldLink href="#" onClick={() => Switch({ active: "signin" })}>
             Signin
           </BoldLink>
-        </MutedLink>
+        </MutedText>
       </BoxContainer>
       <ToastContainer />
     </MarginTopBox>

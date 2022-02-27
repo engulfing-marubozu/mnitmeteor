@@ -9,11 +9,12 @@ const theme = createTheme();
 //const { io } = require("socket.io-client");
 //const socket = io("http://localhost:5000", { reconnection: true });
 
+// function Home() {
 
   //...............................................................................................................................................................
   // SOCKET IO Implemented
  // const { userData } = useContext(AccountContext);
-  const [postsPending, setpostPending] = useState(0);
+ // const [postsPending, setpostPending] = useState(0);
   //console.log(userData);
   // React.useEffect(() => {
   //   console.log(userData.email);
@@ -34,7 +35,7 @@ export default function Home() {
   return (
  
     <ThemeProvider theme={theme}>
-      <h1>hello {postsPending}</h1>
+      {/* <h1>hello {postsPending}</h1> */}
       <CssBaseline />
       {/* +======================================================================= */}
       <Paper
@@ -51,5 +52,6 @@ export default function Home() {
     
   );
 }
+
 
 //export { socket };

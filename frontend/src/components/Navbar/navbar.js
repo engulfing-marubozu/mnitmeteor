@@ -26,6 +26,9 @@ import {
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 import NavbarTabs from "./navbarTabs";
+const { io } = require("socket.io-client");
+const socket = io("http://localhost:5000", { reconnection: true });
+// =============================================================================================================================================================================================
 
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(deepPurple[500]),
@@ -62,25 +65,24 @@ export const theme = createTheme({
     ].join(","),
   },
 });
-
+// ==========================================================================================================================================================================
 function Navbar() {
   const Navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
-  // ===============================================================================
+  // =====================================================================================================================================================================
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   // const [value, setValue] = React.useState(1);
   // const handleChange = (event, newValue) => {
   //   setValue(newValue);
   // };
-  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT================
+  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT============================================================================================================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
   };
@@ -90,10 +92,46 @@ function Navbar() {
       window.removeEventListener("resize", sizeEventHandler);
     };
   }, [windowWidth]);
-  // =========================================================================================================================================
+  // =============================================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const dispatch = useDispatch();
   // console.log(`value of isLogged in ${isLoggedIn}`);
+
+  // ========================================================SOCKET-IO==========================================================================================================
+  const [postsPending, setpostPending] = useState(0);
+  const [notificationPending, setNotificationPending] = useState(0);
+  React.useEffect(() => {
+    const userData = JSON.parse(window.localStorage.getItem("auth"));
+    console.log(userData);
+    userData && socket.emit("initialise_user", userData.user.email);
+  }, []);
+
+  React.useEffect(() => {
+    
+    socket.on("approve_post_update", () => {
+      setpostPending(postsPending + 1);
+      console.log("rimkkadfjsafkl")
+    });
+  });
+
+  React.useEffect(() => {
+    socket.on("declined_post_notification", () => {
+      console.log("aa gaya");
+      console.log(notificationPending);
+      setNotificationPending((prevValue) => prevValue + 1);
+      console.log(notificationPending);
+    });
+  });
+  console.log(notificationPending);
+  React.useEffect(() => {
+    const userData = JSON.parse(window.localStorage.getItem("auth"));
+    console.log(userData);
+    userData &&
+      setNotificationPending(
+        userData.user.notification.length - userData.user.read_notif_count
+      );
+  }, [setNotificationPending]);
+  // ========================================================================================================================================================================
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles
@@ -111,7 +149,7 @@ function Navbar() {
         <Toolbar>
           <Box sx={{ display: { xs: "flex", sm: "none" } }}>
             <IconButton
-              sx={{ p: 1 }}
+              sx={{ p: 0 }}
               size="large"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -137,7 +175,7 @@ function Navbar() {
             direction="row"
             sx={{
               flexGrow: 1,
-              ml: { xs: 0, md: 4 ,lg :6},
+              ml: { xs: 0, md: 4, lg: 6 },
             }}
           >
             <AcUnitIcon
@@ -145,7 +183,7 @@ function Navbar() {
                 color: "#512da8",
                 display: { xs: "flex" },
                 fontSize: { xs: 20, sm: 26 },
-                mr: { xs: 0.5, sm: 1 },
+                mx: { xs: 0.5, sm: 1 },
               }}
             />
             <Typography
@@ -154,7 +192,7 @@ function Navbar() {
               noWrap
               sx={{
                 fontWeight: 700,
-                fontSize: { xs: "18px",md: "24px" },
+                fontSize: { xs: "18px", md: "24px" },
                 display: { xs: "flex" },
               }}
               onClick={() => {
@@ -165,12 +203,12 @@ function Navbar() {
               {/* MNIT Market */}
             </Typography>
           </Stack>
-          <Stack display={{ sm: "flex", xs: "none" }} >
-            <NavbarTabs />
+          <Stack display={{ sm: "flex", xs: "none" }}>
+            <NavbarTabs updateBadge={postsPending}/>
           </Stack>
           <Stack
             spacing={{ xs: 1, sm: 2 }}
-            sx={{ mr: { xs: 0, md: 4 , lg :6 } }}
+            sx={{ mr: { xs: 0, md: 4, lg: 6 } }}
             direction="row"
           >
             <Stack
@@ -178,15 +216,13 @@ function Navbar() {
               direction="row"
               display={{ sm: "flex", xs: "none" }}
             >
-            
               {!isLoggedIn && (
-
                 <OutlinedButton
                   variant="outlined"
                   sx={{
                     fontSize: { sm: "12px", md: "15px" },
                     fontWeight: "bold",
-                    ml:2,
+                    ml: 2,
                   }}
                   onClick={() => {
                     dispatch(modelPopUp(true));
@@ -197,7 +233,7 @@ function Navbar() {
                 </OutlinedButton>
               )}
             </Stack>
-            {isLoggedIn && <Userbar />}
+            {isLoggedIn && <Userbar updateNotification={notificationPending} />}
             {/* ================================================================================================= */}
             <ColorButton
               sx={{
@@ -220,3 +256,4 @@ function Navbar() {
   );
 }
 export default Navbar;
+export { socket };

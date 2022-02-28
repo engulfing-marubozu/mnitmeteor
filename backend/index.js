@@ -54,6 +54,7 @@ io.on("connect", (socket) => {
 
 
   socket.on("admin approve event", () => {
+     console.log("rimtik ");
     socket.broadcast.emit("approve_post_update");
   });
  

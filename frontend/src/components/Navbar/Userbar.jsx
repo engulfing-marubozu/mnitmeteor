@@ -17,10 +17,11 @@ import {
   IconButton,
 } from "@mui/material";
 function Userbar(props) {
+  console.log(props.updateNotification);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
-  // ==================================================================== lOGIN ICON ===========================
+  // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -32,7 +33,7 @@ function Userbar(props) {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <IconButton sx={{ p: 0.65, mr: { xs: 0.5, sm: 2 }, display: { xs: "none", md: "initial" } }}>
-        <Badge badgeContent={12} color="error">
+        <Badge badgeContent={props.updateNotification} color="error">
           <NotificationsIcon sx={{
             fontSize: { xs: 16, sm: 24 },
             color: "#263238",
@@ -88,7 +89,7 @@ function Userbar(props) {
           <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
         </MenuItem>
         <MenuItem sx={{ display: { md: "none", xs: "initial" } }} onClick={() => { handleCloseUserMenu(); setDrawer(true) }}>
-          <Badge badgeContent={15} color="error" anchorOrigin={{
+          <Badge badgeContent={props.updateNotification} color="error" anchorOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}>

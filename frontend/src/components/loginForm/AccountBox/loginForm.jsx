@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Validatorfunc from "./validator.js";
 import { ToastContainer, toast } from "react-toastify";
-import { socket } from "../../HomePage/Home.jsx";
+import { socket } from "../../Navbar/navbar";
 import "react-toastify/dist/ReactToastify.css";
 import {
   BoldLink,

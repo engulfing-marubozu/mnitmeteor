@@ -1,6 +1,5 @@
 const { Product, User } = require("../Models");
 const cloudinary = require("cloudinary");
-
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
@@ -10,6 +9,7 @@ cloudinary.config({
 //saves products into database that is uploaded by the user with a default verified value to false
 const products = async (req, res) => {
   try {
+    
     const image_array = req.body.images;
     const title = req.body.details.adTitle;
     const description = req.body.details.description;
@@ -47,6 +47,7 @@ const products = async (req, res) => {
       await User.findByIdAndUpdate(user_id, {
         $addToSet: { products_posted: saved_product._id },
       });
+      
       res
         .status(200)
         .send(
@@ -66,9 +67,9 @@ const admin_postLoad = async (req, res) => {
   try {
     const data = await Product.find({ is_verified: false });
  //   console.log(data);
-    data.map((iterator) => {
-  //    console.log(iterator.images);
-    });
+    // data.map((iterator) => {
+    //    console.log(iterator.images);
+    // });
     res.status(200).send({ data: data });
   } catch (err) {
     console.log(err);
@@ -86,10 +87,15 @@ const admin_response = async (req, res) => {
       res.status(200).send("product approved");
     } else {
       const data = await Product.findOne({ _id: id });
-      data.remove().then(() => console.log("product Ad request declined "));
+      const user_id = await User.findById(data.posted_by);
+      const product_title= data.title;
+      
+      const user =  await User.findByIdAndUpdate( user_id, {$addToSet :  {notification :  `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`}}, {new:true} ); 
+      data.remove().then(() => console.log("product Ad request declined"));
+   
       res.status(200).send("product Ad request declined");
-    }
-  } catch (err) {
+    }}
+  catch (err) {
     console.log(err);
     res.status(200).send(err);
   }

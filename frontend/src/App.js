@@ -32,7 +32,7 @@ function App() {
     console.log("visited use_effect");
     JSON.parse(window.localStorage.getItem("auth")) &&
       dispatch(AuthUser(JSON.parse(window.localStorage.getItem("auth"))));
-  });
+  },[dispatch]);
 
   return (
     <>

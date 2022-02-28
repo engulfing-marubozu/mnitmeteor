@@ -3,6 +3,7 @@ const cors = require("cors");
 const fs = require("fs");
 const app = express();
 const morgan = require("morgan");
+const {User, Prodcut} = require("./Models")
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -44,19 +45,30 @@ fs.readdirSync("./Routes").map((f) => app.use("/", require(`./Routes/${f}`)));
 const users_scoket_id = {};
 io.on("connect", (socket) => {
     console.log("connected");
-    socket.on("initialise user", (user_email)=>{
+
+    socket.on("initialise_user", (user_email)=>{
     console.log("bleha");
     users_scoket_id[user_email] = socket.id;
     console.log(users_scoket_id);
-  
-  })
+  }) 
 
 
-  socket.on("admin approve event", (agreement) => {
-    socket.broadcast.emit("approved post update", agreement);
-   
+  socket.on("admin approve event", () => {
+    socket.broadcast.emit("approve_post_update");
   });
  
+ socket.on("admin decline event", async (user_id) => {
+   console.log("dbvjsbvknskvn");
+   const user = await User.findById(user_id);
+  // console.log(user);
+   console.log(users_scoket_id[user.email]);
+   console.log(users_scoket_id);
+   if(users_scoket_id[user.email])
+   { console.log("mil gaya");
+    io.to(users_scoket_id[user.email]).emit("declined_post_notification");
+   }
+  });
+  
 socket.on("disconnect", () => {
     console.log("disconnected");
     Object.keys(users_scoket_id).forEach(key => {
@@ -71,3 +83,5 @@ socket.on("disconnect", () => {
 http.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
+
+ module.exports = {users_scoket_id,io}

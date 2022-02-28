@@ -3,14 +3,15 @@ import axios from "axios";
 import { useEffect } from "react";
 import AdminPanelPage from "./adminPanelPage";
 import { Typography } from "@mui/material";
-//import {socket} from "./../components/HomePage/Home"
+import {socket} from "./../components/HomePage/Home";
 
 function Adminpanel() {
   const [data, setdata] = useState("");
   const [flag, setflag] = useState(true);
   // ===================================================================================================================================================================
-  const ApproveRequest = async (id) => {
-   // socket.emit("admin approve event", "true");
+  const ApproveRequest = async (cardData) => {
+    const id = cardData._id;
+
     const response = await axios.post("http://localhost:5000/admin_response", {
       id,
       response: true,
@@ -18,13 +19,25 @@ function Adminpanel() {
     console.log(response);
     setflag(!flag);
   };
-  const DeclineRequest = async (id) => {
+  const DeclineRequest = async (cardData) => {
+    const id = cardData._id
+    const user_id = cardData.posted_by;
+    try{
     const response = await axios.post("http://localhost:5000/admin_response", {
       id,
       response: false,
     });
     console.log(response);
+    if(response.data === "product Ad request declined")
+    {
+        socket.emit("admin decline event", user_id );     
+    }
     setflag(!flag);
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
   };
   // ===================================================Fetching Data=================================================================================================
   useEffect(() => {

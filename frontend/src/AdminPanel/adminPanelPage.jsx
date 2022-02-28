@@ -94,7 +94,7 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
                             fontSize: { xs: "10px", md: "15px" },
                             fontWeight: "bold",
                         }}
-                        onClick={() => { DeclineRequest(cardData._id) }}
+                        onClick={() => { DeclineRequest(cardData) }}
                     >
                         Decline Request
                     </OutlinedButton>
@@ -104,7 +104,7 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
                             fontWeight: "bold",
                         }}
                         variant="contained"
-                        onClick={() => { ApproveRequest(cardData._id) }}
+                        onClick={() => { ApproveRequest(cardData) }}
                     >
                         Approve Request
                     </ColorButton>

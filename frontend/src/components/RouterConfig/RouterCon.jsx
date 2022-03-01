@@ -10,6 +10,8 @@ import Profile from "../Profile/Profile";
 import Adminpanel from "../../AdminPanel/adminpanel";
 import { useSelector } from "react-redux";
 import Favourites from "../Favourites/Favourites";
+import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
+import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
 function RouterCon() {
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   console.log(isLoggedIn);
@@ -21,7 +23,10 @@ function RouterCon() {
         <Route path="Product/:category" element={<ProductCard />} />
       </Route>
       <Route path="About" element={<About />} />
-      <Route path="Discussions" element={<Discussions />} />
+      <Route path="Discussions" element={<Discussions />}>
+        <Route index element={<DiscussionCardArray />} />
+        <Route path="CreateNewTopic" element={<DiscussionForm />} />
+      </Route>
       <Route path="LostFound" element={<LostFound />} />
       <Route
         path="Sellproduct"

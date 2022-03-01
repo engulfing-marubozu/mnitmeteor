@@ -16,6 +16,7 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
+import NotificationBox from "../Notification/notificationBox";
 function Userbar(props) {
   console.log(props.updateNotification);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -46,9 +47,7 @@ function Userbar(props) {
         open={drawer}
         onClose={() => { setDrawer(false) }}
       >
-        {/* {list('right')} */}
-        my name deepak
-        Ritik madarchod hai or rahul sabse bada madarchod hai
+       <NotificationBox/>
       </Drawer>
 
       {/* {drawer&&NotificationBox} */}

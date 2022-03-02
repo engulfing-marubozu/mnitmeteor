@@ -6,7 +6,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Comments from './comment';
 import AddCommentBox from './addCommentBox';
 import Collapse from '@mui/material/Collapse';
-
+import { DiscussionCardStyle } from '../DiscussionStyling/discussionCardStyliing';
 
 
 const ExpandMore = styled((props) => {
@@ -23,10 +23,11 @@ function DiscussionCard() {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    const classes = DiscussionCardStyle();
 
     return (
-        <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", my: "2rem",flexDirection: "column" }}>
-            <Paper sx={{ bgcolor: "white", maxWidth: "700px", px: { xs: "0.5rem", sm: "1.5rem", md: "1.5rem" }, py: "1.5rem", display: "flex", flexDirection: "row" ,mx:{sm:"2rem",xs:"0rem"} }}>
+        <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", my: "2rem", flexDirection: "column" }}>
+            <Paper className={classes.dpaperStyle}>
                 <Box display={'flex'} flexDirection={'column'} sx={{ pr: { xs: "0.5rem", sm: "0.8rem", md: "1rem" }, pt: 0.8 }}>
                     <ArrowUpwardIcon />
                     <ArrowDownwardIcon />
@@ -52,18 +53,18 @@ function DiscussionCard() {
                             <AddCommentBox />
                         </Box>
                     </Collapse>
-                    <Box sx={{ display: "flex", flexDirection: { xs: 'column', sm: "row" }, width: "94%", justifyContent: "space-between", pt: "1rem" }}>
+                    <Box className={classes.dactionBox}>
                         <Stack sx={{ flexDirection: "row", alignItems: "center" }}>
                             <Avatar sx={{ height: { xs: 26, sm: 30 }, width: { xs: 26, sm: 30 } }}></Avatar>
                             <Typography variant='body2' sx={{ pl: 1, color: "#757575" }}> Posted by</Typography>
                             <Typography sx={{ color: "#512da8", fontWeight: "bold", px: 1 }}>2019ume1827</Typography>
                         </Stack>
-                        <Stack sx={{ flexDirection: "row", alignItems: { xs: "flex-start", sm: "center" }, flexGrow: 1, justifyContent: "space-between", mt: { xs: 0, sm: 0 } }}>
-                            <Typography variant="body2" sx={{ pl: { sm: 3, xs: 4 }, color: "#757575" }}>26 sep 2020</Typography>
+                        <Stack className={classes.ddateIconWrapper} >
+                            <Typography variant="body2" className={classes.dactionDate}>26 sep 2020</Typography>
                             <Stack sx={{ flexDirection: "row", alignItems: "flex-start" }}  >
                                 <ExpandMore
                                     expand={expanded}
-                                    onClick={handleExpandClick} 
+                                    onClick={handleExpandClick}
                                     aria-expanded={expanded}
                                 >
                                 </ExpandMore>

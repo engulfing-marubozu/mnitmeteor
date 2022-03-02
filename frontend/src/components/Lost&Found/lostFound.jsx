@@ -1,7 +1,7 @@
 import React from 'react'
-import LostfoundForm from './lost&foundForm/l&fForm';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import LostFoundCard from './Lost&FoundCard/L&FCard';
 const theme = createTheme({
   palette: {
     primary: {
@@ -16,7 +16,8 @@ const theme = createTheme({
 function LostFound() {
   return (<>
     <ThemeProvider theme={theme}>
-      <LostfoundForm />
+      <LostFoundCard/>
+      {/* <LostfoundForm /> */}
     </ThemeProvider>
   </>
 

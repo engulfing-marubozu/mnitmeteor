@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect} from 'react';
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
@@ -21,6 +21,9 @@ const FORM_VALIDATION = Yup.object().shape({
 
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    })
     //   const token = useSelector((state) => state.loginlogoutReducer.token);
     //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
     //   const [imagearray, setimagearray] = useState([]);

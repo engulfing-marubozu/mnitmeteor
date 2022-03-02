@@ -1,6 +1,6 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
-import { useStyles } from "../../_formData/FormUI/stylingComponent";
+import { useStyles } from "../FormUI/stylingComponent";
 import { CustomButton } from "./PreviewImage";
 import PreviewImage from "./PreviewImage";
 import { useField, useFormikContext } from "formik";
@@ -10,6 +10,7 @@ import { Box, Typography } from "@mui/material";
 export default function UploadImage(props) {
   const { setFieldValue } = useFormikContext();
   const [, meta] = useField(props.name);
+  // console.log(meta);
   const [images, setImages] = React.useState([]);
   const maxNumber = 4;
 

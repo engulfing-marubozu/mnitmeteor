@@ -25,7 +25,7 @@ function DiscussionCard() {
     };
 
     return (
-        <Box display={"flex"} alignItems={"center"} sx={{ width: "100%", my: "3rem", flexDirection: "column" }}>
+        <Box display={"flex"} alignItems={"center"} sx={{ width: "100%", my: "2rem", flexDirection: "column" }}>
             <Paper sx={{ bgcolor: "white", maxWidth: "800px", px: { xs: "0.5rem", sm: "1.5rem", md: "1.5rem" }, py: "1.5rem", display: "flex", flexDirection: "row" }}>
                 <Box display={'flex'} flexDirection={'column'} sx={{ pr: { xs: "0.5rem", sm: "0.8rem", md: "1rem" }, pt: 0.8 }}>
                     <ArrowUpwardIcon />
@@ -63,7 +63,7 @@ function DiscussionCard() {
                             <Stack sx={{ flexDirection: "row", alignItems: "flex-start" }}  >
                                 <ExpandMore
                                     expand={expanded}
-                                    onClick={handleExpandClick}
+                                    onClick={handleExpandClick}S
                                     aria-expanded={expanded}
                                 >
                                 </ExpandMore>
@@ -73,7 +73,6 @@ function DiscussionCard() {
                     </Box>
                 </Box>
             </Paper>
-
         </Box>
     )
 }

@@ -40,7 +40,7 @@ app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyparser.json({ limit: "50mb" }));
 fs.readdirSync("./Routes").map((f) => app.use("/", require(`./Routes/${f}`)));
 
-// socket io route and connects each time you run the server3
+// socket io route and connects each time you run the server
 
 const users_scoket_id = {};
 io.on("connect", (socket) => {
@@ -54,6 +54,7 @@ io.on("connect", (socket) => {
 
 
   socket.on("admin approve event", () => {
+     console.log("rimtik ");
     socket.broadcast.emit("approve_post_update");
   });
  

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import AdminPanelPage from "./adminPanelPage";
 import { Typography } from "@mui/material";
-import {socket} from "./../components/HomePage/Home";
+import { socket } from "./../components/Navbar/navbar";
 
 function Adminpanel() {
   const [data, setdata] = useState("");
@@ -17,27 +17,26 @@ function Adminpanel() {
       response: true,
     });
     console.log(response);
+    socket.emit("admin approve event");
     setflag(!flag);
   };
   const DeclineRequest = async (cardData) => {
     const id = cardData._id
     const user_id = cardData.posted_by;
-    try{
-    const response = await axios.post("http://localhost:5000/admin_response", {
-      id,
-      response: false,
-    });
-    console.log(response);
-    if(response.data === "product Ad request declined")
-    {
-        socket.emit("admin decline event", user_id );     
+    try {
+      const response = await axios.post("http://localhost:5000/admin_response", {
+        id,
+        response: false,
+      });
+      console.log(response);
+      if (response.data === "product Ad request declined") {
+        socket.emit("admin decline event", user_id);
+      }
+      setflag(!flag);
     }
-    setflag(!flag);
-  }
-  catch(err)
-  {
-    console.log(err);
-  }
+    catch (err) {
+      console.log(err);
+    }
   };
   // ===================================================Fetching Data=================================================================================================
   useEffect(() => {
@@ -65,21 +64,21 @@ function Adminpanel() {
     <>
 
       <Typography variant="h5" sx={{ px: { xs: 3.5, lg: 14 }, py: { xs: 2, lg: 3 } }} > This is admin panel</Typography>
-        {
-    data &&
-    data.map((product, index) => {
-      return (
-        <AdminPanelPage
-          index={index}
-          key={index}
-          cardData={product}
-          ApproveRequest={ApproveRequest}
-          DeclineRequest={DeclineRequest}
-        />
-      );
-    })
-  }
-   
+      {
+        data &&
+        data.map((product, index) => {
+          return (
+            <AdminPanelPage
+              index={index}
+              key={index}
+              cardData={product}
+              ApproveRequest={ApproveRequest}
+              DeclineRequest={DeclineRequest}
+            />
+          );
+        })
+      }
+
 
     </>
   );

@@ -17,13 +17,13 @@ export const useStyles = makeStyles({
     },
     headingText: {
         fontWeight: "bold",
+        color:"#edf2ff",
         fontSize: "1.5rem",
         "@media (max-width: 600px)": {
             fontSize: "1.2rem"
         },
     },
     paperStyle: {
-        bgcolor: "white",
         width: "55%",
         // width: "800px", 
         height: "auto",
@@ -41,8 +41,10 @@ export const useStyles = makeStyles({
         },
     },
     headingBox: {
+        backgroundColor:"#5e35b1",
         padding: "1.5rem 3rem",
-        borderBottom: "1px solid  #e0e0e0",
+        borderRadius:"1rem 1rem 0rem 0rem ",
+        // borderBottom: "1px solid  #e0e0e0",
         "@media (max-width: 600px)": {
             padding: "1.5rem",
         },

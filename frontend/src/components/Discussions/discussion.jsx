@@ -1,8 +1,8 @@
 import React from 'react'
-import DiscussionForm from './DiscussionForm/discussionForm';
-import DiscussionCard from './DiscussionPage/discussionCard';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import DiscussionNavigation from './discussionNavigation';
+import { Outlet } from 'react-router-dom';
 const theme = createTheme({
   palette: {
     primary: {
@@ -16,8 +16,8 @@ const theme = createTheme({
 function Discussions() {
   return (<>
     <ThemeProvider theme={theme}>
-      <DiscussionCard />
-      <DiscussionForm />
+      <DiscussionNavigation />
+      <Outlet />
     </ThemeProvider>
   </>
 

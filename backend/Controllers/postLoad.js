@@ -64,7 +64,7 @@ const products = async (req, res) => {
 
 //fetches posts from database and sends to admin for approval
 const admin_postLoad = async (req, res) => {
-  console.log("tyuy");
+ 
   try {
     const data = await Product.find({ is_verified: false });
  //   console.log(data);
@@ -73,6 +73,7 @@ const admin_postLoad = async (req, res) => {
     // });
     res.status(200).send({ data: data });
   } catch (err) {
+    console.log("tyuy");
     console.log(err);
     res.status(200).send(err);
   }

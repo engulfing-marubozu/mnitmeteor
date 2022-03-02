@@ -19,7 +19,6 @@ const xyz =((socket) =>{
      socket.on("admin decline event", async (user_id) => {
        console.log("dbvjsbvknskvn");
        const user = await User.findById(user_id);
-      // console.log(user);
        console.log(users_scoket_id[user.email]);
        console.log(users_scoket_id);
        if(users_scoket_id[user.email])

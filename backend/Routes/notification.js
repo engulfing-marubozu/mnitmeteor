@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 
-router.get('/admin_postLoad', authorization, send_notification);
+router.get('/send_notification', authorization, send_notification);
 
 
 module.exports= router;

@@ -115,9 +115,8 @@ function Navbar() {
 
   React.useEffect(() => {
     socket.on("declined_post_notification", () => {
-      // console.log("aa gaya");
-      // console.log(notificationPending);
-      setNotificationPending((prevValue) => prevValue + 1);
+      //setNotificationPending((prevValue) => prevValue + 1);
+      setNotificationPending( notificationPending + 1);
       // console.log(notificationPending);
     });
   });

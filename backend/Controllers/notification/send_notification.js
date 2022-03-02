@@ -1,10 +1,11 @@
 const {User} = require("../../Models/index")
 
 const send_notification = async (req,res)=>{
-  const id = req.user._id;
+  console.log("aa gaya bhai")
   try{
-  const custom_notif = User.findById({id}, {Notification:1});
-  res.status(200).send({custom_notif});
+  user_id = req.user._id;
+  const user = await User.findById(user_id);
+  res.status(200).send(user.notification);
   }
   catch(err)
   {

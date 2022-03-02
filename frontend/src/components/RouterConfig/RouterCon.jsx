@@ -26,6 +26,9 @@ function RouterCon() {
       <Route path="Discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
         <Route path="CreateNewTopic" element={<DiscussionForm />} />
+        <Route path="MyAnswers" element={<DiscussionForm />} />
+        <Route path="MyTopics" element={<DiscussionForm />} />
+
       </Route>
       <Route path="LostFound" element={<LostFound />} />
       <Route

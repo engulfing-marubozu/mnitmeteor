@@ -49,7 +49,7 @@ function ProductCard(props) {
     return () => (isSubscribed = false);
   }, [category, email, isLoggedIn]);
  
-  // console.log(cardData);
+  console.log(cardData);
   return (
     <main>
       {/* <Typography variant="h4">{props.Category ? props.Category : params.category}</Typography> */}

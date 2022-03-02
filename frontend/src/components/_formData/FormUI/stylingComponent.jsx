@@ -5,9 +5,22 @@ export const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         width: "100%",
-        padding:"3rem 0rem",
+        padding: "2rem 0rem",
         flexDirection: "column",
     },
+    mainBoxSecond: {
+        display: "flex",
+        alignItems: "flex-start",
+        width: "100%",
+        padding: "2rem 0rem",
+        flexDirection: "column",
+        "@media (max-width: 600px)": {
+            alignItems: "center",
+        },
+    },
+
+    // =======================================================================
+
     boldText: {
         fontWeight: "bold",
         fontSize: "1.2rem",
@@ -15,14 +28,33 @@ export const useStyles = makeStyles({
             fontSize: "0.85rem"
         },
     },
+    boldTextSecond: {
+        fontWeight: "bold",
+        fontSize: "1.2rem",
+        "@media (max-width: 800px)": {
+            fontSize: "0.85rem"
+        },
+    },
+
+    // ============================================================================
     headingText: {
         fontWeight: "bold",
-        color:"#edf2ff",
+        color: "#edf2ff",
         fontSize: "1.5rem",
         "@media (max-width: 600px)": {
             fontSize: "1.2rem"
         },
     },
+
+    headingTextSecond: {
+        fontWeight: "bold",
+        color: "#edf2ff",
+        fontSize: "1.5rem",
+        "@media (max-width: 800px)": {
+            fontSize: "1.2rem"
+        },
+    },
+    // ==========================================================================
     paperStyle: {
         width: "55%",
         // width: "800px", 
@@ -40,15 +72,47 @@ export const useStyles = makeStyles({
             width: "90%",
         },
     },
+    paperStyleSecond: {
+        width: "70%",
+        // width: "800px", 
+        margin: "0rem 2rem",
+        height: "auto",
+        borderRadius: "1rem",
+        display: "flex",
+        flexDirection: "column",
+        "@media (max-width: 1200px)": {
+            width: "80%",
+        },
+        "@media (max-width: 800px)": {
+            width: "85%",
+        },
+        "@media (max-width: 600px)": {
+            margin: "0rem 1rem",
+        }
+    },
+
+    // ====================================================================================================================
     headingBox: {
-        backgroundColor:"#5e35b1",
+        backgroundColor: "#5e35b1",
         padding: "1.5rem 3rem",
-        borderRadius:"1rem 1rem 0rem 0rem ",
+        borderRadius: "1rem 1rem 0rem 0rem ",
         // borderBottom: "1px solid  #e0e0e0",
         "@media (max-width: 600px)": {
             padding: "1.5rem",
         },
     },
+
+    headingBoxSecond: {
+        backgroundColor: "#5e35b1",
+        padding: "1.5rem 3rem",
+        borderRadius: "1rem 1rem 0rem 0rem ",
+        // borderBottom: "1px solid  #e0e0e0",
+        "@media (max-width: 800px)": {
+            padding: "1.5rem",
+        },
+    },
+
+    // ======================================================================================================================
     ContentBox: {
         padding: "2rem 3rem",
         borderBottom: "1px solid  #e0e0e0",
@@ -56,6 +120,17 @@ export const useStyles = makeStyles({
             padding: " 1.3rem 1.5rem",
         },
     },
+
+    ContentBoxSecond: {
+        padding: "2rem 3rem",
+        borderBottom: "1px solid  #e0e0e0",
+        "@media (max-width: 800px)": {
+            padding: " 1.3rem 1.5rem",
+        },
+    },
+
+    // ===========================================================================================================================
+
     imageUploadBox: {
         border: (props) => (props.error && props.touched) ? "1px solid #d50000" : "1px solid #bdbdbd",
         borderRadius: "4px",

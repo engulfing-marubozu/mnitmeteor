@@ -30,3 +30,26 @@ export const NavTab = styled((props) => <Tab disableRipple {...props} />)(({ the
         backgroundColor: '#d1eaff',
     },
 }));
+
+export const VerticalNavTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }) => ({
+    textTransform: 'none',
+    padding: "0.5rem",
+    minWidth: 0,
+    // [theme.breakpoints.up('md')]: {
+    //     minWidth: 0,
+    // },
+    fontWeight: theme.typography.fontWeightRegular,
+    color: 'rgba(0, 0, 0, 0.85)',
+    '&:hover': {
+        color: '#673ab7',
+        opacity: 1,
+    },
+    '&.Mui-selected': {
+        color: 'black',
+        fontWeight: theme.typography.fontWeightMedium,
+        backgroundColor:"#d1c4e9",
+    },
+    '&.Mui-focusVisible': {
+        backgroundColor: '#d1eaff',
+    },
+}));

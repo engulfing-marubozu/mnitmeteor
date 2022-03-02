@@ -45,7 +45,6 @@ const StyledTab = styled((props) => <Tab {...props} />)(({ theme }) => ({
 export default function CategorySlider() {
   // =========================================================CLICKHANDLERS============================================================================================================
   const params = useParams();
-  // console.log(params);
   const paramstoIndex = {
     Book: 0,
     Cloth: 1,
@@ -53,11 +52,10 @@ export default function CategorySlider() {
     Cycle: 3,
     Others: 4,
   };
-  // console.log(paramstoIndex[params.category]);
   const [value, setValue] = React.useState(false);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
   // ================================TAB CLICK HANDLERS
   const Navigate = useNavigate();
   const TabClickHandler = (flag) => {
@@ -84,7 +82,7 @@ export default function CategorySlider() {
     >
       <StyledTabs
         value={value}
-        onChange={handleChange}
+        // onChange={handleChange}
         variant="scrollable"
         scrollButtons
         allowScrollButtonsMobile

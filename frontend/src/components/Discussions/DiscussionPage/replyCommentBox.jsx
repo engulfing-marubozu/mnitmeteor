@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { TextField, Box } from '@mui/material';
-import { CommentButton } from './discussionStyling';
+import { CommentButton } from '../DiscussionStyling/discussionStyling';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 const theme = createTheme({

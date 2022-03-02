@@ -39,8 +39,8 @@ function SellFormNew() {
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
-      // const response = 
-      await axios.post(
+   console.log("sent to save in database");
+    const response =  await axios.post(
         "http://localhost:5000/product_details",
         { images: imagearray, details: values },
         {
@@ -49,7 +49,7 @@ function SellFormNew() {
           },
         }
       );
-      // console.log(response.data);
+     console.log(response.data);
     } catch (err) {
       console.log(err);
     }

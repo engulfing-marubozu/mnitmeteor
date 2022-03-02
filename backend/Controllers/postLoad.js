@@ -9,7 +9,7 @@ cloudinary.config({
 //saves products into database that is uploaded by the user with a default verified value to false
 const products = async (req, res) => {
   try {
-    
+    console.log("came to save to database");
     const image_array = req.body.images;
     const title = req.body.details.adTitle;
     const description = req.body.details.description;
@@ -43,7 +43,7 @@ const products = async (req, res) => {
     });
     try {
       const saved_product = await Product_save.save();
-   //   console.log(saved_product);
+      console.log(saved_product);
       await User.findByIdAndUpdate(user_id, {
         $addToSet: { products_posted: saved_product._id },
       });
@@ -64,6 +64,7 @@ const products = async (req, res) => {
 
 //fetches posts from database and sends to admin for approval
 const admin_postLoad = async (req, res) => {
+ 
   try {
     const data = await Product.find({ is_verified: false });
  //   console.log(data);
@@ -72,6 +73,7 @@ const admin_postLoad = async (req, res) => {
     // });
     res.status(200).send({ data: data });
   } catch (err) {
+    console.log("tyuy");
     console.log(err);
     res.status(200).send(err);
   }

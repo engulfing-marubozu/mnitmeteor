@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import NotificationBox from "../Notification/notificationBox";
 function Userbar(props) {
-  console.log(props.updateNotification);
+  // console.log(props.updateNotification);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);

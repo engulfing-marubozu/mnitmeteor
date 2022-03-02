@@ -35,10 +35,10 @@ function DiscussionForm() {
     const classes = useStyles();
     return (
         <>
-            <Box className={classes.mainBox}>
-                <Paper className={classes.paperStyle}>
-                    <Box className={classes.headingBox}>
-                        <Typography className={classes.headingText}> New Topic </Typography>
+            <Box className={classes.mainBoxSecond}>
+                <Paper className={classes.paperStyleSecond}>
+                    <Box className={classes.headingBoxSecond}>
+                        <Typography className={classes.headingTextSecond}> New Topic </Typography>
                     </Box>
                     <Formik
                         initialValues={{ ...INITIAL_FORM_STATE }}
@@ -48,28 +48,28 @@ function DiscussionForm() {
                         }}
                     >
                         <Form>
-                            <Box className={classes.ContentBox}>
-                                <Typography className={classes.boldText}>Topic *</Typography>
+                            <Box className={classes.ContentBoxSecond}>
+                                <Typography className={classes.boldTextSecond}>Topic *</Typography>
                                 <TextfieldWrapper
                                     name="adTitle"
                                     size="small"
                                     helperText="Mention the topic name or project name "
                                 />
-                                <Typography className={classes.boldText}>Discription *</Typography>
+                                <Typography className={classes.boldTextSecond}>Discription *</Typography>
                                 <TextfieldWrapper
                                     name="description"
                                     helperText="Describe about the topic"
                                     multiline={true}
                                     rows={4}
                                 />
-                                <Typography className={classes.boldText}>Select a category *</Typography>
+                                <Typography className={classes.boldTextSecond}>Select a category *</Typography>
                                 <SelectWrapper
                                     categories={forumCategories}
                                     name="categories"
                                     size="small"
                                     helperText="Please select your category"
                                 />
-                                <Typography className={classes.boldText}>Upload attachments</Typography>
+                                <Typography className={classes.boldTextSecond}>Upload attachments</Typography>
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>

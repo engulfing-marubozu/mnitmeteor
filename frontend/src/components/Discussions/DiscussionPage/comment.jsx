@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Typography, Box, Avatar, Stack, styled } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from './discussionStyling';
+import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from '../DiscussionStyling/discussionStyling';
 import Reply from "./reply"
 import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';

@@ -102,30 +102,29 @@ function Navbar() {
   const [notificationPending, setNotificationPending] = useState(0);
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    console.log(userData);
+    // console.log(userData);
     userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
   React.useEffect(() => {
-    
     socket.on("approve_post_update", () => {
       setpostPending(postsPending + 1);
-      console.log("rimkkadfjsafkl")
+      // console.log("rimkkadfjsafkl")
     });
   });
 
   React.useEffect(() => {
     socket.on("declined_post_notification", () => {
-      console.log("aa gaya");
-      console.log(notificationPending);
+      // console.log("aa gaya");
+      // console.log(notificationPending);
       setNotificationPending((prevValue) => prevValue + 1);
-      console.log(notificationPending);
+      // console.log(notificationPending);
     });
   });
-  console.log(notificationPending);
+  // console.log(notificationPending);
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    console.log(userData);
+    // console.log(userData);
     userData &&
       setNotificationPending(
         userData.user.notification.length - userData.user.read_notif_count
@@ -203,9 +202,11 @@ function Navbar() {
               {/* MNIT Market */}
             </Typography>
           </Stack>
-          <Stack display={{ sm: "flex", xs: "none" }}>
-            <NavbarTabs updateBadge={postsPending}/>
-          </Stack>
+          {windowWidth > 600 && (
+            <Stack display={{ sm: "flex" }}>
+              <NavbarTabs updateBadge={postsPending} />
+            </Stack>
+          )}
           <Stack
             spacing={{ xs: 1, sm: 2 }}
             sx={{ mr: { xs: 0, md: 4, lg: 6 } }}

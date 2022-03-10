@@ -103,8 +103,20 @@ const thread_schema = new mongoose.Schema({
     content : {
            type : String,
            default : ""
-     }
-  }]
+     },
+     replies: {
+       type:[{
+        mnit_id:{
+            type: String,
+       },
+       content :{
+            type: String,
+            default : ""
+       }
+     }],
+     default : []
+    }
+  }],
   }
 },{timestamps: true})
 

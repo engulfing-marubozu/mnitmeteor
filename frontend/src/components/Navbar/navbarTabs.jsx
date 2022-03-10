@@ -39,7 +39,7 @@ export default function NavbarTabs(props) {
   useEffect(() => {
     if (location.pathname === "/" && value) { setValue(0) }
     else if (location.pathname.includes("/Discussions")) { setValue(1) }
-    else if (location.pathname.includes("/LostFound")) { setValue(2) }
+    else if (location.pathname.includes("/Lost&Found")) { setValue(2) }
     else {
       setValue(false);
     }
@@ -53,7 +53,7 @@ export default function NavbarTabs(props) {
         Home
       </Badge>}  onClick={() => { Navigate("/") }} />
       <AntTab label="Discussions" onClick={() => { Navigate("Discussions") }} />
-      <AntTab label="Lost&Found" onClick={() => { Navigate("LostFound") }} />
+      <AntTab label="Lost&Found" onClick={() => { Navigate("Lost&Found") }} />
     </AntTabs>
 
 

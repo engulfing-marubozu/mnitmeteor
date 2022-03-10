@@ -93,7 +93,7 @@ export default function FavouritesCard(props) {
             component="img"
             classes={{ img: Classes.image }}
             width="280px"
-            sx={{ height: { xs: "160px", sm: "180px" } }}
+            sx={{ height: { xs: "160px", sm: "180px" } ,p:{sm:1.5,xs:1}}}
             image={Image}
             alt="Image"
           />

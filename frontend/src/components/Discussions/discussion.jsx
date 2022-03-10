@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, Stack } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import { DiscussionNavigation, VerticalNavigation } from './discussionNavigation';
+import { DiscussionNavigation, DiscussionVerticalNavigation } from './discussionNavigation';
 import { Outlet } from 'react-router-dom';
 const theme = createTheme({
   palette: {
@@ -24,7 +24,7 @@ function Discussions() {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Box sx={{ width: { sm: "30%", md: "35%" }, position: "fixed", left: "0rem", display: { xs: "none", sm: "block" } }}>
-          <VerticalNavigation />
+          <DiscussionVerticalNavigation />
         </Box>
         <Box sx={{ width: { md: "65%", sm: "70%", xs: "100%" } }}>
           <Stack sx={{ display: { xs: "flex", sm: "none" } }}>
@@ -33,7 +33,6 @@ function Discussions() {
           <Outlet />
         </Box>
       </Box>
-
     </ThemeProvider>
   </>
 

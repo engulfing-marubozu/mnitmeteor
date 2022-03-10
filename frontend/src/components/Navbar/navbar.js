@@ -126,7 +126,7 @@ function Navbar() {
     // console.log(userData);
     userData &&
       setNotificationPending(
-        userData.user.notification.length - userData.user.read_notif_count
+        userData.user?.notification?.length - userData?.user?.read_notif_count
       );
   }, [setNotificationPending]);
   // ========================================================================================================================================================================

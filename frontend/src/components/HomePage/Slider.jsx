@@ -84,8 +84,7 @@ export default function CategorySlider() {
         value={value}
         // onChange={handleChange}
         variant="scrollable"
-        scrollButtons
-        allowScrollButtonsMobile
+        scrollButtons={false}
       >
         <StyledTab
           icon={

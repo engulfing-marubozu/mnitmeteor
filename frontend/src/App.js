@@ -1,7 +1,7 @@
 import "./App.css";
 import RouterCon from "./components/RouterConfig/RouterCon";
 import Wrapper from "./components/RouterConfig/Wrapper";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { AuthUser } from "./AStatemanagement/Actions/userActions.jsx";
 import { useEffect } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -25,14 +25,14 @@ const theme = createTheme({
 function App() {
   // const userData = useSelector((state) => state.loginlogoutReducer.userData);
   // const  contextValue={userData};
-  console.log("first");
+  // console.log("first");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("visited use_effect");
+    // console.log("visited use_effect");
     JSON.parse(window.localStorage.getItem("auth")) &&
       dispatch(AuthUser(JSON.parse(window.localStorage.getItem("auth"))));
-  },[dispatch]);
+  }, [dispatch]);
 
   return (
     <>

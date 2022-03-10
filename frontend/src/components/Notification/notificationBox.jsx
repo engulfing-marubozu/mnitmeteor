@@ -20,6 +20,7 @@ function NotificationBox() {
        console.log(response.data)
   }
       fetch_notification(); 
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[])
 
   return (

@@ -1,12 +1,6 @@
 import * as React from "react";
 import { RWebShare } from 'react-web-share';
-import Card from "@mui/material/Card";
-import { Box} from "@mui/material";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { Box, Card, CardMedia, CardContent, IconButton, Typography, CardActions } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-router-dom";
@@ -44,16 +38,16 @@ const HoverCard = styled(Card)(`
 const useStyles = makeStyles({
   image: {
     width: "100%",
-    objectFit: "contain", 
+    objectFit: "contain",
   },
 });
 
 export default function HomeCard(props) {
-    //  console.log(props.cardData);
+  //  console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
   const Image = props.cardData?.images[0]?.image;
-  const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
-  const date = new Date(props.cardData.createdAt);
+  const title = props.cardData?.title.charAt(0).toUpperCase() + props.cardData?.title.slice(1);
+  const date = new Date(props.cardData?.createdAt);
   const properDate = TimeSince(date);
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -84,8 +78,8 @@ export default function HomeCard(props) {
         <CardMedia
           component="img"
           classes={{ img: Classes.image }}
-          width="280px"
-          sx={{ height: { xs: "160px", sm: "180px" } }}
+          maxwidth="280px"
+          sx={{ height: { xs: "160px", sm: "180px" } ,p:{sm:1.5,xs:1}}}
           image={Image}
           alt="Image"
         />

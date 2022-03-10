@@ -3,7 +3,7 @@ import React from "react";
 import InterestedProduct from "./InterestedProduct/interestedProduct";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import PublishedAds from "./PublishedAds/publishedAds";
-
+import CardSlider from "./CardSlider";
 function Profile() {
   return (
     <div>
@@ -39,6 +39,7 @@ function Profile() {
         Your Orders
       </Typography>
       <InterestedProduct length={0} />
+      <CardSlider/>
     </div>
   );
 }

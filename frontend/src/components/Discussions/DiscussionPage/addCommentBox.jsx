@@ -18,6 +18,24 @@ function AddCommentBox() {
     const inputComment = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     // const [focused,setFocused]=useState(false);
+// ==========================================================================================================================================================
+//    const token
+//    const 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================================================================================================================================
     const EnablePost = (event) => {
         const commentValue = event.target.value;
         if (commentValue) {

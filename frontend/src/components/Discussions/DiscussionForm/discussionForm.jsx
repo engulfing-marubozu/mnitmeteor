@@ -2,21 +2,20 @@ import React, { useEffect} from 'react';
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
-import { TextfieldWrapper, SelectWrapper } from '../../_formData/FormUI/InputElement';
-import { forumCategories } from '../../_formData/formData';
+import { TextfieldWrapper} from '../../_formData/FormUI/InputElement';
+// import { forumCategories } from '../../_formData/formData';
 // import { useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 // import axios from "axios";
 
 // =================================================================================================================================================================================================================
 
-const INITIAL_FORM_STATE = { adTitle: "", description: "", categories: "" };
+const INITIAL_FORM_STATE = { adTitle: "", description: "",};
 const FORM_VALIDATION = Yup.object().shape({
     adTitle: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
-    categories: Yup.string().required("Required"),
 });
 
 // ======================================================================================================================================================================================================
@@ -24,13 +23,9 @@ function DiscussionForm() {
     useEffect(() => {
         window.scrollTo(0, 0);
     })
-    //   const token = useSelector((state) => state.loginlogoutReducer.token);
-    //   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-    //   const [imagearray, setimagearray] = useState([]);
-    // console.log(imagearray);
-    // const onDrop = (pictures) => {
-    //     // setimagearray(pictures);
-    // };
+      const token = useSelector((state) => state.loginlogoutReducer.token);
+      const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+
 
     // ===================================================================SendData_To_BackEnd========================================================================================================================
 
@@ -47,7 +42,7 @@ function DiscussionForm() {
                         initialValues={{ ...INITIAL_FORM_STATE }}
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
-                            console.log(values)
+                            // console.log(values)
                         }}
                     >
                         <Form>
@@ -65,14 +60,8 @@ function DiscussionForm() {
                                     multiline={true}
                                     rows={4}
                                 />
-                                <Typography className={classes.boldTextSecond}>Select a category *</Typography>
-                                <SelectWrapper
-                                    categories={forumCategories}
-                                    name="categories"
-                                    size="small"
-                                    helperText="Please select your category"
-                                />
                                 <Typography className={classes.boldTextSecond}>Upload attachments</Typography>
+                        
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>

@@ -250,7 +250,7 @@ function DiscriptionCard() {
           </Typography>
           <Typography
             variant="body1"
-            sx={{ pt: { xs: 0 }, px: { lg: 2, xs: 0 } }}
+            sx={{ pt: { xs: 0 }, px: { lg: 2, xs: 0 }, whiteSpace: "pre-line", wordBreak: "break-all" }}
           >
             {Description}
           </Typography>
@@ -281,7 +281,7 @@ function DiscriptionCard() {
             flag={true}
             onClose={setContactModel}
           >
-           ====Content for Discription prompt =================================
+            ====Content for Discription prompt =================================
             Et et tempor labore in.Sint ullamco anim incididunt cillum quis et
             id velit laboris magna.Sint eiusmod elit quis amet dolore.Anim
             aliquip elit incididunt eu enim sint officia enim quis.

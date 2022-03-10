@@ -74,7 +74,7 @@ function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
                         </Typography>
                         <Typography
                             variant="body1"
-                            sx={{ pt: { xs: 0 }, px: { lg: 2, xs: 0 } }}
+                            sx={{ pt: { xs: 0 }, px: { lg: 2, xs: 0 }, whiteSpace: "pre-line", wordBreak: "break-all" }}
                         >
                             {Description}
                         </Typography>

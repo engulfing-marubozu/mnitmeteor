@@ -12,6 +12,11 @@ import { useSelector } from "react-redux";
 import Favourites from "../Favourites/Favourites";
 import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
+import LostFoundCardArray from "../Lost&Found/Lost&FoundCard/_lostFoundArray";
+import LostFoundForm from "../Lost&Found/lost&foundForm/l&fForm";
+import DiscussionMyAnswers from "../Discussions/DiscussionCategories/disMyAnswers";
+import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
+import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
 function RouterCon() {
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   console.log(isLoggedIn);
@@ -26,11 +31,16 @@ function RouterCon() {
       <Route path="Discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
         <Route path="CreateNewTopic" element={<DiscussionForm />} />
-        <Route path="MyAnswers" element={<DiscussionForm />} />
-        <Route path="MyTopics" element={<DiscussionForm />} />
-
+        <Route path="MyAnswers" element={<DiscussionMyAnswers />} />
+        <Route path="MyTopics" element={<DiscussionMyTopics/>} />
+        <Route path="SavedTopics" element={<DiscussionSavedTopics />} />
       </Route>
-      <Route path="LostFound" element={<LostFound />} />
+      <Route path="Lost&Found" element={<LostFound />} >
+        <Route index element={<LostFoundCardArray />} />
+        <Route path="Lost&FoundForm" element={<LostFoundForm />} />
+        <Route path="LostItems" element={<LostFoundForm />} />
+        <Route path="FoundItems" element={<LostFoundForm />} />
+      </Route>
       <Route
         path="Sellproduct"
         element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}

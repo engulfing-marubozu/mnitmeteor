@@ -39,8 +39,8 @@ function SellFormNew() {
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
-   console.log("sent to save in database");
-    const response =  await axios.post(
+      console.log("sent to save in database");
+      const response = await axios.post(
         "http://localhost:5000/product_details",
         { images: imagearray, details: values },
         {
@@ -49,7 +49,7 @@ function SellFormNew() {
           },
         }
       );
-     console.log(response.data);
+      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -83,6 +83,7 @@ function SellFormNew() {
                   name="adTitle"
                   size="small"
                   helperText="Mention the key features of your item (e.g. brand, model, type)"
+                  // inputProps={{ maxLength: 10 }}
                 />
                 <Typography className={classes.boldText}>Discription *</Typography>
                 <TextfieldWrapper
@@ -90,6 +91,7 @@ function SellFormNew() {
                   helperText="Include condition, features and reason for selling"
                   multiline={true}
                   rows={4}
+                  // inputProps={{ maxLength: 100 }}
                 />
                 <Typography className={classes.boldText}>Select a category *</Typography>
                 <SelectWrapper

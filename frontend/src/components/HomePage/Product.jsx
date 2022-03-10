@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HomeCard from "../Cards/HomeCard";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button} from "@mui/material";
-// import { borderColor } from "@mui/system";
+import { Button, Grid, Container, styled } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
-import { styled } from "@mui/material";
+import HomeCardSkeleton from "../Cards/HomeCardSkeleton";
 export const ModelOutlinedButton = styled(Button)(({ theme }) => ({
   lineHeight: 1.5,
   borderColor: deepPurple[700],
@@ -48,23 +45,38 @@ function ProductCard(props) {
     Call();
     return () => (isSubscribed = false);
   }, [category, email, isLoggedIn]);
- 
-  console.log(cardData);
+
+  // console.log(cardData);
   return (
     <main>
       {/* <Typography variant="h4">{props.Category ? props.Category : params.category}</Typography> */}
       <Container
-        sx={{pt:{ xs: 5, sm: 10 },pb: { xs: 5, sm: 5 },maxWidth:{  xs: "xs", sm: "sm",md:"md" ,lg: "lg" }}}
+        sx={{ pt: { xs: 5 }, pb: { xs: 5 }, maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" } }}
       >
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-          {typeof(cardData)!=="undefined" &&
+          {(typeof (cardData) === "undefined" ? Array.from(new Array(20)).map((data, index) => {
+            return (
+              <Grid item xs={6} md={4} lg={3} key={index} >
+                <HomeCardSkeleton />
+              </Grid>
+            )
+          }) :
             cardData.map((data, index) => {
-              return (
-                <Grid item xs={6} md={4} lg={3} key={index} >
-                  <HomeCard cardData={data} />
-                </Grid>
-              );
-            })}
+              if (data !== null) {
+                return (
+                  <Grid item xs={6} md={4} lg={3} key={index}>
+                    <HomeCard cardData={data} />
+                  </Grid>
+                );
+              }
+              else
+                return null;
+              // return (
+              //   <Grid item xs={6} md={4} lg={3} key={index} >
+              //     <HomeCard cardData={data} />
+              //   </Grid>
+              // );
+            }))}
         </Grid>
       </Container>
       {/* <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>

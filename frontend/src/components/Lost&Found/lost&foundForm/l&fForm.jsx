@@ -21,7 +21,7 @@ const FORM_VALIDATION = Yup.object().shape({
 });
 
 // ======================================================================================================================================================================================================
-function LostfoundForm() {
+function LostFoundForm() {
 
     //   const Navigate = useNavigate();
     //   const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -53,10 +53,10 @@ function LostfoundForm() {
     const classes = useStyles();
     return (
         <>
-            <Box className={classes.mainBox}>
-                <Paper className={classes.paperStyle}>
-                    <Box className={classes.headingBox}>
-                        <Typography className={classes.headingText}>Lost&Found Form</Typography>
+            <Box className={classes.mainBoxSecond}>
+                <Paper className={classes.paperStyleSecond}>
+                    <Box className={classes.headingBoxSecond}>
+                        <Typography className={classes.headingTextSecond}>Lost&Found Form</Typography>
                     </Box>
                     <Formik
                         initialValues={{ ...INITIAL_FORM_STATE }}
@@ -73,40 +73,40 @@ function LostfoundForm() {
                         }}
                     >
                         <Form>
-                            <Box className={classes.ContentBox}>
-                                <Typography className={classes.boldText}>Item name *</Typography>
+                            <Box className={classes.ContentBoxSecond}>
+                                <Typography className={classes.boldTextSecond}>Item name *</Typography>
                                 <TextfieldWrapper
                                     name="adTitle"
                                     size="small"
                                     helperText="Mention the key features of your item (e.g. brand, model, type)"
                                 />
-                                <Typography className={classes.boldText}>Discription *</Typography>
+                                <Typography className={classes.boldTextSecond}>Discription *</Typography>
                                 <TextfieldWrapper
                                     name="description"
                                     helperText="Please provide proper detail of item with contact details  "
                                     multiline={true}
                                     rows={4}
                                 />
-                                <Typography className={classes.boldText}>Select a category *</Typography>
+                                <Typography className={classes.boldTextSecond}>Select a category *</Typography>
                                 <SelectWrapper
                                     categories={lostFoundCategories}
                                     name="categories"
                                     size="small"
                                     helperText="Please select your category"
                                 />
-                                <Typography className={classes.boldText}>Upload Images</Typography>
+                                <Typography className={classes.boldTextSecond}>Upload Images</Typography>
                                 <UploadImage name="images" onDrop={onDrop} />
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>
-                    </Formik>
+                    </Formik>   
                 </Paper>
             </Box>
         </>
     )
 }
 
-export default LostfoundForm;
+export default LostFoundForm;
 
 
 

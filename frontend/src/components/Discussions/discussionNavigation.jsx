@@ -4,9 +4,10 @@ import ExploreIcon from '@mui/icons-material/Explore';
 import CreateIcon from '@mui/icons-material/Create';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import { NavTabs, NavTab ,VerticalNavTab} from '../_Styling/tabStyling';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { NavTabs, NavTab, VerticalNavTab } from '../_Styling/tabStyling';
 import { useNavigate, useLocation } from "react-router-dom";
-import { verticalNavigationStyle } from './DiscussionStyling/discussionStyling';
+import { verticalNavigationStyle } from '../_Styling/tabStyling';
 
 
 
@@ -20,6 +21,7 @@ export function DiscussionNavigation() {
         else if (location.pathname === "/Discussions/CreateNewTopic") { setValue(1) }
         else if (location.pathname === "/Discussions/MyTopics") { setValue(2) }
         else if (location.pathname === "/Discussions/MyAnswers") { setValue(3) }
+        else if (location.pathname === "/Discussions/FavouriteTopics") { setValue(4) }
         else {
             setValue(false);
         }
@@ -30,12 +32,13 @@ export function DiscussionNavigation() {
 
 
     return (
-        <Paper sx={{ bgcolor: "white", display: "flex", justifyContent: "center" ,}}>
-            <NavTabs value={value} >
+        <Paper sx={{ bgcolor: "white", display: "flex", justifyContent: "center", }}>
+            <NavTabs value={value} variant="scrollable" scrollButtons={false}>
                 <NavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { Navigate("") }} />
                 <NavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { Navigate("CreateNewTopic") }} />
                 <NavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { Navigate("MyTopics") }} />
                 <NavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { Navigate("MyAnswers") }} />
+                <NavTab icon={<FavoriteIcon />} label="Saved Topics" onClick={() => { Navigate("SavedTopics") }} />
             </NavTabs>
         </Paper>
 
@@ -45,7 +48,7 @@ export function DiscussionNavigation() {
 // export default DiscussionNavigation
 
 
-export function VerticalNavigation() {
+export function DiscussionVerticalNavigation() {
 
     const classes = verticalNavigationStyle();
     const [value, setValue] = React.useState(0);
@@ -56,6 +59,7 @@ export function VerticalNavigation() {
         else if (location.pathname === "/Discussions/CreateNewTopic") { setValue(1) }
         else if (location.pathname === "/Discussions/MyTopics") { setValue(2) }
         else if (location.pathname === "/Discussions/MyAnswers") { setValue(3) }
+        else if (location.pathname === "/Discussions/SavedTopics") { setValue(4) }
         else {
             setValue(false);
         }
@@ -73,6 +77,7 @@ export function VerticalNavigation() {
                     <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { Navigate("CreateNewTopic") }} />
                     <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { Navigate("MyTopics") }} />
                     <VerticalNavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { Navigate("MyAnswers") }} />
+                    <VerticalNavTab icon={<FavoriteIcon />} label="Saved Topics" onClick={() => { Navigate("SavedTopics") }} />
                 </NavTabs>
             </Paper>
         </Box>

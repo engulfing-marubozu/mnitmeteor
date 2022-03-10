@@ -53,18 +53,19 @@ function Favourites() {
       </Typography>
       {/* ============================================================================================  */}
       <main>
-        <Container sx={{ py: 2 , maxWidth: {  xs: "xs", sm: "sm",md:"md" ,lg: "lg" } }}>
+        <Container sx={{ py: 2, maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" } }}>
           <Grid container spacing={{ xs: 2, sm: 4 }}>
-            {cardData &&
+            {typeof (cardData) !== "undefined" &&
               cardData.map((data, index) => {
-                if(data!==null)
-                {return (
-                  <Grid item xs={6} md={4} lg={3} key={index}>
-                    <FavouritesCard cardData={data} />
-                  </Grid>
-                );}
+                if (data !== null) {
+                  return (
+                    <Grid item xs={6} md={4} lg={3} key={index}>
+                      <FavouritesCard cardData={data} />
+                    </Grid>
+                  );
+                }
                 else
-                return null;
+                  return null;
               })}
           </Grid>
         </Container>

@@ -1,4 +1,5 @@
 import React, { useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
@@ -8,6 +9,7 @@ import { forumCategories } from '../../_formData/formData';
 // import { useSelector } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import axios from 'axios';
 // import axios from "axios";
 
 // =================================================================================================================================================================================================================
@@ -21,6 +23,7 @@ const FORM_VALIDATION = Yup.object().shape({
 
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
+    const token = useSelector((state) => state.loginlogoutReducer.token);
     useEffect(() => {
         window.scrollTo(0, 0);
     })
@@ -48,6 +51,20 @@ function DiscussionForm() {
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
                             console.log(values)
+                            const call = async (values)=>{
+                                console.log(values)
+                           const response =   await axios.post(
+                                            "http://localhost:5000/create_thread",
+                                            { title:values.adTitle, description: values.description },
+                                            {
+                                              headers: {
+                                                Authorization: `Bearer ${token}`,
+                                              },
+                                            }
+                                          );  
+                                          console.log(response.data);        
+                            }
+                            call(values);
                         }}
                     >
                         <Form>

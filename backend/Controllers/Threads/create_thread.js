@@ -6,14 +6,15 @@ const new_thread = async(req, res)=>{
     try{
         console.log("aa gaya");
        const user_id = req.user._id;
-       const {mnit_id, title, description} = req.body;
-
+       const { title, description} = req.body;
+        const user = await User.findById(req.user._id);
+     
+       const mnit_id = user.email.slice(0,11)
        const Thread_save = new Thread({
        posted_by : user_id,
        users_mnit_id: mnit_id,
        title: title,
        description: description,
-       discussions: []
       });
 
       try{

@@ -33,7 +33,7 @@ const ExpandMoreReplies = styled((props) => {
     }),
 }));
 
-function Comments() {
+function Comments({commentData}) {
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);

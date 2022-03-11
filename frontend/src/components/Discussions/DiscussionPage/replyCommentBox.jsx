@@ -26,6 +26,11 @@ function ReplyCommentBox({ handleExpandClick }) {
             setDisabledPost(true);
         }
     }
+
+    const submitHandler=()=>{
+        console.log(inputReply.current.value);
+        
+    }
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ width: "94%", pt: { xs: "0.5rem" } }} >
@@ -43,7 +48,7 @@ function ReplyCommentBox({ handleExpandClick }) {
                     />
                     <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
                         <CommentButton onClick={handleExpandClick}>Cancel</CommentButton>
-                        <CommentButton disabled={disabledPost} >Post</CommentButton>
+                        <CommentButton disabled={disabledPost} onClick={submitHandler} >Post</CommentButton>
                     </Box>
                 </form>
             </Box>

@@ -2,49 +2,42 @@ import { makeStyles } from '@mui/styles';
 export const DiscussionCardStyle = makeStyles({
     dpaperStyle: {
         backgroundColor: "white",
-        maxWidth: "700px",
-        padding: "1.5rem",
+        width: "650px",
+        // minWidth:"600px",
+        padding: "1.5rem 1rem  0.8rem",
         display: "flex",
         flexDirection: "row",
-        margin: "0rem 2rem",
-        "@media (max-width: 920px)": {
-            padding: "1.5rem 0.6rem",
+        // margin: "0rem 2rem",
+        "@media (max-width: 1200px)": {
+            width: "600px",
+            padding: "1rem 0.5rem",
+        },
+        "@media (max-width: 1000px)": {
+            width: "520px",
+            padding: "1rem 0.5rem",
+        },
+
+        "@media (max-width: 900px)": {
+            width: "100%",
+            margin: "0rem",
         },
         "@media (max-width: 600px)": {
+            width: "100%",
             margin: "0rem",
         }
     },
     dactionBox: {
         display: "flex",
         flexDirection: "row",
+        flexGrow: 1,
         width: "94%",
         justifyContent: "space-between",
-        paddingTop: "0.5rem",
-        "@media (max-width: 920px)": {
-            flexDirection: "column"
-        }
     },
-    dactionDate: {
-        marginLeft: "1rem",
-        color: "#757575",
-        "@media (max-width: 920px)": {
-            marginLeft: "2.2rem",
-        },
-        "@media (max-width: 600px)": {
-            marginLeft: "2rem",
-        }
-    },
-    ddateIconWrapper: {
+    dIconWrapper: {
         flexDirection: "row",
         alignItems: "center",
-        flexGrow: 1,
-        justifyContent: "space-between",
         marginTop: 0,
-        "@media (max-width: 600px)": {
-            alignItems: "flex-start",
-        },
     }
-
 });
 // ===================================================================================================================================================================================
 export const DiscussionHomePageCardStyle = makeStyles({
@@ -65,7 +58,7 @@ export const DiscussionHomePageCardStyle = makeStyles({
         paddingTop: "0.5rem",
     },
     dHomeActionDate: {
-        marginLeft: "1rem",
+        // marginLeft: "1rem",
         color: "#757575",
     },
     dHomeDateIconWrapper: {
@@ -98,7 +91,6 @@ export const DiscussionCommonStyle = makeStyles({
         alignItems: "center"
     },
     dUsername: {
-        color: "#512da8",
         fontWeight: "bold",
         paddingLeft: "5px",
     }

@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
-import { Typography, Box, Paper, Avatar, Stack, styled, IconButton } from "@mui/material";
+import { Typography, Box, Paper, Avatar, Stack, styled, IconButton, CardHeader, Badge } from "@mui/material";
 import MessageIcon from '@mui/icons-material/Message';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import ShareIcon from '@mui/icons-material/Share';
 import Comments from './comment';
 import AddCommentBox from './addCommentBox';
 import Collapse from '@mui/material/Collapse';
-import { DiscussionCardStyle, DiscussionCommonStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
-
-
+import { DiscussionCardStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
+import { TimeSince } from '../../TimeElapsed/timecalc';
+import { useSelector } from 'react-redux';
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
-    return <MessageIcon sx={{ color: "#673ab7" }} fontSize="small"  {...other} />
+    return (
+        <IconButton {...other} >
+            <MessageIcon sx={{ color: "#673ab7" }} />
+        </IconButton>)
 
 })(({ theme, expand }) => ({
     marginLeft: 'auto',
@@ -20,7 +25,10 @@ const ExpandMore = styled((props) => {
         duration: theme.transitions.duration.shortest,
     }),
 }));
-function DiscussionCard() {
+function DiscussionCard({ data }) {
+
+
+    const token = useSelector((state) => state.loginlogoutReducer.token);
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -51,61 +59,77 @@ function DiscussionCard() {
     }
 
     // ================================================================================================================================================================================================================================
+    const [saved, setSaved] = useState(false);
+
+    // ===================================================================================================================================================================================================================================
+    // console.log(data);
+    const title = data?.title;
+    const description = data?.description;
+    const date = new Date(data?.createdAt);
+    const properDate = TimeSince(date);
+    // ===================================================================================================================================================================================================================================
     const classes = DiscussionCardStyle();
     const likeButton = LikeButtonStyle(likeDislike);
-    const comClasses = DiscussionCommonStyle();
+    // ======================================================================================================================================================================================================================================
+    const commentData = { token: token, cardId: data?._id, commentId: null, replyId: null }
     return (
         <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", my: "2rem", flexDirection: "column" }}>
             <Paper className={classes.dpaperStyle}>
+
                 <Box className={likeButton.likeCardBox}>
                     <IconButton className={likeButton.likeIncButton} onClick={likeIncreaseHandler}><ArrowUpwardIcon /></IconButton>
                     <Stack className={likeButton.likeCardCount}>{Math.abs(likeDislike.totalCount)}</Stack>
                     <IconButton className={likeButton.likeDecButton} onClick={likeDecreaseHandler}><ArrowDownwardIcon /></IconButton>
                 </Box>
-                <Box>
-                    <Box sx={{ width: "94%", borderBottom: '2px  solid #757575', height: "auto" }}>
-                        <Typography variant='h6' sx={{ mb: 1.5, wordBreak: "break-all", lineHeight: 1.3 }}>
-                            What does the fox say    Lorem ipsum dolor, sit amet consectetur adipisicing elit.?
+                <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }} >
+                    <Box sx={{ width: "94%", borderBottom: '2px  solid #757575' }}>
+                        <CardHeader
+                            avatar={
+                                <Avatar sx={{ bgcolor: "#673ab7" }} />
+                            }
+                            title="Shrimp and Chorizo Paella"
+                            subheader={properDate}
+                            sx={{ p: 0 }}
+                        />
+                        <Typography variant='h6' sx={{ my: 1.5, wordBreak: "break-all", lineHeight: 1.3 }}>
+                            {/* What does the fox say    Lorem ipsum dolor, sit amet consectetur adipisicing elit.? */}
+                            {title}
                         </Typography>
-                        <Typography color="text.secondary" sx={{ mb: 1.5, wordBreak: "break-all", }} >
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                        <Typography color="text.secondary" sx={{ mb: 1, wordBreak: "break-all", }} >
+                            {/* Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                             Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,
                             nostrum non modi illo esse tempora placeat saepe consequatur odit
                             architecto incidunt nobis aspernatur repudiandae odio, fugiat quos.
                             Cupiditate laboriosam aspernatur voluptatem! Facere molestias aliquam
                             vel maxime ab nostrum distinctio hic mollitia, ipsa voluptatibus sit
-                            dolores pariatur repellat doloribus commodi odit excepturi tempore.
+                            dolores pariatur repellat doloribus commodi odit excepturi tempore. */}
+                            {description}
                         </Typography>
                     </Box>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <Box>
-                            <Comments />
-                            <Comments />
-                            <Comments />
-                            <AddCommentBox />
+                            <Comments commentData={commentData} />
+                            <AddCommentBox commentData={commentData} />
                         </Box>
                     </Collapse>
                     <Box className={classes.dactionBox}>
-                        <Stack className={comClasses.dStack}>
-                            <Avatar className={comClasses.dProfileIcon}></Avatar>
-                            <Typography variant='body2' className={comClasses.dPostBy}> Posted by</Typography>
-                            <Typography className={comClasses.dUsername}>2019ume1827</Typography>
+                        <Stack className={classes.dIconWrapper} >
+                            <IconButton onClick={() => { setSaved(!saved) }} >
+                                {
+                                    saved ? <BookmarkAddedIcon color="primary" /> : <BookmarkAddIcon />
+                                }
+                            </IconButton>
+                            <IconButton>
+                                <ShareIcon color="primary" />
+                            </IconButton>
                         </Stack>
-                        <Stack className={classes.ddateIconWrapper} >
-                            <Typography variant="body2" className={classes.dactionDate}>26 sep 2020</Typography>
-                            <Stack sx={{ flexDirection: "row", alignItems: "center" }}  >
-                                <IconButton sx={{ mx: "0.5rem", p: "0.3rem" }}>
-                                    <ShareIcon color="primary" fontSize="small" />
-                                </IconButton>
-                                <ExpandMore
-                                    expand={expanded}
-                                    onClick={handleExpandClick}
-                                    aria-expanded={expanded}
-                                >
-                                </ExpandMore>
-                                <Typography variant="body2" sx={{ color: "#757575", pt: 0 }}>50+</Typography>
-                            </Stack>
-                        </Stack>
+                        <ExpandMore
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                        >
+                        </ExpandMore>
+                        {/* <Typography variant="body2" sx={{ color: "#757575", pt: 0 }}>50+</Typography> */}
                     </Box>
                 </Box>
             </Paper>

@@ -62,19 +62,18 @@ export const verticalNavigationStyle = makeStyles({
         justifyContent: "flex-end"
     },
     paperStyle: {
-
-        width: "60%",
+        width: "220px",
         marginRight: "1rem",
-        marginLeft: "2rem",
-        "@media (max-width: 1200px)": {
-            width: "70%",
-        },
+        // marginLeft: "2rem",
+        // "@media (max-width: 1200px)": {
+        //     width: "70%",
+        // },
         "@media (max-width: 900px)": {
-            width: "100%",
+            width: "160px",
         },
-        "@media (max-width: 800px)": {
-            marginRight: "0rem",
-        },
+        // "@media (max-width: 800px)": {
+        //     marginRight: "0rem",
+        // },
     },
     iconLabelWrapper: {
         flexDirection: "row",

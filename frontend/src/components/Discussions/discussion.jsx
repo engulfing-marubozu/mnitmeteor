@@ -22,14 +22,14 @@ function Discussions() {
 
   return (<>
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Box sx={{ width: { sm: "30%", md: "35%" }, position: "fixed", left: "0rem", display: { xs: "none", sm: "block" } }}>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ position: "fixed", display: { xs: "none", sm: "block" } }}>
           <DiscussionVerticalNavigation />
         </Box>
-        <Box sx={{ width: { md: "65%", sm: "70%", xs: "100%" } }}>
-          <Stack sx={{ display: { xs: "flex", sm: "none" } }}>
+        <Box>
+          {/* <Stack sx={{ display: { xs: "flex", sm: "none" } }}>
             <DiscussionNavigation />
-          </Stack>
+          </Stack> */}
           <Outlet />
         </Box>
       </Box>

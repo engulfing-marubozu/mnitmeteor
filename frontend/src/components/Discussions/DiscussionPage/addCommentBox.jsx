@@ -1,4 +1,4 @@
-import React, { useState, useRef ,useContext} from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { TextField, Box } from '@mui/material';
 import { CommentButton } from '../DiscussionStyling/discussionStyling';
 import { createTheme } from '@mui/material/styles';
@@ -18,15 +18,13 @@ const theme = createTheme({
 });
 
 function AddCommentBox({ addCommentData }) {
-    const updatePage=useContext(PageUpdateContext);
-    const localUserData=useContext(UserDataContext);
-    const token=localUserData.token;
+    const updatePage = useContext(PageUpdateContext);
+    const localUserData = useContext(UserDataContext);
+    const token = localUserData.token;
     const inputComment = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     // const [focused,setFocused]=useState(false);
     // ==========================================================================================================================================================
-    //    const token
-    //    const 
 
 
 
@@ -41,18 +39,15 @@ function AddCommentBox({ addCommentData }) {
         }
     }
     const CancelPost = () => {
-        // console.log(inputComment.current.value)
         inputComment.current.value = null;
         setDisabledPost(true);
         //    setFocused(false);
     }
-    const submitHandler =async  () => {
-        const email = localUserData.user.email.slice(1,11);
-        // console.log(inputComment.current.value);
-        // console.log(addCommentData);
+    const submitHandler = async () => {
+        const email = localUserData.user.email.slice(0, 11);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
-            { thread_id: addCommentData.cardId, comment_id: null , commentor_mnit_id: email, content:inputComment.current.value},
+            { thread_id: addCommentData.cardId, comment_id: null, commentor_mnit_id: email, content: inputComment.current.value },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -60,8 +55,8 @@ function AddCommentBox({ addCommentData }) {
             }
         );
         updatePage(response.data.updated_Thread.discussions.length);
-        // console.log(response.data.updated_Thread.discussions.length);
-        // console.log();
+        inputComment.current.value = null;
+        setDisabledPost(true);
     }
     return (
         <ThemeProvider theme={theme}>

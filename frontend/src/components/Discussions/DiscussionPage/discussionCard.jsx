@@ -1,5 +1,5 @@
-import React, { useState,useContext } from 'react'
-import { Typography, Box, Paper, Avatar, Stack, styled, IconButton, CardHeader} from "@mui/material";
+import React, { useState, useContext } from 'react'
+import { Typography, Box, Paper, Avatar, Stack, styled, IconButton, CardHeader } from "@mui/material";
 import MessageIcon from '@mui/icons-material/Message';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -11,7 +11,10 @@ import AddCommentBox from './addCommentBox';
 import Collapse from '@mui/material/Collapse';
 import { DiscussionCardStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
-import { UserDataContext} from '../../_ContextFolder/webContext';
+import { UserDataContext } from '../../_ContextFolder/webContext';
+import { useDispatch } from 'react-redux';
+import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
+// ======================================================================================================================================================================
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return (
@@ -25,41 +28,67 @@ const ExpandMore = styled((props) => {
         duration: theme.transitions.duration.shortest,
     }),
 }));
-function DiscussionCard({ data}) {
-    const localUserData=useContext(UserDataContext);
+
+// ================================================================================================================================================================================================================================
+function DiscussionCard({ data }) {
+    const dispatch = useDispatch();
+    const localUserData = useContext(UserDataContext);
     const token = localUserData?.token;
-    // const isLoggedIn=localUserData.isLoggin;
+    const isLoggedIn = localUserData.isLogin;
+
+    // ================================================================================================================================================================================================================================
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
-        setExpanded(!expanded);
+        if (isLoggedIn) {
+            setExpanded(!expanded);
+        } else {
+            dispatch(modelPopUp(true));
+        }
+
     };
     // =============================================================LIKEHANDLER=====================================================================================================================================================
     const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
     const likeIncreaseHandler = () => {
-        if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-        }
-        else if (!likeDislike.likeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+        if (isLoggedIn) {
+            if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
+                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+            }
+            else if (!likeDislike.likeStatus) {
+                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+            }
+            else {
+                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+            }
         }
         else {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+            dispatch(modelPopUp(true));
         }
+
     }
     const likeDecreaseHandler = () => {
-        if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-        }
-        else if (!likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
-        }
-        else {
-            setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
+        if (isLoggedIn) {
+            if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+            }
+            else if (!likeDislike.dislikeStatus) {
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
+            }
+            else {
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
+            }
+        } else {
+            dispatch(modelPopUp(true));
         }
     }
-
     // ================================================================================================================================================================================================================================
     const [saved, setSaved] = useState(false);
+    const SavedHandler = () => {
+        if (isLoggedIn) {
+            setSaved(!saved)
+        } else {
+            dispatch(modelPopUp(true));
+        }
+    }
 
     // ===================================================================================================================================================================================================================================
     // console.log(data);
@@ -67,15 +96,14 @@ function DiscussionCard({ data}) {
     const description = data?.description;
     const date = new Date(data?.createdAt);
     const properDate = TimeSince(date);
-    const userId=data?.users_mnit_id;
-    const comments=data?.discussions;
-    console.log(typeof(comments));
+    const userId = data?.users_mnit_id;
+    const comments = data?.discussions;
+    console.log(typeof (comments));
     // ===================================================================================================================================================================================================================================
     const classes = DiscussionCardStyle();
     const likeButton = LikeButtonStyle(likeDislike);
     // ======================================================================================================================================================================================================================================
-    const addCommentData = { token: token, cardId: data?._id, commentId: null,}
-
+    const addCommentData = { token: token, cardId: data?._id, commentId: null, }
 
 
     // ========================================================================================================================================================================================================================================
@@ -116,9 +144,9 @@ function DiscussionCard({ data}) {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <Box>
                             {
-                                typeof(comments)!=="undefined" && (comments.map((data,index)=>{
-                                    return(
-                                        <Comments addCommentData ={addCommentData} commentData={data} key={index}></Comments>
+                                typeof (comments) !== "undefined" && (comments.map((data, index) => {
+                                    return (
+                                        <Comments addCommentData={addCommentData} commentData={data} key={index}></Comments>
                                     )
                                 }))
                             }
@@ -128,7 +156,7 @@ function DiscussionCard({ data}) {
                     </Collapse>
                     <Box className={classes.dactionBox}>
                         <Stack className={classes.dIconWrapper} >
-                            <IconButton onClick={() => { setSaved(!saved) }} >
+                            <IconButton onClick={SavedHandler} >
                                 {
                                     saved ? <BookmarkAddedIcon color="primary" /> : <BookmarkAddIcon />
                                 }

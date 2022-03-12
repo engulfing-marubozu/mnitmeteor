@@ -7,8 +7,7 @@ function DiscussionCardArray() {
     // =======================================================================================================================================================================
     const [discussionData, setDiscussionData] = useState();
     const [updatePage, setUpdatePage] = useState();
-    useEffect(() => {
-        window.scrollTo(0, 0);
+    useEffect(() => {   
         let isSubscribed = true;
         async function call() {
             try {
@@ -27,7 +26,7 @@ function DiscussionCardArray() {
         return () => (isSubscribed = false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [updatePage])
-    console.log(discussionData)
+    // console.log(discussionData)
 
     return (
         <>

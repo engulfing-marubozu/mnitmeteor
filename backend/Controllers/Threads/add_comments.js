@@ -33,7 +33,7 @@ const add_comment =async (req,res)=>{
             console.log(user_id)
            const x = await Thread.find({ "discussions._id" : comment_id })
            console.log(x)
-            const updated_Thread = await Thread.updateMany({
+           await Thread.updateOne({
               "discussions._id" : comment_id 
             }, {
                 $push :{
@@ -45,9 +45,9 @@ const add_comment =async (req,res)=>{
                    }
                 }}, {new:true}
             )    
-            console.log(updated_Thread);
-            console.log("jbfekj")
-            res.status(200).send({updated_Thread}) 
+           const updated_Thread = await Thread.find({_id : thread_id});
+      
+           res.status(200).send(updated_Thread);
         }
        
         }

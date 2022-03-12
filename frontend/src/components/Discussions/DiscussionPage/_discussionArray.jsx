@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import axios from 'axios'
 
 import DiscussionCard from './discussionCard';
 // const array = [1, 2, 3, 5, 6, 7, 8, 8, 8, 8, 8];
 function DiscussionCardArray() {
-    const token = useSelector((state) => state.loginlogoutReducer.token);
     const [discussionData, setDiscussionData] = useState();
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,7 +20,6 @@ function DiscussionCardArray() {
             } catch (err) {
                 console.log(err);
             }
-
         }
         call();
         return () => (isSubscribed = false);
@@ -33,7 +30,7 @@ function DiscussionCardArray() {
     return (
         <>
             {
-                typeof (discussionData) !== "undefined" && discussionData.map((data , index) => {
+                typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
                     return (<DiscussionCard key={index} data={data} />)
                 })
             }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { Typography, Box, Paper, Avatar, Stack, styled, IconButton, CardHeader} from "@mui/material";
 import MessageIcon from '@mui/icons-material/Message';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -11,7 +11,7 @@ import AddCommentBox from './addCommentBox';
 import Collapse from '@mui/material/Collapse';
 import { DiscussionCardStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
-import { useSelector } from 'react-redux';
+import { UserDataContext} from '../../_ContextFolder/webContext';
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return (
@@ -26,9 +26,9 @@ const ExpandMore = styled((props) => {
     }),
 }));
 function DiscussionCard({ data }) {
-
-
-    const token = useSelector((state) => state.loginlogoutReducer.token);
+    const localUserData=useContext(UserDataContext);
+    const token = localUserData?.token;
+    // const isLoggedIn=localUserData.isLoggin;
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);

@@ -8,10 +8,7 @@ text-align:center;
 
 &:hover {
   cursor:pointer ;
-  color:#008000;
- }
- @media (max-width: 600px) {
-   margin-left:0.35rem
+  color:#00c853;
  }
 `;
 export const CommentDeleteButton = styled.a`

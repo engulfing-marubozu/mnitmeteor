@@ -34,7 +34,7 @@ function ReplyCommentBox({ handleExpandClick,addReplyData }) {
     }
     return (
         <ThemeProvider theme={theme}>
-            <Box sx={{ width: "94%", pt: { xs: "0.5rem" } }} >
+            <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
                 <form>
                     <TextField
                         color="primary"

@@ -6,7 +6,8 @@ import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from '../Discussi
 import Reply from "./reply"
 import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
-import { LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
+import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
+import { TimeSince } from '../../TimeElapsed/timecalc';
 
 const ExpandMoreComment = styled((props) => {
     const { expand, ...other } = props;
@@ -33,7 +34,10 @@ const ExpandMoreReplies = styled((props) => {
     }),
 }));
 
-function Comments({ commentData,addCommentData }) {
+function Comments({ commentData, addCommentData }) {
+
+
+    // ==========================================================================================================================================================================
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -71,35 +75,39 @@ function Comments({ commentData,addCommentData }) {
     //   ===========================================================================================================================================================================
     console.log(commentData);
     const comment = commentData.content;
-    const commentId=commentData._id;
+    const commentId = commentData._id;
+    const commentedBy = commentData.mnit_id;
+    const date = commentData.createdAt;
+    const properDate = TimeSince(date);
     // =====================================================================================================================================================================================
-
+    const classes = CommentReplyStyle();
     const likeButton = LikeButtonStyle(likeDislike);
-    const addReplyData={...addCommentData,commentId:commentId}
+    const addReplyData = { ...addCommentData, commentId: commentId }
 
-  // =======================================================================================================================================================================================================
+    // =======================================================================================================================================================================================================
     return (
         <Box>
-            <Box sx={{ width: "94%", height: "auto", bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 2, mt: 2.5 }}>
-                <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                    <Stack sx={{ flexDirection: "row", alignItems: "center" }}>
-                        <Avatar sx={{ width: { xs: 24, sm: 28 }, height: { xs: 24, sm: 28 }, bgcolor: "#673ab7" }}></Avatar>
-                        <Typography sx={{ color: "#512da8", fontWeight: "bold", px: 1, fontSize: { xs: "0.85rem", sm: "0.95rem" } }}>2019ume1827</Typography>
+            <Box sx={{ width: "94%", height: "auto", bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 1, mt: 1.5 }}>
+                <Box className={classes.topBox}>
+                    <Stack className={classes.topStack}>
+                        <Avatar className={classes.avatarStyle} />
+                        <Typography className={classes.usernameStyle}>
+                            {commentedBy}
+                        </Typography>
                     </Stack>
-                    <Typography variant="body2" sx={{ pl: { sm: 3, xs: 4 }, color: "#757575" }}>26 sep 2020</Typography>
+                    <Typography className={classes.dateStyle}>{properDate}</Typography>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "row" }} >
-
                     <Box className={likeButton.likeCardBox}>
                         <IconButton className={likeButton.likeIncButton} onClick={likeIncreaseHandler}><ArrowUpwardIcon sx={{ fontSize: 15 }} /></IconButton>
                         <Stack className={likeButton.likeCommentCount}>{Math.abs(likeDislike.totalCount)}</Stack>
                         <IconButton className={likeButton.likeDecButton} onClick={likeDecreaseHandler}><ArrowDownwardIcon sx={{ fontSize: 15 }} /></IconButton>
                     </Box>
-                    <Box sx={{display:"flex" ,flexDirection:"column" ,width:"100%"}}>
-                        <Typography variant="body2" sx={{ mb: 0.4, pl: { xs: 0.5, sm: 0.2 }, wordBreak: "break-all" }}>
+                    <Box className={classes.mainBox}>
+                        <Typography className={classes.contentBox}>
                             {comment}
                         </Typography>
-                        <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <Box className={classes.actionBoxStyle}>
                             <Box>
                                 <ExpandMoreComment
                                     expand={expanded}
@@ -107,7 +115,11 @@ function Comments({ commentData,addCommentData }) {
                                     aria-expanded={expanded}
                                 >
                                 </ExpandMoreComment>
-                                <CommentDeleteButton>Delete</CommentDeleteButton>
+
+                                {
+
+                                    <CommentDeleteButton>Delete</CommentDeleteButton>
+                                }
                             </Box>
                             <Box>
                                 <ExpandMoreReplies
@@ -119,7 +131,7 @@ function Comments({ commentData,addCommentData }) {
                             </Box>
                         </Box>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <ReplyCommentBox handleExpandClick={handleExpandClick} addReplyData={addReplyData}  />
+                            <ReplyCommentBox handleExpandClick={handleExpandClick} addReplyData={addReplyData} />
                         </Collapse>
                         <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
                             <Reply />

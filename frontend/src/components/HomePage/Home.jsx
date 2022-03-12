@@ -6,6 +6,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CategorySlider from "./Slider";
 import LostFoundHomePageCard from "../Lost&Found/Lost&FoundCard/L&FhomePageCard";
 import DiscusssionHomePageCard from "../Discussions/DiscusssionHomePageCard";
+import { Typography } from "@mui/material";
+import CardSlider from "../Profile/CardSlider";
+
 const theme = createTheme();
 export default function Home() {
   //...............................................................................................................................................................
@@ -16,30 +19,19 @@ export default function Home() {
     <ThemeProvider theme={theme}>
 
       <CssBaseline />
-      {/* +======================================================================= */}
       <Paper
         display="flex"
         sx={{ bgcolor: "#212121", height: 280, borderRadius: 0 }}
-      ></Paper>
-
-      {/*  Bannner============================================================================== */}
-
-      {/*  CATEGORY BAR++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+      >
+      </Paper>
       <CategorySlider></CategorySlider>
-      <Paper
-        elevation={0}
-        sx={{ bgcolor: "transparent", maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" }, display: "flex", flexDirection: { md: "row", xs: "column" }, margin: " 0rem auto", mt: 5 }}
-      >
+      {/* <CardSlider>
         <LostFoundHomePageCard />
-        <LostFoundHomePageCard />
-      </Paper>
-      <Paper
-        elevation={0}
-        sx={{ bgcolor: "transparent", maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" }, flexDirection: { md: "row", xs: "column" },display: "flex", margin: " 0rem auto", mt: 5 }}
-      >
+      </CardSlider>
+      <Typography>Discussions</Typography>
+      <CardSlider>
         <DiscusssionHomePageCard />
-        <DiscusssionHomePageCard />
-      </Paper>
+      </CardSlider> */}
       <Outlet />
     </ThemeProvider>
 

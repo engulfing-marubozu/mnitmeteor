@@ -56,7 +56,7 @@ function AddCommentBox({ addCommentData }) {
     }
     return (
         <ThemeProvider theme={theme}>
-            <Box sx={{ width: "94%", mt: 1, pt: { xs: "0.8rem", sm: "1rem" }, pb: { xs: "0.5rem", sm: "0.8rem" } }} >
+            <Box sx={{ width: "94%", pt: "1rem", pb: "0.5rem" }} >
                 <form>
                     <TextField
                         color="primary"

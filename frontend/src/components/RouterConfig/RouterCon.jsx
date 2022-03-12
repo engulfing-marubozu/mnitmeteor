@@ -8,7 +8,6 @@ import ProductCard from "../HomePage/Product";
 import DiscriptionCard from "../Cards/DiscriptionCard";
 import Profile from "../Profile/Profile";
 import Adminpanel from "../../AdminPanel/adminpanel";
-import { useSelector } from "react-redux";
 import Favourites from "../Favourites/Favourites";
 import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
@@ -18,7 +17,9 @@ import DiscussionMyAnswers from "../Discussions/DiscussionCategories/disMyAnswer
 import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
 import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
 function RouterCon() {
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  const localStorageData =JSON.parse(window.localStorage.getItem("auth")); 
+  const isLoggedIn=localStorageData?.isLogin?localStorageData?.isLogin:false;
+  console.log(localStorageData);
   console.log(isLoggedIn);
   return (
     <Routes>

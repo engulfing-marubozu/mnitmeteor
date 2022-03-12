@@ -49,7 +49,7 @@ export const DiscussionHomePageCardStyle = makeStyles({
         paddingTop: "0.5rem",
     },
     dHomeActionDate: {
-        // marginLeft: "1rem",
+        marginLeft: "1rem",
         color: "#757575",
     },
     dHomeDateIconWrapper: {
@@ -126,3 +126,64 @@ export const LikeButtonStyle = makeStyles({
     },
 })
 
+
+// =====================================CommentReplyStyle==========================================================================================================================
+export const CommentReplyStyle = makeStyles({
+    topBox: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    topStack: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    avatarStyle: {
+        width: 28,
+        height: 28,
+        backgroundColor: "#673ab7",
+        "@media (max-width: 600px)": {
+            width: 24,
+            height: 24,
+        }
+    },
+    dateStyle: {
+        paddingLeft: 3,
+        color: "#757575",
+        fontSize: "12px",
+        "@media (max-width: 600px)": {
+            paddingLeft: 4,
+        }
+    },
+    usernameStyle: {
+        color: "#512da8",
+        fontWeight: "bold",
+        // padding: "0px 8px",
+        margin: "0px 8px",
+        fontSize: "0.95rem",
+        "@media (max-width: 900px)": {
+          margin:"0px 6px",
+        },
+        "@media (max-width: 600px)": {
+            fontSize: "0.85rem",
+            margin:"0px 5px"
+        }
+    },
+    actionBoxStyle: {
+        marginTop: "8px",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    contentBox: {
+        fontSize: "14px",
+        marginBottom: 0.4,
+    },
+    mainBox: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+    }
+
+})

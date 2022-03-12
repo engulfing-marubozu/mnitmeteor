@@ -1,13 +1,16 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import StylingPublishedAds from "./stylingPublishedAds";
+import { UserDataContext } from "../../_ContextFolder/webContext";
 
 function PublishedAds(props) {
   // ================================================================== DATA FETCHING=============================================================================================
   const [arr, setarr] = useState();
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const localUserData = useContext(UserDataContext);
+  console.log(localUserData);
+  const token=localUserData.token;
   const publishedAdsData=useSelector((state)=>state.DeletePublishedAdsReducer?.publishedAdsData)
   useEffect(() => {
     let isSubscribed=true;

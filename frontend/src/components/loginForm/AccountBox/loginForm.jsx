@@ -16,7 +16,7 @@ import {
   Validationlabel,
 } from "./common";
 import { Marginer } from "../marginer";
-import { AccountContext } from "../../_ContextFolder/accountContext";
+import { AccountContext } from "../../_ContextFolder/webContext";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "../../../AStatemanagement/Actions/userActions.jsx";
 import { useNavigate } from "react-router-dom";
@@ -49,9 +49,10 @@ export function LoginForm(props) {
         notify("Email is not registered");
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
-        // console.log(response.data);
         dispatch(AuthUser(response.data));
-        window.localStorage.setItem("auth", JSON.stringify(response.data));
+        const localStorageData={...response.data, isLogin:true};
+        // console.log(localStorageData);
+        window.localStorage.setItem("auth", JSON.stringify(localStorageData));
        const userData= JSON.parse(window.localStorage.getItem("auth"));
         userData && socket.emit("initialise user", userData.user.email);
         isSellNowClicked && Navigate("SellProduct");

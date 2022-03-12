@@ -1,15 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  GlobalStyles,
-  AppBar,
-  Stack,
-  CssBaseline,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Box,
-} from "@mui/material";
+import React, { useState, useEffect,useContext } from "react";
+import { GlobalStyles,AppBar,Stack,CssBaseline,Toolbar,Typography,Button,IconButton,Box,} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import { deepPurple } from "@mui/material/colors";
@@ -18,13 +8,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { StyledMenu } from "./NavabarStyle";
 import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
-// import Model from "../loginForm/Model";
 import Userbar from "./Userbar";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  SellNowclick,
-  modelPopUp,
-} from "../../AStatemanagement/Actions/userActions";
+import { SellNowclick,modelPopUp,} from "../../AStatemanagement/Actions/userActions";
 import NavbarTabs from "./navbarTabs";
 const { io } = require("socket.io-client");
 const socket = io("http://localhost:5000", { reconnection: true });
@@ -78,10 +64,7 @@ function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const [value, setValue] = React.useState(1);
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+
   // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT============================================================================================================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
@@ -95,7 +78,6 @@ function Navbar() {
   // =============================================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const dispatch = useDispatch();
-  // console.log(`value of isLogged in ${isLoggedIn}`);
 
   // ========================================================SOCKET-IO==========================================================================================================
   const [postsPending, setpostPending] = useState(0);

@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { UserDataContext } from "../_ContextFolder/webContext";
 import Home from "../HomePage/Home";
 import About from "../About/About";
 import Discussions from "../Discussions/discussion";
@@ -8,7 +10,6 @@ import ProductCard from "../HomePage/Product";
 import DiscriptionCard from "../Cards/DiscriptionCard";
 import Profile from "../Profile/Profile";
 import Adminpanel from "../../AdminPanel/adminpanel";
-import { useSelector } from "react-redux";
 import Favourites from "../Favourites/Favourites";
 import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
@@ -18,8 +19,8 @@ import DiscussionMyAnswers from "../Discussions/DiscussionCategories/disMyAnswer
 import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
 import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
 function RouterCon() {
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  console.log(isLoggedIn);
+  const localUserData = useContext(UserDataContext);
+  const isLoggedIn = localUserData?.isLogin;
   return (
     <Routes>
       {/* <Route path="/home" element ={<Home/>}/> */}
@@ -32,7 +33,7 @@ function RouterCon() {
         <Route index element={<DiscussionCardArray />} />
         <Route path="CreateNewTopic" element={<DiscussionForm />} />
         <Route path="MyAnswers" element={<DiscussionMyAnswers />} />
-        <Route path="MyTopics" element={<DiscussionMyTopics/>} />
+        <Route path="MyTopics" element={<DiscussionMyTopics />} />
         <Route path="SavedTopics" element={<DiscussionSavedTopics />} />
       </Route>
       <Route path="Lost&Found" element={<LostFound />} >

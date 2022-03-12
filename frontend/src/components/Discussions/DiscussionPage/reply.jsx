@@ -5,7 +5,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from '../DiscussionStyling/discussionStyling';
 import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
-import { LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
+import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -65,14 +65,16 @@ function Reply() {
   }
   //   ===========================================================================================================================================================================
   const likeButton = LikeButtonStyle(likeDislike);
+  const classes = CommentReplyStyle();
+  // ================================================================================================================================================================================
   return (
-    <Box sx={{ mt: 2 }}>
-      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-        <Stack sx={{ flexDirection: "row", alignItems: "center" }}>
-          <Avatar sx={{ width: { xs: 24, sm: 28 }, height: { xs: 24, sm: 28 }, bgcolor: "#673ab7" }}></Avatar>
-          <Typography sx={{ color: "#512da8", fontWeight: "bold", px: 1, fontSize: { xs: "0.85rem", sm: "0.95rem" } }}>2019ume1143</Typography>
+    <Box sx={{ mt: 1.5 }}>
+      <Box className={classes.topBox}>
+        <Stack className={classes.topStack}>
+          <Avatar className={classes.avatarStyle} />
+          <Typography className={classes.usernameStyle}>2019ume1143</Typography>
         </Stack>
-        <Typography variant="body2" sx={{ pl: { sm: 3, xs: 4 }, color: "#757575" }}>26 sep 2020</Typography>
+        <Typography className={classes.dateStyle}>26 sep 2020</Typography>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "row" }} >
         <Box className={likeButton.likeCardBox}>
@@ -80,12 +82,11 @@ function Reply() {
           <Stack className={likeButton.likeCommentCount}>{Math.abs(likeDislike.totalCount)}</Stack>
           <IconButton className={likeButton.likeDecButton} onClick={likeDecreaseHandler}><ArrowDownwardIcon sx={{ fontSize: 15 }} /></IconButton>
         </Box>
-        <Box>
-          <Typography variant="body2" sx={{ mb: 0.4, pl: { xs: 0.5, sm: 0.2 }, wordBreak: "break-all" }}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,
+        <Box className={classes.mainBox}>
+          <Typography className={classes.contentBox}>
+            Lorem ipsum dolorl est recusandae,
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+          <Box className={classes.actionBoxStyle}>
             <Box>
               <ExpandMore
                 expand={expanded}

@@ -58,6 +58,7 @@ function AddCommentBox({ addCommentData }) {
         const email = localUserData.user.email.slice(1,11);
         console.log(inputComment.current.value);
         console.log(addCommentData);
+        
         const response = await axios.post(
             "http://localhost:5000/add_comment",
             { thread_id: addCommentData.cardId, comment_id: null , commentor_mnit_id: email, content:inputComment.current.value},
@@ -67,7 +68,7 @@ function AddCommentBox({ addCommentData }) {
                 },
             }
         );
-        console.log("dv");
+     
         console.log(response.data);
     }
     return (

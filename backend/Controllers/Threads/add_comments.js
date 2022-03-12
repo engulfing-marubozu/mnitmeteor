@@ -24,7 +24,7 @@ const add_comment =async (req,res)=>{
                }
             }}, {new:true}
         ) 
-         res.status(400).send({updated_Thread})
+         res.status(200).send({updated_Thread})
         }
         else{
             console.log("hello");
@@ -47,12 +47,12 @@ const add_comment =async (req,res)=>{
             )    
             console.log(updated_Thread);
             console.log("jbfekj")
-            res.status(400).send({updated_Thread}) 
+            res.status(200).send({updated_Thread}) 
         }
        
         }
         catch(err){
-            res.status(400).send(err);
+            res.status(200).send(err);
        }
 }
 module.exports = {add_comment}

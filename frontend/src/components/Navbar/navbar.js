@@ -173,7 +173,7 @@ function Navbar() {
             direction="row"
             sx={{
               flexGrow: 1,
-              ml: { xs: 0, md: 4, lg: 6 },
+              ml: { xs: 0,md:1.5,lg: 6 },
             }}
           >
             <AcUnitIcon
@@ -208,7 +208,7 @@ function Navbar() {
           )}
           <Stack
             spacing={{ xs: 1, sm: 2 }}
-            sx={{ mr: { xs: 0, md: 4, lg: 6 } }}
+            sx={{ mr: { xs: 0,md:1.5,lg: 6 } }}
             direction="row"
           >
             <Stack

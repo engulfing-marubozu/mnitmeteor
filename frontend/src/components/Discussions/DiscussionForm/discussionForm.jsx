@@ -1,12 +1,11 @@
-import React, { useEffect} from 'react';
-
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
-import { TextfieldWrapper} from '../../_formData/FormUI/InputElement';
+import { TextfieldWrapper } from '../../_formData/FormUI/InputElement';
 // import { forumCategories } from '../../_formData/formData';
 // import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
@@ -14,7 +13,7 @@ import axios from 'axios';
 
 // =================================================================================================================================================================================================================
 
-const INITIAL_FORM_STATE = { adTitle: "", description: "",};
+const INITIAL_FORM_STATE = { adTitle: "", description: "", };
 const FORM_VALIDATION = Yup.object().shape({
     adTitle: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
@@ -22,13 +21,10 @@ const FORM_VALIDATION = Yup.object().shape({
 
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
-   
     useEffect(() => {
         window.scrollTo(0, 0);
     })
-      const token = useSelector((state) => state.loginlogoutReducer.token);
-      const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-
+    const token = useSelector((state) => state.loginlogoutReducer.token);
 
     // ===================================================================SendData_To_BackEnd========================================================================================================================
 
@@ -46,18 +42,18 @@ function DiscussionForm() {
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
                             console.log(values)
-                            const call = async (values)=>{
+                            const call = async (values) => {
                                 console.log(values)
-                           const response =   await axios.post(
-                                            "http://localhost:5000/create_thread",
-                                            { title:values.adTitle, description: values.description },
-                                            {
-                                              headers: {
-                                                Authorization: `Bearer ${token}`,
-                                              },
-                                            }
-                                          );  
-                                          console.log(response.data);        
+                                const response = await axios.post(
+                                    "http://localhost:5000/create_thread",
+                                    { title: values.adTitle, description: values.description },
+                                    {
+                                        headers: {
+                                            Authorization: `Bearer ${token}`,
+                                        },
+                                    }
+                                );
+                                console.log(response.data);
                             }
                             call(values);
                         }}
@@ -78,7 +74,7 @@ function DiscussionForm() {
                                     rows={4}
                                 />
                                 <Typography className={classes.boldTextSecond}>Upload attachments</Typography>
-                        
+
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>

@@ -33,7 +33,7 @@ const ExpandMoreReplies = styled((props) => {
     }),
 }));
 
-function Comments() {
+function Comments({ commentData,addCommentData }) {
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -69,7 +69,15 @@ function Comments() {
 
 
     //   ===========================================================================================================================================================================
+    console.log(commentData);
+    const comment = commentData.content;
+    const commentId=commentData._id;
+    // =====================================================================================================================================================================================
+
     const likeButton = LikeButtonStyle(likeDislike);
+    const addReplyData={...addCommentData,commentId:commentId}
+
+  // =======================================================================================================================================================================================================
     return (
         <Box>
             <Box sx={{ width: "94%", height: "auto", bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 2, mt: 2.5 }}>
@@ -87,10 +95,9 @@ function Comments() {
                         <Stack className={likeButton.likeCommentCount}>{Math.abs(likeDislike.totalCount)}</Stack>
                         <IconButton className={likeButton.likeDecButton} onClick={likeDecreaseHandler}><ArrowDownwardIcon sx={{ fontSize: 15 }} /></IconButton>
                     </Box>
-                    <Box>
+                    <Box sx={{display:"flex" ,flexDirection:"column" ,width:"100%"}}>
                         <Typography variant="body2" sx={{ mb: 0.4, pl: { xs: 0.5, sm: 0.2 }, wordBreak: "break-all" }}>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,
+                            {comment}
                         </Typography>
                         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
                             <Box>
@@ -110,10 +117,9 @@ function Comments() {
                                 >
                                 </ExpandMoreReplies>
                             </Box>
-
                         </Box>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <ReplyCommentBox handleExpandClick={handleExpandClick} />
+                            <ReplyCommentBox handleExpandClick={handleExpandClick} addReplyData={addReplyData}  />
                         </Collapse>
                         <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
                             <Reply />

@@ -4,6 +4,7 @@ import { ThemeProvider } from '@emotion/react';
 import { Box, Stack } from "@mui/material";
 import { Outlet } from 'react-router-dom';
 import { LostFoundNavigation, LostFoundVerticalNavigation } from "./lostFoundNavigation";
+import { forumContainStyle } from '../_Styling/tabStyling';
 // import LostFoundCard from './Lost&FoundCard/L&FCard';
 const theme = createTheme({
   palette: {
@@ -16,23 +17,24 @@ const theme = createTheme({
   },
 });
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 function LostFound() {
+  const classes = forumContainStyle();
   return (<>
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Box sx={{ width: { sm: "30%", md: "35%" }, position: "fixed", left: "0rem", display: { xs: "none", sm: "block" } }}>
-          <LostFoundVerticalNavigation />
+      <Box className={classes.mainBox}>
+        <Box className={classes.verticalNavBox}>
+          <Box sx={{ position: "fixed" }}>
+            <LostFoundVerticalNavigation />
+          </Box>
         </Box>
-        <Box sx={{ width: { md: "65%", sm: "70%", xs: "100%" } }}>
+        <Box className={classes.cardBox}>
           <Stack sx={{ display: { xs: "flex", sm: "none" } }}>
             <LostFoundNavigation />
           </Stack>
           <Outlet />
         </Box>
       </Box>
-
-
     </ThemeProvider>
   </>
 
@@ -40,8 +42,3 @@ function LostFound() {
 }
 
 export default LostFound;
-// {arr.map((item, index) => {
-//   return <LostFoundCard key={index} />
-// })
-
-// } 

@@ -12,7 +12,7 @@ export const useStyles = makeStyles({
         display: "flex",
         alignItems: "flex-start",
         width: "100%",
-        padding: "2rem 0rem",
+        padding: "1rem 1rem",
         flexDirection: "column",
         "@media (max-width: 600px)": {
             alignItems: "center",
@@ -31,7 +31,7 @@ export const useStyles = makeStyles({
     boldTextSecond: {
         fontWeight: "bold",
         fontSize: "1.2rem",
-        "@media (max-width: 800px)": {
+        "@media (max-width: 700px)": {
             fontSize: "0.85rem"
         },
     },
@@ -50,7 +50,7 @@ export const useStyles = makeStyles({
         fontWeight: "bold",
         color: "#edf2ff",
         fontSize: "1.5rem",
-        "@media (max-width: 800px)": {
+        "@media (max-width: 700px)": {
             fontSize: "1.2rem"
         },
     },
@@ -73,22 +73,11 @@ export const useStyles = makeStyles({
         },
     },
     paperStyleSecond: {
-        width: "70%",
-        // width: "800px", 
-        margin: "0rem 2rem",
+        width: "100%",
         height: "auto",
         borderRadius: "1rem",
         display: "flex",
         flexDirection: "column",
-        "@media (max-width: 1200px)": {
-            width: "80%",
-        },
-        "@media (max-width: 800px)": {
-            width: "85%",
-        },
-        "@media (max-width: 600px)": {
-            margin: "0rem 1rem",
-        }
     },
 
     // ====================================================================================================================
@@ -107,7 +96,7 @@ export const useStyles = makeStyles({
         padding: "1.5rem 3rem",
         borderRadius: "1rem 1rem 0rem 0rem ",
         // borderBottom: "1px solid  #e0e0e0",
-        "@media (max-width: 800px)": {
+        "@media (max-width: 700px)": {
             padding: "1.5rem",
         },
     },
@@ -124,7 +113,7 @@ export const useStyles = makeStyles({
     ContentBoxSecond: {
         padding: "2rem 3rem",
         borderBottom: "1px solid  #e0e0e0",
-        "@media (max-width: 800px)": {
+        "@media (max-width: 700px)": {
             padding: " 1.3rem 1.5rem",
         },
     },

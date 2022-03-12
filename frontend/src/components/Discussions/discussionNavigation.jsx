@@ -72,17 +72,18 @@ export function DiscussionVerticalNavigation() {
     return (
         <Box className={classes.outerBox}>
             <Paper className={classes.paperStyle}>
-                <NavTabs value={value} orientation="vertical">
-                    <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { Navigate("") }} />
-                    <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { Navigate("CreateNewTopic") }} />
-                    <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { Navigate("MyTopics") }} />
-                    <VerticalNavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { Navigate("MyAnswers") }} />
-                    <VerticalNavTab icon={<FavoriteIcon />} label="Saved Topics" onClick={() => { Navigate("SavedTopics") }} />
-                </NavTabs>
+
+            <NavTabs value={value} orientation="vertical">
+                <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { Navigate("") }} />
+                <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { Navigate("CreateNewTopic") }} />
+                <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { Navigate("MyTopics") }} />
+                <VerticalNavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { Navigate("MyAnswers") }} />
+                <VerticalNavTab icon={<FavoriteIcon />} label="Saved Topics" onClick={() => { Navigate("SavedTopics") }} />
+            </NavTabs>
             </Paper>
         </Box>
 
-
     )
+    // className={classes.paperStyle}
 
 }

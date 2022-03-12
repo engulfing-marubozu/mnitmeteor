@@ -1,38 +1,50 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 
 import DiscussionCard from './discussionCard';
-const array = [1, 2, 3, 5, 6, 7, 8, 8, 8, 8, 8];
+// const array = [1, 2, 3, 5, 6, 7, 8, 8, 8, 8, 8];
 function DiscussionCardArray() {
     const token = useSelector((state) => state.loginlogoutReducer.token);
+    const [discussionData, setDiscussionData] = useState();
     useEffect(() => {
         window.scrollTo(0, 0);
+        let isSubscribed = true;
         async function call() {
-            const response = await axios.get(
-                "http://localhost:5000/fetch_live_threads",
-                {
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                    },
+            try {
+                const response = await axios.get(
+                    "http://localhost:5000/fetch_live_threads",
+                    {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                if (isSubscribed) {
+                    // console.log(response.data?.universal_threads);
+                    setDiscussionData(response.data?.universal_threads);
                 }
-            );
-            console.log(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+
         }
         call();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => (isSubscribed = false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
-return (
-    <>
-        {
-            array.map((item, index) => {
-                return (<DiscussionCard key={index} />)
-            })
-        }
-    </>
+    console.log(discussionData)
 
-)
+    return (
+        <>
+            {
+                typeof (discussionData) !== "undefined" && discussionData.map((data , index) => {
+                    return (<DiscussionCard key={index} data={data} />)
+                })
+            }
+        </>)
+
+
 }
 
 export default DiscussionCardArray;

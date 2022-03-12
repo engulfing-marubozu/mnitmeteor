@@ -14,7 +14,7 @@ const theme = createTheme({
     },
 });
 
-function ReplyCommentBox({ handleExpandClick }) {
+function ReplyCommentBox({ handleExpandClick,addReplyData }) {
     const inputReply = useRef(null);
 
     const [disabledPost, setDisabledPost] = useState(true);
@@ -25,6 +25,12 @@ function ReplyCommentBox({ handleExpandClick }) {
         } else {
             setDisabledPost(true);
         }
+    }
+
+    const submitHandler=()=>{
+        console.log(inputReply.current.value);
+        console.log(addReplyData);
+        
     }
     return (
         <ThemeProvider theme={theme}>
@@ -38,12 +44,12 @@ function ReplyCommentBox({ handleExpandClick }) {
                         multiline
                         maxRows={4}
                         size="small"
-                        ref={inputReply}
+                        inputRef={inputReply}
                         onKeyUp={EnablePost}
                     />
                     <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
                         <CommentButton onClick={handleExpandClick}>Cancel</CommentButton>
-                        <CommentButton disabled={disabledPost} >Post</CommentButton>
+                        <CommentButton disabled={disabledPost} onClick={submitHandler} >Post</CommentButton>
                     </Box>
                 </form>
             </Box>

@@ -14,13 +14,13 @@ const theme = createTheme({
     },
 });
 
-function AddCommentBox() {
+function AddCommentBox({ addCommentData }) {
     const inputComment = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     // const [focused,setFocused]=useState(false);
-// ==========================================================================================================================================================
-//    const token
-//    const 
+    // ==========================================================================================================================================================
+    //    const token
+    //    const 
 
 
 
@@ -35,7 +35,7 @@ function AddCommentBox() {
 
 
 
-// ==========================================================================================================================================================
+    // ==========================================================================================================================================================
     const EnablePost = (event) => {
         const commentValue = event.target.value;
         if (commentValue) {
@@ -45,14 +45,14 @@ function AddCommentBox() {
         }
     }
     const CancelPost = () => {
+        // console.log(inputComment.current.value)
         inputComment.current.value = null;
         setDisabledPost(true);
         //    setFocused(false);
     }
     const submitHandler = () => {
-        console.log("depaak");
         console.log(inputComment.current.value);
-        
+        console.log(addCommentData);
     }
     return (
         <ThemeProvider theme={theme}>

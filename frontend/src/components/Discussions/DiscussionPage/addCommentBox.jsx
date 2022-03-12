@@ -4,6 +4,7 @@ import { CommentButton } from '../DiscussionStyling/discussionStyling';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import { UserDataContext } from '../../_ContextFolder/webContext';
+import { PageUpdateContext } from './_discussionArray';
 import axios from 'axios'
 const theme = createTheme({
     palette: {
@@ -17,6 +18,7 @@ const theme = createTheme({
 });
 
 function AddCommentBox({ addCommentData }) {
+    const updatePage=useContext(PageUpdateContext);
     const localUserData=useContext(UserDataContext);
     const token=localUserData.token;
     const inputComment = useRef(null);
@@ -25,16 +27,6 @@ function AddCommentBox({ addCommentData }) {
     // ==========================================================================================================================================================
     //    const token
     //    const 
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -56,9 +48,8 @@ function AddCommentBox({ addCommentData }) {
     }
     const submitHandler =async  () => {
         const email = localUserData.user.email.slice(1,11);
-        console.log(inputComment.current.value);
-        console.log(addCommentData);
-        
+        // console.log(inputComment.current.value);
+        // console.log(addCommentData);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
             { thread_id: addCommentData.cardId, comment_id: null , commentor_mnit_id: email, content:inputComment.current.value},
@@ -68,8 +59,9 @@ function AddCommentBox({ addCommentData }) {
                 },
             }
         );
-     
-        console.log(response.data);
+        updatePage(response.data.updated_Thread.discussions.length);
+        // console.log(response.data.updated_Thread.discussions.length);
+        // console.log();
     }
     return (
         <ThemeProvider theme={theme}>

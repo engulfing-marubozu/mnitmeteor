@@ -25,7 +25,7 @@ const ExpandMore = styled((props) => {
         duration: theme.transitions.duration.shortest,
     }),
 }));
-function DiscussionCard({ data }) {
+function DiscussionCard({ data}) {
     const localUserData=useContext(UserDataContext);
     const token = localUserData?.token;
     // const isLoggedIn=localUserData.isLoggin;

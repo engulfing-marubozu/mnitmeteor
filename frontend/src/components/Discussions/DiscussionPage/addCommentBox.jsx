@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef ,useContext} from 'react'
 import { TextField, Box } from '@mui/material';
 import { CommentButton } from '../DiscussionStyling/discussionStyling';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
-import {useSelector} from 'react-redux'
+import { UserDataContext } from '../../_ContextFolder/webContext';
+import axios from 'axios'
 const theme = createTheme({
     palette: {
         primary: {
@@ -16,6 +17,8 @@ const theme = createTheme({
 });
 
 function AddCommentBox({ addCommentData }) {
+    const localUserData=useContext(UserDataContext);
+    const token=localUserData.token;
     const inputComment = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     // const [focused,setFocused]=useState(false);
@@ -52,17 +55,19 @@ function AddCommentBox({ addCommentData }) {
         //    setFocused(false);
     }
     const submitHandler =async  () => {
+        const email = localUserData.user.email.slice(1,11);
         console.log(inputComment.current.value);
         console.log(addCommentData);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
-            { thread_id: cardId, comment_id: null , commentor_mnit_id: , content:inputComment.current.value},
+            { thread_id: addCommentData.cardId, comment_id: null , commentor_mnit_id: email, content:inputComment.current.value},
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             }
         );
+        console.log("dv");
         console.log(response.data);
     }
     return (

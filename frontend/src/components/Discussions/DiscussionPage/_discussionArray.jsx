@@ -13,12 +13,7 @@ function DiscussionCardArray() {
         async function call() {
             try {
                 const response = await axios.get(
-                    "http://localhost:5000/fetch_live_threads",
-                    {
-                        headers: {
-                            authorization: `Bearer ${token}`,
-                        },
-                    }
+                    "http://localhost:5000/fetch_live_threads"
                 );
                 if (isSubscribed) {
                     // console.log(response.data?.universal_threads);

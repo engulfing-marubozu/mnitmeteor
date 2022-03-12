@@ -23,9 +23,6 @@ const theme = createTheme({
 });
 
 function App() {
-  // const userData = useSelector((state) => state.loginlogoutReducer.userData);
-  // const  contextValue={userData};
-  // console.log("first");
   const dispatch = useDispatch();
 
   useEffect(() => {

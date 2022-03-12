@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { UserDataContext } from "../_ContextFolder/webContext";
 import Home from "../HomePage/Home";
 import About from "../About/About";
 import Discussions from "../Discussions/discussion";
@@ -17,10 +19,8 @@ import DiscussionMyAnswers from "../Discussions/DiscussionCategories/disMyAnswer
 import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
 import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
 function RouterCon() {
-  const localStorageData =JSON.parse(window.localStorage.getItem("auth")); 
-  const isLoggedIn=localStorageData?.isLogin?localStorageData?.isLogin:false;
-  console.log(localStorageData);
-  console.log(isLoggedIn);
+  const localUserData = useContext(UserDataContext);
+  const isLoggedIn = localUserData?.isLogin;
   return (
     <Routes>
       {/* <Route path="/home" element ={<Home/>}/> */}
@@ -33,7 +33,7 @@ function RouterCon() {
         <Route index element={<DiscussionCardArray />} />
         <Route path="CreateNewTopic" element={<DiscussionForm />} />
         <Route path="MyAnswers" element={<DiscussionMyAnswers />} />
-        <Route path="MyTopics" element={<DiscussionMyTopics/>} />
+        <Route path="MyTopics" element={<DiscussionMyTopics />} />
         <Route path="SavedTopics" element={<DiscussionSavedTopics />} />
       </Route>
       <Route path="Lost&Found" element={<LostFound />} >

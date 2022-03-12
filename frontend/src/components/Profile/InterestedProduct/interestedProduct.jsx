@@ -1,12 +1,14 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import StylingInterestedProduct from "./stylingInterestedProduct";
+import { UserDataContext } from "../../_ContextFolder/webContext";
 
 function InterestedProduct(props) {
   const [arr, setarr] = useState();
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const localUserData = useContext(UserDataContext);
+  const token=localUserData.token;
   const interestedList=useSelector((state)=>state.InterestedReducer?.interestedData)
   useEffect(() => {
     let isSubscribed =true;

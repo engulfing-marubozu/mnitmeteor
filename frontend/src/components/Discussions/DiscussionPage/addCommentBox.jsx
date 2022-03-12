@@ -14,7 +14,7 @@ const theme = createTheme({
     },
 });
 
-function AddCommentBox({ commentData }) {
+function AddCommentBox({ addCommentData }) {
     const inputComment = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     // const [focused,setFocused]=useState(false);
@@ -52,7 +52,7 @@ function AddCommentBox({ commentData }) {
     }
     const submitHandler = () => {
         console.log(inputComment.current.value);
-        console.log(commentData);
+        console.log(addCommentData);
     }
     return (
         <ThemeProvider theme={theme}>

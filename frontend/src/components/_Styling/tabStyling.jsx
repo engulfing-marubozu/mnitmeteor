@@ -56,26 +56,80 @@ export const VerticalNavTab = styled((props) => <Tab disableRipple {...props} />
 
 export const verticalNavigationStyle = makeStyles({
     outerBox: {
-        // display:"static"
-        margin: "2rem 0rem",
+        // display:"static",
+        margin: "1rem 0rem",
         display: "flex",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        "@media (max-width: 600px)": {
+            display: "none",
+        },
     },
     paperStyle: {
+        // display:"flex",
         width: "220px",
         marginRight: "1rem",
-        // marginLeft: "2rem",
-        // "@media (max-width: 1200px)": {
-        //     width: "70%",
-        // },
         "@media (max-width: 900px)": {
-            width: "160px",
+            width: "140px",
         },
-        // "@media (max-width: 800px)": {
-        //     marginRight: "0rem",
-        // },
+        "@media (max-width: 700px)": {
+            width: "120px",
+        },
     },
     iconLabelWrapper: {
         flexDirection: "row",
+    },
+})
+
+export const forumContainStyle = makeStyles({
+    mainBox: {
+        maxWidth: "900px",
+        display: "flex",
+        margin: "1.5rem auto",
+        "@media (max-width: 1200px)": {
+            padding: "0px 42px",
+        },
+        "@media (max-width:900px)": {
+            padding: "0px 24px",
+        },
+        "@media (max-width:600px)": {
+            margin:"0rem",
+            width: "100%",
+            padding: "0px 0px",
+        }
+    },
+    verticalNavBox: {
+        display: "flex",
+        width: "27%",
+        "@media (max-width:1200px)": {
+            width: "30%",
+        },
+        "@media (max-width:900px)": {
+            width: "0px",
+        },
+        "@media (max-width:600px)": {
+            display: "none"
+        }
+    },
+    cardBox: {
+        width: "73%",
+        display: "flex",
+        marginLeft: "auto",
+        flexDirection:"column",
+        "@media (max-width:1200px)": {
+            width: "72%",
+        },
+        "@media (max-width:900px)": {
+            width: "100%",
+            marginLeft: "156px"
+        },
+        "@media (max-width:700px)": {
+            width: "100%",
+            marginLeft: "136px"
+        },
+        "@media (max-width:600px)": {
+            width: "100%",
+            flexDirection: "column",
+            marginLeft: "0px"
+        }
     },
 })

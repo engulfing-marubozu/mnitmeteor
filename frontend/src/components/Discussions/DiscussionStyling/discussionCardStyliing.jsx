@@ -2,28 +2,19 @@ import { makeStyles } from '@mui/styles';
 export const DiscussionCardStyle = makeStyles({
     dpaperStyle: {
         backgroundColor: "white",
-        width: "650px",
-        // minWidth:"600px",
+        width: "100%",
         padding: "1.5rem 1rem  0.8rem",
         display: "flex",
         flexDirection: "row",
-        // margin: "0rem 2rem",
         "@media (max-width: 1200px)": {
-            width: "600px",
             padding: "1rem 0.5rem",
         },
         "@media (max-width: 1000px)": {
-            width: "520px",
             padding: "1rem 0.5rem",
         },
-
-        "@media (max-width: 900px)": {
-            width: "100%",
-            margin: "0rem",
-        },
         "@media (max-width: 600px)": {
-            width: "100%",
             margin: "0rem",
+            padding: "1rem 0.2rem",
         }
     },
     dactionBox: {
@@ -134,3 +125,4 @@ export const LikeButtonStyle = makeStyles({
         color: (props) => props.totalCount > 0 ? "#00c853" : props.totalCount < 0 ? "#bf360c" : "#212121",
     },
 })
+

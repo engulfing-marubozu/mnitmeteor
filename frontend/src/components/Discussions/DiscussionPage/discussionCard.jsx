@@ -67,13 +67,20 @@ function DiscussionCard({ data }) {
     const description = data?.description;
     const date = new Date(data?.createdAt);
     const properDate = TimeSince(date);
+    const userId=data?.users_mnit_id;
+    const comments=data?.discussions;
+    console.log(typeof(comments));
     // ===================================================================================================================================================================================================================================
     const classes = DiscussionCardStyle();
     const likeButton = LikeButtonStyle(likeDislike);
     // ======================================================================================================================================================================================================================================
-    const commentData = { token: token, cardId: data?._id, commentId: null, replyId: null }
+    const addCommentData = { token: token, cardId: data?._id, commentId: null,}
+
+
+
+    // ========================================================================================================================================================================================================================================
     return (
-        <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", my: "2rem", flexDirection: "column" }}>
+        <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", my: "1rem", flexDirection: "column" }}>
             <Paper className={classes.dpaperStyle}>
 
                 <Box className={likeButton.likeCardBox}>
@@ -87,7 +94,7 @@ function DiscussionCard({ data }) {
                             avatar={
                                 <Avatar sx={{ bgcolor: "#673ab7" }} />
                             }
-                            title="Shrimp and Chorizo Paella"
+                            title={userId}
                             subheader={properDate}
                             sx={{ p: 0 }}
                         />
@@ -108,8 +115,15 @@ function DiscussionCard({ data }) {
                     </Box>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <Box>
-                            <Comments commentData={commentData} />
-                            <AddCommentBox commentData={commentData} />
+                            {
+                                typeof(comments)!=="undefined" && (comments.map((data,index)=>{
+                                    return(
+                                        <Comments addCommentData ={addCommentData} commentData={data} key={index}></Comments>
+                                    )
+                                }))
+                            }
+                            {/* <Comments commentData={commentData} /> */}
+                            <AddCommentBox addCommentData={addCommentData} />
                         </Box>
                     </Collapse>
                     <Box className={classes.dactionBox}>

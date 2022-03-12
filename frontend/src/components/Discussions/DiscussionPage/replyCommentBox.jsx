@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { TextField, Box } from '@mui/material';
 import { CommentButton } from '../DiscussionStyling/discussionStyling';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import { UserDataContext } from '../../_ContextFolder/webContext';
+import axios from 'axios'
 const theme = createTheme({
     palette: {
         primary: {
@@ -16,7 +18,8 @@ const theme = createTheme({
 
 function ReplyCommentBox({ handleExpandClick,addReplyData }) {
     const inputReply = useRef(null);
-
+    const localUserData=useContext(UserDataContext);
+    const token=localUserData.token;
     const [disabledPost, setDisabledPost] = useState(true);
     const EnablePost = (event) => {
         const commentValue = event.target.value;
@@ -27,10 +30,22 @@ function ReplyCommentBox({ handleExpandClick,addReplyData }) {
         }
     }
 
-    const submitHandler=()=>{
+    const submitHandler= async()=>{
         console.log(inputReply.current.value);
         console.log(addReplyData);
-        
+        const email = localUserData.user.email.slice(0,11);
+        // console.log(inputComment.current.value);
+        // console.log(addCommentData);
+        const response = await axios.post(
+            "http://localhost:5000/add_comment",
+            { thread_id:  addReplyData.cardId, comment_id:  addReplyData.commentId , commentor_mnit_id: email, content:inputReply.current.value},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        console.log(response.data);
     }
     return (
         <ThemeProvider theme={theme}>

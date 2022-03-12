@@ -1,4 +1,4 @@
-const {Thread} = require("../../Models")
+const {Thread, User} = require("../../Models")
 // recieves data as thread_id , commenter_id, comment
 const add_comment =async (req,res)=>{
     try{
@@ -13,7 +13,8 @@ const add_comment =async (req,res)=>{
         if(!comment_id)
         {   
             console.log("helli")
-            console.log(date)
+            console.log(date);
+
         const updated_Thread = await Thread.findByIdAndUpdate(thread_id, {
             $push :{
                discussions : {
@@ -24,6 +25,12 @@ const add_comment =async (req,res)=>{
                }
             }}, {new:true}
         ) 
+       await User.findByIdAndUpdate(user_id, {
+            $addToSet: {
+                threads_commented_or_replied : thread_id
+            }
+        })
+        
          res.status(200).send({updated_Thread})
         }
         else{
@@ -46,7 +53,11 @@ const add_comment =async (req,res)=>{
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.find({_id : thread_id});
-      
+           await User.findByIdAndUpdate(user_id, {
+            $addToSet: {
+                threads_commented_or_replied : thread_id
+            }
+        })
            res.status(200).send(updated_Thread);
         }
        

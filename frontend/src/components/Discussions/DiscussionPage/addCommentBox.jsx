@@ -50,8 +50,9 @@ function AddCommentBox() {
         //    setFocused(false);
     }
     const submitHandler = () => {
-        console.log("depak");
+        console.log("depaak");
         console.log(inputComment.current.value);
+        
     }
     return (
         <ThemeProvider theme={theme}>

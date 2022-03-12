@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react';
-import {useSelector} from 'react-redux';
+
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
@@ -22,7 +22,7 @@ const FORM_VALIDATION = Yup.object().shape({
 
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
-    const token = useSelector((state) => state.loginlogoutReducer.token);
+   
     useEffect(() => {
         window.scrollTo(0, 0);
     })
@@ -45,9 +45,6 @@ function DiscussionForm() {
                         initialValues={{ ...INITIAL_FORM_STATE }}
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
-<<<<<<< HEAD
-                            // console.log(values)
-=======
                             console.log(values)
                             const call = async (values)=>{
                                 console.log(values)
@@ -63,7 +60,6 @@ function DiscussionForm() {
                                           console.log(response.data);        
                             }
                             call(values);
->>>>>>> d48ee96db750fe62cfaf635f89f00dc6d9cdb5a7
                         }}
                     >
                         <Form>

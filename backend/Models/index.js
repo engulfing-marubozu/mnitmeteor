@@ -25,14 +25,14 @@ const user_schema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],
     },
-    Mobile_no : {
+    Mobile_no: {
       type: String,
-      default : null
+      default: null,
     },
-    notification:{
-      type : [{type:String}],
-      default:[]
-    }
+    notification: {
+      type: [{ type: String }],
+      default: [],
+    },
   },
   { timestamps: true }
 );
@@ -46,81 +46,114 @@ const products_schema = new mongoose.Schema(
       type: String,
     },
     description: {
-        type: String
+      type: String,
     },
-    posted_by :{
-       type: Schema.Types.ObjectId,
-       ref: 'User' ,
+    posted_by: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    images :{
-        type: [{}]
+    images: {
+      type: [{}],
     },
-    is_verified:{
-        type : Boolean,
-        default : false
+    is_verified: {
+      type: Boolean,
+      default: false,
     },
-    likes : {
-        type :  [{ type: Schema.Types.ObjectId, ref: 'User' }],
-        default:[]
-   },
-   interested_users : {
-    type :  [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    default:[]
-   },
-   blue_heart : {
-       type : Boolean,
-       default : false
-   },
-   show_interested :{
-       type : Boolean,
-       default : false
-   }
+    likes: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
+    interested_users: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
+    blue_heart: {
+      type: Boolean,
+      default: false,
+    },
+    show_interested: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { timestamps: true }
+);
 
-},{timestamps: true});
-
-const thread_schema = new mongoose.Schema({
-  posted_by: {
-    type : Object,
-    default: null
-  },
-  users_mnit_id:{
-    type : String,
-    default: ""
-  },
-  title :{
-    type : String,
-    default: ""
-  },
-  description:{
-    type : String,
-    default: "" 
-  },
-  discussions : {
-   type : [{
-     mnit_id : {
-              type: String
-                }, 
-    content : {
-           type : String,
-           default : ""
-     },
-     replies: {
-       type:[{
-        mnit_id:{
+const thread_schema = new mongoose.Schema(
+  {
+    posted_by: {
+      type: Object,
+      default: null,
+    },
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    users_mnit_id: {
+      type: String,
+    },
+    title: {
+      type: String,
+      default: "",
+    },
+    description: {
+      type: String,
+      default: "",
+    },
+    discussions: {
+      type: [
+        {
+          commented_by: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+          },
+          mnit_id: {
             type: String,
-       },
-       content :{
+          },
+          content: {
             type: String,
-            default : ""
-       }
-     }],
-     default : []
-    }
-  }],
-  }
-},{timestamps: true})
+            default: "",
+          },
+          likes: {
+            type: Number,
+            default: 0,
+          },
+          replies: {
+            type: [
+              {
+                replied_by: {
+                  type: Schema.Types.ObjectId,
+                  ref: "User",
+                },
+                mnit_id: {
+                  type: String,
+                },
+                content: {
+                  type: String,
+                  default: "",
+                },
+                likes: {
+                  type: Number,
+                  default: 0,
+                },
+                createdAt: {
+                  type: Date,
+                },
+              },
+            ],
+            default: [],
+          },
+          createdAt: {
+            type: Date,
+          },
+        },
+      ],
+    },
+  },
+  { timestamps: true }
+);
 
 const Product = mongoose.model("Product", products_schema);
 const User = mongoose.model("User", user_schema);
-const Thread = mongoose.model("Thread", thread_schema );
+const Thread = mongoose.model("Thread", thread_schema);
 module.exports = { User, Product, Thread };

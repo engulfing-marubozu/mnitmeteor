@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.post('/create_thread', authorization, new_thread);
 router.get('/fetch_live_threads', authorization, fetch_live_threads);
-router.get('/fetch_own_thread', authorization, fetch_own_threads)
+router.get('/fetch_own_threads', authorization, fetch_own_threads)
 router.post('/delete_thread', authorization, delete_thread);
 router.post('/add_comment', authorization,add_comment);
-
+//router.get('/update_likes', authorization, update_likes)
 module.exports= router;

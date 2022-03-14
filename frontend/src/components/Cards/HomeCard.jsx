@@ -1,6 +1,6 @@
 import * as React from "react";
 import { RWebShare } from 'react-web-share';
-import { Box, Card, CardMedia, CardContent, IconButton, Typography, CardActions } from "@mui/material";
+import { Box, Card, CardMedia, CardContent, IconButton, Typography, CardActions, Tooltip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-router-dom";
@@ -79,7 +79,7 @@ export default function HomeCard(props) {
           component="img"
           classes={{ img: Classes.image }}
           maxwidth="280px"
-          sx={{ height: { xs: "160px", sm: "180px" } ,p:{sm:1.5,xs:1}}}
+          sx={{ height: { xs: "160px", sm: "180px" }, p: { sm: 1.5, xs: 1 } }}
           image={Image}
           alt="Image"
         />
@@ -128,7 +128,9 @@ export default function HomeCard(props) {
               p: { xs: "4px", sm: "8px" },
             }}
           >
-            <FavoriteIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+            <Tooltip title="Add to Favourites" arrow >
+              <FavoriteIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+            </Tooltip>
           </IconButton>
           <RWebShare
             data={{
@@ -145,7 +147,9 @@ export default function HomeCard(props) {
                 p: { xs: "4px", sm: "8px" },
               }}
             >
-              <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+              <Tooltip title="Share" arrow>
+                <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+              </Tooltip>
             </IconButton>
           </RWebShare>
         </CardActions>

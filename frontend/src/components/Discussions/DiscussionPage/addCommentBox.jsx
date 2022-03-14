@@ -1,33 +1,15 @@
 import React, { useState, useRef, useContext } from 'react'
 import { TextField, Box } from '@mui/material';
 import { CommentButton } from '../DiscussionStyling/discussionStyling';
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
 import { UserDataContext } from '../../_ContextFolder/webContext';
-import { PageUpdateContext } from './_discussionArray';
 import axios from 'axios'
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#512da8',
-        },
-        secondary: {
-            main: '#edf2ff',
-        },
-    },
-});
 
-function AddCommentBox({ addCommentData }) {
-    const updatePage = useContext(PageUpdateContext);
+function AddCommentBox({ addCommentData, setLocalCardData }) {
     const localUserData = useContext(UserDataContext);
     const token = localUserData.token;
     const inputComment = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     // const [focused,setFocused]=useState(false);
-    // ==========================================================================================================================================================
-
-
-
 
     // ==========================================================================================================================================================
     const EnablePost = (event) => {
@@ -38,11 +20,11 @@ function AddCommentBox({ addCommentData }) {
             setDisabledPost(true);
         }
     }
-    const CancelPost = () => {
-        inputComment.current.value = null;
-        setDisabledPost(true);
-        //    setFocused(false);
-    }
+    // const CancelPost = () => {
+    //     inputComment.current.value = null;
+    //     setDisabledPost(true);
+    //     //    setFocused(false);
+    // }
     const submitHandler = async () => {
         const email = localUserData.user.email.slice(0, 11);
         const response = await axios.post(
@@ -54,34 +36,33 @@ function AddCommentBox({ addCommentData }) {
                 },
             }
         );
-        updatePage(response.data.updated_Thread.discussions.length);
+        setLocalCardData(response.data.updated_Thread);
         inputComment.current.value = null;
         setDisabledPost(true);
     }
     return (
-        <ThemeProvider theme={theme}>
-            <Box sx={{ width: "94%", pt: "1rem", pb: "0.5rem" }} >
-                <form>
-                    <TextField
-                        color="primary"
-                        fullWidth
-                        id="outlined-multiline-flexible"
-                        label="Comment"
-                        multiline
-                        maxRows={4}
-                        onKeyUp={EnablePost}
-                        inputRef={inputComment}
-                    //   value={value}
-                    //   onChange={handleChange}
-                    />
-                    <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
-                        <CommentButton onClick={CancelPost}>Cancel</CommentButton>
-                        <CommentButton disabled={disabledPost} onClick={submitHandler}>Post</CommentButton>
-                    </Box>
-                </form>
-            </Box>
-        </ThemeProvider>
-
+        // <ThemeProvider theme={theme}>
+        <Box sx={{ width: "94%", pt: "1rem", pb: "0.5rem" }} >
+            <form>
+                <TextField
+                    autoFocus={true}
+                    color="primary"
+                    fullWidth
+                    id="outlined-multiline-flexible"
+                    label="Comment"
+                    multiline
+                    maxRows={4}
+                    onKeyUp={EnablePost}
+                    inputRef={inputComment}
+                //   value={value}
+                //   onChange={handleChange}
+                />
+                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+                    {/* <CommentButton onClick={CancelPost}>Cancel</CommentButton> */}
+                    <CommentButton disabled={disabledPost} onClick={submitHandler}> Add Comment</CommentButton>
+                </Box>
+            </form>
+        </Box>
     )
 }
 

@@ -41,10 +41,10 @@ function RouterCon() {
       </Route>
       <Route path="Lost&Found" element={<LostFound />} >
         <Route index element={<LostFoundCardArray />} />
-        <Route path="Lost&FoundForm" element={<LostFoundForm />} />
-        <Route path="LostItems" element={<LostItems />} />
-        <Route path="FoundItems" element={<FoundItems/>} />
-        <Route path="MyItems" element ={<LostFoundMyItems/>}/>
+        <Route path="Lost&FoundForm" element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />} />
+        <Route path="LostItems" element={isLoggedIn ? <LostItems /> : <Navigate to="/" />} />
+        <Route path="FoundItems" element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />} />
+        <Route path="MyItems" element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />} />
       </Route>
       <Route
         path="Sellproduct"

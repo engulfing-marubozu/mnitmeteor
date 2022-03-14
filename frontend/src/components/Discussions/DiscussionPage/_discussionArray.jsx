@@ -1,13 +1,12 @@
-import React, { useEffect, useState,createContext} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import DiscussionCard from './discussionCard';
- export const PageUpdateContext = createContext();
 function DiscussionCardArray() {
 
     // =======================================================================================================================================================================
     const [discussionData, setDiscussionData] = useState();
-    const [updatePage, setUpdatePage] = useState();
-    useEffect(() => {   
+    useEffect(() => {
+        window.scrollTo(0, 0);
         let isSubscribed = true;
         async function call() {
             try {
@@ -25,18 +24,18 @@ function DiscussionCardArray() {
         call();
         return () => (isSubscribed = false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [updatePage])
+    }, [])
     // console.log(discussionData)
 
     return (
         <>
-            <PageUpdateContext.Provider value={setUpdatePage}>
-                {
-                    typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
-                        return (<DiscussionCard key={index} data={data} />)
-                    })
-                }
-            </PageUpdateContext.Provider>
+
+            {
+                typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
+                    return (<DiscussionCard key={index} data={data} />)
+                })
+            }
+
 
         </>)
 

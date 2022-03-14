@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { NavTabs, NavTab, VerticalNavTab } from '../_Styling/tabStyling';
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from '../_Styling/tabStyling';
+import LostFoundMyItems from './LostFoundCategories/myItems';
 
 
 
@@ -36,7 +37,7 @@ export function LostFoundNavigation() {
                 <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { Navigate("Lost&FoundForm") }} />
                 <NavTab icon={<QuestionMarkIcon/>} label="Lost Items" onClick={() => { Navigate("LostItems") }} />
                 <NavTab icon={<SearchIcon/> } label="Found Items" onClick={() => { Navigate("FoundItems") }} />
-                {/* <NavTab icon={<} label="My Items" onClick={() => { Navigate("MyItems") }} /> */}
+                {/* <NavTab icon={</>} label="My Items" onClick={() => { Navigate("MyItems") }} /> */}
             </NavTabs>
         </Paper>
 

@@ -8,20 +8,14 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
-import {
-  Tooltip,
-  Avatar,
-  Menu,
-  MenuItem,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
 import NotificationBox from "../Notification/notificationBox";
 function Userbar(props) {
   // console.log(props.updateNotification);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(props.updateNotification)
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -32,14 +26,12 @@ function Userbar(props) {
   const dispatch = useDispatch();
 
   return (
-    <Box sx={{ flexGrow: 0 }}>
-      <IconButton sx={{ p: 0.65, mr: { xs: 0.5, sm: 2 }, display: { xs: "none", md: "initial" } }}>
-        <Badge badgeContent={props.updateNotification} color="error">
-          <NotificationsIcon sx={{
-            fontSize: { xs: 16, sm: 24 },
-            color: "#263238",
-          }}
-            onClick={() => { setDrawer(true) }} />
+    <Box>
+      <IconButton sx={{ p: 0.65, mr: { xs: 1, sm: 2 } }} onClick={() => { setDrawer(true) }}>
+        <Badge badgeContent={notificationCount} color="error">
+          <Tooltip title="Notifications" arrow>
+            <NotificationsIcon sx={{ fontSize: { xs: 20, sm: 24 }, color: "#263238", }} />
+          </Tooltip>
         </Badge>
       </IconButton>
       <Drawer
@@ -47,12 +39,13 @@ function Userbar(props) {
         open={drawer}
         onClose={() => { setDrawer(false) }}
       >
-       <NotificationBox/>
+        <NotificationBox setDrawer={setDrawer} setNotificationCount={setNotificationCount} />
       </Drawer>
 
       {/* {drawer&&NotificationBox} */}
-      <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+
+      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+        <Tooltip title="Profile" arrow>
           <Avatar
             sx={{
               height: { xs: 24, sm: 34 },
@@ -64,8 +57,8 @@ function Userbar(props) {
           >
             <PersonIcon sx={{ fontSize: { xs: 16, sm: 24 } }} />
           </Avatar>
-        </IconButton>
-      </Tooltip>
+        </Tooltip>
+      </IconButton>
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"
@@ -86,20 +79,6 @@ function Userbar(props) {
         <MenuItem onClick={() => { Navigate("/Profile"); handleCloseUserMenu(); }}><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }} />Profile</MenuItem>
         <MenuItem onClick={() => { Navigate("/Favourites"); handleCloseUserMenu(); }}>
           <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
-        </MenuItem>
-        <MenuItem sx={{ display: { md: "none", xs: "initial" } }} onClick={() => { handleCloseUserMenu(); setDrawer(true) }}>
-          <Badge badgeContent={props.updateNotification} color="error" anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}>
-            <NotificationsIcon sx={{
-              fontsize: { xs: 16, sm: 24 },
-              color: "#263238",
-              mr: 1
-            }}
-            />
-          </Badge>
-          Notifications
         </MenuItem>
         <MenuItem
           onClick={() => {

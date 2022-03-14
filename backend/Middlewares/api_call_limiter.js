@@ -1,6 +1,6 @@
-const Redis = require("redis");
-const redis = Redis.createClient();
-redis.connect();
+// const Redis = require("redis");
+// const redis = Redis.createClient();
+// redis.connect();
 
 // used redis to stop any kind of spam by allowing only 3 un_interest request by any specific user.This has been done with by making a variabe in redis database(which is stored in the ram of the server) and setting its
 // expiry to the time we want the user to stop until next request.
@@ -36,4 +36,4 @@ const api_call_limiter = async (req, res, next) => {
     next();}
 };
 
-module.exports = { api_call_limiter };
+// module.exports = { api_call_limiter };

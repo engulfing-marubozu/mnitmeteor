@@ -17,7 +17,7 @@ const FetchLost = async (req, res) => {
   const FetchOnlyFound = async (req, res) => {
  
     try {
-      const data = await LostItem.find();
+      const data = await LostItem.find({category: "Found"});
       console.log("Reached fetched state");
       // const ldata = JSON.stringify(data);
       res.status(200).send(data);
@@ -30,7 +30,7 @@ const FetchLost = async (req, res) => {
   const FetchOnlyLost = async (req, res) => {
  
     try {
-      const data = await LostItem.find();
+      const data = await LostItem.find({category: "Lost"});
       console.log("Reached fetched state");
       // const ldata = JSON.stringify(data);
       res.status(200).send(data);
@@ -42,9 +42,11 @@ const FetchLost = async (req, res) => {
   };
 
   const FetchOnlyLostUser = async (req, res) => {
- 
+ //current user specific products here 
+    console.log(req.user._id);
+    console.log("\n");
     try {
-      const data = await LostItem.find();
+      const data = await LostItem.find({posted_by:req.user._id });
       console.log("Reached fetched state");
       // const ldata = JSON.stringify(data);
       res.status(200).send(data);

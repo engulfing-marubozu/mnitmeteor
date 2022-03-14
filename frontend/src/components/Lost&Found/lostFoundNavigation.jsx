@@ -37,7 +37,7 @@ export function LostFoundNavigation() {
                 <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { Navigate("Lost&FoundForm") }} />
                 <NavTab icon={<QuestionMarkIcon/>} label="Lost Items" onClick={() => { Navigate("LostItems") }} />
                 <NavTab icon={<SearchIcon/> } label="Found Items" onClick={() => { Navigate("FoundItems") }} />
-                {/* <NavTab icon={</>} label="My Items" onClick={() => { Navigate("MyItems") }} /> */}
+                <NavTab icon={<SearchIcon/> } label="My Items" onClick={() => { Navigate("MyItems") }} />
             </NavTabs>
         </Paper>
 
@@ -76,7 +76,7 @@ export function LostFoundVerticalNavigation() {
                     <VerticalNavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { Navigate("Lost&FoundForm") }} />
                     <VerticalNavTab icon={<QuestionMarkIcon/> } label="Lost Items" onClick={() => { Navigate("LostItems") }} />
                     <VerticalNavTab icon={ <SearchIcon/>} label="Found Items" onClick={() => { Navigate("FoundItems") }} />
-                    {/* <NavTab icon={ } label="My Items" onClick={() => { Navigate("MyItems") }} /> */}
+                    <VerticalNavTab icon={ <SearchIcon/>} label="My Items" onClick={() => { Navigate("MyItems") }} />
                 </NavTabs>
             </Paper>
         </Box>

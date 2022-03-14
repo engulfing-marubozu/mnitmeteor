@@ -30,9 +30,6 @@ const sendLostItem = (datat,localUserData) => {
         imgs: datat.images,
         description: datat.description,
         posted_by: localUserData.user._id
-        // imgs: imagearray,
-        
-        // lastName: 'Flintstone'
       },{
         headers: {
           Authorization: `Bearer ${localUserData.token}`,
@@ -45,22 +42,6 @@ const sendLostItem = (datat,localUserData) => {
         console.log(error);
       });
 }
-// const testtry = (datat) => {
-//  console.log(datat);
-//     return async (datat) => {
-//         try {
-//         console.log(datat);
-//         const response = await axios.post(
-//             "http://localhost:5000/test",
-//             {datat },
-            
-//         );
-
-//         } catch (err) {
-//         console.log(err);
-//         }
-//     };
-// };
 
 // ======================================================================================================================================================================================================
 function LostFoundForm() {
@@ -68,10 +49,10 @@ function LostFoundForm() {
     //   const Navigate = useNavigate();
     //   const token = useSelector((state) => state.loginlogoutReducer.token);
     const localUserData=useContext(UserDataContext);
-    console.log(localUserData.user);
+    // console.log(localUserData.user);
     const token=localUserData.token;
     const [imagearray, setimagearray] = useState([]);
-    console.log(imagearray);
+    // console.log(imagearray);
     const onDrop = (pictures) => {
         setimagearray(pictures);
     };

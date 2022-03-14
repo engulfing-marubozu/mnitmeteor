@@ -26,15 +26,9 @@ export default function LostFoundCard(props) {
                     title="Shrimp and Chorizo Paella"
                     subheader="September 14, 2016"
                 />
-<<<<<<< Updated upstream
-                <CardContent sx={{ py: "0rem" }}>
-                    <Typography variant="h6">Boat Earphone</Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ wordBreak: "break-all" }}>
-=======
                 <CardContent  sx={{py:"0rem"}}>
                     <Typography variant="h6">{props.title}</Typography>
                     <Typography variant="body2" color="text.secondary" sx={{wordBreak:"break-all"}}>
->>>>>>> Stashed changes
                         {/* This impressive paella is a perfect party dish and a fun meal to cook
                         together with your guests. Add 1 cup of frozen peas along with the mussels,
                         if you like.    This impressive paella is a perfect party dish and a fun meal to cook

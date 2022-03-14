@@ -10,6 +10,7 @@ cloudinary.config({
 const SendLost = async (req,res) => {
     //error handling krni har jagah abhi 
     console.log("reached here \n");
+    console.log(req);
     title = req.body.title;
     description = req.body.description;
     category =  req.body.categories;
@@ -17,6 +18,7 @@ const SendLost = async (req,res) => {
     console.log(req.body.description);
     console.log(req.body.categories);
     imgs = req.body.imgs;
+    refID = req.body.posted_by;
     // console.log();
     console.log("reached cloudinary part");
     try {
@@ -41,7 +43,9 @@ const SendLost = async (req,res) => {
             name: title,
             description: description,
             category: category,
-            imgs: image_cloud_links
+            imgs: image_cloud_links,
+            posted_by: refID
+            //person info bhi honi chahiye 
         });
         try {
           const saveLostItem = await newLostItem.save();

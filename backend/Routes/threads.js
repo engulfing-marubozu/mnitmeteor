@@ -11,5 +11,5 @@ router.get('/fetch_live_threads',  fetch_live_threads);
 router.get('/fetch_own_threads', authorization, fetch_own_threads)
 router.post('/delete_thread', authorization, delete_thread);
 router.post('/add_comment', authorization,add_comment);
-//router.get('/update_likes', authorization, update_likes)
+// router.get('/save_threads', authorization, save_threads)
 module.exports= router;

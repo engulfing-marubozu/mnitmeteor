@@ -38,8 +38,8 @@ const add_comment =async (req,res)=>{
             console.log(comment_id);
             console.log(content);
             console.log(user_id)
-           const x = await Thread.find({ "discussions._id" : comment_id })
-           console.log(x)
+           // const x = await Thread.find({ "discussions._id" : comment_id }).populate('discussions')
+            // console.log(x)
            await Thread.updateOne({
               "discussions._id" : comment_id 
             }, {
@@ -58,7 +58,14 @@ const add_comment =async (req,res)=>{
                 threads_commented_or_replied : thread_id
             }
         })
-           res.status(200).send(updated_Thread);
+        // console.log(x.discussions)
+        // console.log(updated_Thread)
+        //  const updated_commment = x.discussions.forEach((comment)=>{
+        //       console.log(comment)
+        //      if( comment._id === comment_id)
+        //       return comment
+        //  })
+           res.status(200).send({updated_Thread, comment_id});
         }
        
         }

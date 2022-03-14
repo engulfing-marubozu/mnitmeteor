@@ -1,5 +1,15 @@
-import React, { useState, useEffect,useContext } from "react";
-import { GlobalStyles,AppBar,Stack,CssBaseline,Toolbar,Typography,Button,IconButton,Box,} from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  GlobalStyles,
+  AppBar,
+  Stack,
+  CssBaseline,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Box,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import { deepPurple } from "@mui/material/colors";
@@ -10,7 +20,10 @@ import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
 import Userbar from "./Userbar";
 import { useSelector, useDispatch } from "react-redux";
-import { SellNowclick,modelPopUp,} from "../../AStatemanagement/Actions/userActions";
+import {
+  SellNowclick,
+  modelPopUp,
+} from "../../AStatemanagement/Actions/userActions";
 import NavbarTabs from "./navbarTabs";
 const { io } = require("socket.io-client");
 const socket = io("http://localhost:5000", { reconnection: true });
@@ -54,9 +67,10 @@ export const theme = createTheme({
 // ==========================================================================================================================================================================
 function Navbar() {
   const Navigate = useNavigate();
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
+
   // =====================================================================================================================================================================
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -91,21 +105,17 @@ function Navbar() {
   React.useEffect(() => {
     socket.on("approve_post_update", () => {
       setpostPending(postsPending + 1);
-      // console.log("rimkkadfjsafkl")
     });
   });
 
   React.useEffect(() => {
     socket.on("declined_post_notification", () => {
-      //setNotificationPending((prevValue) => prevValue + 1);
-      setNotificationPending( notificationPending + 1);
-      // console.log(notificationPending);
+      setNotificationPending(notificationPending + 1);
     });
   });
-  // console.log(notificationPending);
+
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    // console.log(userData);
     userData &&
       setNotificationPending(
         userData.user?.notification?.length - userData?.user?.read_notif_count
@@ -131,18 +141,16 @@ function Navbar() {
             <IconButton
               sx={{ p: 0 }}
               size="large"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
               onClick={handleClick}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
             <StyledMenu
-              id="demo-customized-menu"
-              MenuListProps={{
-                "aria-labelledby": "demo-customized-button",
-              }}
+              // id="demo-customized-menu"
+              // MenuListProps={{
+              //   "aria-labelledby": "demo-customized-button",
+              // }}
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
@@ -155,7 +163,7 @@ function Navbar() {
             direction="row"
             sx={{
               flexGrow: 1,
-              ml: { xs: 0,md:1.5,lg: 6 },
+              ml: { xs: 0, md: 1.5, lg: 6 },
             }}
           >
             <AcUnitIcon
@@ -190,7 +198,7 @@ function Navbar() {
           )}
           <Stack
             spacing={{ xs: 1, sm: 2 }}
-            sx={{ mr: { xs: 0,md:1.5,lg: 6 } }}
+            sx={{ mr: { xs: 0, md: 1.5, lg: 6 } }}
             direction="row"
           >
             <Stack

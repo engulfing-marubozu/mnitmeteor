@@ -6,7 +6,7 @@ import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from '../Discussi
 import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
 import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
-
+import { TimeSince } from '../../TimeElapsed/timecalc';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <ReplyButton {...other}>Reply</ReplyButton>
@@ -30,7 +30,7 @@ const ExpandMoreReplies = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-function Reply() {
+function Reply({ replyData }) {
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -64,6 +64,13 @@ function Reply() {
     }
   }
   //   ===========================================================================================================================================================================
+
+  const reply = replyData?.content;
+  const repliedBy = replyData.mnit_id;
+  const date = replyData.createdAt;
+  const properDate = TimeSince(date);
+
+  // ==================================================================================================================================================================================
   const likeButton = LikeButtonStyle(likeDislike);
   const classes = CommentReplyStyle();
   // ================================================================================================================================================================================
@@ -72,9 +79,9 @@ function Reply() {
       <Box className={classes.topBox}>
         <Stack className={classes.topStack}>
           <Avatar className={classes.avatarStyle} />
-          <Typography className={classes.usernameStyle}>2019ume1143</Typography>
+          <Typography className={classes.usernameStyle}>{repliedBy}</Typography>
         </Stack>
-        <Typography className={classes.dateStyle}>26 sep 2020</Typography>
+        <Typography className={classes.dateStyle}>{properDate}</Typography>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "row" }} >
         <Box className={likeButton.likeCardBox}>
@@ -84,7 +91,7 @@ function Reply() {
         </Box>
         <Box className={classes.mainBox}>
           <Typography className={classes.contentBox}>
-            Lorem ipsum dolorl est recusandae,
+            {reply}
           </Typography>
           <Box className={classes.actionBoxStyle}>
             <Box>
@@ -97,12 +104,15 @@ function Reply() {
               <CommentDeleteButton>Delete</CommentDeleteButton>
             </Box>
             <Box>
+
               <ExpandMoreReplies
                 expand={expandedReplies}
                 onClick={handleViewRepliesClick}
                 aria-expanded={expandedReplies}
               >
               </ExpandMoreReplies>
+
+
             </Box>
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>

@@ -157,7 +157,7 @@ export const CommentReplyStyle = makeStyles({
         }
     },
     usernameStyle: {
-        color: "#512da8",
+        // color: "#512da8",
         fontWeight: "bold",
         // padding: "0px 8px",
         margin: "0px 8px",

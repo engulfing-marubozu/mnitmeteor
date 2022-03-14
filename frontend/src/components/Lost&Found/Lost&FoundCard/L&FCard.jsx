@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card, CardHeader, CardContent, Box } from '@mui/material';
+import { Card, CardHeader, CardContent, Box, Tooltip } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -18,15 +18,17 @@ export default function LostFoundCard() {
                     }
                     action={
                         <IconButton >
-                            <ShareIcon color="primary" />
+                            <Tooltip title="Share" arrow placement='right'>
+                                <ShareIcon color="primary" />
+                            </Tooltip>
                         </IconButton>
                     }
                     title="Shrimp and Chorizo Paella"
                     subheader="September 14, 2016"
                 />
-                <CardContent  sx={{py:"0rem"}}>
+                <CardContent sx={{ py: "0rem" }}>
                     <Typography variant="h6">Boat Earphone</Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{wordBreak:"break-all"}}>
+                    <Typography variant="body2" color="text.secondary" sx={{ wordBreak: "break-all" }}>
                         {/* This impressive paella is a perfect party dish and a fun meal to cook
                         together with your guests. Add 1 cup of frozen peas along with the mussels,
                         if you like.    This impressive paella is a perfect party dish and a fun meal to cook

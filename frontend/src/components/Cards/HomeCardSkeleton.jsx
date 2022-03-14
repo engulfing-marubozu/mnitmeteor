@@ -1,5 +1,5 @@
 import React from 'react'
-import { Paper,Box,Skeleton } from "@mui/material";
+import { Box,Skeleton } from "@mui/material";
 
 function HomeCardSkeleton() {
     return (

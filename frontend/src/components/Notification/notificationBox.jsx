@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import NotificationPage from './notificationPage';
 
 function NotificationBox() {
   const [notifications, setNotifications] = useState();
@@ -24,7 +25,8 @@ function NotificationBox() {
 },[])
 
   return (
-     <div>notificationBoxdfdkasfj;adkfjklasjfddfdsfdfdfdsfadfdafdfdf</div>
+    <NotificationPage/>
+    //  <div>notificationBoxdfdkasfj;adkfjklasjfddfdsfdfdfdsfadfdafdfdf</div>
  
   )
 }

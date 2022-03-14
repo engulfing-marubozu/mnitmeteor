@@ -15,6 +15,20 @@ const theme = createTheme({
       main: '#edf2ff',
     },
   },
+  typography: {
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  },
 });
 
 // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];

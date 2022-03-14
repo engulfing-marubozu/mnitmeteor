@@ -21,10 +21,10 @@ const ExpandMoreComment = styled((props) => {
 
 
 const ExpandMoreReplies = styled((props) => {
-    const { expand, ...other } = props;
+    const { expand, replyCount, ...other } = props;
     return (
         <ViewRepliesButton {...other}>
-            {!expand && " View Replies"}
+            {!expand && `View Replies (${replyCount})`}
             {expand && "Hide Replies"}
         </ViewRepliesButton>);
 })(({ theme, expand }) => ({
@@ -34,8 +34,8 @@ const ExpandMoreReplies = styled((props) => {
     }),
 }));
 
-function Comments({ commentData, addCommentData }) {
-
+function Comments({ commentData, addCommentData, actionData }) {
+    const [localCommentData, setLocalCommentData] = useState(commentData);
 
     // ==========================================================================================================================================================================
     const [expanded, setExpanded] = useState(false);
@@ -73,12 +73,15 @@ function Comments({ commentData, addCommentData }) {
 
 
     //   ===========================================================================================================================================================================
-    console.log(commentData);
-    const comment = commentData.content;
-    const commentId = commentData._id;
-    const commentedBy = commentData.mnit_id;
-    const date = commentData.createdAt;
+    // console.log(commentData);
+    const comment = localCommentData.content;
+    const commentId = localCommentData._id;
+    const userId = localCommentData.mnit_id;
+    const commentedBy = localCommentData.commented_by;
+    const date = localCommentData.createdAt;
     const properDate = TimeSince(date);
+    const replies = localCommentData.replies;
+    const replyCount = replies.length;
     // =====================================================================================================================================================================================
     const classes = CommentReplyStyle();
     const likeButton = LikeButtonStyle(likeDislike);
@@ -92,7 +95,7 @@ function Comments({ commentData, addCommentData }) {
                     <Stack className={classes.topStack}>
                         <Avatar className={classes.avatarStyle} />
                         <Typography className={classes.usernameStyle}>
-                            {commentedBy}
+                            {userId}
                         </Typography>
                     </Stack>
                     <Typography className={classes.dateStyle}>{properDate}</Typography>
@@ -117,24 +120,39 @@ function Comments({ commentData, addCommentData }) {
                                 </ExpandMoreComment>
 
                                 {
+                                    (actionData.delFlag || commentedBy === actionData.userLoggedIn ? <CommentDeleteButton>Delete</CommentDeleteButton> : null)
 
-                                    <CommentDeleteButton>Delete</CommentDeleteButton>
                                 }
                             </Box>
                             <Box>
-                                <ExpandMoreReplies
-                                    expand={expandedReplies}
-                                    onClick={handleViewRepliesClick}
-                                    aria-expanded={expandedReplies}
-                                >
-                                </ExpandMoreReplies>
+                                {replyCount > 0 &&
+                                    <ExpandMoreReplies
+                                        expand={expandedReplies}
+                                        onClick={handleViewRepliesClick}
+                                        aria-expanded={expandedReplies}
+                                        replyCount={replyCount}
+                                    >
+                                    </ExpandMoreReplies>
+                                }
+
                             </Box>
                         </Box>
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <ReplyCommentBox handleExpandClick={handleExpandClick} addReplyData={addReplyData} />
+                            <ReplyCommentBox
+                                handleExpandClick={handleExpandClick}
+                                addReplyData={addReplyData}
+                                setLocalCommentData={setLocalCommentData}
+                               setExpandedReplies={setExpandedReplies}
+                            />
                         </Collapse>
                         <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
-                            <Reply />
+                            {
+                                typeof (replies) !== "undefined" && (replies.map((data, index) => {
+                                    return (
+                                        <Reply addReplyData={addReplyData} replyData={data} key={index}></Reply>
+                                    )
+                                }))
+                            }
                         </Collapse>
                     </Box>
                 </Box>

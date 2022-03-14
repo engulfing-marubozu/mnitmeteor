@@ -18,6 +18,9 @@ import LostFoundForm from "../Lost&Found/lost&foundForm/l&fForm";
 import DiscussionMyAnswers from "../Discussions/DiscussionCategories/disMyAnswers";
 import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
 import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
+import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
+import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
+import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
 function RouterCon() {
   const localUserData = useContext(UserDataContext);
   const isLoggedIn = localUserData?.isLogin;
@@ -31,16 +34,17 @@ function RouterCon() {
       <Route path="About" element={<About />} />
       <Route path="Discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
-        <Route path="CreateNewTopic" element={<DiscussionForm />} />
-        <Route path="MyAnswers" element={<DiscussionMyAnswers />} />
-        <Route path="MyTopics" element={<DiscussionMyTopics />} />
-        <Route path="SavedTopics" element={<DiscussionSavedTopics />} />
+        <Route path="CreateNewTopic" element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />} />
+        <Route path="MyAnswers" element={isLoggedIn ? <DiscussionMyAnswers /> : <Navigate to="/" />} />
+        <Route path="MyTopics" element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />} />
+        <Route path="SavedTopics" element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />} />
       </Route>
       <Route path="Lost&Found" element={<LostFound />} >
         <Route index element={<LostFoundCardArray />} />
-        <Route path="Lost&FoundForm" element={<LostFoundForm />} />
-        <Route path="LostItems" element={<LostFoundForm />} />
-        <Route path="FoundItems" element={<LostFoundForm />} />
+        <Route path="Lost&FoundForm" element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />} />
+        <Route path="LostItems" element={isLoggedIn ? <LostItems /> : <Navigate to="/" />} />
+        <Route path="FoundItems" element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />} />
+        <Route path="MyItems" element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />} />
       </Route>
       <Route
         path="Sellproduct"

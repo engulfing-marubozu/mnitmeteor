@@ -36,18 +36,6 @@ const user_schema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
       default: [],
     },
-    threads_saved: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
-      default: [],
-    },
-    threads_commented_or_replied: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
-      default: [],
-    },
-    threads_liked: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
-      default: [],
-    },
     favourites: {
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],

@@ -1,20 +1,35 @@
-import React, { useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import LostFoundCard from './L&FCard';
-const array = [1, 2, 3, 5, 6, 7, 8, 8, 8, 8, 8];
-function LostFoundCardArray() {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    })
-    return (
-        <>
-            {
-                array.map((item, index) => {
-                    return (<LostFoundCard key={index} />)
-                })
-            }
-        </>
+import axios from 'axios'
 
-    )
+function PostsWithAxios() {
+  const [posts, setPosts] = useState( [] );
+ 
+  useEffect(() => {
+    const axiosPosts = async () => {
+      const response = await axios('http://localhost:5000/fetchlost');  //get
+      console.log(response.data);
+      setPosts(response.data);
+    };
+    axiosPosts();
+  }, []);
+ 
+const useaxiosPosts = posts.map((post)=>{
+    console.log(post);
+  return <div>
+              <h3>{post.name}</h3>
+              {/* <p>{post.description}</p> */}
+              {/* <p>{post.body}</p> */}
+            </div> 
+  })
+
+  return (
+    <>
+      <div className="axioscontainer">
+          {posts && useaxiosPosts}
+      </div>
+    </>
+  );
 }
 
-export default LostFoundCardArray;
+export default PostsWithAxios;

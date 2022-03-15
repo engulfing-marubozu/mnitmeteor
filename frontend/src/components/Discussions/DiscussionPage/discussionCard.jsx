@@ -18,6 +18,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
 import { useSelector } from "react-redux";
+import axios from 'axios';
 
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data }) {
@@ -42,6 +43,7 @@ function DiscussionCard({ data }) {
         }
 
     };
+
     // =============================================================LIKEHANDLER=====================================================================================================================================================
     const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
     const likeIncreaseHandler = () => {
@@ -77,6 +79,8 @@ function DiscussionCard({ data }) {
         }
     }
 
+
+
     // ===================================================================================================================================================================================================================================
     // console.log(data);
     const title = localCardData?.title;
@@ -95,12 +99,51 @@ function DiscussionCard({ data }) {
     const delFlag = (localCardData?.posted_by === userLoggedIn);
     const actionData = { delFlag: delFlag, userLoggedIn: userLoggedIn };
     // ================================================================================================================================================================================================================================
-    const SavedHandler = () => {
+    const SavedHandler = async() => {
+       
         if (isLoggedIn) {
+          
+          
             setSaved(!saved)
+            try {
+                console.log(token);
+                console.log(cardId);
+                const thread_id = cardId
+                 const response = await axios.post(
+                  "http://localhost:5000/save_threads",
+                  { thread_id },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                );
+                 console.log(response.data);
+              } catch (err) {
+                console.log(err);
+              }
         } else {
             dispatch(modelPopUp(true));
         }
+    }
+// ====================================================================================== 
+
+    const deleteHandler =async ()=>{
+        try {
+            // const response =
+          const response =  await axios.post(
+              "http://localhost:5000/delete_thread",
+              {thread_id:cardId},
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            console.log(response.data);
+          } catch (err) {
+            console.log(err);
+          }
     }
 
     const CommentVisibleHandler = () => {
@@ -167,7 +210,7 @@ function DiscussionCard({ data }) {
                                 <IconButton onClick={SavedHandler} >
                                     <Tooltip title="Save" arrow>
                                         {
-                                            saved ? <BookmarkAddedIcon color="primary" /> : <BookmarkAddIcon />
+                                            saved ? <BookmarkAddedIcon color="primary"  /> : <BookmarkAddIcon />
                                         }
                                     </Tooltip>
                                 </IconButton>
@@ -175,7 +218,7 @@ function DiscussionCard({ data }) {
                                 {
                                     delFlag && (
                                         // <Tooltip>
-                                        <IconButton>
+                                        <IconButton  onClick={deleteHandler}>
                                             <Tooltip title="Delete" arrow >
                                                 <DeleteIcon />
                                             </Tooltip>

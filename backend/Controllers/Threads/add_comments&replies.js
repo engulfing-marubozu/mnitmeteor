@@ -27,7 +27,7 @@ const add_comment =async (req,res)=>{
         ) 
        await User.findByIdAndUpdate(user_id, {
             $addToSet: {
-                threads_commented_or_replied : thread_id
+                threads_commented_or_replied :{id : thread_id }
             }
         })
         
@@ -55,16 +55,10 @@ const add_comment =async (req,res)=>{
            const updated_Thread = await Thread.find({_id : thread_id});
            await User.findByIdAndUpdate(user_id, {
             $addToSet: {
-                threads_commented_or_replied : thread_id
+                threads_commented_or_replied : {id : thread_id}
             }
         })
-        // console.log(x.discussions)
-        // console.log(updated_Thread)
-        //  const updated_commment = x.discussions.forEach((comment)=>{
-        //       console.log(comment)
-        //      if( comment._id === comment_id)
-        //       return comment
-        //  })
+      
            res.status(200).send({updated_Thread, comment_id});
         }
        

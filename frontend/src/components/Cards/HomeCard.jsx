@@ -42,12 +42,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function HomeCard(props) {
-  //  console.log(props.cardData);
+export default function HomeCard({ cardData }) {
+  //  console.log(cardData);
   // =============================================CARD DATA==============================================================================================
-  const Image = props.cardData?.images[0]?.image;
-  const title = props.cardData?.title.charAt(0).toUpperCase() + props.cardData?.title.slice(1);
-  const date = new Date(props.cardData?.createdAt);
+  const Image = cardData?.images[0]?.image;
+  const title = cardData?.title.charAt(0).toUpperCase() + cardData?.title.slice(1);
+  const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -57,14 +57,14 @@ export default function HomeCard(props) {
   const [likeButton, setLikeButton] = useState();
 
   React.useEffect(() => {
-    setLikeButton(props.cardData.blue_heart);
-  }, [props.cardData.blue_heart]);
+    setLikeButton(cardData.blue_heart);
+  }, [cardData.blue_heart]);
   const LikeButtonHandler = () => {
     // console.log("likeButtonHandler");
     if (isLoggedIn) {
       // console.log(token);
       setLikeButton(!likeButton);
-      const likeData = { productId: props.cardData._id, userToken: token };
+      const likeData = { productId: cardData._id, userToken: token };
       !likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
       likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: false }));
     } else {
@@ -74,7 +74,7 @@ export default function HomeCard(props) {
   const Classes = useStyles();
   return (
     <HoverCard sx={{ maxWidth: "280px", borderRadius: 1, transition: `500ms transform ease` }} >
-      <Link to={`/ProductDiscription/${props.cardData._id}`}>
+      <Link to={`/ProductDiscription/${cardData._id}`}>
         <CardMedia
           component="img"
           classes={{ img: Classes.image }}
@@ -135,7 +135,7 @@ export default function HomeCard(props) {
           <RWebShare
             data={{
               text: "Mnit Market",
-              url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+              url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
               title: `${title}`,
             }}
             onClick={() => console.log("shared successfully!")}

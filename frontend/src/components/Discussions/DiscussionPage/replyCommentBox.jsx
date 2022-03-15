@@ -1,15 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { TextField, Box } from '@mui/material';
-import { CommentButton } from '../DiscussionStyling/discussionStyling';
+import { AddReplyButton } from '../DiscussionStyling/discussionStyling';
 import { useSelector } from "react-redux";
 import axios from 'axios'
 
 function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData, setExpandedReplies }) {
     const inputReply = useRef(null);
-
+    const [disabledPost, setDisabledPost] = useState(true);
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const token = localUserData.token;
-    const [disabledPost, setDisabledPost] = useState(true);
     const EnablePost = (event) => {
         const commentValue = event.target.value;
         if (commentValue) {
@@ -21,12 +20,8 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
 
     const submitHandler = async () => {
         // console.log(inputReply.current.value);
-        // console.log(addReplyData);
         const email = localUserData.userData.email.slice(0, 11);
-        // console.log(inputComment.current.value);
-        // console.log(addCommentData);
-        // const response =
-         await axios.post(
+        const response = await axios.post(
             "http://localhost:5000/add_comment",
             { thread_id: addReplyData.cardId, comment_id: addReplyData.commentId, commentor_mnit_id: email, content: inputReply.current.value },
             {
@@ -35,13 +30,17 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
                 },
             }
         );
-        // console.log(response.data);/
-        // setLocalCommentData(response.data.updated_thread)
-        // updatePage(response.data.updated_Thread.discussions.length);
-        handleExpandClick();
+        let updatedComment = {};
+        response.data.updated_Thread[0].discussions.forEach((comment) => {
+            if (comment._id === response.data.comment_id) {
+                updatedComment = comment;
+            }
+        })
+        // console.log(updatedComment);
+        setLocalCommentData(updatedComment);
+        inputReply.current.value = "";
         setExpandedReplies(true);
-        // inputComment.current.value = null;
-        // console.log(response.data);
+        setDisabledPost(true);
     }
     return (
         <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
@@ -59,8 +58,8 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
                     onKeyUp={EnablePost}
                 />
                 <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
-                    <CommentButton onClick={handleExpandClick}>Cancel</CommentButton>
-                    <CommentButton disabled={disabledPost} onClick={submitHandler} >Add Reply</CommentButton>
+                    <AddReplyButton onClick={handleExpandClick}>Cancel</AddReplyButton>
+                    <AddReplyButton disabled={disabledPost} onClick={submitHandler} >Add Reply</AddReplyButton>
                 </Box>
             </form>
         </Box>

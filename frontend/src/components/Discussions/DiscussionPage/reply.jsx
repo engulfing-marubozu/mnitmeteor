@@ -9,30 +9,15 @@ import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discuss
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import { ExpandMore } from './_expandMore';
 
-const ExpandMoreReplies = styled((props) => {
-  const { expand, ...other } = props;
-  if (!expand) {
-    return <ViewRepliesButton{...other}>View Replies</ViewRepliesButton>
-  } else {
-    return <ViewRepliesButton{...other}>Hide Replies</ViewRepliesButton>
-  }
-})(({ theme, expand }) => ({
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 function Reply({ replyData }) {
   const [expanded, setExpanded] = useState(false);
+
+  const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
+  // ============================================================================================================================================================================
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [expandedReplies, setExpandedReplies] = useState(false);
-  const handleViewRepliesClick = () => {
-    setExpandedReplies(!expandedReplies);
-  };
   //  ========================================================================================================================================================================
-  const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
   const likeIncreaseHandler = () => {
     if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
       setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
@@ -56,10 +41,10 @@ function Reply({ replyData }) {
     }
   }
   //   ===========================================================================================================================================================================
-  console.log(replyData);
+  // console.log(replyData);
   const reply = replyData?.content;
   const repliedBy = replyData.mnit_id;
-  const date = replyData.createdAt;
+  const date = new Date(replyData.createdAt);
   const properDate = TimeSince(date);
 
   // ==================================================================================================================================================================================
@@ -86,26 +71,18 @@ function Reply({ replyData }) {
             {reply}
           </Typography>
           <Box className={classes.actionBoxStyle}>
-            <Box>
+            <Box className={classes.buttonWrapper}>
               <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
               >
-              </ExpandMore>
-              <CommentDeleteButton>Delete</CommentDeleteButton>
-            </Box>
-            <Box>
-
-              <ExpandMoreReplies
-                expand={expandedReplies}
-                onClick={handleViewRepliesClick}
-                aria-expanded={expandedReplies}
-              >
                 <ReplyButton >Reply</ReplyButton>
-              </ExpandMoreReplies>
+              </ExpandMore>
 
-
+              {
+                <CommentDeleteButton>Delete</CommentDeleteButton>
+              }
             </Box>
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -113,9 +90,6 @@ function Reply({ replyData }) {
           </Collapse>
         </Box>
       </Box>
-      <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
-        <Reply />
-      </Collapse>
     </Box>
 
   )

@@ -16,7 +16,7 @@ export default function UploadImage(props) {
 
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    // console.log(imageList, addUpdateIndex);
     setFieldValue(props.name, imageList);
     setImages(imageList);
     props.onDrop(imageList);

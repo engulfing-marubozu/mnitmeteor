@@ -17,7 +17,7 @@ import POPUPElement from "../ModelPopUP/POPUPElement";
 import InterestedAlert from "../ModelPopUP/InterestedAlert";
 import GetPhoneNo from "../ContactDetails/GetPhoneNo";
 import DiscriptionProductDelete from "../ModelPopUP/DiscriptionDeleteButton";
-import "./ImageStyle.css";
+import "./discriptionImageStyle.css";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function DiscriptionCard() {
   const params = useParams();
@@ -161,7 +161,13 @@ function DiscriptionCard() {
       {/* <BoxContainer>this is discription page of </BoxContainer> */}
       <Wrapper>
         <BoxContainer>
-          {images && <ImageGallery items={images} />}
+          {images && (
+            <div className="discriptioncardImage">
+              <ImageGallery showPlayButton={false} items={images} />
+            </div>
+
+          )
+          }
         </BoxContainer>
         <TextContainer>
           <Typography

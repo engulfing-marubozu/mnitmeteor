@@ -84,17 +84,18 @@ export const forumContainStyle = makeStyles({
     mainBox: {
         maxWidth: "900px",
         display: "flex",
-        margin: "1.5rem auto",
+        padding:"24px 0px 40px 0px ",
+        margin: "0rem auto",
         "@media (max-width: 1200px)": {
-            padding: "0px 42px",
+            padding: "24px 42px 40px 42px",
         },
         "@media (max-width:900px)": {
-            padding: "0px 24px",
+            padding: "24px 24px 40px 42px",
         },
         "@media (max-width:600px)": {
             margin: "0rem",
             width: "100%",
-            padding: "0px 0px",
+            padding: "0px 0px 40px 0px",
         }
     },
     verticalNavBox: {

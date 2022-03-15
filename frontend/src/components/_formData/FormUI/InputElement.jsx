@@ -10,7 +10,7 @@ export function TextfieldWrapper({ name, ...otherProps }) {
             event.target.value = " ";
             return;
         };
-        console.log(event.target.value);
+        // console.log(event.target.value);
         setFieldValue(name, event.target.value);
     };
     const configTextfield = {

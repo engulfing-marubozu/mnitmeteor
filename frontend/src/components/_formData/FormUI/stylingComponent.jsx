@@ -5,7 +5,7 @@ export const useStyles = makeStyles({
         display: "flex",
         alignItems: "center",
         width: "100%",
-        padding: "2rem 0rem",
+        padding: "2.5rem 0rem",
         flexDirection: "column",
     },
     mainBoxSecond: {
@@ -56,17 +56,17 @@ export const useStyles = makeStyles({
     },
     // ==========================================================================
     paperStyle: {
-        width: "55%",
-        // width: "800px", 
+        // width: "50%",
+        width: "700px",
         height: "auto",
         borderRadius: "1rem",
         display: "flex",
         flexDirection: "column",
         "@media (max-width: 1200px)": {
-            width: "65%",
+            width: "650px",
         },
         "@media (max-width: 900px)": {
-            width: "75%",
+            width: "520px",
         },
         "@media (max-width: 600px)": {
             width: "90%",

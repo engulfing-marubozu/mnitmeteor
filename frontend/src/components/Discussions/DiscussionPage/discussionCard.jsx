@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react'
-import { Typography, Box, Paper, Avatar, Stack, IconButton, CardHeader, Tooltip, Button } from "@mui/material";
+import React, { useState } from 'react'
+import { Typography, Box, Paper, Avatar, Stack, IconButton, CardHeader, Tooltip } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+// import AddBoxIcon from '@mui/icons-material/AddBox';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
@@ -20,16 +21,18 @@ import { useSelector } from "react-redux";
 
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data }) {
+
+    const [localCardData, setLocalCardData] = useState(data);
+    const [commentVisible, setCommentVisible] = useState(4);
+    const [saved, setSaved] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    // =================================================================================================================================================================================================================================
     const dispatch = useDispatch();
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const token = localUserData?.token;
     const isLoggedIn = localUserData?.isLogin;
     const userLoggedIn = localUserData?.userData?._id
-    const [localCardData, setLocalCardData] = useState(data);
-    const [commentVisible, setCommentVisible] = useState(4);
-    const [saved, setSaved] = useState(false);
     // ================================================================================================================================================================================================================================
-    const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         if (isLoggedIn) {
             setExpanded(!expanded);
@@ -81,7 +84,8 @@ function DiscussionCard({ data }) {
     const date = new Date(localCardData?.createdAt);
     const properDate = TimeSince(date);
     const userId = localCardData?.users_mnit_id;
-    const comments = localCardData?.discussions;
+    const comments = localCardData?.discussions.slice(0).reverse();
+    // const comments = localCardData?.discussions;
     const commentCount = localCardData?.discussions.length;
     // ===================================================================================================================================================================================================================================
     const classes = DiscussionCardStyle();
@@ -145,14 +149,16 @@ function DiscussionCard({ data }) {
                                 {
                                     typeof (comments) !== "undefined" && (comments?.slice(0, commentVisible)?.map((data, index) => {
                                         return (
-                                            <Comments addCommentData={addCommentData} commentData={data} key={index} actionData={actionData}></Comments>
+                                            <Comments addCommentData={addCommentData} commentData={data} key={data._id} actionData={actionData}></Comments>
                                         )
                                     }))
                                 }
-                                {
+                                {(commentVisible < commentCount) && (
                                     <Box sx={{ display: "flex", justifyContent: "center" }}>
-                                        <ViewMoreButton onClick={CommentVisibleHandler}>View more comments </ViewMoreButton>
+                                        <ViewMoreButton onClick={CommentVisibleHandler}>View more comments ({commentCount - commentVisible}) </ViewMoreButton>
+                                        {/* <AddBoxIcon/> */}
                                     </Box>
+                                )
                                 }
                             </Box>
                         </Collapse>

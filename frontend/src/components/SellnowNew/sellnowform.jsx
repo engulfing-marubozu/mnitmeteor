@@ -26,12 +26,12 @@ const FORM_VALIDATION = Yup.object().shape({
 function SellFormNew() {
   const [formValue, setFormValue] = useState({});
   const [contactModel, setContactModel] = useState(false);
-  const Navigate = useNavigate();
-  const token = useSelector((state) => state.loginlogoutReducer.token);
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const phoneNumber = useSelector((state) => state.loginlogoutReducer.userData.Mobile_no);
   const [imagearray, setimagearray] = useState([]);
-  // console.log(imagearray);
+  const Navigate = useNavigate();
+  const localUserData = useSelector((state) => state.loginlogoutReducer)
+  const token = localUserData.token;
+  const isLoggedIn = localUserData.isLogin;
+  const phoneNumber = localUserData.userData.Mobile_no;
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
@@ -40,7 +40,8 @@ function SellFormNew() {
   const merge = async (values) => {
     try {
       console.log("sent to save in database");
-      const response = await axios.post(
+      // const response = 
+      await axios.post(
         "http://localhost:5000/product_details",
         { images: imagearray, details: values },
         {
@@ -49,7 +50,7 @@ function SellFormNew() {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -83,7 +84,7 @@ function SellFormNew() {
                   name="adTitle"
                   size="small"
                   helperText="Mention the key features of your item (e.g. brand, model, type)"
-                  // inputProps={{ maxLength: 10 }}
+                // inputProps={{ maxLength: 10 }}
                 />
                 <Typography className={classes.boldText}>Discription *</Typography>
                 <TextfieldWrapper
@@ -91,7 +92,7 @@ function SellFormNew() {
                   helperText="Include condition, features and reason for selling"
                   multiline={true}
                   rows={4}
-                  // inputProps={{ maxLength: 100 }}
+                // inputProps={{ maxLength: 100 }}
                 />
                 <Typography className={classes.boldText}>Select a category *</Typography>
                 <SelectWrapper

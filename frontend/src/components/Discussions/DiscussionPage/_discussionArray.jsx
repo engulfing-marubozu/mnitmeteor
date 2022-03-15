@@ -14,7 +14,6 @@ function DiscussionCardArray() {
                     "http://localhost:5000/fetch_live_threads"
                 );
                 if (isSubscribed) {
-                    // console.log(response.data?.universal_threads);
                     setDiscussionData(response.data?.universal_threads);
                 }
             } catch (err) {
@@ -25,21 +24,15 @@ function DiscussionCardArray() {
         return () => (isSubscribed = false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    // console.log(discussionData)
 
     return (
         <>
-
             {
                 typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
                     return (<DiscussionCard key={index} data={data} />)
                 })
             }
-
-
         </>)
-
-
 }
 
 export default DiscussionCardArray;

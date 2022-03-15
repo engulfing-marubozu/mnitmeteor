@@ -9,6 +9,9 @@ import Collapse from '@mui/material/Collapse';
 import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import { ExpandMore } from './_expandMore';
+import { ViewMoreButton } from '../DiscussionStyling/discussionStyling';
+
+
 
 const ExpandMoreReplies = styled((props) => {
     const { expand, replyCount, ...other } = props;
@@ -23,20 +26,25 @@ const ExpandMoreReplies = styled((props) => {
         duration: theme.transitions.duration.shortest,
     }),
 }));
-function Comments({ commentData, addCommentData, actionData }) {
-    const [localCommentData, setLocalCommentData] = useState(commentData);
 
-    // ==========================================================================================================================================================================
+
+// ================================================================================================================================================================================
+function Comments({ commentData, addCommentData, actionData }) {
+    const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
+    const [localCommentData, setLocalCommentData] = useState(commentData);
     const [expAddCmnt, setExpAddCmt] = useState(false);
+    const [expReplies, setExpReplies] = useState(false);
+    // const [replyVisible, setReplyVisible] = useState(3);
+    // ==========================================================================================================================================================================
     const handleExpandClick = () => {
         setExpAddCmt(!expAddCmnt);
     };
-    const [expReplies, setExpReplies] = useState(false);
     const handleViewRepliesClick = () => {
         setExpReplies(!expReplies);
     };
+
     //  ========================================================================================================================================================================
-    const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
+
     const likeIncreaseHandler = () => {
         if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
             setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
@@ -67,14 +75,18 @@ function Comments({ commentData, addCommentData, actionData }) {
     const commentId = localCommentData._id;
     const userId = localCommentData.mnit_id;
     const commentedBy = localCommentData.commented_by;
-    const date = localCommentData.createdAt;
+    const date = new Date(localCommentData.createdAt);
     const properDate = TimeSince(date);
-    const replies = localCommentData.replies;
+    const replies = localCommentData.replies.slice(0).reverse();
     const replyCount = replies.length;
     // =====================================================================================================================================================================================
     const classes = CommentReplyStyle();
     const likeButton = LikeButtonStyle(likeDislike);
     const addReplyData = { ...addCommentData, commentId: commentId }
+    // ===============================================================================================
+    // const ReplyVisibleHandler = () => {
+    //     setReplyVisible((prev) => (prev + 2 < replyCount ? prev + 2 : replyCount))
+    // }
 
     // =======================================================================================================================================================================================================
     return (
@@ -137,12 +149,18 @@ function Comments({ commentData, addCommentData, actionData }) {
                         </Collapse>
                         <Collapse in={expReplies} timeout="auto" unmountOnExit>
                             {
-                                typeof (replies) !== "undefined" && (replies.map((data, index) => {
+                                typeof (replies) !== "undefined" && (replies.map((data) => {
                                     return (
-                                        <Reply addReplyData={addReplyData} replyData={data} key={index}></Reply>
+                                        <Reply addReplyData={addReplyData} replyData={data} key={data._id}></Reply>
                                     )
                                 }))
                             }
+                            {/* {(replyVisible < replyCount) && (
+                                <Box sx={{ display: "flex", justifyContent: "center", pt: "0.5rem" }}>
+                                    <ViewMoreButton onClick={ReplyVisibleHandler}>View more replies({replyCount - replyVisible})</ViewMoreButton>
+                                </Box>
+                            )
+                            } */}
                         </Collapse>
                     </Box>
                 </Box>

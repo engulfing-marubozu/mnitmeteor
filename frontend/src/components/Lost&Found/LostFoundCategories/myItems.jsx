@@ -1,48 +1,48 @@
-// import React from 'react'
-import React, {useState, useEffect, useContext} from 'react'
-// import LostFoundCard from '../L&FCard';
+
+import React, { useState, useEffect, } from 'react'
+import { useSelector } from 'react-redux';
 import axios from 'axios'
-import {UserDataContext} from "../../_ContextFolder/webContext";
 
-
-// export default PostsWithAxios;
 function LostFoundMyItems() {
-    const localUserData = useContext(UserDataContext);
-    const token = localUserData.token;
-    console.log(localUserData);
-    console.log("My items panel");
-    const [posts, setPosts] = useState( [] );
- 
-    useEffect(() => {
-      console.log("My items panel 2");
-      const axiosPosts = async () => {
-        const response = await axios.get('http://localhost:5000/lnfmyitems', 
-        {
-          headers: {
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const token = localUserData.token;
+  console.log(localUserData);
+  console.log("My items panel");
+  const [posts, setPosts] = useState();
+
+  useEffect(() => {
+    console.log("My items panel 2");
+    let isSubscribed = true;
+    const axiosPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/lnfmyitems',
+          {
+            headers: {
               authorization: `Bearer ${token}`,
-          },
+            },
+          }
+        );
+        if (isSubscribed) {
+          setPosts(response.data);
         }
-      );  //get
-        console.log(response.data);
-        setPosts(response.data);
-      };
-      axiosPosts();
-    }, []);
-    const useaxiosPosts = posts.map((post)=>{
-        console.log(post);
-      return <div>
-                  <h3>{post.name}</h3>
-                  {/* <p>{post.description}</p> */}
-                  {/* <p>{post.body}</p> */}
-                </div> 
-      })
-      return (
-        <>
-          <div className="axioscontainer">
-              {posts && useaxiosPosts}
-          </div>
-        </>
-      );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    axiosPosts();
+    return () => (isSubscribed = false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(posts);
+
+  return (
+    <>
+      <div>
+        MyItems
+      </div>
+    </>
+  );
 }
 
 export default LostFoundMyItems;

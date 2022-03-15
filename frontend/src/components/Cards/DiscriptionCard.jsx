@@ -281,10 +281,8 @@ function DiscriptionCard() {
             flag={true}
             onClose={setContactModel}
           >
-            ====Content for Discription prompt =================================
-            Et et tempor labore in.Sint ullamco anim incididunt cillum quis et
-            id velit laboris magna.Sint eiusmod elit quis amet dolore.Anim
-            aliquip elit incididunt eu enim sint officia enim quis.
+            Oops! We don’t have your phone number ☹️.
+            Your phone number will only be shared with prospective buyers.
           </GetPhoneNo>
         </POPUPElement>
       )}

@@ -68,7 +68,7 @@ function DiscussionForm() {
                                     size="small"
                                     helperText="Mention the topic name or project name "
                                 />
-                                <Typography className={classes.boldTextSecond}>Discription *</Typography>
+                                <Typography className={classes.boldTextSecond}>Description *</Typography>
                                 <TextfieldWrapper
                                     name="description"
                                     helperText="Describe about the topic"

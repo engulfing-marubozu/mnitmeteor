@@ -49,7 +49,7 @@ function LostFoundForm() {
     //   const Navigate = useNavigate();
     //   const token = useSelector((state) => state.loginlogoutReducer.token);
     const localUserData=useContext(UserDataContext);
-    // console.log(localUserData.user);
+    console.log(localUserData.user);
     const token=localUserData.token;
     const [imagearray, setimagearray] = useState([]);
     // console.log(imagearray);

@@ -109,7 +109,7 @@ export default function CategorySlider() {
               variant="rounded"
             />
           }
-          label="Cloths"
+          label="Clothes"
           onClick={() => {
             TabClickHandler("Cloth");
           }}

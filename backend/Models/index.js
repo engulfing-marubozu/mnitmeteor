@@ -16,6 +16,9 @@ const lost_item_schema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    email: {
+      type: String,
+    }
     
   },
   {timestamps : true}

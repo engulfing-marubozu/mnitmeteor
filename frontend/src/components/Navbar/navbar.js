@@ -10,7 +10,6 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import { deepPurple } from "@mui/material/colors";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
@@ -48,22 +47,6 @@ export const OutlinedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export const theme = createTheme({
-  typography: {
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-  },
-});
 // ==========================================================================================================================================================================
 function Navbar() {
   const Navigate = useNavigate();
@@ -123,7 +106,7 @@ function Navbar() {
   }, [setNotificationPending]);
   // ========================================================================================================================================================================
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
@@ -242,7 +225,7 @@ function Navbar() {
           </Stack>
         </Toolbar>
       </AppBar>
-    </ThemeProvider>
+    </>
   );
 }
 export default Navbar;

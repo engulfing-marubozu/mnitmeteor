@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { UserDataContext } from "../_ContextFolder/webContext";
 import Home from "../HomePage/Home";
 import About from "../About/About";
 import Discussions from "../Discussions/discussion";
@@ -22,8 +21,11 @@ import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
 import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
 function RouterCon() {
-  const localUserData = useContext(UserDataContext);
+
+  const localUserData = JSON.parse(window.localStorage.getItem('auth'));
+  // console.log(localUserData)
   const isLoggedIn = localUserData?.isLogin;
+  console.log(isLoggedIn);
   return (
     <Routes>
       {/* <Route path="/home" element ={<Home/>}/> */}

@@ -92,7 +92,7 @@ export const forumContainStyle = makeStyles({
             padding: "0px 24px",
         },
         "@media (max-width:600px)": {
-            margin:"0rem",
+            margin: "0rem",
             width: "100%",
             padding: "0px 0px",
         }
@@ -106,15 +106,12 @@ export const forumContainStyle = makeStyles({
         "@media (max-width:900px)": {
             width: "0px",
         },
-        "@media (max-width:600px)": {
-            display: "none"
-        }
     },
     cardBox: {
         width: "73%",
         display: "flex",
         marginLeft: "auto",
-        flexDirection:"column",
+        flexDirection: "column",
         "@media (max-width:1200px)": {
             width: "72%",
         },

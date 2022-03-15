@@ -4,7 +4,6 @@ import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
 import { TextfieldWrapper } from '../../_formData/FormUI/InputElement';
-// import { forumCategories } from '../../_formData/formData';
 // import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -74,7 +73,6 @@ function DiscussionForm() {
                                     rows={4}
                                 />
                                 <Typography className={classes.boldTextSecond}>Upload attachments</Typography>
-
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>

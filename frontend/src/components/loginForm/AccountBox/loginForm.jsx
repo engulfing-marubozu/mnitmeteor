@@ -20,7 +20,6 @@ import { AccountContext } from "../../_ContextFolder/webContext";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthUser } from "../../../AStatemanagement/Actions/userActions.jsx";
 import { useNavigate } from "react-router-dom";
-
 export function LoginForm(props) {
   const { Switch } = useContext(AccountContext);
   const initialValues = { email: "", password: "" };
@@ -50,10 +49,10 @@ export function LoginForm(props) {
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         dispatch(AuthUser(response.data));
-        const localStorageData={...response.data, isLogin:true};
+        const localStorageData = { ...response.data, isLogin: true };
         // console.log(localStorageData);
         window.localStorage.setItem("auth", JSON.stringify(localStorageData));
-       const userData= JSON.parse(window.localStorage.getItem("auth"));
+        const userData = JSON.parse(window.localStorage.getItem("auth"));
         userData && socket.emit("initialise user", userData.user.email);
         isSellNowClicked && Navigate("SellProduct");
       }

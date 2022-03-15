@@ -3,7 +3,7 @@ import axios from "axios";
 import HomeCard from "../Cards/HomeCard";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Grid, Container, styled } from "@mui/material";
+import { Button, Grid, Container, styled, Box } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
 import HomeCardSkeleton from "../Cards/HomeCardSkeleton";
 export const ModelOutlinedButton = styled(Button)(({ theme }) => ({
@@ -23,7 +23,14 @@ function ProductCard(props) {
   const [cardData, setCardData] = useState();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
   const email = useSelector((state) => state.loginlogoutReducer.userData?.email);
-  // console.log(email);
+  const [loadMore, setLoadMore] = useState(20);
+  // ==========================================================================================
+  const LoadMoreHandler = () => {
+    setLoadMore((prev) => {
+      return (prev + 4 < cardData.length ? prev + 4 : cardData.length)
+    })
+  }
+
 
   useEffect(() => {
     // console.log(category);
@@ -54,14 +61,14 @@ function ProductCard(props) {
         sx={{ pt: { xs: 5 }, pb: { xs: 5 }, maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" } }}
       >
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-          {(typeof (cardData) === "undefined" ? Array.from(new Array(20)).map((data, index) => {
+          {(typeof (cardData) === "undefined" ? Array.from(new Array(24)).map((data, index) => {
             return (
               <Grid item xs={6} md={4} lg={3} key={index} >
                 <HomeCardSkeleton />
               </Grid>
             )
           }) :
-            cardData.map((data, index) => {
+            cardData.slice(0, loadMore).map((data, index) => {
               if (data !== null) {
                 return (
                   <Grid item xs={6} md={4} lg={3} key={index}>
@@ -79,9 +86,13 @@ function ProductCard(props) {
             }))}
         </Grid>
       </Container>
-      {/* <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
-        <ModelOutlinedButton variant="outlined">Load More</ModelOutlinedButton>
-      </Box> */}
+      {
+        (typeof (cardData) !== "undefined" && loadMore < cardData?.length) && (
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+            <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>Load More</ModelOutlinedButton>
+          </Box>)
+      }
+
     </main>
   );
 }

@@ -1,5 +1,12 @@
 import { makeStyles } from '@mui/styles';
 export const DiscussionCardStyle = makeStyles({
+    dmainBox: {
+        display: "flex",
+        alignItems: "flex-start",
+        flexDirection: "column",
+        width: "100%",
+        marginTop: "1rem ",
+    },
     dpaperStyle: {
         backgroundColor: "white",
         width: "100%",
@@ -163,11 +170,11 @@ export const CommentReplyStyle = makeStyles({
         margin: "0px 8px",
         fontSize: "0.95rem",
         "@media (max-width: 900px)": {
-          margin:"0px 6px",
+            margin: "0px 6px",
         },
         "@media (max-width: 600px)": {
             fontSize: "0.85rem",
-            margin:"0px 5px"
+            margin: "0px 5px"
         }
     },
     actionBoxStyle: {
@@ -175,6 +182,11 @@ export const CommentReplyStyle = makeStyles({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    buttonWrapper:{
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"flex-end"
     },
     contentBox: {
         fontSize: "14px",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useContext} from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import FavouritesCard from "./favouriteCard";
 //import HomeCard from "../Cards/HomeCard";
@@ -6,12 +6,10 @@ import Container from "@mui/material/Container";
 import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
 import axios from "axios";
-import { UserDataContext } from "../_ContextFolder/webContext";
-
 function Favourites() {
   const [cardData, setcardData] = useState();
-  const localUserData=useContext(UserDataContext);
-  const token=localUserData.token;
+  const localUserData = JSON.parse(window.localStorage.getItem('auth'));
+  const token = localUserData?.token;
   const favouritesLength = useSelector(
     (state) => state.FavouritesReducer.favouritesData
   );
@@ -36,7 +34,7 @@ function Favourites() {
       isSubscribed = false;
     };
   }, [favouritesLength, token]);
-  console.log(cardData);
+  // console.log(cardData);
   return (
     <div>
       <Typography

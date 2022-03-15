@@ -7,15 +7,7 @@ import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
 import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <ReplyButton {...other}>Reply</ReplyButton>
-})(({ theme, expand }) => ({
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import { ExpandMore } from './_expandMore';
 
 const ExpandMoreReplies = styled((props) => {
   const { expand, ...other } = props;
@@ -64,7 +56,7 @@ function Reply({ replyData }) {
     }
   }
   //   ===========================================================================================================================================================================
-
+  console.log(replyData);
   const reply = replyData?.content;
   const repliedBy = replyData.mnit_id;
   const date = replyData.createdAt;
@@ -110,6 +102,7 @@ function Reply({ replyData }) {
                 onClick={handleViewRepliesClick}
                 aria-expanded={expandedReplies}
               >
+                <ReplyButton >Reply</ReplyButton>
               </ExpandMoreReplies>
 
 

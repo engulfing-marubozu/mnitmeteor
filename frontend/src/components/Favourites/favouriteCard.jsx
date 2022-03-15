@@ -1,12 +1,6 @@
 import React from "react";
 import { RWebShare } from 'react-web-share'
-import Card from "@mui/material/Card";
-import { Box } from "@mui/material";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { Box, Tooltip, Card, CardMedia, CardContent, CardActions, IconButton, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
@@ -44,6 +38,7 @@ const useStyles = makeStyles({
   crossIconButton: {
     color: "black",
     backgroundColor: "white",
+    margin: 0.6,
     "&:hover": {
       backgroundColor: "white",
     },
@@ -56,13 +51,12 @@ export default function FavouritesCard(props) {
   const Image = props.cardData.images[0].image;
   const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
   const date = new Date(props.cardData.createdAt);
-  // const properDate = `${date.toLocaleString("default", { month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = TimeSince(date);
   //  ============================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
-  //   // =========================================================================================================================================
+  // =========================================================================================================================================
   const removeFromFavouritesHandler = () => {
     // console.log("likeButtonHandler");
     if (isLoggedIn) {
@@ -93,7 +87,7 @@ export default function FavouritesCard(props) {
             component="img"
             classes={{ img: Classes.image }}
             width="280px"
-            sx={{ height: { xs: "160px", sm: "180px" } ,p:{sm:1.5,xs:1}}}
+            sx={{ height: { xs: "160px", sm: "180px" }, p: { sm: 1.5, xs: 1 } }}
             image={Image}
             alt="Image"
           />
@@ -149,24 +143,25 @@ export default function FavouritesCard(props) {
               onClick={() => console.log("shared successfully!")}
             >
               <IconButton
-                aria-label="share"
                 sx={{
                   color: "#512da8",
                   p: { xs: "4px", sm: "8px" },
                 }}
 
-              >
-                <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+              > <Tooltip title="Share" arrow >
+                  <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
+                </Tooltip>
               </IconButton>
             </RWebShare>
-
           </CardActions>
         </CardContentNoPadding>
       </HoverCard>
 
       <div style={{ zIndex: 11, position: "absolute", right: "0px" }}>
-        <IconButton onClick={removeFromFavouritesHandler} sx={{ m: 0.6 }} classes={{ root: Classes.crossIconButton }} size="small" >
-          <CloseIcon sx={{ fontSize:{xs:'14px' ,sm:'16px'}, }} />
+        <IconButton onClick={removeFromFavouritesHandler} classes={{ root: Classes.crossIconButton }} size="small" >
+          <Tooltip title='Remove' placement="right" arrow>
+            <CloseIcon sx={{ fontSize: { xs: '14px', sm: '16px' }, }} />
+          </Tooltip>
         </IconButton>
       </div>
     </div>

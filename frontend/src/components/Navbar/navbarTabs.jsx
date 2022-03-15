@@ -37,7 +37,7 @@ export default function NavbarTabs(props) {
   const location = useLocation();
   const [value, setValue] = React.useState(0);
   useEffect(() => {
-    if (location.pathname === "/" && value) { setValue(0) }
+    if (location.pathname === "/") { setValue(0) }
     else if (location.pathname.includes("/Discussions")) { setValue(1) }
     else if (location.pathname.includes("/Lost&Found")) { setValue(2) }
     else {

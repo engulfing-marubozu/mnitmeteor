@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Stack } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
@@ -31,22 +31,36 @@ const theme = createTheme({
 });
 
 function Discussions() {
-  // useEffect(() => {
-
-  // })
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
+  const sizeEventHandler = () => {
+    setwindowWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", sizeEventHandler);
+    return () => {
+      window.removeEventListener("resize", sizeEventHandler);
+    };
+  }, [windowWidth]);
+  // ==================================================================================================================================
   const classes = forumContainStyle();
+
+  // ==================================================================================================================================
   return (<>
     <ThemeProvider theme={theme}>
       <Box className={classes.mainBox}>
-        <Box className={classes.verticalNavBox}>
-          <Box sx={{ position: "fixed" }}>
-            <DiscussionVerticalNavigation />
+        {(windowWidth > 600) && (
+          < Box className={classes.verticalNavBox}>
+            <Box sx={{ position: "fixed" }}>
+              <DiscussionVerticalNavigation />
+            </Box>
           </Box>
-        </Box>
+        )
+        }
         <Box className={classes.cardBox}>
-          <Stack sx={{ display: { xs: "flex", sm: "none" } }}>
-            <DiscussionNavigation />
-          </Stack>
+          {(windowWidth <= 600) && (
+            <Stack>
+              <DiscussionNavigation />
+            </Stack>)}
           <Outlet />
         </Box>
       </Box>

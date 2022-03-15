@@ -1,13 +1,13 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState } from 'react'
 import { TextField, Box } from '@mui/material';
 import { CommentButton } from '../DiscussionStyling/discussionStyling';
-import { UserDataContext } from '../../_ContextFolder/webContext';
+import { useSelector } from "react-redux";
 import axios from 'axios'
 
-function ReplyCommentBox({ handleExpandClick, addReplyData,setLocalCommentData, setExpandedReplies }) {
+function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData, setExpandedReplies }) {
     const inputReply = useRef(null);
 
-    const localUserData = useContext(UserDataContext);
+    const localUserData = useSelector((state) => state.loginlogoutReducer);
     const token = localUserData.token;
     const [disabledPost, setDisabledPost] = useState(true);
     const EnablePost = (event) => {
@@ -20,12 +20,13 @@ function ReplyCommentBox({ handleExpandClick, addReplyData,setLocalCommentData, 
     }
 
     const submitHandler = async () => {
-        console.log(inputReply.current.value);
-        console.log(addReplyData);
-        const email = localUserData.user.email.slice(0, 11);
+        // console.log(inputReply.current.value);
+        // console.log(addReplyData);
+        const email = localUserData.userData.email.slice(0, 11);
         // console.log(inputComment.current.value);
         // console.log(addCommentData);
-        const response = await axios.post(
+        // const response =
+         await axios.post(
             "http://localhost:5000/add_comment",
             { thread_id: addReplyData.cardId, comment_id: addReplyData.commentId, commentor_mnit_id: email, content: inputReply.current.value },
             {
@@ -34,35 +35,35 @@ function ReplyCommentBox({ handleExpandClick, addReplyData,setLocalCommentData, 
                 },
             }
         );
-        console.log(response.data);
+        // console.log(response.data);/
         // setLocalCommentData(response.data.updated_thread)
         // updatePage(response.data.updated_Thread.discussions.length);
         handleExpandClick();
-       setExpandedReplies(true);
+        setExpandedReplies(true);
         // inputComment.current.value = null;
         // console.log(response.data);
     }
-    return ( 
-            <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
-                <form>
-                    <TextField
-                        autoFocus={true}
-                        color="primary"
-                        fullWidth
-                        id="outlined-multiline-flexible"
-                        label="Comment"
-                        multiline
-                        maxRows={4}
-                        size="small"
-                        inputRef={inputReply}
-                        onKeyUp={EnablePost}
-                    />
-                    <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
-                        <CommentButton onClick={handleExpandClick}>Cancel</CommentButton>
-                        <CommentButton disabled={disabledPost} onClick={submitHandler} >Add Reply</CommentButton>
-                    </Box>
-                </form>
-            </Box>
+    return (
+        <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
+            <form>
+                <TextField
+                    size="small"
+                    autoFocus={true}
+                    color="primary"
+                    fullWidth
+                    id="outlined-multiline-flexible"
+                    multiline
+                    maxRows={4}
+                    placeholder="Add a reply..."
+                    inputRef={inputReply}
+                    onKeyUp={EnablePost}
+                />
+                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 1 }}>
+                    <CommentButton onClick={handleExpandClick}>Cancel</CommentButton>
+                    <CommentButton disabled={disabledPost} onClick={submitHandler} >Add Reply</CommentButton>
+                </Box>
+            </form>
+        </Box>
     )
 }
 

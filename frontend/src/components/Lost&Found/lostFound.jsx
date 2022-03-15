@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import { Box, Stack } from "@mui/material";
@@ -30,22 +30,37 @@ const theme = createTheme({
     ].join(","),
   },
 });
-
-// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 function LostFound() {
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth);
+  const sizeEventHandler = () => {
+    setwindowWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", sizeEventHandler);
+    return () => {
+      window.removeEventListener("resize", sizeEventHandler);
+    };
+  }, [windowWidth]);
   const classes = forumContainStyle();
   return (<>
     <ThemeProvider theme={theme}>
       <Box className={classes.mainBox}>
-        <Box className={classes.verticalNavBox}>
-          <Box sx={{ position: "fixed" }}>
-            <LostFoundVerticalNavigation />
+        {(windowWidth > 600) && (
+          <Box className={classes.verticalNavBox}>
+            <Box sx={{ position: "fixed" }}>
+              <LostFoundVerticalNavigation />
+            </Box>
           </Box>
-        </Box>
+        )}
+
         <Box className={classes.cardBox}>
-          <Stack sx={{ display: { xs: "flex", sm: "none" } }}>
-            <LostFoundNavigation />
-          </Stack>
+          {
+            (windowWidth <= 600) && (
+              <Stack>
+                <LostFoundNavigation />
+              </Stack>
+            )
+          }
           <Outlet />
         </Box>
       </Box>

@@ -8,17 +8,7 @@ import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
 import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
-
-const ExpandMoreComment = styled((props) => {
-    const { expand, ...other } = props;
-    return <ReplyButton  {...other}>Reply</ReplyButton>
-})(({ theme, expand }) => ({
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
-
+import { ExpandMore } from './_expandMore';
 
 const ExpandMoreReplies = styled((props) => {
     const { expand, replyCount, ...other } = props;
@@ -26,25 +16,24 @@ const ExpandMoreReplies = styled((props) => {
         <ViewRepliesButton {...other}>
             {!expand && `View Replies (${replyCount})`}
             {expand && "Hide Replies"}
-        </ViewRepliesButton>);
+        </ViewRepliesButton>)
 })(({ theme, expand }) => ({
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
         duration: theme.transitions.duration.shortest,
     }),
 }));
-
 function Comments({ commentData, addCommentData, actionData }) {
     const [localCommentData, setLocalCommentData] = useState(commentData);
 
     // ==========================================================================================================================================================================
-    const [expanded, setExpanded] = useState(false);
+    const [expAddCmnt, setExpAddCmt] = useState(false);
     const handleExpandClick = () => {
-        setExpanded(!expanded);
+        setExpAddCmt(!expAddCmnt);
     };
-    const [expandedReplies, setExpandedReplies] = useState(false);
+    const [expReplies, setExpReplies] = useState(false);
     const handleViewRepliesClick = () => {
-        setExpandedReplies(!expandedReplies);
+        setExpReplies(!expReplies);
     };
     //  ========================================================================================================================================================================
     const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
@@ -90,7 +79,7 @@ function Comments({ commentData, addCommentData, actionData }) {
     // =======================================================================================================================================================================================================
     return (
         <Box>
-            <Box sx={{ width: "94%", height: "auto", bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 1, mt: 1.5 }}>
+            <Box sx={{ bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 1, my: "0.5rem" }}>
                 <Box className={classes.topBox}>
                     <Stack className={classes.topStack}>
                         <Avatar className={classes.avatarStyle} />
@@ -111,13 +100,14 @@ function Comments({ commentData, addCommentData, actionData }) {
                             {comment}
                         </Typography>
                         <Box className={classes.actionBoxStyle}>
-                            <Box>
-                                <ExpandMoreComment
-                                    expand={expanded}
+                            <Box className={classes.buttonWrapper} >
+                                <ExpandMore
+                                    expand={expAddCmnt}
                                     onClick={handleExpandClick}
-                                    aria-expanded={expanded}
+                                // aria-expanded={expanded}
                                 >
-                                </ExpandMoreComment>
+                                    <ReplyButton>Reply</ReplyButton>
+                                </ExpandMore>
 
                                 {
                                     (actionData.delFlag || commentedBy === actionData.userLoggedIn ? <CommentDeleteButton>Delete</CommentDeleteButton> : null)
@@ -127,25 +117,25 @@ function Comments({ commentData, addCommentData, actionData }) {
                             <Box>
                                 {replyCount > 0 &&
                                     <ExpandMoreReplies
-                                        expand={expandedReplies}
+                                        expand={expReplies}
                                         onClick={handleViewRepliesClick}
-                                        aria-expanded={expandedReplies}
                                         replyCount={replyCount}
+                                    // aria-expanded={expandedReplies}
                                     >
                                     </ExpandMoreReplies>
                                 }
 
                             </Box>
                         </Box>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <Collapse in={expAddCmnt} timeout="auto" unmountOnExit>
                             <ReplyCommentBox
                                 handleExpandClick={handleExpandClick}
                                 addReplyData={addReplyData}
                                 setLocalCommentData={setLocalCommentData}
-                               setExpandedReplies={setExpandedReplies}
+                                setExpandedReplies={setExpReplies}
                             />
                         </Collapse>
-                        <Collapse in={expandedReplies} timeout="auto" unmountOnExit>
+                        <Collapse in={expReplies} timeout="auto" unmountOnExit>
                             {
                                 typeof (replies) !== "undefined" && (replies.map((data, index) => {
                                     return (

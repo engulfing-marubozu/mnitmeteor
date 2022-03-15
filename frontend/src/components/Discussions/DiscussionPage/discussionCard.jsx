@@ -89,6 +89,7 @@ function DiscussionCard({ data }) {
     const properDate = TimeSince(date);
     const userId = localCardData?.users_mnit_id;
     const comments = localCardData?.discussions.slice(0).reverse();
+    const cardId = localCardData?._id;
     // const comments = localCardData?.discussions;
     const commentCount = localCardData?.discussions.length;
     // ===================================================================================================================================================================================================================================

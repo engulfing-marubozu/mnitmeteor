@@ -41,6 +41,8 @@ function DiscussionForm() {
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
                             console.log(values)
+
+
                             const call = async (values) => {
                                 console.log(values)
                                 const response = await axios.post(
@@ -54,6 +56,7 @@ function DiscussionForm() {
                                 );
                                 console.log(response.data);
                             }
+                            
                             call(values);
                         }}
                     >

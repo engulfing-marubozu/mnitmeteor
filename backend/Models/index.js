@@ -1,6 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
-
+const lost_item_schema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    category: {
+      type: String,
+    },
+    imgs: [{}],
+    posted_by: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    
+  },
+  {timestamps : true}
+)
 const user_schema = new mongoose.Schema(
   {
     email: {
@@ -168,4 +187,5 @@ const thread_schema = new mongoose.Schema(
 const Product = mongoose.model("Product", products_schema);
 const User = mongoose.model("User", user_schema);
 const Thread = mongoose.model("Thread", thread_schema);
-module.exports = { User, Product, Thread };
+const LostItem = mongoose.model("LostItem", lost_item_schema);
+module.exports = { User, Product, Thread,LostItem };

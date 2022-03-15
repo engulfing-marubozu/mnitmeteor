@@ -8,14 +8,15 @@ import { TextfieldWrapper } from '../../_formData/FormUI/InputElement';
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
-// import axios from "axios";
+import UploadDoc from "../../_formData/gettingFiles/uploadDoc";
 
 // =================================================================================================================================================================================================================
 
-const INITIAL_FORM_STATE = { adTitle: "", description: "", };
+const INITIAL_FORM_STATE = { adTitle: "", description: "", document: "" };
 const FORM_VALIDATION = Yup.object().shape({
     adTitle: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
+    document: Yup.string().notRequired(),
 });
 
 // ======================================================================================================================================================================================================
@@ -47,7 +48,7 @@ function DiscussionForm() {
                                 console.log(values)
                                 const response = await axios.post(
                                     "http://localhost:5000/create_thread",
-                                    { title: values.adTitle, description: values.description },
+                                    { title: values.adTitle, description: values.description, document: values.document },
                                     {
                                         headers: {
                                             Authorization: `Bearer ${token}`,
@@ -56,7 +57,7 @@ function DiscussionForm() {
                                 );
                                 console.log(response.data);
                             }
-                            
+
                             call(values);
                         }}
                     >
@@ -76,6 +77,10 @@ function DiscussionForm() {
                                     rows={4}
                                 />
                                 <Typography className={classes.boldTextSecond}>Upload attachments</Typography>
+                                <UploadDoc
+                                    name="document"
+                                    helperText="upload pdf "
+                                />
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>

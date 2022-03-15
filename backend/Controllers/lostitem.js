@@ -17,6 +17,7 @@ const SendLost = async (req,res) => {
     console.log(req.body.title);
     console.log(req.body.description);
     console.log(req.body.categories);
+    email = req.body.email;
     imgs = req.body.imgs;
     refID = req.body.posted_by;
     // console.log();
@@ -44,7 +45,8 @@ const SendLost = async (req,res) => {
             description: description,
             category: category,
             imgs: image_cloud_links,
-            posted_by: refID
+            posted_by: refID,
+            email: email,
             //person info bhi honi chahiye 
         });
         try {

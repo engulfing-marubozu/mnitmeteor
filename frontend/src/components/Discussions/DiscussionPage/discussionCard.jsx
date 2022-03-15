@@ -89,6 +89,7 @@ function DiscussionCard({ data }) {
     const properDate = TimeSince(date);
     const userId = localCardData?.users_mnit_id;
     const comments = localCardData?.discussions.slice(0).reverse();
+    const cardId = localCardData?._id;
     // const comments = localCardData?.discussions;
     const commentCount = localCardData?.discussions.length;
     // ===================================================================================================================================================================================================================================
@@ -99,51 +100,51 @@ function DiscussionCard({ data }) {
     const delFlag = (localCardData?.posted_by === userLoggedIn);
     const actionData = { delFlag: delFlag, userLoggedIn: userLoggedIn };
     // ================================================================================================================================================================================================================================
-    const SavedHandler = async() => {
-       
+    const SavedHandler = async () => {
+
         if (isLoggedIn) {
-          
-          
+
+
             setSaved(!saved)
             try {
                 console.log(token);
                 console.log(cardId);
                 const thread_id = cardId
-                 const response = await axios.post(
-                  "http://localhost:5000/save_threads",
-                  { thread_id },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
+                const response = await axios.post(
+                    "http://localhost:5000/save_threads",
+                    { thread_id },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
                 );
-                 console.log(response.data);
-              } catch (err) {
+                console.log(response.data);
+            } catch (err) {
                 console.log(err);
-              }
+            }
         } else {
             dispatch(modelPopUp(true));
         }
     }
-// ====================================================================================== 
+    // ====================================================================================== 
 
-    const deleteHandler =async ()=>{
+    const deleteHandler = async () => {
         try {
             // const response =
-          const response =  await axios.post(
-              "http://localhost:5000/delete_thread",
-              {thread_id:cardId},
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
+            const response = await axios.post(
+                "http://localhost:5000/delete_thread",
+                { thread_id: cardId },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             console.log(response.data);
-          } catch (err) {
+        } catch (err) {
             console.log(err);
-          }
+        }
     }
 
     const CommentVisibleHandler = () => {
@@ -210,7 +211,7 @@ function DiscussionCard({ data }) {
                                 <IconButton onClick={SavedHandler} >
                                     <Tooltip title="Save" arrow>
                                         {
-                                            saved ? <BookmarkAddedIcon color="primary"  /> : <BookmarkAddIcon />
+                                            saved ? <BookmarkAddedIcon color="primary" /> : <BookmarkAddIcon />
                                         }
                                     </Tooltip>
                                 </IconButton>
@@ -218,7 +219,7 @@ function DiscussionCard({ data }) {
                                 {
                                     delFlag && (
                                         // <Tooltip>
-                                        <IconButton  onClick={deleteHandler}>
+                                        <IconButton onClick={deleteHandler}>
                                             <Tooltip title="Delete" arrow >
                                                 <DeleteIcon />
                                             </Tooltip>

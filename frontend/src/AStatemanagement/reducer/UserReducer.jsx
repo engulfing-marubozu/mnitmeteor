@@ -7,6 +7,8 @@ import {
   MODEL_POPUP,
   PHONE_NUMBER_AUTH,
   SELLNOW_CLICKED,
+  DELETE_LF_ITEMS,
+  LIKE_THREAD
 } from "../Actions/types";
 
 const InitialState = {
@@ -39,7 +41,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
       return state;
   }
 };
-
+// =======================================================================================================
 const modelPopInitialValue = {
   popUp: false,
 };
@@ -51,7 +53,7 @@ export const ModelPopUpReducer = (state = modelPopInitialValue, action) => {
       return state;
   }
 };
-
+// =======================================================================================================
 const favouritesInitialValue = {};
 export const FavouritesReducer = (state = favouritesInitialValue, action) => {
   switch (action.type) {
@@ -64,7 +66,7 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
       return state;
   }
 };
-
+// ======================================================================================================
 const interestedInitialValue = {
   interestedData: '', attempts_left: 3, status: true, ttl_seconds: 100
 };
@@ -84,7 +86,7 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
       return state;
   }
 };
-
+// ====================================================================================================
 const publishedAdInitialData = {};
 export const DeletePublishedAdsReducer = (
   state = publishedAdInitialData,
@@ -100,7 +102,44 @@ export const DeletePublishedAdsReducer = (
       return state;
   }
 };
+// ====================================================================================================
+const lfInitialState = {};
+export const lfDeleteReducer = (state = lfInitialState, action) => {
+  switch (action.type) {
+    case DELETE_LF_ITEMS:
+      return {
+        ...state,
+        lfItemPosted: action.payload,
+      }
+    default: {
+      return state;
+    }
+  }
+}
+// =========================================================================================================
+const likeThreadInitialState={}
+export const likeThread = (state = likeThreadInitialState, action) => {
+  switch (action.type) {
+    case LIKE_THREAD:
+      return {
+        ...state,
 
+      }
+    default: {
+      return state;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+// ==================================================================================================
 const phoneAuth = {};
 export const PhoneAuthReducer = (state = phoneAuth, action) => {
   switch (action.type) {

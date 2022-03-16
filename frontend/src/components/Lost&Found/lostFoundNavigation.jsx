@@ -15,7 +15,9 @@ import { modelPopUp } from '../../AStatemanagement/Actions/userActions';
 
 export function LostFoundNavigation() {
     const [value, setValue] = React.useState(0);
+    const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
     const Navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
     useEffect(() => {
         if (location.pathname === "/Lost&Found") { setValue(0) }
@@ -27,18 +29,24 @@ export function LostFoundNavigation() {
             setValue(false);
         }
     }, [location.pathname, setValue])
-
-
+    function TabClickHandler(address) {
+        if (isLoggedIn) {
+            Navigate(address);
+        }
+        else {
+            dispatch(modelPopUp(true));
+        }
+    } 
 
 
     return (
         <Paper sx={{ bgcolor: "white", display: "flex", justifyContent: "center", }}>
             <NavTabs value={value} variant="scrollable" scrollButtons={false} >
-                <NavTab icon={<ExploreIcon />} label="Explore" onClick={() => { Navigate("") }} />
-                <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { Navigate("Lost&FoundForm") }} />
-                <NavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { Navigate("LostItems") }} />
-                <NavTab icon={<SearchIcon />} label="Found Items" onClick={() => { Navigate("FoundItems") }} />
-                <NavTab icon={<SearchIcon />} label="My Items" onClick={() => { Navigate("MyItems") }} />
+                <NavTab icon={<ExploreIcon />} label="Explore" onClick={() => { TabClickHandler("") }} />
+                <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { TabClickHandler("Lost&FoundForm") }} />
+                <NavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { TabClickHandler("LostItems") }} />
+                <NavTab icon={<SearchIcon />} label="Found Items" onClick={() => { TabClickHandler("FoundItems") }} />
+                <NavTab icon={<SearchIcon />} label="My Items" onClick={() => { TabClickHandler("MyItems") }} />
             </NavTabs>
         </Paper>
 

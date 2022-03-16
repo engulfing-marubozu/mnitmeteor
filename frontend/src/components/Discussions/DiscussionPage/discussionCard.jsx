@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Typography, Box, Paper, Avatar, Stack, IconButton, CardHeader, Tooltip } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -13,7 +13,7 @@ import Collapse from '@mui/material/Collapse';
 import { DiscussionCardStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import { useDispatch } from 'react-redux';
-import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
+import { actionForLikeThread, modelPopUp } from '../../../AStatemanagement/Actions/userActions';
 import MessageIcon from '@mui/icons-material/Message';
 import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
@@ -33,6 +33,7 @@ function DiscussionCard({ data }) {
     const token = localUserData?.token;
     const isLoggedIn = localUserData?.isLogin;
     const userLoggedIn = localUserData?.userData?._id
+    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null }
     // ================================================================================================================================================================================================================================
     const handleExpandClick = () => {
         if (isLoggedIn) {
@@ -45,6 +46,7 @@ function DiscussionCard({ data }) {
     };
 
     // =============================================================LIKEHANDLER=====================================================================================================================================================
+    const initialState = { likeStatus: false, dislikeStatus: false };
     const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
     const likeIncreaseHandler = () => {
         if (isLoggedIn) {
@@ -67,6 +69,7 @@ function DiscussionCard({ data }) {
         if (isLoggedIn) {
             if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+                // dispatch(actionForLikeThread())
             }
             else if (!likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
@@ -78,6 +81,40 @@ function DiscussionCard({ data }) {
             dispatch(modelPopUp(true));
         }
     }
+    // ======================================================================================================================================================================================================================================
+    useEffect(() => {
+        console.log("deepak")
+        if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
+            if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+                console.log("false2")
+                //false2
+                const data = { status: "false2", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+
+            } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+                console.log("false1")
+                //false1
+                const data = { status: "false1", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+
+            }
+        }
+        if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
+            if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+                console.log("true2")
+                //true2
+                const data = { status: "true2", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+
+            } else if (initialState.likeStatus && !initialState.dislikeStatus) {
+                console.log("true1")
+                //   true1   console.log("false2")
+                const data = { status: "true1", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [likeDislike, initialState])
 
 
 
@@ -96,7 +133,6 @@ function DiscussionCard({ data }) {
     const classes = DiscussionCardStyle();
     const likeButton = LikeButtonStyle(likeDislike);
     // ======================================================================================================================================================================================================================================
-    const addCommentData = { token: token, cardId: data?._id, commentId: null, }
     const delFlag = (localCardData?.posted_by === userLoggedIn);
     const actionData = { delFlag: delFlag, userLoggedIn: userLoggedIn };
     // ================================================================================================================================================================================================================================

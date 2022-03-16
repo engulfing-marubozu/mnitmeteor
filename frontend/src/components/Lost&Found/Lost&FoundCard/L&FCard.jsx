@@ -13,25 +13,22 @@ import { useSelector } from 'react-redux';
 import axios from "axios";
 export default function LostFoundCard({ data }) {
     const localUserData = useSelector((state) => state.loginlogoutReducer);
-    // console.log(localUserData);
     const userLoggedIn = localUserData?.userData._id;
     const date = new Date(data.createdAt);
     const properDate = TimeSince(date);
     const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);
     const postedBy = data?.posted_by;
-  console.log(postedBy,userLoggedIn);
     const images = data.imgs.map((img, index) => {
         return {
             original: `${img.image}`,
         }
     })
     const handleDelete = (id, name) => {
-        // console.log(data);
         axios.post('http://localhost:5000/deleteLnfItem', {
-    
-            objID : id,
+
+            objID: id,
             name: name
-        },)
+        })
             .then(function (response) {
                 console.log(response);
             })
@@ -39,9 +36,9 @@ export default function LostFoundCard({ data }) {
                 console.log(error);
             });
     }
-    
+
     const classes = LostFoundCardStyle();
-    
+
     return (
         <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", mt: "1rem", flexDirection: "column" }}>
             <Card className={classes.lfpaperStyle}>
@@ -53,9 +50,9 @@ export default function LostFoundCard({ data }) {
                         <Box>
                             {
                                 (postedBy === userLoggedIn) && (
-                                    <IconButton onClick={()=>{handleDelete(data._id, data.name)}}>
+                                    <IconButton onClick={() => { handleDelete(data._id, data.name) }}>
                                         <Tooltip title="Delete" arrow placement="left">
-                                            <DeleteIcon/>
+                                            <DeleteIcon />
                                         </Tooltip>
                                     </IconButton>
                                 )

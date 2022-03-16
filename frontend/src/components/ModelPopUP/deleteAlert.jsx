@@ -10,6 +10,7 @@ import { deepPurple } from "@mui/material/colors";
 import { styled } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForDeletingPublishedAds } from "../../AStatemanagement/Actions/userActions";
+import { ModelColorButton, ModelOutlinedButton } from "./ModelPopUpStyling";
 // ===========================================================MAIN CONTENT===============================================================================
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -65,12 +66,12 @@ export default function ProductDeleteAlert(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button sx={{ color: deepPurple[500] }} onClick={handleClose}>
+          <ModelOutlinedButton variant="outlined" onClick={handleClose}>
             Disagree
-          </Button>
-          <Button sx={{ color: deepPurple[500] }} onClick={AgreeHandler}>
+          </ModelOutlinedButton>
+          <ModelColorButton onClick={AgreeHandler}>
             Agree
-          </Button>
+          </ModelColorButton>
         </DialogActions>
       </Dialog>
     </div>

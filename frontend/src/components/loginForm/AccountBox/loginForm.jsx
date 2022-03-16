@@ -49,6 +49,7 @@ export function LoginForm(props) {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         dispatch(AuthUser(response.data));
         const localStorageData = { ...response.data, isLogin: true };
+        console.log(localStorageData);
         // console.log(localStorageData);
         window.localStorage.setItem("auth", JSON.stringify(localStorageData));
         const userData = JSON.parse(window.localStorage.getItem("auth"));

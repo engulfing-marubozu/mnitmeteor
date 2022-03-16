@@ -24,7 +24,9 @@ import { useSelector } from "react-redux"
 function RouterCon() {
 
   const localUserData = useSelector((state) => state.loginlogoutReducer);
+  console.log(localUserData);
   const localStorageData = JSON.parse(window.localStorage.getItem('auth'));
+  console.log(localStorageData);
   const isLoggedIn = localStorageData ? localStorageData.isLogin : localUserData.isLogin;
 
   return (

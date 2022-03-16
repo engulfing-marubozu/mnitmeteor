@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Typography, Box, Avatar, Stack, styled, IconButton } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -9,7 +9,9 @@ import Collapse from '@mui/material/Collapse';
 import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import { ExpandMore } from './_expandMore';
-import { ViewMoreButton } from '../DiscussionStyling/discussionStyling';
+import { useDispatch } from 'react-redux';
+import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
+// import { ViewMoreButton } from '../DiscussionStyling/discussionStyling';
 
 
 
@@ -30,6 +32,8 @@ const ExpandMoreReplies = styled((props) => {
 
 // ================================================================================================================================================================================
 function Comments({ commentData, addCommentData, actionData }) {
+
+    const dispatch = useDispatch();
     const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
     const [localCommentData, setLocalCommentData] = useState(commentData);
     const [expAddCmnt, setExpAddCmt] = useState(false);
@@ -44,6 +48,7 @@ function Comments({ commentData, addCommentData, actionData }) {
     };
 
     //  ========================================================================================================================================================================
+    const initialState = { likeStatus: false, dislikeStatus: false };
 
     const likeIncreaseHandler = () => {
         if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
@@ -68,7 +73,6 @@ function Comments({ commentData, addCommentData, actionData }) {
         }
     }
 
-
     //   ===========================================================================================================================================================================
     // console.log(commentData);
     const comment = localCommentData.content;
@@ -79,10 +83,56 @@ function Comments({ commentData, addCommentData, actionData }) {
     const properDate = TimeSince(date);
     const replies = localCommentData.replies.slice(0).reverse();
     const replyCount = replies.length;
+    const addReplyData = { ...addCommentData, commentId: commentId }
+    // ========================================================================================================
+
+    useEffect(() => {
+
+        return () => {
+            console.log("deepakcomment")
+            if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
+                if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+                    console.log('false2')
+                    //false2
+                    const data = { status: "false2", ...addReplyData }
+                    dispatch(actionForLikeThread(data));
+
+                } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+                    console.log('false1')
+
+                    //false1
+                    const data = { status: "false1", ...addReplyData }
+                    dispatch(actionForLikeThread(data));
+
+                }
+            }
+            if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
+                if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+                    console.log('true2')
+
+                    //true2
+                    const data = { status: "true2", ...addReplyData }
+                    dispatch(actionForLikeThread(data));
+
+                } else if (initialState.likeStatus && !initialState.dislikeStatus) {
+                    console.log('true1')
+
+                    //   true1
+                    const data = { status: "true1", ...addReplyData }
+                    dispatch(actionForLikeThread(data));
+                }
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
+
+
     // =====================================================================================================================================================================================
     const classes = CommentReplyStyle();
     const likeButton = LikeButtonStyle(likeDislike);
-    const addReplyData = { ...addCommentData, commentId: commentId }
+
     // ===============================================================================================
     // const ReplyVisibleHandler = () => {
     //     setReplyVisible((prev) => (prev + 2 < replyCount ? prev + 2 : replyCount))

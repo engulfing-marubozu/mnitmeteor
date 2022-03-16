@@ -1,16 +1,15 @@
-import React, { useState,useContext } from 'react';
+import React, { useState } from 'react';
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
 import { TextfieldWrapper, SelectWrapper } from '../../_formData/FormUI/InputElement';
-// import { useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
-import { Formik, Form, validateYupSchema } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import UploadImage from '../../_formData/gettingFiles/uploadImage';
 import { lostFoundCategories } from '../../_formData/formData';
-import {UserDataContext} from "../../_ContextFolder/webContext";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = { adTitle: "", description: "", categories: "", images: "" };
@@ -21,42 +20,40 @@ const FORM_VALIDATION = Yup.object().shape({
     images: Yup.array().notRequired(),
 });
 
-const sendLostItem = (datat,localUserData) => {
-    console.log(datat);
+const sendLostItem = (data, localUserData) => {
+    // console.log(data);
     axios.post('http://localhost:5000/sendlostpost', {
-        
-        categories: datat.categories,
-        title:datat.adTitle,
-        imgs: datat.images,
-        description: datat.description,
-        posted_by: localUserData.user._id
-      },{
+
+        categories: data.categories,
+        title: data.adTitle,
+        imgs: data.images,
+        description: data.description,
+        posted_by: localUserData.userData._id,
+        email: localUserData.userData.email
+    }, {
         headers: {
-          Authorization: `Bearer ${localUserData.token}`,
+            Authorization: `Bearer ${localUserData.token}`,
         },
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 // ======================================================================================================================================================================================================
 function LostFoundForm() {
 
-    //   const Navigate = useNavigate();
-    //   const token = useSelector((state) => state.loginlogoutReducer.token);
-    const localUserData=useContext(UserDataContext);
-    console.log(localUserData.user);
-    const token=localUserData.token;
-    const [imagearray, setimagearray] = useState([]);
+    const Navigate = useNavigate();
+    const localUserData = useSelector((state) => state.loginlogoutReducer);
+    const [, setimagearray] = useState([]);
     // console.log(imagearray);
     const onDrop = (pictures) => {
         setimagearray(pictures);
     };
-    
+
     // =======================================================================================================================================================================================================
     const classes = useStyles();
     return (
@@ -69,20 +66,21 @@ function LostFoundForm() {
                     <Formik
                         initialValues={{ ...INITIAL_FORM_STATE }}
                         validationSchema={FORM_VALIDATION}
-                        onSubmit={(values)=>{
-                            console.log(values);
-                            sendLostItem(values,localUserData);
+                        onSubmit={(values) => {
+                            // console.log(values);
+                            sendLostItem(values, localUserData);
+                            Navigate("/Lost&Found/MyItems");
                         }}
-                        // onSubmit={(values.adTitle) => {
-                            // console.log(values.adTitle);
-                            //   setFormValue(values)
-                            //   if (!phoneNumber && isLoggedIn) {
-                            //     setContactModel(true);
-                            //   } else if (phoneNumber && isLoggedIn) {
-                            //     merge(values);
-                            //     Navigate("/Profile");
-                            //   }
-                        // }}
+                    // onSubmit={(values.adTitle) => {
+                    // console.log(values.adTitle);
+                    //   setFormValue(values)
+                    //   if (!phoneNumber && isLoggedIn) {
+                    //     setContactModel(true);
+                    //   } else if (phoneNumber && isLoggedIn) {
+                    //     merge(values);
+                    //     Navigate("/Profile");
+                    //   }
+                    // }}
                     >
                         <Form>
                             <Box className={classes.ContentBoxSecond}>
@@ -111,7 +109,7 @@ function LostFoundForm() {
                                 <ButtonWrapper >Submit Form</ButtonWrapper>
                             </Box>
                         </Form>
-                    </Formik>   
+                    </Formik>
                 </Paper>
             </Box>
         </>

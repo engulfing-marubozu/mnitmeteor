@@ -1,33 +1,33 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import LostFoundCard from './L&FCard';
 import axios from 'axios'
 
 function PostsWithAxios() {
-  const [posts, setPosts] = useState( [] );
- 
+  const [lfData, setlfData] = useState();
+
   useEffect(() => {
+    let isSubscribe = true;
     const axiosPosts = async () => {
-      const response = await axios('http://localhost:5000/fetchlost');  //get
-      console.log(response.data);
-      setPosts(response.data);
+      try {
+        const response = await axios('http://localhost:5000/fetchlost');  //get
+        if (isSubscribe) {
+          setlfData(response.data);
+        }
+      } catch (err) {
+        console.log(err)
+      }
     };
     axiosPosts();
+    return () => (isSubscribe = false);
   }, []);
- 
-const useaxiosPosts = posts.map((post)=>{
-    console.log(post);
-  return <div>
-              <h3>{post.name}</h3>
-              {/* <p>{post.description}</p> */}
-              {/* <p>{post.body}</p> */}
-            </div> 
-  })
-
+  console.log(lfData);
   return (
     <>
-      <div className="axioscontainer">
-          {posts && useaxiosPosts}
-      </div>
+      {
+        typeof (lfData) !== "undefined" && lfData.map((data, index) => {
+          return (<LostFoundCard key={index} data={data} />)
+        })
+      }
     </>
   );
 }

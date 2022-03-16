@@ -31,25 +31,24 @@ text-align:center;
   color:#5e35b1;
  }
 `;
-export const CommentButton = styled(Button)(({ theme }) => ({
+export const AddReplyButton = styled(Button)(({ theme }) => ({
   lineHeight: 1.5,
   textTransform: 'none',
   fontSize: "0.8rem",
   fontWeight: "bold",
 }));
 
-// export const ViewMoreButton = styled.button`
-// background-color: white; /* Green */
-// border: none;
-// padding: 12px 20px;
-// text-align: center;
-// text-decoration: none;
-// display: inline-block;
-// font-size: 16px;
 
-// `
+export const AddCommentButton = styled(Button)(({ theme }) => ({
+  lineHeight: 1.5,
+  textTransform: 'none',
+  fontSize: "0.9rem",
+  fontWeight: "bold",
+  marginLeft: "auto  "
+}));
 export const ViewMoreButton = styled.a`
-font-size: 14px;
+
+font-size: 12px;
 font-weight: 500;
 text-decoration: none;
 text-align:center;

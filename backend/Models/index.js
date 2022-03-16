@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+
 const Schema = require("mongoose").Schema;
+
 const lost_item_schema = new mongoose.Schema(
   {
     name: {
@@ -16,6 +18,9 @@ const lost_item_schema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    email: {
+      type: String,
+    }
     
   },
   {timestamps : true}
@@ -37,11 +42,11 @@ const user_schema = new mongoose.Schema(
       default: [],
     },
     threads_saved: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
+      type: [],
       default: [],
     },
     threads_commented_or_replied: {
-      type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
+      type: [],
       default: [],
     },
     threads_liked: {
@@ -130,6 +135,10 @@ const thread_schema = new mongoose.Schema(
     description: {
       type: String,
       default: "",
+    },
+    document : {
+           type :String,
+           default : "",
     },
     discussions: {
       type: [

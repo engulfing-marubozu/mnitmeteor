@@ -1,16 +1,15 @@
 import React, { useState, useRef } from 'react'
 import { useSelector } from "react-redux"
 import { TextField, Box, Button } from '@mui/material';
+import { AddCommentButton } from '../DiscussionStyling/discussionStyling';
 import axios from 'axios'
 
 function AddCommentBox({ addCommentData, setLocalCardData }) {
-
+    const [disabledPost, setDisabledPost] = useState(true);
     const localUserData = useSelector((state) => state.loginlogoutReducer);
-    // console.log(localUserData);
     const token = localUserData?.token;
     const inputComment = useRef(null);
-    const [disabledPost, setDisabledPost] = useState(true);
-    // const [focused,setFocused]=useState(false);
+
 
     // ==========================================================================================================================================================
     const EnablePost = (event) => {
@@ -43,8 +42,8 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
     }
     return (
         // <ThemeProvider theme={theme}>
-        <Box sx={{ mt: "1rem", display: "flex", flexDirection: "row", justifyContent: "space-between" }} >
-            <Box sx={{ width: "77%" }}>
+        <Box sx={{ mt: "1rem" }} >
+            <Box>
                 <TextField
                     autoFocus={true}
                     color="primary"
@@ -60,11 +59,10 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
                 //   onChange={handleChange}
                 />
             </Box>
-
-            <Box sx={{ width: "20%", my: "auto" }} >
-                {/* <CommentButton onClick={CancelPost}>Cancel</CommentButton> */}
-                <Button disabled={disabledPost} onClick={submitHandler}> Add Comment</Button>
+            <Box sx={{ display:"flex" ,flexDirection:"flex-end" }}>
+                <AddCommentButton disabled={disabledPost} onClick={submitHandler}> Add Comment</AddCommentButton>
             </Box>
+            {/* <CommentButton onClick={CancelPost}>Cancel</CommentButton> */}
         </Box>
     )
 }

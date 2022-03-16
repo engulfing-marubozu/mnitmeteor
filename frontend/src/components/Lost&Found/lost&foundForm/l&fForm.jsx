@@ -23,7 +23,7 @@ const FORM_VALIDATION = Yup.object().shape({
 const sendLostItem = (data, localUserData) => {
     // console.log(data);
     console.log(localUserData.userData);
-    axios.post('http://localhost:5000/sendlostpost', {
+    axios.post('http://localhost:5000/sendlftoadmin', {
 
         categories: data.categories,
         title: data.adTitle,

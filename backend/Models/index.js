@@ -20,6 +20,9 @@ const lost_item_schema = new mongoose.Schema(
     },
     email: {
       type: String,
+    },
+    is_verified: {
+      type: Boolean,
     }
     
   },

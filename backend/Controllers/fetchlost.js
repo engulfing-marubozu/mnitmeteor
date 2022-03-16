@@ -2,7 +2,7 @@ const { LostItem } = require("../Models");
 
 const FetchLost = async (req, res) => {
   try {
-    const data = await LostItem.find();
+    const data = await LostItem.find({is_verified: true});
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
     res.status(200).send(data);
@@ -14,7 +14,7 @@ const FetchLost = async (req, res) => {
 };
 const FetchOnlyFound = async (req, res) => {
   try {
-    const data = await LostItem.find({ category: "Found" });
+    const data = await LostItem.find({is_verified: true, category: "Found" });
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
     res.status(200).send(data);
@@ -26,7 +26,7 @@ const FetchOnlyFound = async (req, res) => {
 };
 const FetchOnlyLost = async (req, res) => {
   try {
-    const data = await LostItem.find({ category: "Lost" });
+    const data = await LostItem.find({is_verified: true,category: "Lost" });
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
     res.status(200).send(data);
@@ -42,12 +42,27 @@ const FetchOnlyLostUser = async (req, res) => {
   console.log(req.user._id);
   console.log("\n");
   try {
-    const data = await LostItem.find({ posted_by: req.user._id });
+    const data = await LostItem.find({ is_verified: true, posted_by: req.user._id });
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
     res.status(200).send(data);
   } catch (err) {
     console.log("tyuy");
+    console.log(err);
+    res.status(200).send(err);
+  }
+};
+const FetchFalse = async (req, res) => {
+  //current user specific products here
+  // console.log(req);
+  console.log("\n");
+  try {
+    const data = await LostItem.find({is_verified: false });
+    console.log("Sending items with false values ");
+    // const ldata = JSON.stringify(data);
+    res.status(200).send(data);
+  } catch (err) {
+    // console.log("");
     console.log(err);
     res.status(200).send(err);
   }
@@ -58,4 +73,5 @@ module.exports = {
   FetchOnlyLostUser,
   FetchOnlyLost,
   FetchOnlyFound,
+  FetchFalse,
 };

@@ -120,10 +120,8 @@ function SellFormNew() {
             formData={{ merge, formValue }}
             onClose={setContactModel}
           >
-            ====Content for sellform Prompt =================================
-            Et et tempor labore in.Sint ullamco anim incididunt cillum quis et
-            id velit laboris magna.Sint eiusmod elit quis amet dolore.Anim
-            aliquip elit incididunt eu enim sint officia enim quis.
+             Oops! We don’t have your phone number ☹️.<br></br> 
+Your phone number will only be shared with prospective buyers.
           </GetPhoneNo>
         </POPUPElement>
       )}

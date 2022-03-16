@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+
 const Schema = require("mongoose").Schema;
+
 const lost_item_schema = new mongoose.Schema(
   {
     name: {
@@ -133,6 +135,10 @@ const thread_schema = new mongoose.Schema(
     description: {
       type: String,
       default: "",
+    },
+    document : {
+           type :String,
+           default : "",
     },
     discussions: {
       type: [

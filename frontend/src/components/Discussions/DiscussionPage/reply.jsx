@@ -46,7 +46,11 @@ function Reply({ replyData }) {
   const repliedBy = replyData.mnit_id;
   const date = new Date(replyData.createdAt);
   const properDate = TimeSince(date);
+// ==================================================================================
 
+ const ReplyDeleteHandler=()=>{
+         
+ }
   // ==================================================================================================================================================================================
   const likeButton = LikeButtonStyle(likeDislike);
   const classes = CommentReplyStyle();
@@ -81,7 +85,7 @@ function Reply({ replyData }) {
               </ExpandMore>
 
               {
-                <CommentDeleteButton>Delete</CommentDeleteButton>
+                <CommentDeleteButton onClick={ReplyDeleteHandler}>Delete</CommentDeleteButton>
               }
             </Box>
           </Box>

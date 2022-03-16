@@ -208,7 +208,7 @@ export const actionForLikeThread=(likeData)=>{
   return async (dispatch)=>{
     try { 
       await axios.post(
-        "http://localhost:5000/product_details",
+        "http://localhost:5000/like_and_dislike_threads",
         { status: likeData.status, comment_id :likeData.commentId, thread_id : likeData.cardId , reply_id : likeData.replyId },
         {
           headers: {

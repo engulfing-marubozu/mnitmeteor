@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardHeader, CardContent, Box, Tooltip } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -11,8 +10,8 @@ import { LostFoundCardStyle } from './LostFoundStyling';
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import "./l&fImageStyle.css";
 import { useSelector } from 'react-redux';
+import axios from "axios";
 export default function LostFoundCard({ data }) {
-
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     // console.log(localUserData);
     const userLoggedIn = localUserData?.userData._id;
@@ -26,8 +25,23 @@ export default function LostFoundCard({ data }) {
             original: `${img.image}`,
         }
     })
-
+    const handleDelete = (id, name) => {
+        // console.log(data);
+        axios.post('http://localhost:5000/deleteLnfItem', {
+    
+            objID : id,
+            name: name
+        },)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    
     const classes = LostFoundCardStyle();
+    
     return (
         <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", mt: "1rem", flexDirection: "column" }}>
             <Card className={classes.lfpaperStyle}>
@@ -39,9 +53,9 @@ export default function LostFoundCard({ data }) {
                         <Box>
                             {
                                 (postedBy === userLoggedIn) && (
-                                    <IconButton>
+                                    <IconButton onClick={()=>{handleDelete(data._id, data.name)}}>
                                         <Tooltip title="Delete" arrow placement="left">
-                                            <DeleteIcon />
+                                            <DeleteIcon/>
                                         </Tooltip>
                                     </IconButton>
                                 )

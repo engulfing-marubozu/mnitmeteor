@@ -9,12 +9,12 @@ const  send_commented_replied_threads = async (req, res) => {
     user_id = req.user._id;
     const user = await User.findById(user_id);
   
-    const thread_id = user.threads_commented_or_replied;
-    console.log(thread_id);
+    const saved_threads = user.threads_commented_or_replied;
+  
     const data = await Promise.all(
-      thread_id.map(async (id) => {
-          console.log(id);
-        const datee = await Thread.findById(id);
+      saved_threads.map(async (saved_thread) => {
+          
+        const datee = await Thread.findById(saved_thread.id);
         return datee;
       })
     );

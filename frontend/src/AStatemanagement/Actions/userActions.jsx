@@ -14,16 +14,20 @@ import axios from "axios";
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };
+// ===============================================================
 export const LogoutUser = () => {
   return { type: LOGOUT_USER };
 };
+// ===============================================================
 export const SellNowclick = (bool) => {
   return { type: SELLNOW_CLICKED, payload: bool };
 };
-
+// ==================================================================
 export const modelPopUp = (bool) => {
   return { type: MODEL_POPUP, payload: bool };
 };
+// ==================================================================
+
 export const addToFavourites = (data) => {
   // console.log(data);
   return {
@@ -31,12 +35,16 @@ export const addToFavourites = (data) => {
     payload: data,
   };
 };
+// ==================================================================
+
 export const addToInterested = (data) => {
   return {
     type: ADD_TO_INTERESTED,
     payload: data,
   };
 };
+
+// ==================================================================
 
 export const deletePublishedProduct = (data) => {
   return {
@@ -50,9 +58,9 @@ export const phoneAuth = (data) => {
     payload: data,
   };
 };
+// ==================================================================
 
 export const fetchDataForATF = (likedata) => {
-  //  console.log("deepak");
   return async (dispatch) => {
     try {
       const { productId, userToken, isLiked } = likedata;
@@ -72,6 +80,8 @@ export const fetchDataForATF = (likedata) => {
     }
   };
 };
+// ==================================================================
+
 export const fetchDataForInterestedProduct = (interestedData) => {
   let response;
   return async (dispatch) => {
@@ -115,6 +125,8 @@ export const fetchDataForInterestedProduct = (interestedData) => {
     }
   };
 };
+// ==================================================================
+
 
 export const fetchDataForDeletingPublishedAds = (deletingData) => {
   // console.log(deletingData);
@@ -136,9 +148,10 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
     }
   };
 };
+// ==================================================================
+
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  // console.log(phoneData);
   const { token, phoneNo, flag } = phoneData;
   // console.log(token);
   return async (dispatch) => {
@@ -163,8 +176,6 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           token: token,
           user: response.data.user,
         };
-        // console.log(data);
-        // console.log(response.data);
         window.localStorage.setItem("auth", JSON.stringify(data));
         console.log(JSON.parse(window.localStorage.getItem("auth")));
         dispatch(AuthUser(data));
@@ -174,6 +185,8 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
     }
   };
 };
+
+// ====================================================================
 
 
 // export const  fetchDataForSendingEmails=(data)=>{
@@ -188,3 +201,15 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
 //  }
 
 // }
+// =====================================================================
+export const actionForLikeThread=(likeData)=>{
+  console.log(likeData);
+  return async (dispatch)=>{
+    try{
+
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+}

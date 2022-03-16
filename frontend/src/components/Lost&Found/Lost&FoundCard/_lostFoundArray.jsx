@@ -20,7 +20,7 @@ function PostsWithAxios() {
     axiosPosts();
     return () => (isSubscribe = false);
   }, []);
-  console.log(lfData);
+  // console.log(lfData);
   return (
     <>
       {

@@ -20,7 +20,7 @@ export default function LostFoundCard({ data }) {
     const properDate = TimeSince(date);
     const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);
     const postedBy = data?.posted_by;
-
+  console.log(postedBy,userLoggedIn);
     const images = data.imgs.map((img, index) => {
         return {
             original: `${img.image}`,

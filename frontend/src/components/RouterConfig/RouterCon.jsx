@@ -1,4 +1,4 @@
-import { useContext } from "react";
+
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../HomePage/Home";
 import About from "../About/About";
@@ -20,12 +20,13 @@ import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedT
 import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
 import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
+import { useSelector } from "react-redux"
 function RouterCon() {
 
-  const localUserData = JSON.parse(window.localStorage.getItem('auth'));
-  // console.log(localUserData)
-  const isLoggedIn = localUserData?.isLogin;
-  console.log(isLoggedIn);
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const localStorageData = JSON.parse(window.localStorage.getItem('auth'));
+  const isLoggedIn = localStorageData ? localStorageData.isLogin : localUserData.isLogin;
+
   return (
     <Routes>
       {/* <Route path="/home" element ={<Home/>}/> */}

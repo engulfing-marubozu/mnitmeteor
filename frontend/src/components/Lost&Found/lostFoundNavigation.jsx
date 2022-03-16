@@ -7,7 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { NavTabs, NavTab, VerticalNavTab } from '../_Styling/tabStyling';
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from '../_Styling/tabStyling';
-import LostFoundMyItems from './LostFoundCategories/myItems';
+import { useSelector, useDispatch } from "react-redux";
+import { modelPopUp } from '../../AStatemanagement/Actions/userActions';
 
 
 
@@ -25,7 +26,7 @@ export function LostFoundNavigation() {
         else {
             setValue(false);
         }
-    }, [location.pathname,setValue])
+    }, [location.pathname, setValue])
 
 
 
@@ -35,9 +36,9 @@ export function LostFoundNavigation() {
             <NavTabs value={value} variant="scrollable" scrollButtons={false} >
                 <NavTab icon={<ExploreIcon />} label="Explore" onClick={() => { Navigate("") }} />
                 <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { Navigate("Lost&FoundForm") }} />
-                <NavTab icon={<QuestionMarkIcon/>} label="Lost Items" onClick={() => { Navigate("LostItems") }} />
-                <NavTab icon={<SearchIcon/> } label="Found Items" onClick={() => { Navigate("FoundItems") }} />
-                <NavTab icon={<SearchIcon/> } label="My Items" onClick={() => { Navigate("MyItems") }} />
+                <NavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { Navigate("LostItems") }} />
+                <NavTab icon={<SearchIcon />} label="Found Items" onClick={() => { Navigate("FoundItems") }} />
+                <NavTab icon={<SearchIcon />} label="My Items" onClick={() => { Navigate("MyItems") }} />
             </NavTabs>
         </Paper>
 
@@ -48,11 +49,20 @@ export function LostFoundNavigation() {
 
 
 export function LostFoundVerticalNavigation() {
-
-    const classes = verticalNavigationStyle();
     const [value, setValue] = React.useState(0);
+    const classes = verticalNavigationStyle();
+    const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
     const Navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation();
+    function TabClickHandler(address) {
+        if (isLoggedIn) {
+            Navigate(address);
+        }
+        else {
+            dispatch(modelPopUp(true));
+        }
+    }
 
     useEffect(() => {
         if (location.pathname === "/Lost&Found") { setValue(0) }
@@ -63,8 +73,8 @@ export function LostFoundVerticalNavigation() {
         else {
             setValue(false);
         }
-  
-    }, [location.pathname,setValue])
+
+    }, [location.pathname, setValue])
 
 
 
@@ -72,11 +82,11 @@ export function LostFoundVerticalNavigation() {
         <Box className={classes.outerBox}>
             <Paper className={classes.paperStyle}>
                 <NavTabs value={value} orientation="vertical">
-                    <VerticalNavTab icon={<ExploreIcon />} label="Explore" onClick={() => { Navigate("") }} />
-                    <VerticalNavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { Navigate("Lost&FoundForm") }} />
-                    <VerticalNavTab icon={<QuestionMarkIcon/> } label="Lost Items" onClick={() => { Navigate("LostItems") }} />
-                    <VerticalNavTab icon={ <SearchIcon/>} label="Found Items" onClick={() => { Navigate("FoundItems") }} />
-                    <VerticalNavTab icon={ <SearchIcon/>} label="My Items" onClick={() => { Navigate("MyItems") }} />
+                    <VerticalNavTab icon={<ExploreIcon />} label="Explore" onClick={() => { TabClickHandler("") }} />
+                    <VerticalNavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { TabClickHandler("Lost&FoundForm") }} />
+                    <VerticalNavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { TabClickHandler("LostItems") }} />
+                    <VerticalNavTab icon={<SearchIcon />} label="Found Items" onClick={() => { TabClickHandler("FoundItems") }} />
+                    <VerticalNavTab icon={<SearchIcon />} label="My Items" onClick={() => { TabClickHandler("MyItems") }} />
                 </NavTabs>
             </Paper>
         </Box>

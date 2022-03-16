@@ -26,6 +26,7 @@ function DiscriptionCard() {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const product_id = params.productId;
   const [isInterested, setIsInterested] = useState(false);
+  const [cardData, setcardData] = useState();
   // =============================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -103,7 +104,6 @@ function DiscriptionCard() {
   };
 
   // ============================================= FETCHING DATA================================================================================
-  const [cardData, setcardData] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -131,13 +131,9 @@ function DiscriptionCard() {
   }, [email, product_id]);
 
   // ================================================================CardData ===============================================================
-  // console.log(cardData);
   const imageThumbnail = cardData?.images;
-  // console.log(Images);
-  // console.log(Image);
   const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
   const date = cardData ? new Date(cardData.createdAt) : "";
-  // const properDate = `${date.toLocaleString("default", month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = date ? TimeSince(date) : " ";
   const Description = cardData ? cardData.description : " ";
   const postedbyId = cardData ? cardData.posted_by : " ";
@@ -158,7 +154,6 @@ function DiscriptionCard() {
 
   return (
     <>
-      {/* <BoxContainer>this is discription page of </BoxContainer> */}
       <Wrapper>
         <BoxContainer>
           {images && (

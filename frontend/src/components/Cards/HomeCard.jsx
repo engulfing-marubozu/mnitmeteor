@@ -44,12 +44,12 @@ const useStyles = makeStyles({
 
 export default function HomeCard({ cardData }) {
   //  console.log(cardData);
-  // =============================================CARD DATA==============================================================================================
+  // =============================================CARD DATA===========================================================================
   const Image = cardData?.images[0]?.image;
   const title = cardData?.title.charAt(0).toUpperCase() + cardData?.title.slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
-  //  ============================================================================================================================================
+  //  =================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
@@ -59,9 +59,9 @@ export default function HomeCard({ cardData }) {
   React.useEffect(() => {
     setLikeButton(cardData.blue_heart);
   }, [cardData.blue_heart]);
-  const LikeButtonHandler = () => {
-    // console.log("likeButtonHandler");
-    if (isLoggedIn) {
+
+
+  const LikeButtonHandler = () => { if (isLoggedIn) {
       // console.log(token);
       setLikeButton(!likeButton);
       const likeData = { productId: cardData._id, userToken: token };
@@ -72,6 +72,7 @@ export default function HomeCard({ cardData }) {
     }
   };
   const Classes = useStyles();
+  // ===================================================================================================================================
   return (
     <HoverCard sx={{ maxWidth: "280px", borderRadius: 1, transition: `500ms transform ease` }} >
       <Link to={`/ProductDiscription/${cardData._id}`}>
@@ -141,7 +142,6 @@ export default function HomeCard({ cardData }) {
             onClick={() => console.log("shared successfully!")}
           >
             <IconButton
-              aria-label="share"
               sx={{
                 color: "#512da8",
                 p: { xs: "4px", sm: "8px" },

@@ -23,11 +23,15 @@ const theme = createTheme({
 });
 
 function App() {
+  //  ==================================================================================================
   const dispatch = useDispatch();
   useEffect(() => {
-    JSON.parse(window.localStorage.getItem("auth")) &&
+    if (Boolean(JSON.parse(window.localStorage.getItem("auth")))) {
       dispatch(AuthUser(JSON.parse(window.localStorage.getItem("auth"))));
+    }
   }, [dispatch]);
+
+  // ====================================================================================================
   return (
     <ThemeProvider theme={theme}>
       <Wrapper>
@@ -36,5 +40,4 @@ function App() {
     </ThemeProvider>
   );
 }
-
 export default App;

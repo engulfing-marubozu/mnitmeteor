@@ -167,7 +167,7 @@ export default function GetPhoneNo(props) {
                     ref={phoneNoRef}
                   />
                   <Validationlabel>{formErrors.otp}</Validationlabel>
-                  <CustomizeButton type="button">Submit</CustomizeButton>
+                  <CustomizeButton type="button"  onClick={OtpHandler}>Submit</CustomizeButton>
                 </Stack>
                 {!isActive && (
                   <MutedText style={{ fontSize: "12px" }}>

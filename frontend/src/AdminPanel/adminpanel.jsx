@@ -38,7 +38,36 @@ function Adminpanel() {
       console.log(err);
     }
   };
-  // ===================================================Fetching Data=================================================================================================
+  // const ApproveRequestLF = async (cardData) => {
+  //   const id = cardData._id;
+
+  //   const response = await axios.post("http://localhost:5000/admin_response", {
+  //     id,
+  //     response: true,
+  //   });
+  //   console.log(response);
+  //   socket.emit("admin approve event");
+  //   setflag(!flag);
+  // };
+  // const DeclineRequestLF = async (cardData) => {
+  //   const id = cardData._id
+  //   const user_id = cardData.posted_by;
+  //   try {
+  //     const response = await axios.post("http://localhost:5000/admin_response", {
+  //       id,
+  //       response: false,
+  //     });
+  //     console.log(response);
+  //     if (response.data === "product Ad request declined") {
+  //       socket.emit("admin decline event", user_id);
+  //     }
+  //     setflag(!flag);
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // // ===================================================Fetching Data=================================================================================================
   useEffect(() => {
     let isSubscribed = true;
     const admin_post_load = async () => {

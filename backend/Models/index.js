@@ -37,6 +37,10 @@ const user_schema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],
     },
+    lf_items_posted: {
+      type: [{type: Schema.Types.ObjectId, ref: "LostItem"}],
+      default: [],
+    },
     threads_posted: {
       type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
       default: [],

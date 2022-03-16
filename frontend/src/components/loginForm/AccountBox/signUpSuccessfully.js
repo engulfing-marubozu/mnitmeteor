@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { BoxContainer, SubmitButton } from "./common";
-import { AccountContext } from "../../_ContextFolder/webContext";
+import { AccountContext } from "../../../_ContextFolder/webContext";
 import Dogeimage from "../images/Dogeimage.jpg";
 import { Dogeimg } from "./common";
 export function SignUpSuccessfully(props) {

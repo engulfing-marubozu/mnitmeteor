@@ -22,6 +22,7 @@ const FORM_VALIDATION = Yup.object().shape({
 
 const sendLostItem = (data, localUserData) => {
     // console.log(data);
+    console.log(localUserData.userData);
     axios.post('http://localhost:5000/sendlostpost', {
 
         categories: data.categories,
@@ -29,7 +30,7 @@ const sendLostItem = (data, localUserData) => {
         imgs: data.images,
         description: data.description,
         posted_by: localUserData.userData._id,
-        email: localUserData.userData.email
+        email: localUserData.userData.email,
     }, {
         headers: {
             Authorization: `Bearer ${localUserData.token}`,

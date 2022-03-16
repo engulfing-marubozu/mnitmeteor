@@ -173,6 +173,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       } else {
         const { token } = JSON.parse(window.localStorage.getItem("auth"));
         const data = {
+          isLogin:true,
           token: token,
           user: response.data.user,
         };

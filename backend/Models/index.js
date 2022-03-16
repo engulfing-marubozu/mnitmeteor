@@ -37,6 +37,10 @@ const user_schema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],
     },
+    lf_items_posted: {
+      type: [{type: Schema.Types.ObjectId, ref: "LostItem"}],
+      default: [],
+    },
     threads_posted: {
       type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
       default: [],
@@ -122,8 +126,12 @@ const thread_schema = new mongoose.Schema(
       default: null,
     },
     likes: {
-      type: Number,
-      default: 0,
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
+    dislikes: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
     },
     users_mnit_id: {
       type: String,
@@ -155,8 +163,12 @@ const thread_schema = new mongoose.Schema(
             default: "",
           },
           likes: {
-            type: Number,
-            default: 0,
+            type: [{type :Schema.Types.ObjectId, ref : "User" }],
+            default: [],
+          },
+          dislikes: {
+            type: [{type :Schema.Types.ObjectId, ref : "User" }],
+            default: [],
           },
           replies: {
             type: [
@@ -173,8 +185,12 @@ const thread_schema = new mongoose.Schema(
                   default: "",
                 },
                 likes: {
-                  type: Number,
-                  default: 0,
+                  type: [{type :Schema.Types.ObjectId, ref : "User" }],
+                  default: [],
+                },
+                dislikes: {
+                  type: [{type :Schema.Types.ObjectId, ref : "User" }],
+                  default: [],
                 },
                 createdAt: {
                   type: Date,

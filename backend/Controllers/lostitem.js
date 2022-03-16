@@ -1,4 +1,4 @@
-const { LostItem } = require("../Models");
+const { LostItem,User } = require("../Models");
 
 const cloudinary = require("cloudinary");
 cloudinary.config({
@@ -20,7 +20,7 @@ const SendLost = async (req,res) => {
     email = req.body.email;
     imgs = req.body.imgs;
     refID = req.body.posted_by;
-    // console.log();
+    console.log(email);
     console.log("reached cloudinary part");
     try {
         const image_cloud_links = await Promise.all(
@@ -51,7 +51,11 @@ const SendLost = async (req,res) => {
         });
         try {
           const saveLostItem = await newLostItem.save();
-          console.log(saveLostItem);
+          await User.findByIdAndUpdate(refID, {
+            $addToSet: {lf_items_posted: saveLostItem._id },
+          });
+          console.log("Updated user database");
+          // console.log(saveLostItem);
         } catch (error) {
           console.log(error);
         }

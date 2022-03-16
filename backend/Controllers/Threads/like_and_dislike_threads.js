@@ -213,6 +213,11 @@ const not_unlike_reply = async (user_id, reply_id, thread_id, comment_id) => {
     console.log(err);
   }
 };
+
+
+
+
+
 const like_and_dislike_threads = async (req, res) => {
   console.log("came to save threads");
   try {

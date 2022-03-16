@@ -206,9 +206,18 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
 export const actionForLikeThread=(likeData)=>{
   console.log(likeData);
   return async (dispatch)=>{
-    try{
-
-    }catch(err){
+    try { 
+      await axios.post(
+        "http://localhost:5000/product_details",
+        { status: likeData.status, comment_id :likeData.commentId, thread_id : likeData.cardId , reply_id : likeData.replyId },
+        {
+          headers: {
+            Authorization: `Bearer ${likeData.token}`,
+          },
+        }
+      );
+      // console.log(response.data);
+    } catch (err) {
       console.log(err);
     }
   }

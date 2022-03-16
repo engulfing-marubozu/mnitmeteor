@@ -50,71 +50,114 @@ function DiscussionCard({ data }) {
     const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
     const likeIncreaseHandler = () => {
         if (isLoggedIn) {
-            if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
-                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-            }
-            else if (!likeDislike.likeStatus) {
+            if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-            }
-            else {
+                console.log("true1")
+                const data = { status: "true1", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+            } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+                // dispatch(actionForLikeThread())flase1
+                console.log("true1")
+                const data = { status: "true1", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+            } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+                // dispatch(actionForLikeThread())flase1
+                console.log("false2")
+                const data = { status: "false2", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+            } else {
+                dispatch(modelPopUp(true));
             }
-        }
-        else {
-            dispatch(modelPopUp(true));
+
+            // if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+            //     //false2
+            //     console.log("true1")
+            // }
+            // else if (!likeDislike.likeStatus) {
+            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+            // }
+            // else {
+            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+            // }
         }
 
     }
     const likeDecreaseHandler = () => {
         if (isLoggedIn) {
-            if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-                // dispatch(actionForLikeThread())
-            }
-            else if (!likeDislike.dislikeStatus) {
-                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
-            }
-            else {
-                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-            }
-        } else {
-            dispatch(modelPopUp(true));
-        }
-    }
-    // ======================================================================================================================================================================================================================================
-    useEffect(() => {
-        console.log("deepak")
-        if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-                console.log("false2")
-                //false2
-                const data = { status: "false2", ...addCommentData }
-                dispatch(actionForLikeThread(data));
-
-            } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
                 console.log("false1")
-                //false1
                 const data = { status: "false1", ...addCommentData }
                 dispatch(actionForLikeThread(data));
 
-            }
-        }
-        if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
-            if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+            } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+                setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+                // dispatch(actionForLikeThread())flase1
+                console.log("false1")
+                const data = { status: "false1", ...addCommentData }
+                dispatch(actionForLikeThread(data));
+            } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+                // dispatch(actionForLikeThread())flase1
                 console.log("true2")
-                //true2
                 const data = { status: "true2", ...addCommentData }
                 dispatch(actionForLikeThread(data));
-
-            } else if (initialState.likeStatus && !initialState.dislikeStatus) {
-                console.log("true1")
-                //   true1   console.log("false2")
-                const data = { status: "true1", ...addCommentData }
-                dispatch(actionForLikeThread(data));
+            } else {
+                dispatch(modelPopUp(true));
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [likeDislike, initialState])
+    }
+
+    //     if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+    //         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+    //         // dispatch(actionForLikeThread())flase1
+    //         console.log("false1")
+    //     }
+    //     else if (&& !likeDislike.dislikeStatus) {
+    //         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
+    //     }
+    //     else {
+    //         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
+    //     }
+    // }
+    // }
+    // ======================================================================================================================================================================================================================================
+    // useEffect(() => {
+    //     console.log("deepak")
+    //     if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
+    //         if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+    //             console.log("false2")
+    //             //false2
+    //             const data = { status: "false2", ...addCommentData }
+    //             dispatch(actionForLikeThread(data));
+
+    //         } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+    //             console.log("false1")
+    //             //false1
+    //             const data = { status: "false1", ...addCommentData }
+    //             dispatch(actionForLikeThread(data));
+
+    //         }
+    //     }
+    //     if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
+    //         if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+    //             console.log("true2")
+    //             //true2
+    //             const data = { status: "true2", ...addCommentData }
+    //             dispatch(actionForLikeThread(data));
+
+    //         } else if (initialState.likeStatus && !initialState.dislikeStatus) {
+    //             console.log("true1")
+    //             //   true1   console.log("false2")
+    //             const data = { status: "true1", ...addCommentData }
+    //             dispatch(actionForLikeThread(data));
+    //         }
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [likeDislike, initialState])
 
 
 

@@ -369,3 +369,5 @@ module.exports = { like_and_dislike_threads };
 //  false and true  --> false and false  = true2
 //  true and false   --> false and true  = false1
 //  false and true   --> true and false  = true1
+//  false and false   --> true and false  = true1
+//  false and false   --> false and true  = false1

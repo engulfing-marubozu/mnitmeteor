@@ -7,6 +7,7 @@ const { delete_thread } = require("../Controllers/Threads/delete_thread");
 const { add_comment } = require("../Controllers/Threads/add_comments&replies");
 const {authorization} = require("../Middlewares/authorization")
 const {send_commented_replied_threads}  = require("../Controllers/Threads/send_commented_replied_thread")
+const {like_and_dislike_threads}  = require("../Controllers/Threads/like_and_dislike_threads")
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.post('/save_threads', authorization, save_threads);
 router.post('/send_saved_threads', authorization, send_saved_threads);
 router.post('/send_commented_replied_threads', authorization, send_commented_replied_threads);
 router.post('/delete_thread', authorization, delete_thread);
+router.post('/like_and_dislike_threads', authorization, like_and_dislike_threads);
 module.exports= router;
 

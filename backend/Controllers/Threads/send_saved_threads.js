@@ -9,12 +9,12 @@ const  send_saved_threads = async (req, res) => {
     user_id = req.user._id;
     const user = await User.findById(user_id);
   
-    const thread_id = user.threads_saved;
-    console.log(thread_id);
+    const saved_threads = user.threads_saved;
+    
     const data = await Promise.all(
-      thread_id.map(async (id) => {
-          console.log(id);
-        const datee = await Thread.findById(id);
+      saved_threads.map(async (thread) => {
+          console.log(thread.id);
+        const datee = await Thread.findById(thread.id);
         return datee;
       })
     );

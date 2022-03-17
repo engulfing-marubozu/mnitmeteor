@@ -48,9 +48,9 @@ const add_comment =async (req,res)=>{
                    }
                 }}, {new:true}
             )    
-           const updated_Thread = await Thread.find({_id : thread_id});
-         
-           res.status(200).send({updated_Thread, comment_id});
+           const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
+         console.log(updated_Thread.discussions[0]);
+           res.status(200).send(updated_Thread.discussions[0]);
         }
        
         }

@@ -5,7 +5,6 @@ import { Box, Stack } from "@mui/material";
 import { Outlet } from 'react-router-dom';
 import { LostFoundNavigation, LostFoundVerticalNavigation } from "./lostFoundNavigation";
 import { forumContainStyle } from '../_Styling/tabStyling';
-// import LostFoundCard from './Lost&FoundCard/L&FCard';
 const theme = createTheme({
   palette: {
     primary: {

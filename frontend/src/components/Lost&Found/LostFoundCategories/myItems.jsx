@@ -2,16 +2,17 @@
 import React, { useState, useEffect, } from 'react'
 import { useSelector } from 'react-redux';
 import axios from 'axios'
+import LostFoundSkeleton from '../lostfoundSkeleton';
+import LostFoundCard from '../Lost&FoundCard/L&FCard';
+
 
 function LostFoundMyItems() {
+  const [myItems, setMyItems] = useState();
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const token = localUserData.token;
-  console.log(localUserData);
-  console.log("My items panel");
-  const [posts, setPosts] = useState();
 
   useEffect(() => {
-    console.log("My items panel 2");
+    window.scrollTo(0, 0);
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {
@@ -23,7 +24,7 @@ function LostFoundMyItems() {
           }
         );
         if (isSubscribed) {
-          setPosts(response.data);
+          setMyItems(response.data);
         }
       } catch (err) {
         console.log(err);
@@ -34,13 +35,20 @@ function LostFoundMyItems() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(posts);
+  // console.log(myItems);
 
   return (
     <>
-      <div>
-        MyItems
-      </div>
+      <>
+        {(typeof (myItems) === "undefined" ? Array.from(new Array(5)).map((data, index) => {
+          return (
+            <LostFoundSkeleton key={index} />
+          )
+        }) :
+          (typeof (myItems) !== "undefined" && myItems.map((data, index) => {
+            return (<LostFoundCard key={index} data={data} />)
+          })))}
+      </>
     </>
   );
 }

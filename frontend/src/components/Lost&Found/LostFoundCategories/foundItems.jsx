@@ -1,17 +1,19 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
+import LostFoundCard from '../Lost&FoundCard/L&FCard';
+import LostFoundSkeleton from '../lostfoundSkeleton';
 function FoundItems() {
-  const [posts, setPosts] = useState();
+  const [foundItems, setFoundItems] = useState();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {
         const response = await axios('http://localhost:5000/onlyfound');  //get
         if (isSubscribed) {
-          setPosts(response.data);
+          setFoundItems(response.data);
         }
       } catch (err) {
         console.log(err);
@@ -20,12 +22,17 @@ function FoundItems() {
     axiosPosts();
     return () => (isSubscribed = false);
   }, []);
-  console.log(posts);
+  // console.log(foundItems);
   return (
     <>
-      <div>
-        FoundItems
-      </div>
+      {(typeof (foundItems) === "undefined" ? Array.from(new Array(5)).map((data, index) => {
+        return (
+          <LostFoundSkeleton key={index} />
+        )
+      }) :
+        (typeof (foundItems) !== "undefined" && foundItems.map((data, index) => {
+          return (<LostFoundCard key={index} data={data} />)
+        })))}
     </>
   );
 }

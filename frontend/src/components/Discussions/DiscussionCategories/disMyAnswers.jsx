@@ -1,37 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
+import DiscussionSkeleton from '../discussionSkeleton';
+import DiscussionCard from '../DiscussionPage/discussionCard';
 import axios from 'axios'
 
 export default function DiscussionMyAnswers() {
-  useEffect(()=>{
-    const call =async ()=>{
-const  token =  JSON.parse(window.localStorage.getItem("auth")).token
-
+  const [myAnswers, setMyAnswers] = useState();
+  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    let isSubscribed = true;
+    const call = async () => {
       try {
-        console.log(token);
-       
-         const response = await axios.post(
+        const response = await axios.post(
           "http://localhost:5000/send_commented_replied_threads",
-         {},
+          {},
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${localUserData?.token}`,
             },
           }
         );
-         console.log(response.data);
+        if (isSubscribed) {
+          setMyAnswers(response.data);
+        }
+
       } catch (err) {
         console.log(err);
       }
     }
-
     call();
-
-},[])
+    return () => (isSubscribed = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  console.log(myAnswers);
   return (
-    <div>
-  
-      DiscussionMyAnswers
-    </div>
-  )
+    <>
+      {(typeof (myAnswers) === "undefined" ? Array.from(new Array(10)).map((data, index) => {
+        return (
+          <DiscussionSkeleton key={index} />
+        )
+      }) :
+        (typeof (myAnswers) !== "undefined" && myAnswers.map((data, index) => {
+          return (<DiscussionCard key={index} data={data} />)
+        })))}
+    </>
+  );
 }

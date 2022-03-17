@@ -18,11 +18,16 @@ export default function LostFoundCard({ data }) {
     const properDate = TimeSince(date);
     const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);
     const postedBy = data?.posted_by;
-    const images = data.imgs.map((img, index) => {
+    const userEmail = data?.email.slice(0, 11);
+    const images = data?.imgs.map((img, index) => {
         return {
             original: `${img.image}`,
         }
     })
+
+
+
+    // =================================================================================
     const handleDelete = (id, name) => {
         axios.post('http://localhost:5000/deleteLnfItem', {
 
@@ -36,7 +41,7 @@ export default function LostFoundCard({ data }) {
                 console.log(error);
             });
     }
-
+    //   ==========================================================================================
     const classes = LostFoundCardStyle();
 
     return (
@@ -66,7 +71,7 @@ export default function LostFoundCard({ data }) {
 
 
                     }
-                    title="Shrimp and Chorizo Paella"
+                    title={userEmail}
                     subheader={properDate}
                 />
                 <CardContent sx={{ pt: "0rem", pb: "0.5rem" }}>
@@ -77,12 +82,13 @@ export default function LostFoundCard({ data }) {
                     </Typography>
                 </CardContent>
                 <div className="lfImageStyle">
-                    <ImageGallery
+                    {images && <ImageGallery
                         items={images}
                         showThumbnails={false}
                         showPlayButton={false}
 
-                    />
+                    />}
+
                 </div>
             </Card>
 

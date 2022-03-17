@@ -29,7 +29,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
         const email = localUserData?.userData?.email.slice(0, 11);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
-            { thread_id: addCommentData.cardId, comment_id: null, commentor_mnit_id: email, content: inputComment.current.value },
+            { thread_id: addCommentData.cardId, comment_id: null, commentor_mnit_id: email, content: inputComment.current.value ,replied_to:addCommentData.repliedTo },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

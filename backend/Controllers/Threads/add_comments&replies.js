@@ -9,6 +9,7 @@ const add_comment =async (req,res)=>{
         const commenter_mnit_id = req.body.commentor_mnit_id;
         const comment_id = req.body.comment_id;
         const content = req.body.content;
+        const replied_to = req.body.repliedTo;
     console.log(user_id)
         if(!comment_id)
         {   
@@ -21,7 +22,8 @@ const add_comment =async (req,res)=>{
                    mnit_id : commenter_mnit_id,
                    commented_by : user_id,
                    content : content,
-                   createdAt :date
+                   createdAt :date,
+                   replied_to: replied_to
                }
             }}, {new:true}
         ) 
@@ -44,7 +46,8 @@ const add_comment =async (req,res)=>{
                        replied_by : user_id,
                        mnit_id : commenter_mnit_id,
                        content : content,
-                       createdAt : date
+                       createdAt : date,
+                       replied_to: replied_to
                    }
                 }}, {new:true}
             )    

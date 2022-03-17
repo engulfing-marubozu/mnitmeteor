@@ -31,7 +31,7 @@ function Reply({ replyData, addReplyData }) {
   const repliedBy = replyData?.mnit_id;
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
-  const replySqrData = { ...addReplyData, replyId: replyId }
+  const replySqrData = { ...addReplyData, replyId: replyId ,repliedTo:repliedBy}
   // const initialState = { likeStatus: false, dislikeStatus: false };
 
   const likeIncreaseHandler = () => {

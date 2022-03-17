@@ -33,7 +33,7 @@ function DiscussionCard({ data }) {
     const token = localUserData?.token;
     const isLoggedIn = localUserData?.isLogin;
     const userLoggedIn = localUserData?.userData?._id
-    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null }
+    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null,repliedTo:null }
     // ================================================================================================================================================================================================================================
     const handleExpandClick = () => {
         if (isLoggedIn) {

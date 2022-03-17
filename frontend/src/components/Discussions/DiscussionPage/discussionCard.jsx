@@ -18,10 +18,10 @@ import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
 import { useSelector } from "react-redux";
 import axios from 'axios';
+import { LikeDislikeChecker } from './likeDislikeChecker';
 
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data }) {
-    const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
     const [localCardData, setLocalCardData] = useState(data);
     const [commentVisible, setCommentVisible] = useState(4);
     const [saved, setSaved] = useState(false);
@@ -32,19 +32,25 @@ function DiscussionCard({ data }) {
     const token = localUserData?.token;
     const isLoggedIn = localUserData?.isLogin;
     const userLoggedIn = localUserData?.userData?._id
-    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null }
+    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null,repliedTo:null }
     // ================================================================================================================================================================================================================================
     const handleExpandClick = () => {
-        // if (isLoggedIn) {
-            setExpanded(!expanded);
-            setCommentVisible(4);
-        // } else {
-        //     dispatch(modelPopUp(true));
-        // }
-
+        setExpanded(!expanded);
+        setCommentVisible(4);
     };
 
     // =============================================================LIKEHANDLER=====================================================================================================================================================
+    const likes = data.likes;
+    const dislikes = data.dislikes;
+    const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
+    const dislikeStatus = LikeDislikeChecker(dislikes, userLoggedIn);
+    const totalCount = likes.length - dislikes.length;
+    const [likeDislike, setLikeDislike] = useState({ likeStatus: likeStatus, dislikeStatus: dislikeStatus, totalCount: totalCount })
+    // console.log();
+//    console.log(likeDislike);
+
+
+    // ==================================================================================================================================
     const likeIncreaseHandler = () => {
         if (isLoggedIn) {
             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
@@ -114,7 +120,8 @@ function DiscussionCard({ data }) {
             setSaved(!saved)
             try {
                 const thread_id = cardId
-                const response = await axios.post(
+                // const response = 
+                await axios.post(
                     "http://localhost:5000/save_threads",
                     { thread_id },
                     {
@@ -123,7 +130,7 @@ function DiscussionCard({ data }) {
                         },
                     }
                 );
-                console.log(response.data);
+                // console.log(response.data);
             } catch (err) {
                 console.log(err);
             }
@@ -135,7 +142,8 @@ function DiscussionCard({ data }) {
 
     const deleteHandler = async () => {
         try {
-            const response = await axios.post(
+            // const response = 
+            await axios.post(
                 "http://localhost:5000/delete_thread",
                 { thread_id: cardId },
                 {
@@ -144,7 +152,7 @@ function DiscussionCard({ data }) {
                     },
                 }
             );
-            console.log(response.data);
+            // console.log(response.data);
         } catch (err) {
             console.log(err);
         }
@@ -239,7 +247,7 @@ function DiscussionCard({ data }) {
                             <ExpandMore
                                 expand={expanded}
                                 onClick={handleExpandClick}
-                                // aria-expanded={expanded}
+                            // aria-expanded={expanded}
                             >
                                 <IconButton sx={{ px: 0.5 }}>
                                     <Tooltip title="Comments" arrow>
@@ -271,4 +279,4 @@ function DiscussionCard({ data }) {
     )
 }
 
-export default DiscussionCard
+export default DiscussionCard;

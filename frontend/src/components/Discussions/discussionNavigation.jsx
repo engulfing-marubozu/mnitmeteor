@@ -22,8 +22,7 @@ export function DiscussionNavigation() {
         if (location.pathname === "/Discussions") { setValue(0) }
         else if (location.pathname === "/Discussions/CreateNewTopic") { setValue(1) }
         else if (location.pathname === "/Discussions/SavedTopics") { setValue(2) }
-        else if (location.pathname === "/Discussions/MyAnswers") { setValue(3) }
-        else if (location.pathname === "/Discussions/MyTopics") { setValue(4) }
+        else if (location.pathname === "/Discussions/MyTopics") { setValue(3) }
 
         else {
             setValue(false);
@@ -47,7 +46,6 @@ export function DiscussionNavigation() {
                 <NavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { TabClickHandler("") }} />
                 <NavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { TabClickHandler("CreateNewTopic") }} />
                 <NavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
-                <NavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { TabClickHandler("MyAnswers") }} />
                 <NavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} />
             </NavTabs>
         </Paper>
@@ -70,8 +68,7 @@ export function DiscussionVerticalNavigation() {
         if (location.pathname === "/Discussions") { setValue(0) }
         else if (location.pathname === "/Discussions/CreateNewTopic") { setValue(1) }
         else if (location.pathname === "/Discussions/SavedTopics") { setValue(2) }
-        else if (location.pathname === "/Discussions/MyAnswers") { setValue(3) }
-        else if (location.pathname === "/Discussions/MyTopics") { setValue(4) }
+        else if (location.pathname === "/Discussions/MyTopics") { setValue(3) }
         else {
             setValue(false);
         }
@@ -96,7 +93,6 @@ export function DiscussionVerticalNavigation() {
                     <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { TabClickHandler("") }} />
                     <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { TabClickHandler("CreateNewTopic") }} />
                     <VerticalNavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
-                    <VerticalNavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { TabClickHandler("MyAnswers") }} />
                     <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} />
                 </NavTabs>
             </Paper>

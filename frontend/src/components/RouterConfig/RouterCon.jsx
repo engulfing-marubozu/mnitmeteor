@@ -14,7 +14,6 @@ import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
 import LostFoundCardArray from "../Lost&Found/Lost&FoundCard/_lostFoundArray";
 import LostFoundForm from "../Lost&Found/lost&foundForm/l&fForm";
-import DiscussionMyAnswers from "../Discussions/DiscussionCategories/disMyAnswers";
 import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
 import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
 import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
@@ -40,7 +39,6 @@ function RouterCon() {
       <Route path="Discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
         <Route path="CreateNewTopic" element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />} />
-        <Route path="MyAnswers" element={isLoggedIn ? <DiscussionMyAnswers /> : <Navigate to="/" />} />
         <Route path="MyTopics" element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />} />
         <Route path="SavedTopics" element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />} />
       </Route>

@@ -12,6 +12,7 @@ import { ExpandMore } from './_expandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
 import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
+import { LikeDislikeChecker } from './likeDislikeChecker';
 // import { ViewMoreButton } from '../DiscussionStyling/discussionStyling';
 
 
@@ -35,11 +36,13 @@ const ExpandMoreReplies = styled((props) => {
 function Comments({ commentData, addCommentData, actionData }) {
 
     const dispatch = useDispatch();
-    const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
     const [localCommentData, setLocalCommentData] = useState(commentData);
     const [expAddCmnt, setExpAddCmt] = useState(false);
     const [expReplies, setExpReplies] = useState(false);
-    const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin)
+    const localUserData = useSelector((state) => state.loginlogoutReducer)
+    const isLoggedIn = localUserData.isLogin;
+    const userLoggedIn = localUserData.userData._id;
+
 
     // ==========================================================================================================================================================================
     const handleExpandClick = () => {
@@ -61,6 +64,12 @@ function Comments({ commentData, addCommentData, actionData }) {
     const replyCount = replies.length;
     const addReplyData = { ...addCommentData, commentId: commentId }
     // ===========================================================================================================================================================================
+    const likes = localCommentData.likes;
+    const dislikes = localCommentData.dislikes;
+    const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
+    const dislikeStatus = LikeDislikeChecker(dislikes, userLoggedIn);
+    const totalCount = likes.length - dislikes.length;
+    const [likeDislike, setLikeDislike] = useState({ likeStatus: likeStatus, dislikeStatus: dislikeStatus, totalCount: totalCount })
 
     const likeIncreaseHandler = () => {
         if (isLoggedIn) {

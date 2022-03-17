@@ -23,7 +23,13 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
         const email = localUserData.userData.email.slice(0, 11);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
-            { thread_id: addReplyData.cardId, comment_id: addReplyData.commentId, commentor_mnit_id: email, content: inputReply.current.value },
+            {
+                thread_id: addReplyData.cardId,
+                comment_id: addReplyData.commentId,
+                commentor_mnit_id: email,
+                content: inputReply.current.value,
+                replied_to: addReplyData.repliedTo
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -32,7 +38,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
         );
         console.log(response.data);
         let updatedComment = response.data;
-     
+
         setLocalCommentData(updatedComment);
         inputReply.current.value = "";
         setExpandedReplies && (setExpandedReplies(true));

@@ -11,26 +11,37 @@ import { ExpandMore } from './_expandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
 import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
-
+import { LikeDislikeChecker } from './likeDislikeChecker';
 function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
 
 
   const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
-  const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
+  const localUserData = useSelector((state) => state.loginlogoutReducer)
+  const isLoggedIn = localUserData.isLogin;
+  const userLoggedIn = localUserData.userData._id;
+  console.log(isLoggedIn);
   // ============================================================================================================================================================================
   const handleExpandClick = () => {
     isLoggedIn ? (setExpanded(!expanded)) : (dispatch(modelPopUp(true)));
   };
   //  ========================================================================================================================================================================
   const replyId = replyData?._id;
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin)
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;
   const repliedBy = replyData?.replied_by;
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
-  const replySqrData = { ...addReplyData, replyId: replyId }
+  const replySqrData = { ...addReplyData, replyId: replyId, repliedTo: repliedBy }
+  // ======================================================================================================
+
+  const likes = replyData.likes;
+  const dislikes = replyData.dislikes;
+  const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
+  const dislikeStatus = LikeDislikeChecker(dislikes, userLoggedIn);
+  const totalCount = likes.length - dislikes.length;
+  const [likeDislike, setLikeDislike] = useState({ likeStatus: likeStatus, dislikeStatus: dislikeStatus, totalCount: totalCount })
+  // ==========================================================================================================
 
   const likeIncreaseHandler = () => {
     if (isLoggedIn) {

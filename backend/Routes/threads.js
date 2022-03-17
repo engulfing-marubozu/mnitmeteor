@@ -1,6 +1,6 @@
 const express = require("express");
-const {new_thread} = require("../controllers/Threads/create_thread");
-const { fetch_live_threads, fetch_own_threads} = require("../Controllers/Threads/send_thread");
+const {new_thread,handle_admin_thread} = require("../controllers/Threads/create_thread");
+const { fetch_live_threads, fetch_own_threads,fetch_false_threads} = require("../Controllers/Threads/send_thread");
 const {  send_saved_threads } = require("../Controllers/Threads/send_saved_threads");
 const { save_threads} = require("../Controllers/Threads/save_thread");
 const { delete_thread } = require("../Controllers/Threads/delete_thread");
@@ -13,9 +13,11 @@ const {like_and_dislike_threads}  = require("../Controllers/Threads/like_and_dis
 
 const router = express.Router();
 
-router.post('/create_thread', authorization, new_thread);
+router.post('/create_thread', authorization, new_thread); //saves with is_verified false
 router.get('/fetch_live_threads',  fetch_live_threads);
 router.get('/fetch_own_threads', authorization, fetch_own_threads)
+router.get('/fetch_false_threads',fetch_false_threads);
+router.post('/handle_admin_thread',handle_admin_thread);
 router.post('/delete_thread', authorization, delete_thread);
 router.post('/add_comment', authorization,add_comment);
 router.post('/save_threads', authorization, save_threads);

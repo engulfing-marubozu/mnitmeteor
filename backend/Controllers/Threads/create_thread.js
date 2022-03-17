@@ -13,11 +13,15 @@ const new_thread = async(req, res)=>{
        const user_id = req.user._id;
        const { title, description, document} = req.body;
         const user = await User.findById(req.user._id);
-   //  console.log(document);
-     const document_upload_response = await cloudinary.v2.uploader.upload(
+     console.log(document);
+     const document_upload_response =''
+     if(document)
+    {  document_upload_response = await cloudinary.v2.uploader.upload(
        document,
       );
-    
+    }
+ 
+      
        const mnit_id = user.email.slice(0,11)
        const Thread_save = new Thread({
        posted_by : user_id,

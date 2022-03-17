@@ -52,10 +52,6 @@ const user_schema = new mongoose.Schema(
       type: [],
       default: [],
     },
-    threads_commented_or_replied: {
-      type: [],
-      default: [],
-    },
     threads_liked: {
       type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
       default: [],

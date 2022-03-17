@@ -25,11 +25,7 @@ const add_comment =async (req,res)=>{
                }
             }}, {new:true}
         ) 
-       await User.findByIdAndUpdate(user_id, {
-            $addToSet: {
-                threads_commented_or_replied :{id : thread_id }
-            }
-        })
+       
         
          res.status(200).send({updated_Thread})
         }
@@ -53,12 +49,7 @@ const add_comment =async (req,res)=>{
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.find({_id : thread_id});
-           await User.findByIdAndUpdate(user_id, {
-            $addToSet: {
-                threads_commented_or_replied : {id : thread_id}
-            }
-        })
-      
+         
            res.status(200).send({updated_Thread, comment_id});
         }
        

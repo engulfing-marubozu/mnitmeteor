@@ -6,6 +6,14 @@ import { useDispatch } from "react-redux";
 import { AuthUser } from "./AStatemanagement/Actions/userActions.jsx";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#512da8",
+    },
+    secondary: {
+      main: "#edf2ff",
+    },
+  },
   typography: {
     fontFamily: [
       "-apple-system",

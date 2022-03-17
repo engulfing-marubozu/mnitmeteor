@@ -45,7 +45,6 @@ export default function NavbarTabs(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
-  // console.log(props.updateBadge);
   return (
 
     <AntTabs value={value} >

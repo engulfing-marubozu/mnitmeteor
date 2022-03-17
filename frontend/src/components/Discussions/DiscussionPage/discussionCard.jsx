@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Typography, Box, Paper, Avatar, Stack, IconButton, CardHeader, Tooltip } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-// import AddBoxIcon from '@mui/icons-material/AddBox';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
@@ -19,10 +18,10 @@ import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
 import { useSelector } from "react-redux";
 import axios from 'axios';
+import { LikeDislikeChecker } from './likeDislikeChecker';
 
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data }) {
-
     const [localCardData, setLocalCardData] = useState(data);
     const [commentVisible, setCommentVisible] = useState(4);
     const [saved, setSaved] = useState(false);
@@ -36,18 +35,22 @@ function DiscussionCard({ data }) {
     const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null,repliedTo:null }
     // ================================================================================================================================================================================================================================
     const handleExpandClick = () => {
-        if (isLoggedIn) {
-            setExpanded(!expanded);
-            setCommentVisible(4);
-        } else {
-            dispatch(modelPopUp(true));
-        }
-
+        setExpanded(!expanded);
+        setCommentVisible(4);
     };
 
     // =============================================================LIKEHANDLER=====================================================================================================================================================
-    const initialState = { likeStatus: false, dislikeStatus: false };
-    const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
+    const likes = data.likes;
+    const dislikes = data.dislikes;
+    const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
+    const dislikeStatus = LikeDislikeChecker(dislikes, userLoggedIn);
+    const totalCount = likes.length - dislikes.length;
+    const [likeDislike, setLikeDislike] = useState({ likeStatus: likeStatus, dislikeStatus: dislikeStatus, totalCount: totalCount })
+    // console.log();
+//    console.log(likeDislike);
+
+
+    // ==================================================================================================================================
     const likeIncreaseHandler = () => {
         if (isLoggedIn) {
             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
@@ -57,31 +60,17 @@ function DiscussionCard({ data }) {
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-                // dispatch(actionForLikeThread())flase1
                 console.log("true1")
                 const data = { status: "true1", ...addCommentData }
                 dispatch(actionForLikeThread(data));
             } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-                // dispatch(actionForLikeThread())flase1
                 console.log("false2")
                 const data = { status: "false2", ...addCommentData }
                 dispatch(actionForLikeThread(data));
-            } else {
-                dispatch(modelPopUp(true));
             }
-
-            // if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-            //     //false2
-            //     console.log("true1")
-            // }
-            // else if (!likeDislike.likeStatus) {
-            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-            // }
-            // else {
-            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-            // }
+        } else {
+            dispatch(modelPopUp(true));
         }
 
     }
@@ -95,72 +84,19 @@ function DiscussionCard({ data }) {
 
             } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-                // dispatch(actionForLikeThread())flase1
                 console.log("false1")
                 const data = { status: "false1", ...addCommentData }
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-                // dispatch(actionForLikeThread())flase1
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
                 console.log("true2")
                 const data = { status: "true2", ...addCommentData }
                 dispatch(actionForLikeThread(data));
-            } else {
-                dispatch(modelPopUp(true));
             }
+        } else {
+            dispatch(modelPopUp(true));
         }
     }
-
-    //     if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-    //         // dispatch(actionForLikeThread())flase1
-    //         console.log("false1")
-    //     }
-    //     else if (&& !likeDislike.dislikeStatus) {
-    //         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
-    //     }
-    //     else {
-    //         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-    //     }
-    // }
-    // }
-    // ======================================================================================================================================================================================================================================
-    // useEffect(() => {
-    //     console.log("deepak")
-    //     if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
-    //         if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //             console.log("false2")
-    //             //false2
-    //             const data = { status: "false2", ...addCommentData }
-    //             dispatch(actionForLikeThread(data));
-
-    //         } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-    //             console.log("false1")
-    //             //false1
-    //             const data = { status: "false1", ...addCommentData }
-    //             dispatch(actionForLikeThread(data));
-
-    //         }
-    //     }
-    //     if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
-    //         if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //             console.log("true2")
-    //             //true2
-    //             const data = { status: "true2", ...addCommentData }
-    //             dispatch(actionForLikeThread(data));
-
-    //         } else if (initialState.likeStatus && !initialState.dislikeStatus) {
-    //             console.log("true1")
-    //             //   true1   console.log("false2")
-    //             const data = { status: "true1", ...addCommentData }
-    //             dispatch(actionForLikeThread(data));
-    //         }
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [likeDislike, initialState])
-
-
-
     // ===================================================================================================================================================================================================================================
     // console.log(data);
     const title = localCardData?.title;
@@ -170,7 +106,6 @@ function DiscussionCard({ data }) {
     const userId = localCardData?.users_mnit_id;
     const comments = localCardData?.discussions.slice(0).reverse();
     const cardId = localCardData?._id;
-    // const comments = localCardData?.discussions;
     const commentCount = localCardData?.discussions.length;
     // ===================================================================================================================================================================================================================================
     const classes = DiscussionCardStyle();
@@ -182,14 +117,11 @@ function DiscussionCard({ data }) {
     const SavedHandler = async () => {
 
         if (isLoggedIn) {
-
-
             setSaved(!saved)
             try {
-                console.log(token);
-                console.log(cardId);
                 const thread_id = cardId
-                const response = await axios.post(
+                // const response = 
+                await axios.post(
                     "http://localhost:5000/save_threads",
                     { thread_id },
                     {
@@ -198,7 +130,7 @@ function DiscussionCard({ data }) {
                         },
                     }
                 );
-                console.log(response.data);
+                // console.log(response.data);
             } catch (err) {
                 console.log(err);
             }
@@ -210,8 +142,8 @@ function DiscussionCard({ data }) {
 
     const deleteHandler = async () => {
         try {
-            // const response =
-            const response = await axios.post(
+            // const response = 
+            await axios.post(
                 "http://localhost:5000/delete_thread",
                 { thread_id: cardId },
                 {
@@ -220,12 +152,12 @@ function DiscussionCard({ data }) {
                     },
                 }
             );
-            console.log(response.data);
+            // console.log(response.data);
         } catch (err) {
             console.log(err);
         }
     }
-
+    // =============================================================================================
     const CommentVisibleHandler = () => {
         setCommentVisible(prev => {
             return (prev + 3 < commentCount ? prev + 3 : commentCount)
@@ -296,7 +228,7 @@ function DiscussionCard({ data }) {
                                 </IconButton>
 
                                 {
-                                    delFlag && (
+                                    isLoggedIn && delFlag && (
                                         // <Tooltip>
                                         <IconButton onClick={deleteHandler}>
                                             <Tooltip title="Delete" arrow >
@@ -315,7 +247,7 @@ function DiscussionCard({ data }) {
                             <ExpandMore
                                 expand={expanded}
                                 onClick={handleExpandClick}
-                                aria-expanded={expanded}
+                            // aria-expanded={expanded}
                             >
                                 <IconButton sx={{ px: 0.5 }}>
                                     <Tooltip title="Comments" arrow>
@@ -347,4 +279,4 @@ function DiscussionCard({ data }) {
     )
 }
 
-export default DiscussionCard
+export default DiscussionCard;

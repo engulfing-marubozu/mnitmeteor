@@ -7,15 +7,18 @@ import { LogoutUser, modelPopUp } from "../../AStatemanagement/Actions/userActio
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
 import NotificationBox from "../Notification/notificationBox";
 function Userbar(props) {
-  // console.log(props.updateNotification);
+
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
   const [notificationCount, setNotificationCount] = useState(props.updateNotification)
+
+  const location = useLocation();
+  // console.log(location.pathname)
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -86,7 +89,9 @@ function Userbar(props) {
             // props.onClose();
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
-            Navigate("/");
+            if (location.pathname !== "/" && location.pathname !== '/Discussions' && location.pathname !== '/Lost&Found') {
+              Navigate("/");
+            }
           }}
         >
           <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />

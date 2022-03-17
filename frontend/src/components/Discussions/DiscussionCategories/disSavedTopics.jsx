@@ -1,33 +1,51 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import DiscussionSkeleton from '../discussionSkeleton';
+import DiscussionCard from '../DiscussionPage/discussionCard';
 function DiscussionSavedTopics() {
-    useEffect(()=>{
-            const call =async ()=>{
-        const  token =  JSON.parse(window.localStorage.getItem("auth")).token
-   
-              try {
-                console.log(token);
-               console.log("hemllo")
-                 const response = await axios.post(
-                  "http://localhost:5000/send_saved_threads",
-                 {},
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
-                 console.log(response.data);
-              } catch (err) {
-                console.log(err);
-              }
-            }
+  const [savedTopics, setSavedTopics] = useState();
+  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
+  const token=localUserData.token;
+  console.log(token);
+  // console.log(localUserData);
+  useEffect(() => {
+    let isSubscribed = true;
+    const call = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/send_saved_threads",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setSavedTopics(response.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
-            call();
-    })
+    call();
+    return () => (isSubscribed = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <div>DiscussionSavedTopics</div>
+    <>
+      {(typeof (savedTopics) === "undefined" ? Array.from(new Array(10)).map((data, index) => {
+        return (
+          <DiscussionSkeleton key={index} />
+        )
+      }) :
+        (typeof (savedTopics) !== "undefined" && savedTopics.map((data, index) => {
+          return (<DiscussionCard key={index} data={data} />)
+        })))}
+    </>
+
   )
 }
 

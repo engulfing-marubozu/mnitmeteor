@@ -1,24 +1,50 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useSelector } from 'react-redux';
+import DiscussionSkeleton from '../discussionSkeleton';
+import DiscussionCard from '../DiscussionPage/discussionCard';
+
+
 export default function DiscussionMyTopics() {
-  const token = useSelector((state) => state.loginlogoutReducer.token);
-    useEffect(()=>{
-      window.scrollTo(0, 0);
-      async function call() {
-        const response = await axios.get(
-            "http://localhost:5000/fetch_own_threads",
-            {
-                headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            }
-        );
-        console.log(response.data);
+
+  const [myTopics, setMyTopics] = useState();
+  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
+
+
+  // =================================================================================
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    let isSubscribed = true;
+    async function call() {
+      const response = await axios.get(
+        "http://localhost:5000/fetch_own_threads",
+        {
+          headers: {
+            authorization: `Bearer ${localUserData?.token}`,
+          },
+        }
+      );
+      if (isSubscribed) {
+        setMyTopics(response.data.user_specific_threads);
+      }
     }
     call();
-    })
+    return () => (isSubscribed = false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // console.log(myTopics)
+
+  // ====================================================================================
   return (
-    <div>DiscussionMyTopics</div>
+    <>
+      {(typeof (myTopics) === "undefined" ? Array.from(new Array(10)).map((data, index) => {
+        return (
+          <DiscussionSkeleton key={index} />
+        )
+      }) :
+        (typeof (myTopics) !== "undefined" && myTopics.map((data, index) => {
+          return (<DiscussionCard key={index} data={data} />)
+        })))}
+    </>
+
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import LostFoundCard from './L&FCard';
 import axios from 'axios'
+import LostFoundSkeleton from '../lostfoundSkeleton';
 
 function PostsWithAxios() {
   const [lfData, setlfData] = useState();
@@ -23,11 +24,15 @@ function PostsWithAxios() {
   // console.log(lfData);
   return (
     <>
-      {
-        typeof (lfData) !== "undefined" && lfData.map((data, index) => {
+
+      {(typeof (lfData) === "undefined" ? Array.from(new Array(10)).map((data, index) => {
+        return (
+          <LostFoundSkeleton key={index} />
+        )
+      }) :
+        (typeof (lfData) !== "undefined" && lfData.map((data, index) => {
           return (<LostFoundCard key={index} data={data} />)
-        })
-      }
+        })))}
     </>
   );
 }

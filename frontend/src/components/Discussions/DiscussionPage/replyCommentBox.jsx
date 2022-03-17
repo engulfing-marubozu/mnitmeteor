@@ -4,7 +4,7 @@ import { AddReplyButton } from '../DiscussionStyling/discussionStyling';
 import { useSelector } from "react-redux";
 import axios from 'axios'
 
-function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData, setExpandedReplies }) {
+function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData, setExpandedReplies, ...otherProps }) {
     const inputReply = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     const localUserData = useSelector((state) => state.loginlogoutReducer);
@@ -23,7 +23,13 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
         const email = localUserData.userData.email.slice(0, 11);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
-            { thread_id: addReplyData.cardId, comment_id: addReplyData.commentId, commentor_mnit_id: email, content: inputReply.current.value },
+            {
+                thread_id: addReplyData.cardId,
+                comment_id: addReplyData.commentId,
+                commentor_mnit_id: email,
+                content: inputReply.current.value,
+                replied_to: addReplyData.repliedTo
+            },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -32,21 +38,20 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
         );
         console.log(response.data);
         let updatedComment = response.data;
-     
+
         setLocalCommentData(updatedComment);
         inputReply.current.value = "";
-        setExpandedReplies(true);
+        setExpandedReplies && (setExpandedReplies(true));
         setDisabledPost(true);
     }
     return (
         <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
             <form>
                 <TextField
+                    {...otherProps}
                     size="small"
-                    autoFocus={true}
                     color="primary"
                     fullWidth
-                    id="outlined-multiline-flexible"
                     multiline
                     maxRows={4}
                     placeholder="Add a reply..."

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import DiscussionCard from './discussionCard';
+import DiscussionSkeleton from '../discussionSkeleton';
 function DiscussionCardArray() {
 
     // =======================================================================================================================================================================
@@ -28,12 +29,16 @@ function DiscussionCardArray() {
 
     return (
         <>
-            {
-                typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
+            {(typeof (discussionData) === "undefined" ? Array.from(new Array(10)).map((data, index) => {
+                return (
+                    <DiscussionSkeleton key={index} />
+                )
+            }) :
+                (typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
                     return (<DiscussionCard key={index} data={data} />)
-                })
-            }
-        </>)
+                })))}
+        </>
+    );
 }
 
 export default DiscussionCardArray;

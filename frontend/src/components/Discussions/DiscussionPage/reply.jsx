@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Typography, Box, Avatar, Stack, IconButton } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -10,162 +10,91 @@ import { TimeSince } from '../../TimeElapsed/timecalc';
 import { ExpandMore } from './_expandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
+import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
+import { LikeDislikeChecker } from './likeDislikeChecker';
+function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
 
 
-
-
-
-
-function Reply({ replyData, addReplyData }) {
   const dispatch = useDispatch();
   const [expanded, setExpanded] = useState(false);
-  const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: 9 })
+  const localUserData = useSelector((state) => state.loginlogoutReducer)
+  const isLoggedIn = localUserData.isLogin;
+  const userLoggedIn = localUserData.userData._id;
+  console.log(isLoggedIn);
   // ============================================================================================================================================================================
   const handleExpandClick = () => {
-    setExpanded(!expanded);
+    isLoggedIn ? (setExpanded(!expanded)) : (dispatch(modelPopUp(true)));
   };
   //  ========================================================================================================================================================================
   const replyId = replyData?._id;
-  const isLoggedIn = useSelector((state)=>state.loginlogoutReducer.isLogin)
   const reply = replyData?.content;
-  const repliedBy = replyData?.mnit_id;
+  const userId = replyData?.mnit_id;
+  const repliedBy = replyData?.replied_by;
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
-  const replySqrData = { ...addReplyData, replyId: replyId ,repliedTo:repliedBy}
-  // const initialState = { likeStatus: false, dislikeStatus: false };
+  const replySqrData = { ...addReplyData, replyId: replyId, repliedTo: repliedBy }
+  // ======================================================================================================
+
+  const likes = replyData.likes;
+  const dislikes = replyData.dislikes;
+  const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
+  const dislikeStatus = LikeDislikeChecker(dislikes, userLoggedIn);
+  const totalCount = likes.length - dislikes.length;
+  const [likeDislike, setLikeDislike] = useState({ likeStatus: likeStatus, dislikeStatus: dislikeStatus, totalCount: totalCount })
+  // ==========================================================================================================
 
   const likeIncreaseHandler = () => {
     if (isLoggedIn) {
-        if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-            console.log("true1")
-            const data = { status: "true1", ...replySqrData }
-            dispatch(actionForLikeThread(data));
-        } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-            // dispatch(actionForLikeThread())flase1
-            console.log("true1")
-            const data = { status: "true1", ...replySqrData }
-            dispatch(actionForLikeThread(data));
-        } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-            // dispatch(actionForLikeThread())flase1
-            console.log("false2")
-            const data = { status: "false2", ...replySqrData }
-            dispatch(actionForLikeThread(data));
-         } 
-        //else {
-        //     dispatch(modelPopUp(true));
-        // }
+      if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+        setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+        console.log("true1")
+        const data = { status: "true1", ...replySqrData }
+        dispatch(actionForLikeThread(data));
+      } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+        setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+        // dispatch(actionForLikeThread())flase1
+        console.log("true1")
+        const data = { status: "true1", ...replySqrData }
+        dispatch(actionForLikeThread(data));
+      } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+        setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+        // dispatch(actionForLikeThread())flase1
+        console.log("false2")
+        const data = { status: "false2", ...replySqrData }
+        dispatch(actionForLikeThread(data));
+      }
 
-        // if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-        //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-        //     //false2
-        //     console.log("true1")
-        // }
-        // else if (!likeDislike.likeStatus) {
-        //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-        // }
-        // else {
-        //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-        // }
+    } else {
+      dispatch(modelPopUp(true));
     }
 
-}
-const likeDecreaseHandler = () => {
+  }
+  const likeDecreaseHandler = () => {
     if (isLoggedIn) {
-        if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-            console.log("false1")
-            const data = { status: "false1", ...replySqrData }
-            dispatch(actionForLikeThread(data));
+      if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+        setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+        console.log("false1")
+        const data = { status: "false1", ...replySqrData }
+        dispatch(actionForLikeThread(data));
 
-        } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-            // dispatch(actionForLikeThread())flase1
-            console.log("false1")
-            const data = { status: "false1", ...replySqrData }
-            dispatch(actionForLikeThread(data));
-        } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-            setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-            // dispatch(actionForLikeThread())flase1
-            console.log("true2")
-            const data = { status: "true2", ...replySqrData }
-            dispatch(actionForLikeThread(data));
-        }
-        //  else {
-        //     dispatch(modelPopUp(true));
-        // }
+      } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+        setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+        // dispatch(actionForLikeThread())flase1
+        console.log("false1")
+        const data = { status: "false1", ...replySqrData }
+        dispatch(actionForLikeThread(data));
+      } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+        setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
+        // dispatch(actionForLikeThread())flase1
+        console.log("true2")
+        const data = { status: "true2", ...replySqrData }
+        dispatch(actionForLikeThread(data));
+      }
+
+    } else {
+      dispatch(modelPopUp(true));
     }
-}
-
-  // const likeIncreaseHandler = () => {
-  //   if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
-  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-  //   }
-  //   else if (!likeDislike.likeStatus) {
-  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-  //   }
-  //   else {
-  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-  //   }
-  // }
-  // const likeDecreaseHandler = () => {
-  //   if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-  //   }
-  //   else if (!likeDislike.dislikeStatus) {
-  //     setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
-  //   }
-  //   else {
-  //     setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-  //   }
-  // }
-  //   ===========================================================================================================================================================================
-  // console.log(replyData);
-  
-  // =======================================================================================
-  // useEffect(() => {
-
-  //   return () => {
-  //     console.log("deepakreply")
-      // if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
-        // if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //       console.log("false2")
-    //       //false2
-    //       const data = { status: "false2", ...replySqrData }
-    //       dispatch(actionForLikeThread(data));
-
-    //     } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-    //       console.log("false1")
-    //       //false1
-    //       const data = { status: "false1", ...replySqrData }
-    //       dispatch(actionForLikeThread(data));
-
-    //     }
-    //   }
-    //   if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
-    //     if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //       console.log("true2")
-    //       //true2
-    //       const data = { status: "true2", ...replySqrData }
-    //       dispatch(actionForLikeThread(data));
-
-    //     } else if (initialState.likeStatus && !initialState.dislikeStatus) {
-    //       console.log("true1")
-    //       const data = { status: "true1", ...replySqrData }
-    //       dispatch(actionForLikeThread(data));
-    //     }
-    //   }
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  //}, [])
-
-
-
-
-
-
+  }
 
   // ==================================================================================
 
@@ -181,7 +110,7 @@ const likeDecreaseHandler = () => {
       <Box className={classes.topBox}>
         <Stack className={classes.topStack}>
           <Avatar className={classes.avatarStyle} />
-          <Typography className={classes.usernameStyle}>{repliedBy}</Typography>
+          <Typography className={classes.usernameStyle}>{userId}</Typography>
         </Stack>
         <Typography className={classes.dateStyle}>{properDate}</Typography>
       </Box>
@@ -206,12 +135,19 @@ const likeDecreaseHandler = () => {
               </ExpandMore>
 
               {
-                <CommentDeleteButton onClick={ReplyDeleteHandler}>Delete</CommentDeleteButton>
+                ((isLoggedIn && (actionData.delFlag || (repliedBy === actionData.userLoggedIn))) ? (
+                  <CommentDeleteButton onClick={ReplyDeleteHandler}>Delete</CommentDeleteButton>) : null)
+
               }
             </Box>
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <ReplyCommentBox handleExpandClick={handleExpandClick} />
+            <ReplyCommentBox
+              handleExpandClick={handleExpandClick}
+              defaultValue={`replied to ${userId}    `}
+              addReplyData={replySqrData}
+              setLocalCommentData={setLocalCommentData}
+            />
           </Collapse>
         </Box>
       </Box>

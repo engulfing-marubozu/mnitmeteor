@@ -12,7 +12,7 @@ const HandleAdmin = async(req,res) => {
   approval = req.body.to_approve;
   id = req.body._id;
   refID = req.body.posted_by;
-  if(approval=="True"){
+  if(approval){
     console.log("approve ho gaya ");
     LostItem.findOneAndUpdate({_id:id}, {is_verified:true},function(err){
       console.log(err);
@@ -41,7 +41,7 @@ const SendLost = async (req,res) => {
     refID = req.body.posted_by;
     console.log(email);
     console.log("reached cloudinary part");
-    image_cloud_links = "";
+    image_cloud_links =null;
     try {
       if(imgs.length>0){
         const image_cloud_links = await Promise.all(

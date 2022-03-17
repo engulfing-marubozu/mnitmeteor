@@ -8,15 +8,24 @@ cloudinary.config({
 // recieves data as mnit_id,title, description
 
 const new_thread = async(req, res)=>{
+  // const document = '';
     try{
         console.log("aa gaya");
+        console.log(req.body);
        const user_id = req.user._id;
+      //  const title = req.body.title;
+      //  const description = req.body.description;
+       
        const { title, description, document} = req.body;
         const user = await User.findById(req.user._id);
    //  console.log(document);
-     const document_upload_response = await cloudinary.v2.uploader.upload(
+   const doc_url = '';
+     if(document!==''){
+       const document_upload_response = await cloudinary.v2.uploader.upload(
        document,
       );
+      doc_url = document_upload_response.secure_url;
+       }
     
        const mnit_id = user.email.slice(0,11)
        const Thread_save = new Thread({
@@ -24,7 +33,7 @@ const new_thread = async(req, res)=>{
        users_mnit_id: mnit_id,
        title: title,
        description: description,
-       document : document_upload_response.secure_url
+       document : doc_url
       });
 
       try{

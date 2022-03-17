@@ -7,6 +7,8 @@ import { socket } from "./../components/Navbar/navbar";
 
 function Adminpanel() {
   const [data, setdata] = useState("");
+  const [LFData, setLFData] = useState("");
+  
   const [flag, setflag] = useState(true);
   // ===================================================================================================================================================================
   const ApproveRequest = async (cardData) => {
@@ -38,36 +40,53 @@ function Adminpanel() {
       console.log(err);
     }
   };
-  // const ApproveRequestLF = async (cardData) => {
-  //   const id = cardData._id;
+  const ApproveRequestLF = async (cardData) => {
+    const id = cardData._id;
 
-  //   const response = await axios.post("http://localhost:5000/admin_response", {
-  //     id,
-  //     response: true,
-  //   });
-  //   console.log(response);
-  //   socket.emit("admin approve event");
-  //   setflag(!flag);
-  // };
-  // const DeclineRequestLF = async (cardData) => {
-  //   const id = cardData._id
-  //   const user_id = cardData.posted_by;
-  //   try {
-  //     const response = await axios.post("http://localhost:5000/admin_response", {
-  //       id,
-  //       response: false,
-  //     });
-  //     console.log(response);
-  //     if (response.data === "product Ad request declined") {
-  //       socket.emit("admin decline event", user_id);
-  //     }
-  //     setflag(!flag);
-  //   }
-  //   catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // // ===================================================Fetching Data=================================================================================================
+    const response = await axios.post("http://localhost:5000/adminresponse", {
+      to_approve: true,
+      posted_by: cardData.posted_by,
+      _id: id,
+    });
+    console.log(response);
+    // socket.emit("admin approve event");
+    // setflag(!flag);
+  };
+  const DeclineRequestLF = async (cardData) => {
+    const id = cardData._id
+    const user_id = cardData.posted_by;
+    try {
+      const response = await axios.post("http://localhost:5000/adminresponse", {
+        to_approve:false,
+        posted_by: cardData.posted_by,
+        _id: id,
+      });
+      console.log(response);
+      // if (response.data === "product Ad request declined") {
+      //   socket.emit("admin decline event", user_id);
+      // }
+      // setflag(!flag);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+  // ===================================================Fetching Data=================================================================================================
+  //lf get code: "http://localhost:5000/sendfalseitems"
+  //post code http://localhost:5000/adminresponse
+  useEffect(() => {
+    const admin_lf_load = async()=>{
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/sendfalseitems"
+        );
+        setLFData(response.data.data);
+      }
+      catch(err){
+        console.log(err);
+      }
+    };
+  })
   useEffect(() => {
     let isSubscribed = true;
     const admin_post_load = async () => {
@@ -87,7 +106,7 @@ function Adminpanel() {
 
     admin_post_load();
     return () => { isSubscribed = false }
-  }, [flag]);
+  }, [flag])
   // =====================================================================================================================================================================
   return (
     <>
@@ -107,7 +126,21 @@ function Adminpanel() {
           );
         })
       }
-
+      <h1>Lost and found AP</h1>
+      {
+        LFData &&
+        LFData.map((product, index) => {
+          return (
+            <AdminPanelPage
+              index={index}
+              key={index}
+              cardData={product}
+              ApproveRequest={ApproveRequest}
+              DeclineRequest={DeclineRequest}
+            />
+          );
+        })
+      }
 
     </>
   );

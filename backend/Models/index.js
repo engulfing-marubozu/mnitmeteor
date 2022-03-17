@@ -128,6 +128,10 @@ const thread_schema = new mongoose.Schema(
       type: Object,
       default: null,
     },
+    is_verified: {
+      type: Boolean,
+      default: false,
+    },
     likes: {
       type: [{ type: Schema.Types.ObjectId, ref: "User" }],
       default: [],

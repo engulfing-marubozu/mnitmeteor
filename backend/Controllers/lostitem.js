@@ -8,13 +8,20 @@ cloudinary.config({
 });
 const HandleAdmin = async(req,res) => {
   console.log("Admin bhai approve kro ");
-  approval = req.body.is_verified;
+  console.log(req.body);
+  approval = req.body.to_approve;
   id = req.body._id;
+  refID = req.body.posted_by;
   if(approval=="True"){
     console.log("approve ho gaya ");
     LostItem.findOneAndUpdate({_id:id}, {is_verified:true},function(err){
       console.log(err);
-    })
+    });
+    await User.findByIdAndUpdate(refID, {
+          $addToSet: {lf_items_posted: id },
+        });
+    console.log("Updated user database");
+    // console.log(saveLostItem);
   }else{
     LostItem.findOneAndDelete({_id:id});
   }
@@ -95,9 +102,11 @@ const LostCheck = async(req,res) => {
     imgs = req.body.imgs;
     refID = req.body.posted_by;
     console.log(email);
-    console.log("reached cloudinary part");
+    image_cloud_links = "";
+    console.log("reached cloudinary part portal to db");
     try {
-        const image_cloud_links = await Promise.all(
+        if(imgs.length>0){
+          image_cloud_links = await Promise.all(
             imgs.map(async (image) => {
               const image_upload_response = await cloudinary.v2.uploader.upload(
                 image.data_url,function(error,result){
@@ -114,6 +123,8 @@ const LostCheck = async(req,res) => {
         // console.log(image_cloud_links);
         // console.log(imgs);
         // database save a lost iem product 
+        
+        }
         const newLostItem = new LostItem({
             name: title,
             description: description,

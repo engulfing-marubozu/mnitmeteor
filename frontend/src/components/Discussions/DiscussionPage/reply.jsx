@@ -8,7 +8,7 @@ import Collapse from '@mui/material/Collapse';
 import { CommentReplyStyle, LikeButtonStyle } from '../DiscussionStyling/discussionCardStyliing';
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import { ExpandMore } from './_expandMore';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
 
 
@@ -25,75 +25,141 @@ function Reply({ replyData, addReplyData }) {
     setExpanded(!expanded);
   };
   //  ========================================================================================================================================================================
-
-  const initialState = { likeStatus: false, dislikeStatus: false };
-
-  const likeIncreaseHandler = () => {
-    if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
-      setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-    }
-    else if (!likeDislike.likeStatus) {
-      setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-    }
-    else {
-      setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-    }
-  }
-  const likeDecreaseHandler = () => {
-    if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-      setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-    }
-    else if (!likeDislike.dislikeStatus) {
-      setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
-    }
-    else {
-      setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-    }
-  }
-  //   ===========================================================================================================================================================================
-  // console.log(replyData);
   const replyId = replyData?._id;
+  const isLoggedIn = useSelector((state)=>state.loginlogoutReducer.isLogin)
   const reply = replyData?.content;
   const repliedBy = replyData?.mnit_id;
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
   const replySqrData = { ...addReplyData, replyId: replyId }
-  // =======================================================================================
-  useEffect(() => {
+  // const initialState = { likeStatus: false, dislikeStatus: false };
 
-    return () => {
-      console.log("deepakreply")
-      if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
+  const likeIncreaseHandler = () => {
+    if (isLoggedIn) {
         if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-          console.log("false2")
-          //false2
-          const data = { status: "false2", ...replySqrData }
-          dispatch(actionForLikeThread(data));
-
+            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+            console.log("true1")
+            const data = { status: "true1", ...replySqrData }
+            dispatch(actionForLikeThread(data));
         } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-          console.log("false1")
-          //false1
-          const data = { status: "false1", ...replySqrData }
-          dispatch(actionForLikeThread(data));
+            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+            // dispatch(actionForLikeThread())flase1
+            console.log("true1")
+            const data = { status: "true1", ...replySqrData }
+            dispatch(actionForLikeThread(data));
+        } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+            // dispatch(actionForLikeThread())flase1
+            console.log("false2")
+            const data = { status: "false2", ...replySqrData }
+            dispatch(actionForLikeThread(data));
+         } 
+        //else {
+        //     dispatch(modelPopUp(true));
+        // }
 
-        }
-      }
-      if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
-        if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-          console.log("true2")
-          //true2
-          const data = { status: "true2", ...replySqrData }
-          dispatch(actionForLikeThread(data));
-
-        } else if (initialState.likeStatus && !initialState.dislikeStatus) {
-          console.log("true1")
-          const data = { status: "true1", ...replySqrData }
-          dispatch(actionForLikeThread(data));
-        }
-      }
+        // if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+        //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+        //     //false2
+        //     console.log("true1")
+        // }
+        // else if (!likeDislike.likeStatus) {
+        //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+        // }
+        // else {
+        //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+        // }
     }
+
+}
+const likeDecreaseHandler = () => {
+    if (isLoggedIn) {
+        if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+            setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+            console.log("false1")
+            const data = { status: "false1", ...replySqrData }
+            dispatch(actionForLikeThread(data));
+
+        } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+            setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+            // dispatch(actionForLikeThread())flase1
+            console.log("false1")
+            const data = { status: "false1", ...replySqrData }
+            dispatch(actionForLikeThread(data));
+        } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+            setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+            // dispatch(actionForLikeThread())flase1
+            console.log("true2")
+            const data = { status: "true2", ...replySqrData }
+            dispatch(actionForLikeThread(data));
+        }
+        //  else {
+        //     dispatch(modelPopUp(true));
+        // }
+    }
+}
+
+  // const likeIncreaseHandler = () => {
+  //   if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
+  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
+  //   }
+  //   else if (!likeDislike.likeStatus) {
+  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+  //   }
+  //   else {
+  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
+  //   }
+  // }
+  // const likeDecreaseHandler = () => {
+  //   if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+  //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
+  //   }
+  //   else if (!likeDislike.dislikeStatus) {
+  //     setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
+  //   }
+  //   else {
+  //     setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
+  //   }
+  // }
+  //   ===========================================================================================================================================================================
+  // console.log(replyData);
+  
+  // =======================================================================================
+  // useEffect(() => {
+
+  //   return () => {
+  //     console.log("deepakreply")
+      // if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
+        // if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+    //       console.log("false2")
+    //       //false2
+    //       const data = { status: "false2", ...replySqrData }
+    //       dispatch(actionForLikeThread(data));
+
+    //     } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
+    //       console.log("false1")
+    //       //false1
+    //       const data = { status: "false1", ...replySqrData }
+    //       dispatch(actionForLikeThread(data));
+
+    //     }
+    //   }
+    //   if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
+    //     if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
+    //       console.log("true2")
+    //       //true2
+    //       const data = { status: "true2", ...replySqrData }
+    //       dispatch(actionForLikeThread(data));
+
+    //     } else if (initialState.likeStatus && !initialState.dislikeStatus) {
+    //       console.log("true1")
+    //       const data = { status: "true1", ...replySqrData }
+    //       dispatch(actionForLikeThread(data));
+    //     }
+    //   }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //}, [])
 
 
 

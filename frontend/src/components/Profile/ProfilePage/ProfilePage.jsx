@@ -34,14 +34,10 @@ export default function ProfilePage(props) {
   // ==================================================HANDLERS ====================================================================================
   const [openUpdate, setOpenUpdate] = useState(false);
   const notify = (value) => toast(value);
-  // const styles = {
-  //   transition: "all 4000ms ease-out",
-  // };
   useEffect(() => {
     window.scrollTo(0, 0);
   })
   const updateHandler = () => {
-    // setOpenUpdate({ display: "block" });
     setOpenUpdate(!openUpdate);
   }
   return (
@@ -63,7 +59,6 @@ export default function ProfilePage(props) {
         <Box
           sx={{
             width: "100%",
-
             position: "relative",
             display: "flex",
             justifyContent: { xs: "center", sm: "space-between" },

@@ -3,10 +3,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 // import HomeCardSkeleton from '../Cards/HomeCardSkeleton';
 import { Box } from "@mui/material";
+// import PublishedAds from './PublishedAds/publishedAds';
 // import DiscusssionHomePageCard from '../Discussions/DiscusssionHomePageCard';
 
-
-export default function CardSlider({ children }) {
+import CardForPublishedAds from './PublishedAds/CardForPublishedAd';
+export default function CardSlider({ arr }) {
+    console.log("deepak");
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 900 },
@@ -40,22 +42,34 @@ export default function CardSlider({ children }) {
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
             >
-                {Array.from(new Array(10)).map((data, index) => {
-                    return (
-                        // <HomeCardSkeleton key={index} />
-                        <Box key={index}>
-                            {children}
-                        </Box>
-
-
-                    )
-                })
+                {
+                    typeof arr !== "undefined" &&
+                    arr.length !== 0 &&
+                    arr.map((data, index) => {
+                        if (data !== null) {
+                            console.log("check")
+                            return <CardForPublishedAds cardData={data} key={index} />;
+                        }
+                        else
+                            return null;
+                    })
                 }
+                {/* <PublishedAds /> */}
             </Carousel>
         </Box>
 
     )
 }
 
+// {Array.from(new Array(10)).map((data, index) => {
+//     return (
+//         // <HomeCardSkeleton key={index} />
+//         <Box key={index}>
+//             {children}
+//         </Box>
 
+
+//     )
+// })
+// }
 

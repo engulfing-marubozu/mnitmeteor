@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Typography, Box, Avatar, Stack, styled, IconButton } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -11,6 +11,7 @@ import { TimeSince } from '../../TimeElapsed/timecalc';
 import { ExpandMore } from './_expandMore';
 import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
+import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
 // import { ViewMoreButton } from '../DiscussionStyling/discussionStyling';
 
 
@@ -38,43 +39,16 @@ function Comments({ commentData, addCommentData, actionData }) {
     const [localCommentData, setLocalCommentData] = useState(commentData);
     const [expAddCmnt, setExpAddCmt] = useState(false);
     const [expReplies, setExpReplies] = useState(false);
-    // const [replyVisible, setReplyVisible] = useState(3);
+    const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin)
+
     // ==========================================================================================================================================================================
     const handleExpandClick = () => {
-        setExpAddCmt(!expAddCmnt);
-    };
+        isLoggedIn ? (setExpAddCmt(!expAddCmnt)) : (dispatch(modelPopUp(true)));
+    }
+
     const handleViewRepliesClick = () => {
         setExpReplies(!expReplies);
     };
-
-    //  ========================================================================================================================================================================
-    const initialState = { likeStatus: false, dislikeStatus: false };
-    const isLoggedIn = useSelector((state)=>state.loginlogoutReducer.isLogin)
-    // const [likeDislike, setLikeDislike] = useState({ likeStatus: false, dislikeStatus: false, totalCount: -7 })
-   
-    // const likeIncreaseHandler = () => {
-    //     if (likeDislike.dislikeStatus && !likeDislike.likeStatus) {
-    //         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-    //     }
-    //     else if (!likeDislike.likeStatus) {
-    //         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-    //     }
-    //     else {
-    //         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-    //     }
-    // }
-    // const likeDecreaseHandler = () => {
-    //     if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-    //     }
-    //     else if (!likeDislike.dislikeStatus) {
-    //         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 1) } })
-    //     }
-    //     else {
-    //         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-    //     }
-    // }
-
     //   ===========================================================================================================================================================================
     // console.log(commentData);
     const comment = localCommentData.content;
@@ -86,8 +60,7 @@ function Comments({ commentData, addCommentData, actionData }) {
     const replies = localCommentData.replies.slice(0).reverse();
     const replyCount = replies.length;
     const addReplyData = { ...addCommentData, commentId: commentId }
-    // ========================================================================================================
-
+    // ===========================================================================================================================================================================
 
     const likeIncreaseHandler = () => {
         if (isLoggedIn) {
@@ -98,33 +71,20 @@ function Comments({ commentData, addCommentData, actionData }) {
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-                // dispatch(actionForLikeThread())flase1
                 console.log("true1")
                 const data = { status: "true1", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-                // dispatch(actionForLikeThread())flase1
                 console.log("false2")
                 const data = { status: "false2", ...addReplyData }
                 dispatch(actionForLikeThread(data));
-            } 
-            // else {
-            //     dispatch(modelPopUp(true));
-            // }
+            }
 
-            // if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-            //     //false2
-            //     console.log("true1")
-            // }
-            // else if (!likeDislike.likeStatus) {
-            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-            // }
-            // else {
-            //     setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-            // }
+        } else {
+            dispatch(modelPopUp(true));
         }
+
 
     }
     const likeDecreaseHandler = () => {
@@ -138,62 +98,22 @@ function Comments({ commentData, addCommentData, actionData }) {
 
             } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-                // dispatch(actionForLikeThread())flase1
                 console.log("false1")
                 const data = { status: "false1", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-                // dispatch(actionForLikeThread())flase1
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
                 console.log("true2")
                 const data = { status: "true2", ...addReplyData }
                 dispatch(actionForLikeThread(data));
-            } 
-            // else {
-            //     dispatch(modelPopUp(true));
-            // }
+            }
+        }
+        else {
+            dispatch(modelPopUp(true));
         }
     }
 
-    // useEffect(() => {
 
-    //     return () => {
-    //         console.log("deepakcomment")
-    //         if ((initialState.likeStatus || !initialState.likeStatus) && !initialState.dislikeStatus) {
-    //             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //                 console.log('false2')
-    //                 //false2
-    //                 const data = { status: "false2", ...addReplyData }
-    //                 dispatch(actionForLikeThread(data));
-
-    //             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-    //                 console.log('false1')
-
-    //                 //false1
-    //                 const data = { status: "false1", ...addReplyData }
-    //                 dispatch(actionForLikeThread(data));
-
-    //             }
-    //         }
-    //         if (!initialState.likeStatus && (initialState.dislikeStatus || !initialState.dislikeStatus)) {
-    //             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
-    //                 console.log('true2')
-
-    //                 //true2
-    //                 const data = { status: "true2", ...addReplyData }
-    //                 dispatch(actionForLikeThread(data));
-
-    //             } else if (initialState.likeStatus && !initialState.dislikeStatus) {
-    //                 console.log('true1')
-
-    //                 //   true1
-    //                 const data = { status: "true1", ...addReplyData }
-    //                 dispatch(actionForLikeThread(data));
-    //             }
-    //         }
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
 
 
 
@@ -201,11 +121,6 @@ function Comments({ commentData, addCommentData, actionData }) {
     // =====================================================================================================================================================================================
     const classes = CommentReplyStyle();
     const likeButton = LikeButtonStyle(likeDislike);
-
-    // ===============================================================================================
-    // const ReplyVisibleHandler = () => {
-    //     setReplyVisible((prev) => (prev + 2 < replyCount ? prev + 2 : replyCount))
-    // }
 
     // =======================================================================================================================================================================================================
     return (
@@ -237,11 +152,11 @@ function Comments({ commentData, addCommentData, actionData }) {
                                     onClick={handleExpandClick}
                                 // aria-expanded={expanded}
                                 >
-                                    <ReplyButton>Reply</ReplyButton>
+                                    <ReplyButton >Reply</ReplyButton>
                                 </ExpandMore>
 
                                 {
-                                    (actionData.delFlag || commentedBy === actionData.userLoggedIn ? <CommentDeleteButton>Delete</CommentDeleteButton> : null)
+                                    ((isLoggedIn && (actionData.delFlag || (commentedBy === actionData.userLoggedIn))) ? <CommentDeleteButton>Delete</CommentDeleteButton> : null)
 
                                 }
                             </Box>
@@ -264,22 +179,22 @@ function Comments({ commentData, addCommentData, actionData }) {
                                 addReplyData={addReplyData}
                                 setLocalCommentData={setLocalCommentData}
                                 setExpandedReplies={setExpReplies}
+                                autoFocus={true}
                             />
                         </Collapse>
                         <Collapse in={expReplies} timeout="auto" unmountOnExit>
                             {
                                 typeof (replies) !== "undefined" && (replies.map((data) => {
                                     return (
-                                        <Reply addReplyData={addReplyData} replyData={data} key={data._id}></Reply>
+                                        <Reply
+                                            addReplyData={addReplyData}
+                                            replyData={data}
+                                            actionData={actionData}
+                                            setLocalCommentData={setLocalCommentData}
+                                            key={data._id}></Reply>
                                     )
                                 }))
                             }
-                            {/* {(replyVisible < replyCount) && (
-                                <Box sx={{ display: "flex", justifyContent: "center", pt: "0.5rem" }}>
-                                    <ViewMoreButton onClick={ReplyVisibleHandler}>View more replies({replyCount - replyVisible})</ViewMoreButton>
-                                </Box>
-                            )
-                            } */}
                         </Collapse>
                     </Box>
                 </Box>

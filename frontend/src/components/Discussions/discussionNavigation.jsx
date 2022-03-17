@@ -9,12 +9,13 @@ import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import { NavTabs, NavTab, VerticalNavTab } from '../_Styling/tabStyling';
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from '../_Styling/tabStyling';
-
-
-
+import { modelPopUp } from '../../AStatemanagement/Actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function DiscussionNavigation() {
     const [value, setValue] = React.useState(0);
+    const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+    const dispatch = useDispatch();
     const Navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
@@ -29,18 +30,25 @@ export function DiscussionNavigation() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
-
+    function TabClickHandler(address) {
+        if (isLoggedIn) {
+            Navigate(address);
+        }
+        else {
+            dispatch(modelPopUp(true));
+        }
+    }
 
 
 
     return (
         <Paper sx={{ bgcolor: "white", display: "flex", justifyContent: "center", }}>
             <NavTabs value={value} variant="scrollable" scrollButtons={false}>
-                <NavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { Navigate("") }} />
-                <NavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { Navigate("CreateNewTopic") }} />
-                <NavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { Navigate("SavedTopics") }} />
-                <NavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { Navigate("MyAnswers") }} />
-                <NavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { Navigate("MyTopics") }} />
+                <NavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { TabClickHandler("") }} />
+                <NavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { TabClickHandler("CreateNewTopic") }} />
+                <NavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
+                <NavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { TabClickHandler("MyAnswers") }} />
+                <NavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} />
             </NavTabs>
         </Paper>
 
@@ -53,6 +61,8 @@ export function DiscussionNavigation() {
 export function DiscussionVerticalNavigation() {
 
     const classes = verticalNavigationStyle();
+    const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+    const dispatch = useDispatch();
     const [value, setValue] = React.useState(0);
     const Navigate = useNavigate();
     const location = useLocation();
@@ -68,7 +78,14 @@ export function DiscussionVerticalNavigation() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
 
-
+    function TabClickHandler(address) {
+        if (isLoggedIn) {
+            Navigate(address);
+        }
+        else {
+            dispatch(modelPopUp(true));
+        }
+    }
 
 
     return (
@@ -76,11 +93,11 @@ export function DiscussionVerticalNavigation() {
             <Paper className={classes.paperStyle}>
 
                 <NavTabs value={value} orientation="vertical">
-                    <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { Navigate("") }} />
-                    <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { Navigate("CreateNewTopic") }} />
-                    <VerticalNavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { Navigate("SavedTopics") }} />
-                    <VerticalNavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { Navigate("MyAnswers") }} />
-                    <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { Navigate("MyTopics") }} />
+                    <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { TabClickHandler("") }} />
+                    <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { TabClickHandler("CreateNewTopic") }} />
+                    <VerticalNavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
+                    <VerticalNavTab icon={<QuestionAnswerIcon />} label="My Answers" onClick={() => { TabClickHandler("MyAnswers") }} />
+                    <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} />
                 </NavTabs>
             </Paper>
         </Box>

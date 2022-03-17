@@ -35,12 +35,12 @@ function DiscussionCard({ data }) {
     const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null }
     // ================================================================================================================================================================================================================================
     const handleExpandClick = () => {
-        if (isLoggedIn) {
+        // if (isLoggedIn) {
             setExpanded(!expanded);
             setCommentVisible(4);
-        } else {
-            dispatch(modelPopUp(true));
-        }
+        // } else {
+        //     dispatch(modelPopUp(true));
+        // }
 
     };
 
@@ -62,9 +62,9 @@ function DiscussionCard({ data }) {
                 console.log("false2")
                 const data = { status: "false2", ...addCommentData }
                 dispatch(actionForLikeThread(data));
-            } else {
-                dispatch(modelPopUp(true));
             }
+        } else {
+            dispatch(modelPopUp(true));
         }
 
     }
@@ -82,13 +82,13 @@ function DiscussionCard({ data }) {
                 const data = { status: "false1", ...addCommentData }
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
-                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
+                setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
                 console.log("true2")
                 const data = { status: "true2", ...addCommentData }
                 dispatch(actionForLikeThread(data));
-            } else {
-                dispatch(modelPopUp(true));
             }
+        } else {
+            dispatch(modelPopUp(true));
         }
     }
     // ===================================================================================================================================================================================================================================
@@ -100,7 +100,6 @@ function DiscussionCard({ data }) {
     const userId = localCardData?.users_mnit_id;
     const comments = localCardData?.discussions.slice(0).reverse();
     const cardId = localCardData?._id;
-    // const comments = localCardData?.discussions;
     const commentCount = localCardData?.discussions.length;
     // ===================================================================================================================================================================================================================================
     const classes = DiscussionCardStyle();
@@ -112,12 +111,8 @@ function DiscussionCard({ data }) {
     const SavedHandler = async () => {
 
         if (isLoggedIn) {
-
-
             setSaved(!saved)
             try {
-                console.log(token);
-                console.log(cardId);
                 const thread_id = cardId
                 const response = await axios.post(
                     "http://localhost:5000/save_threads",
@@ -225,7 +220,7 @@ function DiscussionCard({ data }) {
                                 </IconButton>
 
                                 {
-                                    delFlag && (
+                                    isLoggedIn && delFlag && (
                                         // <Tooltip>
                                         <IconButton onClick={deleteHandler}>
                                             <Tooltip title="Delete" arrow >
@@ -244,7 +239,7 @@ function DiscussionCard({ data }) {
                             <ExpandMore
                                 expand={expanded}
                                 onClick={handleExpandClick}
-                                aria-expanded={expanded}
+                                // aria-expanded={expanded}
                             >
                                 <IconButton sx={{ px: 0.5 }}>
                                     <Tooltip title="Comments" arrow>

@@ -9,21 +9,21 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBarCategory from "./MenuBarCategories";
 import { StyledMenu } from "../NavabarStyle";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { LogoutUser, modelPopUp, SellNowclick } from "../../../AStatemanagement/Actions/userActions";
 
 
 export default function MymenuBar(props) {
-
+  const location = useLocation();
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   // console.log(`value of isLoggedIn ${isLoggedIn}`)
   // ========================we can Handle page by this function
   const menuItemHandler = (input = "flag") => {
-    if(input === "Home"){
+    if (input === "Home") {
       Navigate("/");
     } else {
       Navigate(`${input}`);
@@ -83,7 +83,16 @@ export default function MymenuBar(props) {
         <LoginIcon sx={{ fontsize: 3, mr: 1 }} />
         Login
       </MenuItem>}
-      {isLoggedIn && <MenuItem onClick={() => { window.localStorage.removeItem("auth"); dispatch(modelPopUp(false)); dispatch(LogoutUser()); menuItemHandler(); Navigate("/"); }}>
+      {isLoggedIn && <MenuItem onClick={() => {
+        window.localStorage.removeItem("auth");
+        dispatch(modelPopUp(false));
+        dispatch(LogoutUser());
+        menuItemHandler();
+        if (location.pathname !== "/" && location.pathname !== '/Discussions' && location.pathname !== '/Lost&Found') {
+          Navigate("/");
+        }
+        Navigate("/");
+      }}>
         <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />
         Logout
       </MenuItem>}

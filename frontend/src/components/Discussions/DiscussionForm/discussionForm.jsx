@@ -12,7 +12,7 @@ import UploadDoc from "../../_formData/gettingFiles/uploadDoc";
 
 // =================================================================================================================================================================================================================
 
-const INITIAL_FORM_STATE = { adTitle: "", description: "", document: "" };
+const INITIAL_FORM_STATE = { adTitle: "", description: "", document: ""};
 const FORM_VALIDATION = Yup.object().shape({
     adTitle: Yup.string().required("Required"),
     description: Yup.string().required("Required"),

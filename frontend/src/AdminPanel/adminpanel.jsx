@@ -135,8 +135,8 @@ function Adminpanel() {
               index={index}
               key={index}
               cardData={product}
-              ApproveRequest={ApproveRequest}
-              DeclineRequest={DeclineRequest}
+              ApproveRequest={ApproveRequestLF}
+              DeclineRequest={DeclineRequestLF}
             />
           );
         })

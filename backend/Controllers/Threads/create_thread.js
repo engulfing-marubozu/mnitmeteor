@@ -11,19 +11,20 @@ const new_thread = async(req, res)=>{
   console.log("You have clicked the submit button, it sav in db");
     try{
         console.log("aa gaya");
-        console.log(req.body);
+        // console.log(req.body);
        const user_id = req.user._id;
       //  const title = req.body.title;
       //  const description = req.body.description;
        
        const { title, description, document} = req.body;
         const user = await User.findById(req.user._id);
-     console.log(document);
-     const document_upload_response =''
+    //  console.log(document);
+     document_upload_response =''
      if(document)
     {  document_upload_response = await cloudinary.v2.uploader.upload(
        document,
       );
+      document_upload_response = document_upload_response.secure_url;
     }
  
       
@@ -33,13 +34,13 @@ const new_thread = async(req, res)=>{
        users_mnit_id: mnit_id,
        title: title,
        description: description,
-       document : doc_url,
+       document : document_upload_response,
        is_verified: false,
       });
-      console.log(Thread_save);
+      // console.log(Thread_save);
       try{
           const saved_thread = await Thread_save.save();
-          console.log(saved_thread);
+          // console.log(saved_thread);
           console.log(saved_thread.posted_by);
           console.log(saved_thread._id)
           console.log("Saved unverified thread");
@@ -53,7 +54,7 @@ const new_thread = async(req, res)=>{
 }
 const handle_admin_thread = async(req,res)=>{
   console.log("Admin response is here! ");
-  console.log(req.body);
+  // console.log(req.body);
   approval = req.body.to_approve;
   id = req.body._id;
   refID = req.body.posted_by;

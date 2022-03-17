@@ -30,13 +30,9 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
                 },
             }
         );
-        let updatedComment = {};
-        response.data.updated_Thread[0].discussions.forEach((comment) => {
-            if (comment._id === response.data.comment_id) {
-                updatedComment = comment;
-            }
-        })
-        // console.log(updatedComment);
+        console.log(response.data);
+        let updatedComment = response.data;
+     
         setLocalCommentData(updatedComment);
         inputReply.current.value = "";
         setExpandedReplies && (setExpandedReplies(true));

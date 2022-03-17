@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
-import { Paper, Box } from '@mui/material';
+import { Avatar, Paper, Box } from '@mui/material';
 import ExploreIcon from '@mui/icons-material/Explore';
+import ExploreSRC from './explore.svg';
+import PencilSRC from './clip.png';
 import CreateIcon from '@mui/icons-material/Create';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+// import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkSRC from './bookmark.png';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
+import TopicSRC from './mytopics.svg'
 import { NavTabs, NavTab, VerticalNavTab } from '../_Styling/tabStyling';
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from '../_Styling/tabStyling';
@@ -90,10 +94,43 @@ export function DiscussionVerticalNavigation() {
             <Paper className={classes.paperStyle}>
 
                 <NavTabs value={value} orientation="vertical">
-                    <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { TabClickHandler("") }} />
+                    {/* <VerticalNavTab icon={<ExploreIcon />} label="Explore Topics" onClick={() => { TabClickHandler("") }} />
                     <VerticalNavTab icon={<CreateIcon />} label="Create New Topic" onClick={() => { TabClickHandler("CreateNewTopic") }} />
                     <VerticalNavTab icon={<BookmarkAddedIcon />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
-                    <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} />
+                    <VerticalNavTab icon={<QuestionMarkIcon />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} /> */}
+
+                    <VerticalNavTab icon={<Avatar
+                        alt="Explore"
+                        src={ExploreSRC}
+                        sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 42 } }}
+                        variant="rounded"
+                    />}
+                        label="Explore Topics" onClick={() => { TabClickHandler("") }} />
+
+                    <VerticalNavTab icon={<Avatar
+                        alt="Create"
+                        src={PencilSRC}
+                        sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 40 } }}
+                        variant="rounded"
+                    />} label="Create New Topic" onClick={() => { TabClickHandler("CreateNewTopic") }} />
+                    <VerticalNavTab icon={<Avatar
+                        alt="Saved Topics"
+                        src={BookmarkSRC}
+                        sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 40 } }}
+                        variant="rounded"
+                    />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
+                    <VerticalNavTab icon={<Avatar
+                        alt="Explore"
+                        src={ExploreSRC}
+                        sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 40 } }}
+                        variant="rounded"
+                    />} label="My Answers" onClick={() => { TabClickHandler("MyAnswers") }} />
+                    <VerticalNavTab icon={<Avatar
+                        alt="Topic"
+                        src={TopicSRC}
+                        sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 40 } }}
+                        variant="rounded"
+                    />} label="My Topics" onClick={() => { TabClickHandler("MyTopics") }} />
                 </NavTabs>
             </Paper>
         </Box>

@@ -149,7 +149,7 @@ const thread_schema = new mongoose.Schema(
     },
     document : {
            type :String,
-           default : "",
+           default : null,
     },
     discussions: {
       type: [

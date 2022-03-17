@@ -17,6 +17,7 @@ function DiscussionCardArray() {
                 if (isSubscribed) {
                     setDiscussionData(response.data?.universal_threads);
                 }
+                console.log(response.data);
             } catch (err) {
                 console.log(err);
             }

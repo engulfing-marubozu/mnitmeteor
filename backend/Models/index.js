@@ -173,6 +173,10 @@ const thread_schema = new mongoose.Schema(
             type: [{type :Schema.Types.ObjectId, ref : "User" }],
             default: [],
           },
+          replied_to: {
+            type: [{type :Schema.Types.ObjectId, ref : "User" }],
+            default: null,
+          },
           replies: {
             type: [
               {
@@ -194,6 +198,10 @@ const thread_schema = new mongoose.Schema(
                 dislikes: {
                   type: [{type :Schema.Types.ObjectId, ref : "User" }],
                   default: [],
+                },
+                replied_to: {
+                  type: [{type :Schema.Types.ObjectId, ref : "User" }],
+                  default: null,
                 },
                 createdAt: {
                   type: Date,

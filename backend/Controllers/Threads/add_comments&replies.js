@@ -9,7 +9,8 @@ const add_comment =async (req,res)=>{
         const commenter_mnit_id = req.body.commentor_mnit_id;
         const comment_id = req.body.comment_id;
         const content = req.body.content;
-        const replied_to = req.body.repliedTo;
+        const replied_to = req.body.replied_to;
+        console.log(replied_to);
     console.log(user_id)
         if(!comment_id)
         {   

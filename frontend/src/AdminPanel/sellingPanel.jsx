@@ -7,11 +7,9 @@ import { TimeSince } from "../components/TimeElapsed/timecalc";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function AdminPanelPage({ cardData, ApproveRequest, DeclineRequest, index }) {
     // ================================================================CardData ===============================================================
-    // console.log(cardData);
     const imageThumbnail = cardData?.images;
     const title = cardData ? cardData.title?.charAt(0).toUpperCase() + cardData.title?.slice(1) : " ";
     const date = cardData ? new Date(cardData.createdAt) : "";
-    // const properDate = `${date.toLocaleString("default", { month: "short", })} ${date.getDate()}, ${date.getFullYear()}`;
     const properDate = date ? TimeSince(date) : " ";
     const Description = cardData ? cardData.description : " ";
 

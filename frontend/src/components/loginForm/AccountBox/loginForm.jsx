@@ -52,8 +52,8 @@ export function LoginForm(props) {
         console.log(localStorageData);
         // console.log(localStorageData);
         window.localStorage.setItem("auth", JSON.stringify(localStorageData));
-        const userData = JSON.parse(window.localStorage.getItem("auth"));
-        userData && socket.emit("initialise user", userData.user.email);
+        const userData = await JSON.parse(window.localStorage.getItem("auth"));
+        userData && socket.emit("initialise_user", userData.user.email);
         isSellNowClicked && Navigate("SellProduct");
       }
     } catch (err) {

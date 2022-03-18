@@ -28,7 +28,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
                 comment_id: addReplyData.commentId,
                 commentor_mnit_id: email,
                 content: inputReply.current.value,
-                replied_to: addReplyData.repliedTo
+                replied_to: addReplyData?.repliedTo
             },
             {
                 headers: {
@@ -36,12 +36,13 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
                 },
             }
         );
-        console.log(response.data);
+        // console.log(response.data);
         let updatedComment = response.data;
 
         setLocalCommentData(updatedComment);
+        console.log(updatedComment);
         inputReply.current.value = "";
-        console.log(setExpandedReplies);
+        // console.log(setExpandedReplies);
         setExpandedReplies && (setExpandedReplies(true));
         setDisabledPost(true);
     }

@@ -58,8 +58,10 @@ function Comments({ commentData, addCommentData, actionData, setLocalCardData })
     const commentedBy = localCommentData.commented_by;
     const date = new Date(localCommentData.createdAt);
     const properDate = TimeSince(date);
-    const replies = localCommentData.replies.slice(0).reverse();
-    const replyCount = replies.length;
+    const replies = localCommentData?.replies?.slice(0).reverse();
+    console.log(localCommentData.replies);
+    // console.log(replies);
+    const replyCount = replies?.length;
     const addReplyData = { ...addCommentData, commentId: commentId }
     // ===========================================================================================================================================================================
     const likes = localCommentData.likes;

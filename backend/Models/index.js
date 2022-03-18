@@ -69,7 +69,7 @@ const user_schema = new mongoose.Schema(
       default: null,
     },
     notification: {
-      type: [{ type: String }],
+      type: [{ }],
       default: [],
     },
   },
@@ -174,7 +174,8 @@ const thread_schema = new mongoose.Schema(
             default: [],
           },
           replied_to: {
-            type: [{type :Schema.Types.ObjectId, ref : "User" }],
+            type : Schema.Types.ObjectId,
+            ref : "User" ,
             default: null,
           },
           replies: {
@@ -200,7 +201,8 @@ const thread_schema = new mongoose.Schema(
                   default: [],
                 },
                 replied_to: {
-                  type: [{type :Schema.Types.ObjectId, ref : "User" }],
+                  type: Schema.Types.ObjectId,
+                  ref : "User" ,
                   default: null,
                 },
                 createdAt: {

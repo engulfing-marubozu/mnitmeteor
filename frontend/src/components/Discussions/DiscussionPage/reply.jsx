@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
 import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
 import { LikeDislikeChecker } from './likeDislikeChecker';
+
 import ReplyDeleteAlert from '../DeleteAlerts/replyDeleteAlert';
 
 function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
@@ -27,17 +28,17 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     isLoggedIn ? (setExpanded(!expanded)) : (dispatch(modelPopUp(true)));
   };
   //  ========================================================================================================================================================================
-  console.log(replyData);
+  // console.log(replyData);
   const replyId = replyData?._id;
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;
-  const repliedBy = replyData?.replied_by;
+  const repliedBy = replyData?.replied_by; ///replied by id 
   const repliedTo = replyData?.replied_to;
   // console.log(repliedTo);
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
   const replySqrData = { ...addReplyData, replyId: replyId, repliedTo: repliedBy }
-
+  // console.log(replySqrData);
   // ======================================================================================================
 
   const likes = replyData.likes;
@@ -142,18 +143,18 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
               }
             </Box>
 
-            {/* {repliedTo && ( */}
-            <Stack className={classes.rtStack}>
-              <Typography sx={{ fontSize: "11px", mr: 0.3 }}>
-                replied to
-              </Typography>
-              <Typography className={classes.repliedTo}>
-                {/* {repliedTo} */}
-                2019ume1827
-              </Typography>
-            </Stack>
-            {/* )
-            } */}
+            {repliedTo && (
+              <Stack className={classes.rtStack}>
+                <Typography sx={{ fontSize: "11px", mr: 0.3 }}>
+                  replied to
+                </Typography>
+                <Typography className={classes.repliedTo}>
+                  {/* {repliedTo} */}
+                  2019ume1827
+                </Typography>
+              </Stack>
+            )
+            }
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <ReplyCommentBox

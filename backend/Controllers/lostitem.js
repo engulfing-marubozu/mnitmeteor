@@ -24,6 +24,7 @@ const HandleAdmin = async(req,res) => {
     // console.log(saveLostItem);
   }else{
     LostItem.findOneAndDelete({_id:id});
+    console.log("admindeleted");
   }
 }
 const SendLost = async (req,res) => {

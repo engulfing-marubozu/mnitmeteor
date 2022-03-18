@@ -89,6 +89,7 @@ export function DiscussionVerticalNavigation() {
     }
 
 
+    
     return (
         <Box className={classes.outerBox}>
             <Paper className={classes.paperStyle}>
@@ -119,12 +120,6 @@ export function DiscussionVerticalNavigation() {
                         sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 40 } }}
                         variant="rounded"
                     />} label="Saved Topics" onClick={() => { TabClickHandler("SavedTopics") }} />
-                    <VerticalNavTab icon={<Avatar
-                        alt="Explore"
-                        src={ExploreSRC}
-                        sx={{ width: { sm: 50, xs: 30 }, height: { sm: 50, xs: 40 } }}
-                        variant="rounded"
-                    />} label="My Answers" onClick={() => { TabClickHandler("MyAnswers") }} />
                     <VerticalNavTab icon={<Avatar
                         alt="Topic"
                         src={TopicSRC}

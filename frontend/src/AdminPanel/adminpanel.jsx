@@ -32,6 +32,8 @@ function Adminpanel() {
       });
       console.log(response);
       if (response.data === "product Ad request declined") {
+        console.log("done");
+        console.log(user_id);
         socket.emit("admin decline event", user_id);
       }
       setflag(!flag);

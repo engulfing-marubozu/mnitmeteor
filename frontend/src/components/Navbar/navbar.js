@@ -82,7 +82,7 @@ function Navbar() {
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
     // console.log(userData);
-    userData && socket.emit("initialise_user", userData.user.email);
+     userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
   React.useEffect(() => {
@@ -92,6 +92,7 @@ function Navbar() {
   });
 
   React.useEffect(() => {
+    console.log("donadandone")
     socket.on("declined_post_notification", () => {
       setNotificationPending(notificationPending + 1);
     });

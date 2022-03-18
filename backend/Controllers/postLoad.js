@@ -82,13 +82,14 @@ const admin_response = async (req, res) => {
   try {
     if (response) {
       await Product.findOneAndUpdate({ _id: id }, { is_verified: true });
+     await User.findByIdAndUpdate( user_id, {$addToSet :  {notification : { status : 1, content : `Dear user, your Ad request for the product ${product_title} has been approved. We will notify you once we get any interested buyer for your item.`}} });
       res.status(200).send("product approved");
     } else {
       const data = await Product.findOne({ _id: id });
       const user_id = await User.findById(data.posted_by);
       const product_title= data.title;
       
-      const user =  await User.findByIdAndUpdate( user_id, {$addToSet :  {notification :  `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`}}, {new:true} ); 
+      await User.findByIdAndUpdate( user_id, {$addToSet :  {notification : { status : -1, content: `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`}}} ); 
       data.remove().then(() => console.log("product Ad request declined"));
    
       res.status(200).send("product Ad request declined");

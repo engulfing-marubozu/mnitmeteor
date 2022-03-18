@@ -87,13 +87,15 @@ function Navbar() {
 
   React.useEffect(() => {
     socket.on("approve_post_update", () => {
+      console.log("donawhddone")
       setpostPending(postsPending + 1);
     });
   });
 
   React.useEffect(() => {
-    console.log("donadandone")
+    console.log("donadandgfjwhddone")
     socket.on("declined_post_notification", () => {
+      console.log("donadandone")
       setNotificationPending(notificationPending + 1);
     });
   });

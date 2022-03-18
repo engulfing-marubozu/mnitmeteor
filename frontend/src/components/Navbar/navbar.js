@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios'
 import {
   GlobalStyles,
   AppBar,
@@ -91,12 +92,22 @@ function Navbar() {
   }, []);
 
   React.useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("auth"));
-    console.log("land4");
-    userData &&
-      setNotificationPending(
-        userData.user?.notification?.length - userData?.user?.read_notif_count
-      );
+    
+    // const userData = JSON.parse(window.localStorage.getItem("auth"));
+    // console.log("land4");
+    // userData &&
+      // setNotificationPending(
+      //   userData.user?.notification?.length - userData?.user?.read_notif_count
+      // );
+
+      const call =async ()=>{
+                const response = await axios.get('http://localhost:5000/get_notif_alert_count')
+                  setNotificationPending(
+                           response.data.count
+                             );
+      }
+
+   call();
   }, [setNotificationPending]);
 
   React.useEffect(() => {

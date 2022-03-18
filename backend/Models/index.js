@@ -48,6 +48,10 @@ const user_schema = new mongoose.Schema(
       type: [{ type: Schema.Types.ObjectId, ref: "Thread" }],
       default: [],
     },
+    read_notif_count : {
+         type : Number,
+         default : 0
+    },
     threads_saved: {
       type: [],
       default: [],
@@ -174,8 +178,7 @@ const thread_schema = new mongoose.Schema(
             default: [],
           },
           replied_to: {
-            type : Schema.Types.ObjectId,
-            ref : "User" ,
+            type : String,
             default: null,
           },
           replies: {
@@ -201,8 +204,7 @@ const thread_schema = new mongoose.Schema(
                   default: [],
                 },
                 replied_to: {
-                  type: Schema.Types.ObjectId,
-                  ref : "User" ,
+                  type: String,
                   default: null,
                 },
                 createdAt: {

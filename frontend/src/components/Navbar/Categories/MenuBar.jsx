@@ -13,7 +13,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { LogoutUser, modelPopUp, SellNowclick } from "../../../AStatemanagement/Actions/userActions";
-
+const { io } = require("socket.io-client");
+const socket = io("http://localhost:5000", { reconnection: true });
 
 export default function MymenuBar(props) {
   const location = useLocation();
@@ -84,6 +85,9 @@ export default function MymenuBar(props) {
         Login
       </MenuItem>}
       {isLoggedIn && <MenuItem onClick={() => {
+         const userData = JSON.parse(window.localStorage.getItem("auth"));
+         const user_id = userData.user.email;
+         socket.emit("log_out_socket",user_id);
         window.localStorage.removeItem("auth");
         dispatch(modelPopUp(false));
         dispatch(LogoutUser());

@@ -69,7 +69,11 @@ io.on("connect", (socket) => {
     io.to(users_scoket_id[user.email]).emit("decline/approve/interesred_post_notification");
    }
   });
-  
+  socket.on("log_out_socket",async (user_id) => {
+    console.log("disconnected");
+    delete users_scoket_id[user_id];
+      console.log(users_scoket_id);
+  });
 socket.on("disconnect", () => {
     console.log("disconnected");
     Object.keys(users_scoket_id).forEach(key => {

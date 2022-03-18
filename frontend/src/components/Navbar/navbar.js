@@ -50,6 +50,8 @@ export const OutlinedButton = styled(Button)(({ theme }) => ({
 
 // ==========================================================================================================================================================================
 function Navbar() {
+  // const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const token = localUserData.token;
   const Navigate = useNavigate();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -93,22 +95,29 @@ function Navbar() {
 
   React.useEffect(() => {
     
-    // const userData = JSON.parse(window.localStorage.getItem("auth"));
-    // console.log("land4");
-    // userData &&
-      // setNotificationPending(
-      //   userData.user?.notification?.length - userData?.user?.read_notif_count
-      // );
-
       const call =async ()=>{
-                const response = await axios.get('http://localhost:5000/get_notif_alert_count')
-                  setNotificationPending(
-                           response.data.count
-                             );
+        try {
+          const userData = JSON.parse(window.localStorage.getItem("auth"));
+          const token = userData.token
+          console.log("fjne")
+          const response =
+         await axios.post(
+           "http://localhost:5000/get_notif_alert_count",
+           {  },
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+         // console.log(response.data);
+         setNotificationPending( response.data.count  );
+       } catch (err) {
+         console.log(err);
+       };
       }
-
    call();
-  }, [setNotificationPending]);
+  }, [notificationPending]);
 
   React.useEffect(() => {
     socket.on("approve_post_update", () => {

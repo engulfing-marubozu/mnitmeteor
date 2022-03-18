@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   GlobalStyles,
   AppBar,
@@ -52,6 +52,8 @@ function Navbar() {
   const Navigate = useNavigate();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [postsPending, setpostPending] = useState(0);
+  const [notificationPending, setNotificationPending] = useState(0);
   const open = Boolean(anchorEl);
 
   // =====================================================================================================================================================================
@@ -75,20 +77,22 @@ function Navbar() {
   // =============================================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const dispatch = useDispatch();
-
+  // const LocalUserData=useSelector((state)=>loginlogoutReducer);
+  // const isLoggedIn=localUserData.isLogin;
+  // const
+  console.log(notificationPending);
   // ========================================================SOCKET-IO==========================================================================================================
-  const [postsPending, setpostPending] = useState(0);
-  const [notificationPending, setNotificationPending] = useState(0);
+
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    console.log("land2")
+    console.log("land2");
     // console.log(userData);
-     userData && socket.emit("initialise_user", userData.user.email);
+    userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    console.log("land4")
+    console.log("land4");
     userData &&
       setNotificationPending(
         userData.user?.notification?.length - userData?.user?.read_notif_count
@@ -96,26 +100,26 @@ function Navbar() {
   }, [setNotificationPending]);
 
   React.useEffect(() => {
-    socket.on("approve_post_update", () => {  
-      console.log("land1")
+    socket.on("approve_post_update", () => {
+      // console.log("land1");
       setpostPending(postsPending + 1);
     });
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  React.useEffect(() => {  
-    socket.on("decline/approve/interesred_post_notification", () => { 
-      console.log("land")
-      setNotificationPending((prev)=>{console.log(prev)
-        return (prev + 1)});
-   
+  React.useEffect(() => {
+    socket.on("decline/approve/interesred_post_notification", () => {
+      console.log("land");
+      setNotificationPending((prev) => {
+        // console.log(prev);
+        return prev + 1;
+      });
     });
-  },[]);
+  }, []);
 
- 
   // ========================================================================================================================================================================
   return (
     <>
-   {notificationPending}
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
@@ -215,7 +219,12 @@ function Navbar() {
                 </OutlinedButton>
               )}
             </Stack>
-            {isLoggedIn && <Userbar updateNotification={notificationPending} />}
+            {isLoggedIn && (
+              <Userbar
+                updateNotification={notificationPending}
+                setNotificationPending={setNotificationPending}
+              />
+            )}
             {/* ================================================================================================= */}
             <ColorButton
               sx={{

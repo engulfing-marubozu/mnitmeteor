@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Badge, Drawer } from '@mui/material';
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
@@ -10,15 +10,18 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
 import NotificationBox from "../Notification/notificationBox";
-function Userbar(props) {
+function Userbar({ updateNotification, setNotificationPending }) {
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(props.updateNotification)
-
+  const dispatch = useDispatch();
   const location = useLocation();
   // console.log(location.pathname)
+
+  // useEffect(() => {
+  //   setNotificationCount(props.updateNotification);
+  // }, [props.updateNotification])
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -26,12 +29,15 @@ function Userbar(props) {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-  const dispatch = useDispatch();
+  const BadgeHandler = () => {
+    setDrawer(true);
+    setNotificationPending(0);
+  }
 
   return (
     <Box>
-      <IconButton sx={{ p: 0.65, mr: { xs: 1, sm: 2 } }} onClick={() => { setDrawer(true) }}>
-        <Badge badgeContent={notificationCount} color="error">
+      <IconButton sx={{ p: 0.65, mr: { xs: 1, sm: 2 } }} onClick={BadgeHandler}>
+        <Badge badgeContent={updateNotification} color="error">
           <Tooltip title="Notifications" arrow>
             <NotificationsIcon sx={{ fontSize: { xs: 20, sm: 24 }, color: "#263238", }} />
           </Tooltip>
@@ -42,7 +48,7 @@ function Userbar(props) {
         open={drawer}
         onClose={() => { setDrawer(false) }}
       >
-        <NotificationBox setDrawer={setDrawer} setNotificationCount={setNotificationCount} />
+        <NotificationBox setDrawer={setDrawer} />
       </Drawer>
 
       {/* {drawer&&NotificationBox} */}

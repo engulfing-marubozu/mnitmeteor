@@ -212,7 +212,7 @@ function Adminpanel() {
         })
       }
       <h1>Threads AP</h1>
-      {
+      {/* {
         ThreadData &&
         ThreadData.map((product, index) => {
           return (
@@ -225,7 +225,7 @@ function Adminpanel() {
             />
           );
         })
-      }
+      } */}
     </>
   );
 }

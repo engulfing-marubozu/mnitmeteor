@@ -56,7 +56,6 @@ function ProductCard(props) {
   // console.log(cardData);
   return (
     <main>
-      {/* <Typography variant="h4">{props.Category ? props.Category : params.category}</Typography> */}
       <Container
         sx={{ pt: { xs: 5 }, pb: { xs: 5 }, maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" } }}
       >
@@ -78,11 +77,6 @@ function ProductCard(props) {
               }
               else
                 return null;
-              // return (
-              //   <Grid item xs={6} md={4} lg={3} key={index} >
-              //     <HomeCard cardData={data} />
-              //   </Grid>
-              // );
             }))}
         </Grid>
       </Container>

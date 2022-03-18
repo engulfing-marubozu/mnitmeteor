@@ -20,6 +20,8 @@ import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
 import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
 import { useSelector } from "react-redux"
+import SpecificThread from "../Discussions/discussionSpecificThread";
+import SpecificLostFound from "../Lost&Found/specificLostFound";
 function RouterCon() {
 
   const localUserData = useSelector((state) => state.loginlogoutReducer);
@@ -38,12 +40,14 @@ function RouterCon() {
       <Route path="About" element={<About />} />
       <Route path="Discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
+        <Route path=":id" element={<SpecificThread />} />
         <Route path="CreateNewTopic" element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />} />
         <Route path="MyTopics" element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />} />
         <Route path="SavedTopics" element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />} />
       </Route>
       <Route path="Lost&Found" element={<LostFound />} >
         <Route index element={<LostFoundCardArray />} />
+        <Route path=":id" element={<SpecificLostFound />} />
         <Route path="Lost&FoundForm" element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />} />
         <Route path="LostItems" element={isLoggedIn ? <LostItems /> : <Navigate to="/" />} />
         <Route path="FoundItems" element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />} />

@@ -35,7 +35,7 @@ function DiscussionCardArray() {
                 )
             }) :
                 (typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
-                    return (<DiscussionCard key={index} data={data} />)
+                    return (<DiscussionCard key={index} data={data} setThreadArray={setDiscussionData} />)
                 })))}
         </>
     );

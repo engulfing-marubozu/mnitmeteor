@@ -38,7 +38,6 @@ export default function CardForPublishedAds(props) {
   const Image = props.cardData?.images[0]?.image;
   const title = props.cardData.title.charAt(0).toUpperCase() + props.cardData.title.slice(1);
   const date = new Date(props.cardData.createdAt);
-  // const properDate = `${date.toLocaleString("default", { month: "short",})} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = TimeSince(date);
 
   // =========================================================================================================================================

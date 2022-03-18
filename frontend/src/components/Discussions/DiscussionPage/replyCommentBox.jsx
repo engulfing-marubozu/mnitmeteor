@@ -4,7 +4,7 @@ import { AddReplyButton } from '../DiscussionStyling/discussionStyling';
 import { useSelector } from "react-redux";
 import axios from 'axios'
 
-function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData, setExpandedReplies, ...otherProps }) {
+function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData, setExpandedReplies, }) {
     const inputReply = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     const localUserData = useSelector((state) => state.loginlogoutReducer);
@@ -41,6 +41,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
 
         setLocalCommentData(updatedComment);
         inputReply.current.value = "";
+        console.log(setExpandedReplies);
         setExpandedReplies && (setExpandedReplies(true));
         setDisabledPost(true);
     }
@@ -48,7 +49,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
         <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
             <form>
                 <TextField
-                    {...otherProps}
+                    autoFocus={true}
                     size="small"
                     color="primary"
                     fullWidth

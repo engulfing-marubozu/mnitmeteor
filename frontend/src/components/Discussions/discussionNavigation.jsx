@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Avatar, Paper, Box } from '@mui/material';
 import ExploreIcon from '@mui/icons-material/Explore';
-import ExploreSRC from './explore.svg';
-import PencilSRC from './clip.png';
+import ExploreSRC from './Icons/explore.svg';
+import PencilSRC from './Icons/clip.png';
 import CreateIcon from '@mui/icons-material/Create';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 // import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-import BookmarkSRC from './bookmark.png';
+import BookmarkSRC from './Icons/bookmark.png';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
-import TopicSRC from './mytopics.svg'
+import TopicSRC from './Icons/mytopics.svg'
 import { NavTabs, NavTab, VerticalNavTab } from '../_Styling/tabStyling';
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from '../_Styling/tabStyling';

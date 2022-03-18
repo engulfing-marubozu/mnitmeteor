@@ -44,7 +44,8 @@ export const AddCommentButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
   fontSize: "0.9rem",
   fontWeight: "bold",
-  marginLeft: "auto  "
+  marginLeft: "auto ",
+  marginTop:"0.4rem"
 }));
 export const ViewMoreButton = styled.a`
 

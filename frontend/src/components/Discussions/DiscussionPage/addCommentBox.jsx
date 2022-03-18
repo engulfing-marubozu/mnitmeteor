@@ -25,7 +25,6 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
     //     setDisabledPost(true);
     //     //    setFocused(false);
     // }
-
     // =============================================================================================================================================================
     const submitHandler = async () => {
         const email = localUserData?.userData?.email.slice(0, 11);
@@ -60,9 +59,8 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
                 />
             </Box>
             <Box sx={{ display: "flex", flexDirection: "flex-end" }}>
-                <AddCommentButton disabled={disabledPost} onClick={submitHandler}> Add Comment</AddCommentButton>
+                <AddCommentButton disabled={disabledPost} onClick={submitHandler} size="large"> Add Comment</AddCommentButton>
             </Box>
-            {/* <CommentButton onClick={CancelPost}>Cancel</CommentButton> */}
         </Box>
     )
 }

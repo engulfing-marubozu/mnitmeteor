@@ -2,9 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-// import StylingPublishedAds from "./stylingPublishedAds";
-import CardForPublishedAds from "./CardForPublishedAd";
-import CardSlider from "../CardSlider";
+import StylingPublishedAds from "./stylingPublishedAds";
+// import CardForPublishedAds from "./CardForPublishedAd";
+// import CardSlider from "../CardSlider";
 
 function PublishedAds() {
   console.log("deepakpbulsih");
@@ -36,11 +36,12 @@ function PublishedAds() {
       isSubscribed = false;
     }
   }, [publishedAdsData, token]);
-  // const arrLength = typeof (arr) === "undefined" ? 0 : arr.length;
+  const arrLength = typeof (arr) === "undefined" ? 0 : arr.length;
   // ===================================================================================================================================================================
   return (
-    // <StylingPublishedAds length={arrLength} arr={arr}></StylingPublishedAds>
+
     <>
+      <StylingPublishedAds length={arrLength} arr={arr}></StylingPublishedAds>
       {/* {
         typeof arr !== "undefined" &&
         arr.length !== 0 &&
@@ -53,7 +54,7 @@ function PublishedAds() {
             return null;
         })
       } */}
-      <CardSlider arr={arr} />
+      {/* <CardSlider arr={arr} /> */}
     </>
 
   );

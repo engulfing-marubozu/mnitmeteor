@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Typography, Box, Avatar, Stack, styled, IconButton } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { ReplyButton, CommentDeleteButton, ViewRepliesButton } from '../DiscussionStyling/discussionStyling';
+import { ReplyButton, ViewRepliesButton } from '../DiscussionStyling/discussionStyling';
 import Reply from "./reply"
 import ReplyCommentBox from './replyCommentBox';
 import Collapse from '@mui/material/Collapse';
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionForLikeThread } from '../../../AStatemanagement/Actions/userActions';
 import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
 import { LikeDislikeChecker } from './likeDislikeChecker';
-// import { ViewMoreButton } from '../DiscussionStyling/discussionStyling';
+import CommentDeleteAlert from '../DeleteAlerts/commentDeleteAlert'
 
 
 
@@ -33,7 +33,7 @@ const ExpandMoreReplies = styled((props) => {
 
 
 // ================================================================================================================================================================================
-function Comments({ commentData, addCommentData, actionData }) {
+function Comments({ commentData, addCommentData, actionData, setLocalCardData }) {
 
     const dispatch = useDispatch();
     const [localCommentData, setLocalCommentData] = useState(commentData);
@@ -42,9 +42,7 @@ function Comments({ commentData, addCommentData, actionData }) {
     const localUserData = useSelector((state) => state.loginlogoutReducer)
     const isLoggedIn = localUserData.isLogin;
     const userLoggedIn = localUserData.userData._id;
-
-
-    // ==========================================================================================================================================================================
+    // ========================================================================================
     const handleExpandClick = () => {
         isLoggedIn ? (setExpAddCmt(!expAddCmnt)) : (dispatch(modelPopUp(true)));
     }
@@ -122,11 +120,6 @@ function Comments({ commentData, addCommentData, actionData }) {
         }
     }
 
-
-
-
-
-
     // =====================================================================================================================================================================================
     const classes = CommentReplyStyle();
     const likeButton = LikeButtonStyle(likeDislike);
@@ -134,7 +127,7 @@ function Comments({ commentData, addCommentData, actionData }) {
     // =======================================================================================================================================================================================================
     return (
         <Box>
-            <Box sx={{ bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 1, my: "0.5rem" }}>
+            <Box sx={{ bgcolor: "#ede7f6", px: { xs: 1, sm: 3 }, py: 1, my: "0.7rem" }}>
                 <Box className={classes.topBox}>
                     <Stack className={classes.topStack}>
                         <Avatar className={classes.avatarStyle} />
@@ -165,8 +158,13 @@ function Comments({ commentData, addCommentData, actionData }) {
                                 </ExpandMore>
 
                                 {
-                                    ((isLoggedIn && (actionData.delFlag || (commentedBy === actionData.userLoggedIn))) ? <CommentDeleteButton>Delete</CommentDeleteButton> : null)
+                                    ((isLoggedIn && (actionData.delFlag || (commentedBy === actionData.userLoggedIn))) ?
+                                        <CommentDeleteAlert
+                                            commentData={addReplyData}
+                                            setLocalCardData={setLocalCardData}
+                                        /> : null)
 
+                                    //   <CommentDeleteButton onClick={CommentDeleteHandler}>Delete</CommentDeleteButton> : null
                                 }
                             </Box>
                             <Box>
@@ -188,7 +186,6 @@ function Comments({ commentData, addCommentData, actionData }) {
                                 addReplyData={addReplyData}
                                 setLocalCommentData={setLocalCommentData}
                                 setExpandedReplies={setExpReplies}
-                                autoFocus={true}
                             />
                         </Collapse>
                         <Collapse in={expReplies} timeout="auto" unmountOnExit>
@@ -208,7 +205,7 @@ function Comments({ commentData, addCommentData, actionData }) {
                     </Box>
                 </Box>
             </Box>
-        </Box>
+        </Box >
 
     )
 }

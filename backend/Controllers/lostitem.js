@@ -21,9 +21,13 @@ const HandleAdmin = async(req,res) => {
           $addToSet: {lf_items_posted: id },
         });
     console.log("Updated user database");
+    res.send("Approved");
     // console.log(saveLostItem);
   }else{
-    LostItem.findOneAndDelete({_id:id});
+    console.log(id);
+    console.log("This item should be deleted");
+    await LostItem.findOneAndDelete({_id:id});
+    res.send("Deleted");
   }
 }
 const SendLost = async (req,res) => {

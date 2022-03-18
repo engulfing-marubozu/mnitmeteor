@@ -120,15 +120,15 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           }
         );
 
-      //   if (response.data.status) {
-      //     alert(
-      //       `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
-      //     );
-          // dispatch(addToFavourites(response.data.updatedUser));
-      //   } else {
-      //     
-      console.log(response.data);
-       dispatch(addToInterested(response.data));
+        //   if (response.data.status) {
+        //     alert(
+        //       `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
+        //     );
+        // dispatch(addToFavourites(response.data.updatedUser));
+        //   } else {
+        //     
+        console.log(response.data);
+        dispatch(addToInterested(response.data));
       }
     } catch (err) {
       console.log(err);
@@ -183,7 +183,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       } else {
         const { token } = JSON.parse(window.localStorage.getItem("auth"));
         const data = {
-          isLogin:true,
+          isLogin: true,
           token: token,
           user: response.data.user,
         };
@@ -213,13 +213,13 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
 
 // }
 // =====================================================================
-export const actionForLikeThread=(likeData)=>{
+export const actionForLikeThread = (likeData) => {
   console.log(likeData);
-  return async (dispatch)=>{
-    try { 
+  return async (dispatch) => {
+    try {
       await axios.post(
         "http://localhost:5000/like_and_dislike_threads",
-        { status: likeData.status, comment_id :likeData.commentId, thread_id : likeData.cardId , reply_id : likeData.replyId },
+        { status: likeData.status, comment_id: likeData.commentId, thread_id: likeData.cardId, reply_id: likeData.replyId },
         {
           headers: {
             Authorization: `Bearer ${likeData.token}`,
@@ -232,4 +232,44 @@ export const actionForLikeThread=(likeData)=>{
     }
   }
 
+}
+export const actionForDeleteThread = (data) => {
+  console.log(data);
+  return async (dispatch) => {
+    try {
+      // const response =
+      await axios.post(
+        "http://localhost:5000/product_details",
+        {  },
+        {
+          headers: {
+           // Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+export const actionForDeleteThreadComment = (data) => {
+  console.log(data);
+  return async (dispatch) => {
+    try {
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+export const actionForDeleteThreadReply = (data) => {
+  console.log(data);
+  return async (dispatch) => {
+    try {
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

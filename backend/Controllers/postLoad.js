@@ -154,7 +154,6 @@ const fetch_livedata = async (req, res) => {
     } else res.status(200).send(fetch_post);
   } catch (err) {
     console.log(err);
-    res.status(200).send(err);
   }
 };
 

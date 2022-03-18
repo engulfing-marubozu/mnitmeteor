@@ -136,6 +136,11 @@ export const LikeButtonStyle = makeStyles({
 
 // =====================================CommentReplyStyle==========================================================================================================================
 export const CommentReplyStyle = makeStyles({
+    mainBox: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+    },
     topBox: {
         display: "flex",
         flexDirection: "row",
@@ -183,19 +188,29 @@ export const CommentReplyStyle = makeStyles({
         flexDirection: "row",
         justifyContent: "space-between",
     },
-    buttonWrapper:{
-        display:"flex",
-        flexDirection:"row",
-        alignItems:"flex-end"
+    replyActionBox: {
+        marginTop: "8px",
+        display: "flex",
+        flexDirection: "row",
+    },
+    buttonWrapper: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-end"
     },
     contentBox: {
         fontSize: "14px",
         marginBottom: 0.4,
     },
-    mainBox: {
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
+    repliedTo: {
+        fontSize: "11px",
+        marginRight: 3,
+        color: "#ff5722"
+    },
+    rtStack: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingTop: 5,
+        marginLeft: "1rem"
     }
-
 })

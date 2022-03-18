@@ -3,7 +3,9 @@ import axios from 'axios'
 import DiscussionCard from './discussionCard';
 import DiscussionSkeleton from '../discussionSkeleton';
 function DiscussionCardArray() {
-
+    let userID = null
+    const localUserData=JSON.parse(window.localStorage.getItem("auth"));
+     userID=localUserData?.user?._id;
     // =======================================================================================================================================================================
     const [discussionData, setDiscussionData] = useState();
     useEffect(() => {
@@ -11,8 +13,9 @@ function DiscussionCardArray() {
         let isSubscribed = true;
         async function call() {
             try {
-                const response = await axios.get(
-                    "http://localhost:5000/fetch_live_threads"
+                console.log(userID);
+                const response = await axios.post(
+                    "http://localhost:5000/fetch_live_threads",{user_id :userID}
                 );
                 if (isSubscribed) {
                     setDiscussionData(response.data?.universal_threads);

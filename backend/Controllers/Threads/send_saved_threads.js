@@ -19,7 +19,7 @@ const  send_saved_threads = async (req, res) => {
       })
     );
     console.log(data);
-    res.status(200).send({data, saved_threads});
+    res.status(200).send(data);
   };
   module.exports = { send_saved_threads };
   

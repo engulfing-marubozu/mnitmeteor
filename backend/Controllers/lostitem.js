@@ -23,7 +23,9 @@ const HandleAdmin = async(req,res) => {
     console.log("Updated user database");
     // console.log(saveLostItem);
   }else{
-    LostItem.findOneAndDelete({_id:id});
+    console.log(id);
+    console.log("This item should be deleted");
+    await LostItem.findOneAndDelete({_id:id});
   }
 }
 const SendLost = async (req,res) => {

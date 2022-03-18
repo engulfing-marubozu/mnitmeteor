@@ -58,7 +58,7 @@ io.on("connect", (socket) => {
     socket.broadcast.emit("approve_post_update");
   });
  
- socket.on("admin decline event", async (user_id) => {
+ socket.on("admin decline/approve/interested event", async (user_id) => {
    console.log("dbvjsbvknskvn");
    const user = await User.findById(user_id);
   // console.log(user);
@@ -66,7 +66,7 @@ io.on("connect", (socket) => {
    console.log(users_scoket_id);
    if(users_scoket_id[user.email])
    { console.log("mil gaya");
-    io.to(users_scoket_id[user.email]).emit("declined_post_notification");
+    io.to(users_scoket_id[user.email]).emit("decline/approve/interesred_post_notification");
    }
   });
   

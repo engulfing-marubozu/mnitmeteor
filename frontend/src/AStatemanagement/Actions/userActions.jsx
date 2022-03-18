@@ -10,7 +10,8 @@ import {
 } from "./types";
 import axios from "axios";
 // import { USER_SERVER } from "../components/Config.js";
-
+const { io } = require("socket.io-client");
+const socket = io("http://localhost:5000", { reconnection: true });
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };
@@ -88,6 +89,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
     try {
       const { productId, userToken, isInterested } = interestedData;
       if (isInterested) {
+        console.log("dfb");
         response = await axios.post(
           "http://localhost:5000/interested_update",
           { productId, isInterested },
@@ -98,6 +100,14 @@ export const fetchDataForInterestedProduct = (interestedData) => {
           }
         );
         console.log(response.data);
+        console.log(response.data.status)
+        if(response.data.status === "success")
+        {  console.log("bleh")
+          socket.emit("admin decline/approve/interested event", response.data.seller_id);
+          socket.emit("admin decline/approve/interested event", response.data.buyer_id);
+        }
+        else
+        console.log("jnen")
         dispatch(addToInterested(response.data.updatedUser));
       } else {
         response = await axios.post(

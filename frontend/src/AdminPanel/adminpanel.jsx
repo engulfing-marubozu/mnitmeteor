@@ -19,7 +19,11 @@ function Adminpanel() {
       response: true,
     });
     console.log(response);
-    socket.emit("admin approve event");
+    if (response.data === "product approved")
+    {
+      socket.emit("admin approve event");
+     socket.emit("admin decline/approve/interested event",cardData.posted_by);
+   }
     setflag(!flag);
   };
   const DeclineRequest = async (cardData) => {
@@ -34,7 +38,7 @@ function Adminpanel() {
       if (response.data === "product Ad request declined") {
         console.log("done");
         console.log(user_id);
-        socket.emit("admin decline event", user_id);
+        socket.emit("admin decline/approve/interested event", user_id);
       }
       setflag(!flag);
     }

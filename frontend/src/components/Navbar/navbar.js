@@ -81,35 +81,41 @@ function Navbar() {
   const [notificationPending, setNotificationPending] = useState(0);
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
+    console.log("land2")
     // console.log(userData);
      userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
   React.useEffect(() => {
-    socket.on("approve_post_update", () => {
-      console.log("donawhddone")
-      setpostPending(postsPending + 1);
-    });
-  });
-
-  React.useEffect(() => {
-    console.log("donadandgfjwhddone")
-    socket.on("declined_post_notification", () => {
-      console.log("donadandone")
-      setNotificationPending(notificationPending + 1);
-    });
-  });
-
-  React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
+    console.log("land4")
     userData &&
       setNotificationPending(
         userData.user?.notification?.length - userData?.user?.read_notif_count
       );
   }, [setNotificationPending]);
+
+  React.useEffect(() => {
+    socket.on("approve_post_update", () => {  
+      console.log("land1")
+      setpostPending(postsPending + 1);
+    });
+  },[]);
+
+  React.useEffect(() => {  
+    socket.on("decline/approve/interesred_post_notification", () => { 
+      console.log("land")
+      setNotificationPending((prev)=>{console.log(prev)
+        return (prev + 1)});
+   
+    });
+  },[]);
+
+ 
   // ========================================================================================================================================================================
   return (
     <>
+   {notificationPending}
       <GlobalStyles
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />

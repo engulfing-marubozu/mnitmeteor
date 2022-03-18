@@ -75,7 +75,7 @@ export default function CategorySlider() {
     <Box
       sx={{
         width: "100%",
-        bgcolor: "#C8C6C6",
+        // bgcolor: "#C8C6C6",
         display: "flex",
         justifyContent: "center",
       }}

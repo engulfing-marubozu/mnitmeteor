@@ -20,9 +20,8 @@ const delete_thread = async (req,res)=>{
      const y=   await User.updateMany({threads_commented_or_replied : {$in : {id : thread_id}}}, 
             {$pull : {threads_commented_or_replied: {id : thread_id}}}  , {new:true});
  
-
-        console.log(y);
-         res.status(200).send({updated_user})
+  const all_thread = await Thread.find({});
+         res.status(200).send({all_thread});
         }
        
        catch(err){

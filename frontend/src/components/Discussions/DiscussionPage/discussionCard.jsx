@@ -4,7 +4,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 import Comments from './comment';
 import AddCommentBox from './addCommentBox';
@@ -18,10 +17,12 @@ import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
 import { useSelector } from "react-redux";
 import axios from 'axios';
+import { RWebShare } from 'react-web-share';
 import { LikeDislikeChecker } from './likeDislikeChecker';
+import ThreadDeleteAlert from '../DeleteAlerts/threadDeletealert';
 
 // ================================================================================================================================================================================================================================
-function DiscussionCard({ data }) {
+function DiscussionCard({ data, setThreadArray }) {
     const [localCardData, setLocalCardData] = useState(data);
     const [commentVisible, setCommentVisible] = useState(4);
     const [saved, setSaved] = useState(false);
@@ -32,23 +33,20 @@ function DiscussionCard({ data }) {
     const token = localUserData?.token;
     const isLoggedIn = localUserData?.isLogin;
     const userLoggedIn = localUserData?.userData?._id
-    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null,repliedTo:null }
-    // ================================================================================================================================================================================================================================
+    const addCommentData = { token: token, cardId: data?._id, commentId: null, replyId: null, repliedTo: null }
+    // ==================================================================
     const handleExpandClick = () => {
         setExpanded(!expanded);
         setCommentVisible(4);
     };
 
-    // =============================================================LIKEHANDLER=====================================================================================================================================================
+    // ===========================================================LIKEHANDLER=====================================================================================================================================================
     const likes = data.likes;
     const dislikes = data.dislikes;
     const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
     const dislikeStatus = LikeDislikeChecker(dislikes, userLoggedIn);
     const totalCount = likes.length - dislikes.length;
     const [likeDislike, setLikeDislike] = useState({ likeStatus: likeStatus, dislikeStatus: dislikeStatus, totalCount: totalCount })
-    // console.log();
-//    console.log(likeDislike);
-
 
     // ==================================================================================================================================
     const likeIncreaseHandler = () => {
@@ -107,15 +105,15 @@ function DiscussionCard({ data }) {
     const comments = localCardData?.discussions.slice(0).reverse();
     const cardId = localCardData?._id;
     const commentCount = localCardData?.discussions.length;
-    // ===================================================================================================================================================================================================================================
+    // ============================================================================================================================
     const classes = DiscussionCardStyle();
     const likeButton = LikeButtonStyle(likeDislike);
-    // ======================================================================================================================================================================================================================================
+    // ============================================================================================================================
     const delFlag = (localCardData?.posted_by === userLoggedIn);
     const actionData = { delFlag: delFlag, userLoggedIn: userLoggedIn };
-    // ================================================================================================================================================================================================================================
-    const SavedHandler = async () => {
+    // =============================================================================================================================
 
+    const SavedHandler = async () => {
         if (isLoggedIn) {
             setSaved(!saved)
             try {
@@ -130,7 +128,9 @@ function DiscussionCard({ data }) {
                         },
                     }
                 );
-                // console.log(response.data);
+                // if (mountedRef.current) {
+                //     console.log(response.data);
+                // }
             } catch (err) {
                 console.log(err);
             }
@@ -138,25 +138,7 @@ function DiscussionCard({ data }) {
             dispatch(modelPopUp(true));
         }
     }
-    // ====================================================================================== 
 
-    const deleteHandler = async () => {
-        try {
-            // const response = 
-            await axios.post(
-                "http://localhost:5000/delete_thread",
-                { thread_id: cardId },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            // console.log(response.data);
-        } catch (err) {
-            console.log(err);
-        }
-    }
     // =============================================================================================
     const CommentVisibleHandler = () => {
         setCommentVisible(prev => {
@@ -204,14 +186,20 @@ function DiscussionCard({ data }) {
                                 {
                                     typeof (comments) !== "undefined" && (comments?.slice(0, commentVisible)?.map((data, index) => {
                                         return (
-                                            <Comments addCommentData={addCommentData} commentData={data} key={data._id} actionData={actionData}></Comments>
+                                            <Comments
+                                                setLocalCardData={setLocalCardData}
+                                                addCommentData={addCommentData}
+                                                commentData={data} key={data._id}
+                                                actionData={actionData}>
+                                            </Comments>
                                         )
                                     }))
                                 }
                                 {(commentVisible < commentCount) && (
                                     <Box sx={{ display: "flex", justifyContent: "center" }}>
-                                        <ViewMoreButton onClick={CommentVisibleHandler}>View more comments ({commentCount - commentVisible}) </ViewMoreButton>
-                                        {/* <AddBoxIcon/> */}
+                                        <ViewMoreButton onClick={CommentVisibleHandler}>
+                                            View more comments ({commentCount - commentVisible})
+                                        </ViewMoreButton>
                                     </Box>
                                 )
                                 }
@@ -230,18 +218,28 @@ function DiscussionCard({ data }) {
                                 {
                                     isLoggedIn && delFlag && (
                                         // <Tooltip>
-                                        <IconButton onClick={deleteHandler}>
-                                            <Tooltip title="Delete" arrow >
-                                                <DeleteIcon />
-                                            </Tooltip>
-                                        </IconButton>)
+                                        <ThreadDeleteAlert
+                                            threadData={addCommentData}
+                                            setThreadArray={setThreadArray}
+                                        />
+                                    )
 
                                 }
-                                <IconButton>
-                                    <Tooltip title="Share" arrow>
-                                        <ShareIcon color="primary" />
-                                    </Tooltip>
-                                </IconButton>
+                                <RWebShare
+                                    data={{
+                                        text: "Mnit Market",
+                                        url: `http://localhost:3000/Discussions/${cardId}`,
+                                        title: `${title}`,
+                                    }}
+                                    onClick={() => console.log("shared successfully!")}
+                                >
+                                    <IconButton>
+                                        <Tooltip title="Share" arrow>
+                                            <ShareIcon color="primary" />
+                                        </Tooltip>
+                                    </IconButton>
+                                </RWebShare>
+
 
                             </Stack>
                             <ExpandMore
@@ -255,25 +253,13 @@ function DiscussionCard({ data }) {
                                     </Tooltip>
                                 </IconButton>
                             </ExpandMore>
-                            <Typography variant="body2" sx={{ color: "#757575", mt: 1, pt: 0 }}>{commentCount > 0 ? commentCount : ' '}</Typography>
+                            <Typography variant="body2" sx={{ mt: 1, pt: 0, fontWeight: 'bold' }}>
+                                {commentCount > 0 ? commentCount : ' '}
+                            </Typography>
                         </Box>
                     </Box>
                 </Paper>
             </Box >
-            {/* {
-                deletePopUp && isLoggedIn && (
-                    <POPUPElement
-                        open={deletePopUp}
-                        onClose={setDeletePopUp}
-                        portelId={"alertPortal"}
-                    >
-                        <DiscriptionProductDelete
-                            productId={productId}
-                            onClose={setDeletePopUp}
-                        />
-                    </POPUPElement>
-                )
-            } */}
         </>
 
     )

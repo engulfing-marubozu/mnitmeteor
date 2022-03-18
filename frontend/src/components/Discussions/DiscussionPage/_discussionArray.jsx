@@ -20,7 +20,7 @@ function DiscussionCardArray() {
                 if (isSubscribed) {
                     setDiscussionData(response.data?.universal_threads);
                 }
-                console.log(response.data);
+                // console.log(response.data);
             } catch (err) {
                 console.log(err);
             }
@@ -38,7 +38,7 @@ function DiscussionCardArray() {
                 )
             }) :
                 (typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
-                    return (<DiscussionCard key={index} data={data} />)
+                    return (<DiscussionCard key={index} data={data} setThreadArray={setDiscussionData} />)
                 })))}
         </>
     );

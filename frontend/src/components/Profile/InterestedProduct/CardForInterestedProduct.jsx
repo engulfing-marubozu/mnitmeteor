@@ -1,5 +1,5 @@
 import * as React from "react";
-import {RWebShare} from 'react-web-share';
+import { RWebShare } from 'react-web-share';
 import {
   Card,
   CardMedia,
@@ -9,18 +9,15 @@ import {
   Typography,
   Box,
   styled,
-  Button,
 } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
 import ShareIcon from "@mui/icons-material/Share";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForInterestedProduct } from "../../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../../TimeElapsed/timecalc";
-
+import { ColorButton } from "../../ModelPopUP/ModelPopUpStyling";
 const CardContentNoPadding = styled(CardContent)(`
-
   &:last-child {
     padding-bottom: 8px;
   }
@@ -31,20 +28,6 @@ const useStyles = makeStyles({
     objectFit: "contain",
   },
 });
-const ColorButton = styled(Button)(({ theme }) => ({
-  lineHeight: 1.5,
-  borderColor: deepPurple[700],
-  color: "black",
-  fontSize: "0.6rem",
-  // backgroundColor: purple[700],
-  backgroundColor: "transparent",
-  "&:hover": {
-    borderColor: deepPurple[700],
-    color: "white",
-    backgroundColor: deepPurple[700],
-  },
-}));
-
 export default function CardForInterestedProduct(props) {
   // console.log(props.cardData);
   // =============================================CARD DATA==============================================================================================
@@ -54,11 +37,7 @@ export default function CardForInterestedProduct(props) {
     props.cardData?.title.charAt(0).toUpperCase() +
     props.cardData?.title.slice(1);
   const date = new Date(props.cardData?.createdAt);
-  // const properDate = `${date.toLocaleString("default", {
-  //   month: "short",
-  // })} ${date.getDate()}, ${date.getFullYear()}`;
   const properDate = TimeSince(date);
-
   //  ============================================================================================================================================
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
@@ -149,7 +128,6 @@ export default function CardForInterestedProduct(props) {
               onClick={() => console.log("shared successfully!")}
             >
               <IconButton
-                aria-label="share"
                 sx={{
                   color: "#512da8",
                   p: "0.25rem",
@@ -159,7 +137,6 @@ export default function CardForInterestedProduct(props) {
                 <ShareIcon sx={{ fontSize: { xs: "medium", sm: "large" } }} />
               </IconButton>
             </RWebShare>
-
             <ColorButton variant="outlined" onClick={removeInteresetedClickHandler}> Remove </ColorButton>
           </CardActions>
         </Box>

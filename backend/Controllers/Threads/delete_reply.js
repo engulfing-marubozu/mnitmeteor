@@ -14,8 +14,14 @@ const delete_reply = async (req, res) => {
       { $pull: { "discussions.$[i].replies": { _id: reply_id } } },
       { arrayFilters: [{ "i._id": comment_id }], new: true }
     );
-    console.log(updated_thread);
-    res.status(200).send("success");
+
+    let updated_discussion = {};
+    console.log(updated_thread.discussions);
+    await updated_thread.discussions.forEach((discussion) => {
+      if (discussion._id == comment_id) updated_discussion = discussion;
+    });
+    console.log(updated_discussion);
+    res.status(200).send(updated_discussion);
   } catch (err) {
     console.log(err);
   }

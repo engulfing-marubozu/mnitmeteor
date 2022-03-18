@@ -17,7 +17,7 @@ const delete_comment = async (req, res) => {
     );
 
     console.log(updated_thread);
-    res.status(200).send("success");
+    res.status(200).send(updated_thread);
   } catch (err) {
     console.log(err);
   }

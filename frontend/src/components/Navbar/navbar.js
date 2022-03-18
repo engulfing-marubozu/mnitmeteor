@@ -82,17 +82,20 @@ function Navbar() {
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
     // console.log(userData);
-    userData && socket.emit("initialise_user", userData.user.email);
+     userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
   React.useEffect(() => {
     socket.on("approve_post_update", () => {
+      console.log("donawhddone")
       setpostPending(postsPending + 1);
     });
   });
 
   React.useEffect(() => {
+    console.log("donadandgfjwhddone")
     socket.on("declined_post_notification", () => {
+      console.log("donadandone")
       setNotificationPending(notificationPending + 1);
     });
   });

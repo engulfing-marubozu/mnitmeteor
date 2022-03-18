@@ -74,6 +74,7 @@ const handle_admin_thread = async (req, res) => {
     });
   } else {
     Thread.findOneAndDelete({ _id: id });
+    res.send("Deleted thread");
   }
 };
 module.exports = { new_thread, handle_admin_thread };

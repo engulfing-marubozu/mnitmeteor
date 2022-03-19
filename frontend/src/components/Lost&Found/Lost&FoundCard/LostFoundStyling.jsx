@@ -1,5 +1,12 @@
 import { makeStyles } from '@mui/styles';
 export const LostFoundCardStyle = makeStyles({
+    lfcontainer: {
+        display: "flex",
+        alignItems: "flex-start",
+        width: "100%",
+        marginTop: "1rem",
+        flexDirection: "column"
+    },
     lfpaperStyle: {
         backgroundColor: "white",
         width: "100%",
@@ -17,5 +24,11 @@ export const LostFoundCardStyle = makeStyles({
         display: "-webkit-box",
         WebkitLineClamp: 3,
         WebkitBoxOrient: "vertical",
+    },
+    lfcategory: {
+        
+        fontSize: "16px",
+        fontWeight: "bold",
+        color: (props) => props.category === "Found" ? "#00c853" : "#d32f2f",
     }
 });

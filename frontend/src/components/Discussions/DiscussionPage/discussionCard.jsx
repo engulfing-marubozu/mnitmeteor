@@ -22,7 +22,7 @@ import { LikeDislikeChecker } from './likeDislikeChecker';
 import ThreadDeleteAlert from '../DeleteAlerts/threadDeletealert';
 
 // ================================================================================================================================================================================================================================
-function DiscussionCard({ data, setThreadArray }) {
+function DiscussionCard({ data, setThread, flag }) {
     const [localCardData, setLocalCardData] = useState(data);
     const [commentVisible, setCommentVisible] = useState(4);
     const [saved, setSaved] = useState(false);
@@ -172,10 +172,10 @@ function DiscussionCard({ data, setThreadArray }) {
                                 subheader={properDate}
                                 sx={{ p: 0 }}
                             />
-                            <Typography variant='h6' sx={{ my: 1.5, wordBreak: "break-all", lineHeight: 1.3 }}>
+                            <Typography variant='h6' sx={{ my: 1.5, lineHeight: 1.3 }}>
                                 {title}
                             </Typography>
-                            <Typography color="text.secondary" sx={{ mb: 1, wordBreak: "break-all", }} >
+                            <Typography color="text.secondary" sx={{ mb: 1 }} >
                                 {description}
                             </Typography>
                         </Box>
@@ -220,7 +220,8 @@ function DiscussionCard({ data, setThreadArray }) {
                                         // <Tooltip>
                                         <ThreadDeleteAlert
                                             threadData={addCommentData}
-                                            setThreadArray={setThreadArray}
+                                            setThread={setThread}
+                                            flag={flag}
                                         />
                                     )
 

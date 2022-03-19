@@ -8,13 +8,14 @@ export default function DiscussionMyTopics() {
 
   const [myTopics, setMyTopics] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-
+  console.log(myTopics);
 
   // =================================================================================
   useEffect(() => {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
+      console.log("deepak");
       const response = await axios.get(
         "http://localhost:5000/fetch_own_threads",
         {
@@ -24,6 +25,7 @@ export default function DiscussionMyTopics() {
         }
       );
       if (isSubscribed) {
+        console.log(response);
         setMyTopics(response.data.user_specific_threads);
       }
     }
@@ -42,7 +44,7 @@ export default function DiscussionMyTopics() {
         )
       }) :
         (typeof (myTopics) !== "undefined" && myTopics.map((data, index) => {
-          return (<DiscussionCard key={index} data={data} />)
+          return (<DiscussionCard key={index} data={data} setThread={setMyTopics} flag={3} />)
         })))}
     </>
 

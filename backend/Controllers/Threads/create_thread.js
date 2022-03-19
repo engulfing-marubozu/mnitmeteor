@@ -73,8 +73,13 @@ const handle_admin_thread = async (req, res) => {
         );
     });
   } else {
-    Thread.findOneAndDelete({ _id: id });
-    res.send("Deleted thread");
+    console.log("NF");
+    // console.log(id);
+    // findByIdAndDelete(id)
+    Thread.findByIdAndDelete(id, function(res){
+      console.log(res);
+    });
+    res.send("Deleted "+id);
   }
 };
 module.exports = { new_thread, handle_admin_thread };

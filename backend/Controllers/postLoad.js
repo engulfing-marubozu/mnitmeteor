@@ -77,8 +77,13 @@ const admin_postLoad = async (req, res) => {
 const admin_response = async (req, res) => {
   console.log("reached api");
   const { id, response } = req.body;
+  const data = await Product.findOne({ _id: id });
+  const user_id = await User.findById(data.posted_by);
+  const product_title = data.title;
+
   try {
     if (response) {
+      console.log("came to save in database");
       await Product.findOneAndUpdate({ _id: id }, { is_verified: true });
       await User.findByIdAndUpdate(user_id, {
         $addToSet: {
@@ -90,21 +95,6 @@ const admin_response = async (req, res) => {
       });
       res.status(200).send("product approved");
     } else {
-      const data = await Product.findOne({ _id: id });
-      const user_id = await User.findById(data.posted_by);
-      // const product_title = data.title;
-
-      // const user = await User.findByIdAndUpdate(
-      //   user_id,
-      //   {
-      //     $addToSet: {
-      //       notification: `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`,
-      //     },
-      //   },
-      //   { new: true }
-      // );
-      const product_title = data.title;
-
       await User.findByIdAndUpdate(user_id, {
         $addToSet: {
           notification: {

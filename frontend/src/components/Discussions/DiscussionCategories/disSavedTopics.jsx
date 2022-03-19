@@ -5,8 +5,8 @@ import DiscussionCard from '../DiscussionPage/discussionCard';
 function DiscussionSavedTopics() {
   const [savedTopics, setSavedTopics] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token=localUserData.token;
-  console.log(token);
+  const token = localUserData.token;
+  // console.log(token);
   // console.log(localUserData);
   useEffect(() => {
     let isSubscribed = true;
@@ -42,7 +42,7 @@ function DiscussionSavedTopics() {
         )
       }) :
         (typeof (savedTopics) !== "undefined" && savedTopics.map((data, index) => {
-          return (<DiscussionCard key={index} data={data} />)
+          return (<DiscussionCard key={index} data={data} setThread={setSavedTopics} flag={2} />)
         })))}
     </>
 

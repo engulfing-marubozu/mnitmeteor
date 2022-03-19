@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ThreadDeleteAlert({ threadData, setThreadArray }) {
+export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
     const [open, setOpen] = React.useState(false);
     const mountedRef = useRef(true);
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function ThreadDeleteAlert({ threadData, setThreadArray }) {
         try {
             const response = await axios.post(
                 "http://localhost:5000/delete_thread",
-                { thread_id: threadData.cardId },
+                { thread_id: threadData.cardId, flag: flag },
                 {
                     headers: {
                         Authorization: `Bearer ${threadData.token}`,
@@ -42,7 +42,7 @@ export default function ThreadDeleteAlert({ threadData, setThreadArray }) {
                 }
             );
             if (mountedRef.current) {
-                // setThreadArray(response.data);
+                setThread(response.data);
                 console.log(response.data);
             }
         } catch (err) {
@@ -72,10 +72,10 @@ export default function ThreadDeleteAlert({ threadData, setThreadArray }) {
                 </DialogContent>
                 <DialogActions sx={{ px: "1.5rem" }}>
                     <ModelOutlinedButton variant="outlined" onClick={handleClose}>
-                        Disagree
+                       Delete
                     </ModelOutlinedButton>
                     <ModelColorButton onClick={AgreeHandler}>
-                        Agree
+                       Cancel
                     </ModelColorButton>
                 </DialogActions>
             </Dialog>

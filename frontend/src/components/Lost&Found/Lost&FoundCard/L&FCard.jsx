@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Box, Tooltip } from '@mui/material';
+import { Card, CardHeader, CardContent, Box, Tooltip, CardActions } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import ImageGallery from "react-image-gallery";
 import IconButton from '@mui/material/IconButton';
@@ -17,18 +17,15 @@ export default function LostFoundCard({ data }) {
     const userLoggedIn = localUserData?.userData._id;
     const date = new Date(data.createdAt);
     const properDate = TimeSince(date);
-
-
     const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);
     const postedBy = data?.posted_by;
     const userEmail = data?.email.slice(0, 11);
+    const category = data?.category;
     const images = data?.imgs.map((img, index) => {
         return {
             original: `${img.image}`,
         }
     })
-
-
 
     // =================================================================================
     const handleDelete = (id, name) => {
@@ -45,14 +42,13 @@ export default function LostFoundCard({ data }) {
             });
     }
     //   ==========================================================================================
-    const classes = LostFoundCardStyle();
-
+    const classes = LostFoundCardStyle({ category: category });
     return (
-        <Box display={"flex"} alignItems={"flex-start"} sx={{ width: "100%", mt: "1rem", flexDirection: "column" }}>
+        <Box className={classes.lfcontainer} >
             <Card className={classes.lfpaperStyle}>
                 <CardHeader
                     avatar={
-                        <Avatar sx={{ bgcolor: "#673ab7" }} />
+                        <Avatar sx={{ bgcolor: "black" }} />
                     }
                     action={
                         <Box>
@@ -86,27 +82,27 @@ export default function LostFoundCard({ data }) {
                     title={userEmail}
                     subheader={properDate}
                 />
-                <CardContent sx={{ pt: "0rem", pb: "0.5rem" }}>
-                    <Typography variant="h6">{itemName}</Typography>
-                    <Typography variant="body2" color="text.secondary" className={classes.descriptionBox}>
-                        Lorem ipsum dolor sit amet consectetur a Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Porro ducimus error incidunt, ipsam veritatis neque illum vitae quis nulla minima quas quam tempora,
-                        fuga,dolorem accusantium architecto reiciendis blanditiis! Suscipit!
-                        {/* {data.description} */}
-                    </Typography>
-                </CardContent>
-                <div className="lfImageStyle">
+                <Box className="lfImageStyle">
                     {images && <ImageGallery
                         items={images}
                         showThumbnails={false}
                         showPlayButton={false}
-
+                        showFullscreenButton={false}
                     />}
 
-                </div>
+                </Box>
+                <CardContent sx={{ py: 0 }}>
+                    <Typography variant="h6">{itemName}</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, praesentium necessitatibus. Sunt architecto ut esse
+                        voluptatum tempore velit blanditiis eligendi debitis dignissimos, exercitationem omnis u
+                        llam officia eum mollitia veniam ipsam.
+                    </Typography>
+                </CardContent>
+                <CardActions sx={{ px: "1rem", pb: "1rem", display: "flex" }}>
+                    <Typography className={classes.lfcategory}> {category}</Typography>
+                </CardActions>
             </Card>
-
         </Box>
-
     );
 }

@@ -37,7 +37,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
   // console.log(repliedTo);
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
-  const replySqrData = { ...addReplyData, replyId: replyId, repliedTo: repliedBy }
+  const replySqrData = { ...addReplyData, replyId: replyId, repliedTo: userId }
   // console.log(replySqrData);
   // ======================================================================================================
 
@@ -149,8 +149,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
                   replied to
                 </Typography>
                 <Typography className={classes.repliedTo}>
-                  {/* {repliedTo} */}
-                  2019ume1827
+                  {repliedTo}
                 </Typography>
               </Stack>
             )

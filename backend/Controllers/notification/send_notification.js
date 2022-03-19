@@ -6,10 +6,12 @@ const send_notification = async (req,res)=>{
   user_id = req.user._id;
   
   const user = await User.findById(user_id);
-  console.log(user.notification.length);
-  const uses =  await User.findByIdAndUpdate( user_id, {$set :  {read_notif_count : user.notification.length }}, {new:true} ); 
+  // console.log(user.notification.length);
+  // console.log(user.read_notif_count);
+  const uses =  await User.findByIdAndUpdate( user_id,{read_notif_count: user.notification.length}, {new:true} ); 
+ console.log("UPDATED NOTIF COUNT TO 0")
  console.log(uses);
-  res.status(200).send(user.notification);
+  res.status(200).send(user.notification.reverse());
   }
   catch(err)
   {

@@ -1,4 +1,5 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios'
 import {
   GlobalStyles,
   AppBar,
@@ -19,10 +20,7 @@ import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
 import Userbar from "./Userbar";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  SellNowclick,
-  modelPopUp,
-} from "../../AStatemanagement/Actions/userActions";
+import {SellNowclick,modelPopUp,} from "../../AStatemanagement/Actions/userActions";
 import NavbarTabs from "./navbarTabs";
 const { io } = require("socket.io-client");
 const socket = io("http://localhost:5000", { reconnection: true });
@@ -49,9 +47,13 @@ export const OutlinedButton = styled(Button)(({ theme }) => ({
 
 // ==========================================================================================================================================================================
 function Navbar() {
+  // const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const token = localUserData.token;
   const Navigate = useNavigate();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [postsPending, setpostPending] = useState(0);
+  const [notificationPending, setNotificationPending] = useState(0);
   const open = Boolean(anchorEl);
 
   // =====================================================================================================================================================================
@@ -75,38 +77,63 @@ function Navbar() {
   // =============================================================================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const dispatch = useDispatch();
-
+  // const LocalUserData=useSelector((state)=>loginlogoutReducer);
+  // const isLoggedIn=localUserData.isLogin;
+  // const
+  console.log(notificationPending);
   // ========================================================SOCKET-IO==========================================================================================================
-  const [postsPending, setpostPending] = useState(0);
-  const [notificationPending, setNotificationPending] = useState(0);
+
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
+    console.log("land2");
     // console.log(userData);
-     userData && socket.emit("initialise_user", userData.user.email);
+    userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
   React.useEffect(() => {
+    
+      const call =async ()=>{
+        try {
+          const userData = JSON.parse(window.localStorage.getItem("auth"));
+          const token = userData.token
+          console.log("fjne")
+          const response =
+         await axios.post(
+           "http://localhost:5000/get_notif_alert_count",
+           {  },
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+         // console.log(response.data);
+         setNotificationPending( response.data.count  );
+       } catch (err) {
+         console.log(err);
+       };
+      }
+   call();
+  }, [notificationPending]);
+
+  React.useEffect(() => {
     socket.on("approve_post_update", () => {
-      console.log("donawhddone")
+      // console.log("land1");
       setpostPending(postsPending + 1);
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   React.useEffect(() => {
-    console.log("donadandgfjwhddone")
-    socket.on("declined_post_notification", () => {
-      console.log("donadandone")
-      setNotificationPending(notificationPending + 1);
+    socket.on("decline/approve/interesred_post_notification", () => {
+      console.log("land");
+      setNotificationPending((prev) => {
+        // console.log(prev);
+        return prev + 1;
+      });
     });
-  });
+  }, []);
 
-  React.useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("auth"));
-    userData &&
-      setNotificationPending(
-        userData.user?.notification?.length - userData?.user?.read_notif_count
-      );
-  }, [setNotificationPending]);
   // ========================================================================================================================================================================
   return (
     <>
@@ -209,7 +236,12 @@ function Navbar() {
                 </OutlinedButton>
               )}
             </Stack>
-            {isLoggedIn && <Userbar updateNotification={notificationPending} />}
+            {isLoggedIn && (
+              <Userbar
+                updateNotification={notificationPending}
+                setNotificationPending={setNotificationPending}
+              />
+            )}
             {/* ================================================================================================= */}
             <ColorButton
               sx={{

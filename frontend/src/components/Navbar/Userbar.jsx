@@ -10,6 +10,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
 import NotificationBox from "../Notification/notificationBox";
+const { io } = require("socket.io-client");
+const socket = io("http://localhost:5000", { reconnection: true });
 function Userbar({ updateNotification, setNotificationPending }) {
 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -91,6 +93,9 @@ function Userbar({ updateNotification, setNotificationPending }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            const userData = JSON.parse(window.localStorage.getItem("auth"));
+            const user_id = userData.user.email;
+            socket.emit("log_out_socket",user_id);
             dispatch(LogoutUser());
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));

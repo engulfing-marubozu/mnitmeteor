@@ -8,9 +8,9 @@ const delete_reply = async (req, res) => {
     const thread_id = req.body.thread_id;
     const comment_id = req.body.comment_id;
     const reply_id = req.body.reply_id;
-    console.log(thread_id, comment_id);
+    console.log(thread_id, comment_id, reply_id);
     const updated_thread = await Thread.findOneAndUpdate(
-      {},
+      {_id: thread_id},
       { $pull: { "discussions.$[i].replies": { _id: reply_id } } },
       { arrayFilters: [{ "i._id": comment_id }], new: true }
     );

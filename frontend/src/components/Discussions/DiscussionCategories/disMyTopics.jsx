@@ -25,7 +25,7 @@ export default function DiscussionMyTopics() {
         }
       );
       if (isSubscribed) {
-        console.log(response);
+        console.log(response.data);
         setMyTopics(response.data.user_specific_threads);
       }
     }

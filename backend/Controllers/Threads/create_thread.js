@@ -11,7 +11,7 @@ const new_thread = async (req, res) => {
   console.log("You have clicked the submit button, it sav in db");
   try {
     console.log("aa gaya");
-    // console.log(req.body);
+    console.log(req.body);
     const user_id = req.user._id;
     //  const title = req.body.title;
     //  const description = req.body.description;
@@ -58,9 +58,9 @@ const handle_admin_thread = async (req, res) => {
   refID = req.body.posted_by;
   if (approval) {
     //set verified to true
-    Thread.findOneAndUpdate({ _id: id }, { is_verified: true }, function (err) {
+    Thread.findOneAndUpdate({ _id: id }, { is_verified: true },async function (err) {
       console.log(err);
-      const x = User.findByIdAndUpdate(refID, {
+      const x = await User.findByIdAndUpdate(refID, {
         $addToSet: {
           threads_posted: id,
         },

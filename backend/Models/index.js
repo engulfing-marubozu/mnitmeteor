@@ -53,7 +53,7 @@ const user_schema = new mongoose.Schema(
          default : 0
     },
     threads_saved: {
-      type: [],
+      type: [{}],
       default: [],
     },
     threads_liked: {

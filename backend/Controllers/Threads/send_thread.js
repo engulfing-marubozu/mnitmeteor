@@ -42,11 +42,13 @@ const fetch_false_threads = async(req,res)=>{
 }
 
 const fetch_own_threads = async (req,res)=>{
-     console.log("came to fetch threads");
+     console.log("came to fetch own threads");
    try{
    const user_id = req.user._id;
-   const saved_threads = user.threads_saved;
+  const user = await User.findById(user_id);
    const user_specific_threads = await Thread.find({posted_by:user_id});
+   const saved_threads =  user.threads_saved;
+   console.log(saved_threads)
     res.status(200).send({ user_specific_threads,saved_threads})
    }
   

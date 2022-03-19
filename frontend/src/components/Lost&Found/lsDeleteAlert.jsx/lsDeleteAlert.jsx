@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function LostFoundDeleteAlert({ deleteData, flag }) {
+export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
     const [open, setOpen] = React.useState(false);
     const mountedRef = useRef(true);
     useEffect(() => {
@@ -41,11 +41,15 @@ export default function LostFoundDeleteAlert({ deleteData, flag }) {
 
         })
             .then(function (response) {
-                console.log(response);
+                console.log(response.data);
+                setLostFound(response.data);
+                handleClose();
+                // setLostFound(resp)
             })
             .catch(function (error) {
                 console.log(error);
             });
+        // handleClose();
     }
 
     // ===============================================================================================================

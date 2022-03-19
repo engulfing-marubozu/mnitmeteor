@@ -26,7 +26,6 @@ export const LostFoundCardStyle = makeStyles({
         WebkitBoxOrient: "vertical",
     },
     lfcategory: {
-        
         fontSize: "16px",
         fontWeight: "bold",
         color: (props) => props.category === "Found" ? "#00c853" : "#d32f2f",

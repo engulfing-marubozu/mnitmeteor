@@ -7,6 +7,7 @@ function PostsWithAxios() {
   const [lfData, setlfData] = useState();
 
   useEffect(() => {
+    window.scrollTo(0,0);
     let isSubscribe = true;
     const axiosPosts = async () => {
       try {

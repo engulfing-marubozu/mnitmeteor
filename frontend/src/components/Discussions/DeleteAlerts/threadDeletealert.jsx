@@ -43,11 +43,13 @@ export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
             );
             if (mountedRef.current) {
                 setThread(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             }
+
         } catch (err) {
             console.log(err);
         }
+        handleClose();
     }
 
     // ===============================================================================================================

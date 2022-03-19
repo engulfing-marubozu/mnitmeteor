@@ -46,7 +46,7 @@ export default function ApproveAlert({ ApproveRequest, data }) {
                         Cancel
                     </PanelButton>
                     <PanelButton
-                        onClick={() => { ApproveRequest(data) }}
+                        onClick={() => { ApproveRequest(data,handleClose) }}
                         variant="contained"
                         color="success"
                     >

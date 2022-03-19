@@ -42,11 +42,14 @@ export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
             );
             if (mountedRef) {
                 setLocalCardData(response.data);
-                console.log(response.data);
+                // console.log(response.data);
+                // handleClose();
             }
+
         } catch (err) {
             console.log(err);
         }
+        handleClose();
     }
 
 

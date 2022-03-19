@@ -46,7 +46,7 @@ export default function DeclineAlert({ DeclineRequest, data }) {
                         Cancel
                     </PanelButton>
                     <PanelButton
-                        onClick={() => { DeclineRequest(data) }}
+                        onClick={() => { DeclineRequest(data, handleClose) }}
                         variant="contained"
                         color="error"
                     >

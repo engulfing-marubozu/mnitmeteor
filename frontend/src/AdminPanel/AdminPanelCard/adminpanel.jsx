@@ -17,11 +17,11 @@ function AdminPanel() {
   const [tflag, settflag] = useState(true);
   // ===================================================================================================================
   useEffect(() => {
-    return () => {mountedRef.current = false};
+    return () => { mountedRef.current = false };
   }, [])
 
   // ================================================================================================================
-  const ApproveRequest = async (cardData) => {
+  const ApproveRequest = async (cardData, handleClose) => {
     const response = await axios.post("http://localhost:5000/admin_response", {
       id: cardData._id,
       response: true,
@@ -32,9 +32,10 @@ function AdminPanel() {
     }
     if (mountedRef.current) {
       setflag(!flag);
+      handleClose();
     }
   };
-  const DeclineRequest = async (cardData) => {
+  const DeclineRequest = async (cardData, handleClose) => {
     const user_id = cardData.posted_by;
     try {
       const response = await axios.post("http://localhost:5000/admin_response", {
@@ -47,6 +48,7 @@ function AdminPanel() {
       }
       if (mountedRef.current) {
         setflag(!flag);
+        handleClose();
       }
     }
     catch (err) {
@@ -55,7 +57,7 @@ function AdminPanel() {
   };
 
   // ==============================================================================================================
-  const ApproveRequestLF = async (cardData) => {
+  const ApproveRequestLF = async (cardData, handleClose) => {
     try {
       await axios.post("http://localhost:5000/adminresponse", {
         to_approve: true,
@@ -64,13 +66,14 @@ function AdminPanel() {
       });
       if (mountedRef.current) {
         setlfFlag(!lfFlag);
+        handleClose();
       }
     } catch (err) {
       console.log(err);
     }
 
   };
-  const DeclineRequestLF = async (cardData) => {
+  const DeclineRequestLF = async (cardData, handleClose) => {
     console.log("lfdecline");
     try {
       await axios.post("http://localhost:5000/adminresponse", {
@@ -80,6 +83,7 @@ function AdminPanel() {
       });
       if (mountedRef.current) {
         setlfFlag(!lfFlag);
+        handleClose();
       }
     }
     catch (err) {
@@ -87,7 +91,7 @@ function AdminPanel() {
     }
   };
   // =================================================================================================
-  const ApproveRequestThread = async (cardData) => {
+  const ApproveRequestThread = async (cardData, handleClose) => {
     try {
       // const response = 
       await axios.post("http://localhost:5000/handle_admin_thread", {
@@ -98,13 +102,14 @@ function AdminPanel() {
       // console.log(response);
       if (mountedRef.current) {
         settflag(!tflag);
+        handleClose();
       }
     } catch (err) {
       console.log(err);
     }
 
   };
-  const DeclineRequestThread = async (cardData) => {
+  const DeclineRequestThread = async (cardData, handleClose) => {
     console.log("Thread deleted ");
     try {
       // const response = 
@@ -116,6 +121,7 @@ function AdminPanel() {
       // console.log(response)
       if (mountedRef.current) {
         settflag(!tflag);
+        handleClose();
       }
     }
     catch (err) {
@@ -216,7 +222,7 @@ function AdminPanel() {
               data={product}
               ApproveRequest={ApproveRequestThread}
               DeclineRequest={DeclineRequestThread}
-            /> 
+            />
           );
         })
       }

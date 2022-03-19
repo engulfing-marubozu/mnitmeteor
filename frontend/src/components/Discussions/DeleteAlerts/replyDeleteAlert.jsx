@@ -44,9 +44,11 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
                 setLocalCommentData(response.data);
                 // console.log(response.data);
             }
+
         } catch (err) {
             console.log(err);
         }
+        handleClose();
     }
 
 

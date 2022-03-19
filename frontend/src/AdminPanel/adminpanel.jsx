@@ -212,13 +212,13 @@ function Adminpanel() {
         ThreadData &&
         ThreadData.map((product, index) => {
           return (
-            <LostFoundPanel
+            {/* <LostFoundPanel
               index={index}
               key={index}
               cardData={product}
               ApproveRequest={ApproveRequestThread}
               DeclineRequest={DeclineRequestThread}
-            />
+            /> */}
           );
         })
       }

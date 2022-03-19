@@ -19,10 +19,7 @@ import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
 import Userbar from "./Userbar";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  SellNowclick,
-  modelPopUp,
-} from "../../AStatemanagement/Actions/userActions";
+import {SellNowclick,modelPopUp,} from "../../AStatemanagement/Actions/userActions";
 import NavbarTabs from "./navbarTabs";
 const { io } = require("socket.io-client");
 const socket = io("http://localhost:5000", { reconnection: true });

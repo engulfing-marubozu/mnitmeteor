@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Badge, Drawer } from '@mui/material';
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
@@ -92,7 +92,6 @@ function Userbar({ updateNotification, setNotificationPending }) {
         <MenuItem
           onClick={() => {
             dispatch(LogoutUser());
-            // props.onClose();
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
             if (location.pathname !== "/" && location.pathname !== '/Discussions' && location.pathname !== '/Lost&Found') {

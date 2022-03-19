@@ -1,49 +1,53 @@
-import React, { useState } from "react";
+
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import AdminPanelPage from "./sellingPanel";
 import { Typography } from "@mui/material";
-import { socket } from "./../components/Navbar/navbar";
+import { socket } from "../../components/Navbar/navbar";
 import LostFoundPanel from "./lostfoundPanel";
-
-function Adminpanel() {
+import ThreadPanel from "./threadPanel";
+function AdminPanel() {
+  const mountedRef = useRef(true);
   const [data, setdata] = useState();
   const [LFData, setLFData] = useState();
-  const [ThreadData,setThreadData] = useState();
-  
+  const [threadData, setThreadData] = useState();
   const [flag, setflag] = useState(true);
   const [lfFlag, setlfFlag] = useState(true);
-  const [tflag,settflag] = useState(true);
+  const [tflag, settflag] = useState(true);
+  // ===================================================================================================================
+  useEffect(() => {
+    return () => {mountedRef.current = false};
+  }, [])
+
   // ================================================================================================================
   const ApproveRequest = async (cardData) => {
-    const id = cardData._id;
     const response = await axios.post("http://localhost:5000/admin_response", {
-      id,
+      id: cardData._id,
       response: true,
     });
-    console.log(response);
-    if (response.data === "product approved")
-    {
+    if (response.data === "product approved") {
       socket.emit("admin approve event");
-     socket.emit("admin decline/approve/interested event",cardData.posted_by);
-   }
-    setflag(!flag);
+      socket.emit("admin decline/approve/interested event", cardData.posted_by);
+    }
+    if (mountedRef.current) {
+      setflag(!flag);
+    }
   };
   const DeclineRequest = async (cardData) => {
-    const id = cardData._id
     const user_id = cardData.posted_by;
     try {
       const response = await axios.post("http://localhost:5000/admin_response", {
-        id,
+        id: cardData._id,
         response: false,
       });
       console.log(response);
       if (response.data === "product Ad request declined") {
-        console.log("done");
-        console.log(user_id);
         socket.emit("admin decline/approve/interested event", user_id);
       }
-      setflag(!flag);
+      if (mountedRef.current) {
+        setflag(!flag);
+      }
     }
     catch (err) {
       console.log(err);
@@ -52,18 +56,15 @@ function Adminpanel() {
 
   // ==============================================================================================================
   const ApproveRequestLF = async (cardData) => {
-    console.log("alfarrpv")
-    const id = cardData._id;
     try {
-      const response = await axios.post("http://localhost:5000/adminresponse", {
+      await axios.post("http://localhost:5000/adminresponse", {
         to_approve: true,
         posted_by: cardData.posted_by,
-        _id: id,
+        _id: cardData._id,
       });
-
-      console.log(response);
-      console.log("ajfd;la");
-      setlfFlag(!lfFlag);
+      if (mountedRef.current) {
+        setlfFlag(!lfFlag);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -72,32 +73,32 @@ function Adminpanel() {
   const DeclineRequestLF = async (cardData) => {
     console.log("lfdecline");
     try {
-      const response = await axios.post("http://localhost:5000/adminresponse", {
+      await axios.post("http://localhost:5000/adminresponse", {
         to_approve: false,
         posted_by: cardData.posted_by,
         _id: cardData._id,
       });
-      console.log("dkljadf;");
-      console.log(response);
-      setlfFlag(!lfFlag);
+      if (mountedRef.current) {
+        setlfFlag(!lfFlag);
+      }
     }
     catch (err) {
       console.log(err);
     }
   };
+  // =================================================================================================
   const ApproveRequestThread = async (cardData) => {
-    // console.log("alfarrpv")
-    const id = cardData._id;
     try {
-      const response = await axios.post("http://localhost:5000/handle_admin_thread", {
+      // const response = 
+      await axios.post("http://localhost:5000/handle_admin_thread", {
         to_approve: true,
         posted_by: cardData.posted_by,
-        _id: id,
+        _id: cardData._id,
       });
-
-      console.log(response);
-      console.log("ajfd;la");
-      settflag(!tflag);
+      // console.log(response);
+      if (mountedRef.current) {
+        settflag(!tflag);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -106,30 +107,30 @@ function Adminpanel() {
   const DeclineRequestThread = async (cardData) => {
     console.log("Thread deleted ");
     try {
-      const response = await axios.post("http://localhost:5000/handle_admin_thread", {
+      // const response = 
+      await axios.post("http://localhost:5000/handle_admin_thread", {
         to_approve: false,
         posted_by: cardData.posted_by,
         _id: cardData._id,
       });
-      console.log("dkljadf;");
-      console.log(response);
-      settflag(!tflag);
+      // console.log(response)
+      if (mountedRef.current) {
+        settflag(!tflag);
+      }
     }
     catch (err) {
       console.log(err);
     }
   };
-  // ===================================================Fetching Data=================================
-  //lf get code: "http://localhost:5000/sendfalseitems"
-  //post code http://localhost:5000/adminresponse
+  // ===================================================Fetching Data=====================================
+  // lf get code: "http://localhost:5000/sendfalseitems"
+  // post code http://localhost:5000/adminresponse
   useEffect(() => {
     const admin_lf_load = async () => {
       try {
         const response = await axios.get(
           "http://localhost:5000/sendfalseitems"
         );
-        console.log("deepak")
-        console.log(response.data);
         setLFData(response.data);
       }
       catch (err) {
@@ -138,14 +139,13 @@ function Adminpanel() {
     };
     admin_lf_load();
   }, [lfFlag])
+  // =======================================================================================================
   useEffect(() => {
     const admin_thread_load = async () => {
       try {
         const response = await axios.get(
           "http://localhost:5000/fetch_false_threads"
         );
-        // console.log("deepak")
-        // console.log(response.data);
         setThreadData(response.data);
       }
       catch (err) {
@@ -154,8 +154,6 @@ function Adminpanel() {
     };
     admin_thread_load();
   }, [tflag])
-
-
 
   // =======================================================================================================
   useEffect(() => {
@@ -166,7 +164,6 @@ function Adminpanel() {
           "http://localhost:5000/admin_postLoad"
         );
         if (isSubscribed) {
-          // console.log(response.data.data);
           setdata(response.data.data);
         }
 
@@ -177,19 +174,17 @@ function Adminpanel() {
     admin_post_load();
     return () => { isSubscribed = false }
   }, [flag])
-  // ==============================================================================================================
+  // ==========================================================================================================
   return (
     <>
-
       <Typography variant="h5" sx={{ px: { xs: 3.5, lg: 14 }, py: { xs: 2, lg: 3 } }} > This is admin panel</Typography>
       {
         data &&
         data.map((product, index) => {
           return (
             <AdminPanelPage
-              index={index}
               key={index}
-              cardData={product}
+              data={product}
               ApproveRequest={ApproveRequest}
               DeclineRequest={DeclineRequest}
             />
@@ -197,14 +192,14 @@ function Adminpanel() {
         })
       }
       <h1>Lost and found AP</h1>
+      {/* <LostFoundPanel data={LFData}/> */}
       {
         LFData &&
         LFData.map((product, index) => {
           return (
             <LostFoundPanel
-              index={index}
               key={index}
-              cardData={product}
+              data={product}
               ApproveRequest={ApproveRequestLF}
               DeclineRequest={DeclineRequestLF}
             />
@@ -212,22 +207,24 @@ function Adminpanel() {
         })
       }
       <h1>Threads AP</h1>
-      {/* {
-        ThreadData &&
-        ThreadData.map((product, index) => {
+      {
+        threadData &&
+        threadData.map((product, index) => {
           return (
-            <LostFoundPanel
-              index={index}
+            <ThreadPanel
               key={index}
-              cardData={product}
+              data={product}
               ApproveRequest={ApproveRequestThread}
               DeclineRequest={DeclineRequestThread}
             />
           );
         })
-      } */}
+      }
     </>
   );
 }
 
-export default Adminpanel;
+export default AdminPanel;
+
+
+

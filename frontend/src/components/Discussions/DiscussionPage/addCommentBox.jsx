@@ -20,11 +20,6 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
             setDisabledPost(true);
         }
     }
-    // const CancelPost = () => {
-    //     inputComment.current.value = null;
-    //     setDisabledPost(true);
-    //     //    setFocused(false);
-    // }
     // =============================================================================================================================================================
     const submitHandler = async () => {
         const email = localUserData?.userData?.email.slice(0, 11);

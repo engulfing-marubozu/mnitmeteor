@@ -8,7 +8,7 @@ import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
 import DiscriptionCard from "../Cards/DiscriptionCard";
 import Profile from "../Profile/Profile";
-import Adminpanel from "../../AdminPanel/adminpanel";
+import AdminPanel from "../../AdminPanel/AdminPanelCard/adminpanel";
 import Favourites from "../Favourites/Favourites";
 import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
@@ -69,7 +69,7 @@ function RouterCon() {
         path="Favourites"
         element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
       />
-      <Route path="Adminpanel" element={<Adminpanel />} />
+      <Route path="Adminpanel" element={<AdminPanel />} />
       <Route path="*" element={<div>No Page found </div>} />
     </Routes>
   );

@@ -18,6 +18,7 @@ function DiscussionCardArray() {
                     "http://localhost:5000/fetch_live_threads", { user_id: userID }
                 );
                 if (isSubscribed) {
+                    console.log(response.data);
                     setDiscussionData(response.data?.universal_threads);
                 }
                 // console.log(response.data);
@@ -38,7 +39,7 @@ function DiscussionCardArray() {
                 )
             }) :
                 (typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
-                    return (<DiscussionCard key={index} data={data} setThreadArray={setDiscussionData} />)
+                    return (<DiscussionCard key={index} data={data} setThread={setDiscussionData} flag={1} />)
                 })))}
         </>
     );

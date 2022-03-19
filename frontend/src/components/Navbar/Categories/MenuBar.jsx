@@ -20,7 +20,6 @@ export default function MymenuBar(props) {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  // console.log(`value of isLoggedIn ${isLoggedIn}`)
   // ========================we can Handle page by this function
   const menuItemHandler = (input = "flag") => {
     if (input === "Home") {

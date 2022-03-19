@@ -149,8 +149,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
                   replied to
                 </Typography>
                 <Typography className={classes.repliedTo}>
-                  {/* {repliedTo} */}
-                  2019ume1827
+                  {repliedTo}
                 </Typography>
               </Stack>
             )

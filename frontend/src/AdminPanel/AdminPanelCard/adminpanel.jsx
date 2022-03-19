@@ -216,7 +216,7 @@ function AdminPanel() {
               data={product}
               ApproveRequest={ApproveRequestThread}
               DeclineRequest={DeclineRequestThread}
-            />
+            /> 
           );
         })
       }

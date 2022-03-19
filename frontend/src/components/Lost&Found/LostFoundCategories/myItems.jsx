@@ -46,7 +46,7 @@ function LostFoundMyItems() {
           )
         }) :
           (typeof (myItems) !== "undefined" && myItems.map((data, index) => {
-            return (<LostFoundCard key={index} data={data} />)
+            return (<LostFoundCard key={index} data={data} setLostFound={setMyItems} flag={4} />)
           })))}
       </>
     </>

@@ -4,16 +4,17 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { IconButton, Tooltip } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import Slide from "@mui/material/Slide";
 import { ModelColorButton, ModelOutlinedButton } from "../../ModelPopUP/ModelPopUpStyling";
-import { CommentDeleteButton } from "../DiscussionStyling/discussionStyling";
 import axios from "axios";
 // ===============================================================================
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
+export default function LostFoundDeleteAlert({ deleteData, flag }) {
     const [open, setOpen] = React.useState(false);
     const mountedRef = useRef(true);
     useEffect(() => {
@@ -29,31 +30,32 @@ export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
         setOpen(false);
     };
     // ================================================
-    const AgreeHandler = async () => {
-        try {
-            const response = await axios.post(
-                "http://localhost:5000/delete_comment",
-                { thread_id: commentData.cardId, comment_id: commentData.commentId },
-                {
-                    headers: {
-                        Authorization: `Bearer ${commentData.token}`,
-                    },
-                }
-            );
-            if (mountedRef) {
-                setLocalCardData(response.data);
-                console.log(response.data);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
+    const AgreeHandler = ({ id, name, flag, postedBy }) => {
+        axios.post('http://localhost:5000/deleteLnfItem', {
+
+            objID: id,
+            name: name,
+            flag: flag,
+            posted_by: postedBy,
+
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     // ===============================================================================================================
     return (
         <>
-            <CommentDeleteButton onClick={handleClickOpen}>Delete</CommentDeleteButton>
+            <IconButton onClick={handleClickOpen}>
+                <Tooltip title="Delete" arrow >
+                    <DeleteIcon />
+                </Tooltip>
+            </IconButton>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
@@ -63,14 +65,14 @@ export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
                 <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText >
-                        Are you sure you want to delete this untur repeptio.
+                        Are you sure you want to delete this Item
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions sx={{ px: "1.5rem" }}>
-                    <ModelOutlinedButton variant="outlined" onClick={AgreeHandler}>
+                    <ModelOutlinedButton variant="outlined" onClick={() => { AgreeHandler(deleteData) }}>
                         Delete
                     </ModelOutlinedButton>
-                    <ModelColorButton onClick={handleClose} >
+                    <ModelColorButton onClick={handleClose}>
                         Cancel
                     </ModelColorButton>
                 </DialogActions>

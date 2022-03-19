@@ -31,7 +31,7 @@ function FoundItems() {
         )
       }) :
         (typeof (foundItems) !== "undefined" && foundItems.map((data, index) => {
-          return (<LostFoundCard key={index} data={data} />)
+          return (<LostFoundCard key={index} data={data} setLostFound={setFoundItems} flag={3} />)
         })))}
     </>
   );

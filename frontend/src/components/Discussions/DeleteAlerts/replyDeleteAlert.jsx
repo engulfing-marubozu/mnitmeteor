@@ -67,10 +67,10 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions sx={{ px: "1.5rem" }}>
-                    <ModelOutlinedButton variant="outlined" onClick={handleClose}>
+                    <ModelOutlinedButton variant="outlined" onClick={AgreeHandler}>
                         Delete
                     </ModelOutlinedButton>
-                    <ModelColorButton onClick={AgreeHandler}>
+                    <ModelColorButton onClick={handleClose} >
                         Cancel
                     </ModelColorButton>
                 </DialogActions>

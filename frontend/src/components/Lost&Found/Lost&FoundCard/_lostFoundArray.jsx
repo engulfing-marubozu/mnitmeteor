@@ -31,7 +31,7 @@ function PostsWithAxios() {
         )
       }) :
         (typeof (lfData) !== "undefined" && lfData.map((data, index) => {
-          return (<LostFoundCard key={index} data={data} />)
+          return (<LostFoundCard key={index} data={data} setLostFound={setlfData} flag={1}/>)
         })))}
     </>
   );

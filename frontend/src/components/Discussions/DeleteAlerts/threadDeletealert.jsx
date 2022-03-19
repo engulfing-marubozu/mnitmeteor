@@ -71,11 +71,11 @@ export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions sx={{ px: "1.5rem" }}>
-                    <ModelOutlinedButton variant="outlined" onClick={handleClose}>
-                       Delete
+                    <ModelOutlinedButton variant="outlined" onClick={AgreeHandler}>
+                        Delete
                     </ModelOutlinedButton>
-                    <ModelColorButton onClick={AgreeHandler}>
-                       Cancel
+                    <ModelColorButton onClick={handleClose}>
+                        Cancel
                     </ModelColorButton>
                 </DialogActions>
             </Dialog>

@@ -3,16 +3,17 @@ import { Card, CardHeader, CardContent, Box, Tooltip, CardActions } from '@mui/m
 import Avatar from '@mui/material/Avatar';
 import ImageGallery from "react-image-gallery";
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Typography from '@mui/material/Typography';
 import ShareIcon from '@mui/icons-material/Share';
 import { LostFoundCardStyle } from './LostFoundStyling';
 import { TimeSince } from '../../TimeElapsed/timecalc';
 import "./l&fImageStyle.css";
 import { useSelector } from 'react-redux';
-import axios from "axios";
 import { RWebShare } from 'react-web-share';
-export default function LostFoundCard({ data }) {
+import LostFoundDeleteAlert from '../lsDeleteAlert.jsx/lsDeleteAlert';
+export default function LostFoundCard({ data, flag, setLostFound }) {
+//    console.log({data,flag,setLostFound});
+
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const userLoggedIn = localUserData?.userData._id;
     const date = new Date(data.createdAt);
@@ -27,20 +28,7 @@ export default function LostFoundCard({ data }) {
         }
     })
 
-    // =================================================================================
-    const handleDelete = (id, name) => {
-        axios.post('http://localhost:5000/deleteLnfItem', {
 
-            objID: id,
-            name: name
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
     //   ==========================================================================================
     const classes = LostFoundCardStyle({ category: category });
     return (
@@ -54,11 +42,7 @@ export default function LostFoundCard({ data }) {
                         <Box>
                             {
                                 (postedBy === userLoggedIn) && (
-                                    <IconButton onClick={() => { handleDelete(data._id, data.name) }}>
-                                        <Tooltip title="Delete" arrow placement="left">
-                                            <DeleteIcon />
-                                        </Tooltip>
-                                    </IconButton>
+                                    <LostFoundDeleteAlert deleteData={{ id: data._id, name: data.name, flag: flag,postedBy:postedBy }} setLostFound={setLostFound} />
                                 )
                             }
                             <RWebShare

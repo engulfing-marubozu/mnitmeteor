@@ -201,6 +201,8 @@ export const CommentReplyStyle = makeStyles({
     contentBox: {
         fontSize: "14px",
         marginBottom: 0.4,
+        wordBreak:"break-word",
+        overflowWrap:"break-word",
     },
     repliedTo: {
         fontSize: "11px",

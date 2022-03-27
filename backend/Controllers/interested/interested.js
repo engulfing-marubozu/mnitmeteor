@@ -3,7 +3,7 @@ const { send_interested_email,} = require("../../Message_service/Sendgrid_Email/
 
 // this function will take jwt token and product _id and will update the user in product and product in user  after he/she has clicked interested any post
 const interested_update= async (req, res)=>
-{  console.log("deepak_very_big_madarchod");
+{  console.log("deepak_very");
       
        console.log(req.user._id);
        console.log(req.body.productId);
@@ -55,7 +55,7 @@ const interested_update= async (req, res)=>
 // always try to use async await in mongoose queries
 // this function will fetch the user id from the jwt token and will will return all the interested of any user
 const send_interested_products = async (req, res) => {
-    console.log("deepak madarchod");
+    console.log("deepak ");
     console.log(req.user._id);
     user_id = req.user._id;
     const user = await User.findById(user_id);

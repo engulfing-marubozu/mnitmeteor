@@ -1,8 +1,6 @@
  
 import urllib.request
 import urllib.parse
-api = 'NGEzMjM1NzQzMTc0NGM0ZjRhNGM0ZTY2Nzc1MTM1NjU=';
-dee = '917000083820';
 # def sendSMS(apikey, numbers, sender, message):
 #     data =  urllib.parse.urlencode({'apikey': apikey, 'numbers': numbers,
 #         'message' : message, 'sender': sender})

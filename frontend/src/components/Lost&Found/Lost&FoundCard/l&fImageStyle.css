@@ -1,0 +1,29 @@
+l .lfImageStyle {
+  width: 100%;
+}
+
+.lfImageStyle .image-gallery {
+  width: 100%;
+}
+
+.lfImageStyle .image-gallery-slide img {
+  height: 340px;
+  background-color: black;
+  overflow: hidden;
+}
+
+.lfImageStyle .fullscreen .image-gallery-slide img {
+  height: 100vh;
+}
+@media screen and (max-width: 600px) {
+  .lfImageStyle .image-gallery-slide img {
+    height: 320px;
+    overflow: hidden;
+  }
+}
+@media screen and (max-width: 480px) {
+  .lfImageStyle .image-gallery-slide img {
+    height: 240px;
+    overflow: hidden;
+  }
+}

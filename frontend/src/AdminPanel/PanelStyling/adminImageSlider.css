@@ -1,0 +1,29 @@
+l .panelImageStyle {
+  width: 100%;
+}
+
+.panelImageStyle .image-gallery {
+  width: 100%;
+}
+
+.panelImageStyle .image-gallery-slide img {
+  height: 340px;
+  background-color: black;
+  overflow: hidden;
+}
+
+.panelImageStyle .fullscreen .image-gallery-slide img {
+  height: 100vh;
+}
+@media screen and (max-width: 600px) {
+  .panelImageStyle .image-gallery-slide img {
+    height: 320px;
+    overflow: hidden;
+  }
+}
+@media screen and (max-width: 480px) {
+  .panelImageStyle .image-gallery-slide img {
+    height: 240px;
+    overflow: hidden;
+  }
+}

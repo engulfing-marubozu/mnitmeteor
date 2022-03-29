@@ -1,0 +1,15 @@
+    try {
+       const response =
+      await axios.post(
+        "http://localhost:5000/product_details",
+        { images: imagearray, details: values },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }

@@ -1,0 +1,13 @@
+.sell-form-inner {
+  width: 62%;
+  height: auto;
+  margin: calc(90vh - 80vh - 20px) auto;
+  background: #fff;
+  padding: 20px;
+  padding-bottom: 50px;
+}
+@media (max-width: 768px) {
+  .sell-form-inner {
+    width: 90%;
+  }
+}

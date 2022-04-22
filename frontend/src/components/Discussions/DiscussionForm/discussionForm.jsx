@@ -4,23 +4,37 @@ import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography, } from "@mui/material";
 import ButtonWrapper from '../../_formData/FormUI/ButtonWrapper';
 import { TextfieldWrapper } from '../../_formData/FormUI/InputElement';
-// import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
 import UploadDoc from "../../_formData/gettingFiles/uploadDoc";
+import { useNavigate } from "react-router-dom";
 
 // =================================================================================================================================================================================================================
 
-const INITIAL_FORM_STATE = { adTitle: "", description: "", document: ""};
+const INITIAL_FORM_STATE = { adTitle: "", description: "", document: "" };
 const FORM_VALIDATION = Yup.object().shape({
     adTitle: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
-    document: Yup.string().notRequired(),
+    document: Yup.mixed()
+        .notRequired()
+        .nullable()
+        .test(
+            "fileSize",
+            "File size too large, max file size is 5 Mb",
+            (file) => {
+                if (file) {
+                    return file.size <= 5242880;
+                } else {
+                    return true;
+                }
+            }
+        )
 });
 
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
+    const Navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
     })
@@ -41,25 +55,35 @@ function DiscussionForm() {
                         initialValues={{ ...INITIAL_FORM_STATE }}
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
-                            console.log(values)
-
-
-                            const call = async (values) => {
-                                console.log(values)
-                                const response = await axios.post(
+                            // console.log(values)
+                            const call = async (data) => {
+                                // console.log(values)
+                                // const response =
+                                await axios.post(
                                     "http://localhost:5000/create_thread",
-                                    { title: values.adTitle, description: values.description, document: values.document },
+                                    { title: data.adTitle, description: data.description, document: data.document },
                                     {
                                         headers: {
                                             Authorization: `Bearer ${token}`,
                                         },
                                     }
                                 );
-                                console.log(response.data);
+                            }
+                            if (values.document) {
+                                const reader = new FileReader();
+                                reader.onload = () => {
+                                    // console.log(reader.result);
+                                    const data = { ...values, document: reader.result }
+                                    call(data);
+                                }
+                                reader.readAsDataURL(values.document);
+                            } else {
+                                call(values)
                             }
 
-                            call(values);
-                        }}
+                            Navigate("/discussions/mytopics");
+                        }
+                        }
                     >
                         <Form>
                             <Box className={classes.ContentBoxSecond}>

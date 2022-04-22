@@ -13,7 +13,7 @@ function DiscussionCardArray() {
         let isSubscribed = true;
         async function call() {
             try {
-                console.log(userID);
+                // console.log(userID);
                 const response = await axios.post(
                     "http://localhost:5000/fetch_live_threads", { user_id: userID }
                 );
@@ -30,7 +30,6 @@ function DiscussionCardArray() {
         return () => (isSubscribed = false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     return (
         <>
             {(typeof (discussionData) === "undefined" ? Array.from(new Array(10)).map((data, index) => {
@@ -39,7 +38,11 @@ function DiscussionCardArray() {
                 )
             }) :
                 (typeof (discussionData) !== "undefined" && discussionData.map((data, index) => {
-                    return (<DiscussionCard key={index} data={data} setThread={setDiscussionData} flag={1} />)
+                    if (data) {
+                        return (<DiscussionCard key={index} data={data} setThread={setDiscussionData} flag={1} />)
+                    } else {
+                        return null;
+                    }
                 })))}
         </>
     );

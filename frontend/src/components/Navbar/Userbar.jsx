@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Badge, Drawer } from '@mui/material';
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
@@ -9,7 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
-import NotificationBox from "../Notification/notificationBox";
+import NotificationPage from "../Notification/notificationPage";
 const { io } = require("socket.io-client");
 const socket = io("http://localhost:5000", { reconnection: true });
 function Userbar({ updateNotification, setNotificationPending }) {
@@ -50,7 +50,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
         open={drawer}
         onClose={() => { setDrawer(false) }}
       >
-        <NotificationBox setDrawer={setDrawer} />
+        <NotificationPage setDrawer={setDrawer} />
       </Drawer>
 
       {/* {drawer&&NotificationBox} */}
@@ -87,19 +87,19 @@ function Userbar({ updateNotification, setNotificationPending }) {
         onClose={handleCloseUserMenu}
       >
 
-        <MenuItem onClick={() => { Navigate("/Profile"); handleCloseUserMenu(); }}><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }} />Profile</MenuItem>
-        <MenuItem onClick={() => { Navigate("/Favourites"); handleCloseUserMenu(); }}>
+        <MenuItem onClick={() => { Navigate("/profile"); handleCloseUserMenu(); }}><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }} />Profile</MenuItem>
+        <MenuItem onClick={() => { Navigate("/favourites"); handleCloseUserMenu(); }}>
           <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
         </MenuItem>
         <MenuItem
           onClick={() => {
             const userData = JSON.parse(window.localStorage.getItem("auth"));
             const user_id = userData.user.email;
-            socket.emit("log_out_socket",user_id);
+            socket.emit("log_out_socket", user_id);
             dispatch(LogoutUser());
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
-            if (location.pathname !== "/" && location.pathname !== '/Discussions' && location.pathname !== '/Lost&Found') {
+            if (location.pathname !== "/" && location.pathname !== '/discussions' && location.pathname !== '/lost&found') {
               Navigate("/");
             }
           }}

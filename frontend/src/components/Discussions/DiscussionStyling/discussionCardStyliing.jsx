@@ -35,6 +35,21 @@ export const DiscussionCardStyle = makeStyles({
         flexDirection: "row",
         alignItems: "center",
         marginTop: 0,
+    },
+    pdfContainer: {
+        width: "140px",
+        display: "flex",
+        flexDirection: "row",
+        margin: "8px 0px",
+        alignItems: "center",
+        border: "1px solid  #e0e0e0",
+        borderRadius: "4px",
+        padding: '2px',
+        textDecoration: "none"
+    },
+    fileName: {
+        width: "120px",
+        padding: "0px 2px 3px "
     }
 });
 // ===================================================================================================================================================================================
@@ -201,8 +216,8 @@ export const CommentReplyStyle = makeStyles({
     contentBox: {
         fontSize: "14px",
         marginBottom: 0.4,
-        wordBreak:"break-word",
-        overflowWrap:"break-word",
+        wordBreak: "break-word",
+        overflowWrap: "break-word",
     },
     repliedTo: {
         fontSize: "11px",

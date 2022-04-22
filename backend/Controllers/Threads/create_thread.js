@@ -33,7 +33,7 @@ const new_thread = async (req, res) => {
       users_mnit_id: mnit_id,
       title: title,
       description: description,
-      // document: document_upload_response,
+      document: document_upload_response,
       is_verified: false,
     });
     // console.log(Thread_save);

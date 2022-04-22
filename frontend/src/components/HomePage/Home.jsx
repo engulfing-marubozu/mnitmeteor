@@ -7,7 +7,7 @@ import CategorySlider from "./Slider";
 // import LostFoundHomePageCard from "../Lost&Found/Lost&FoundCard/L&FhomePageCard";
 // import DiscusssionHomePageCard from "../Discussions/DiscusssionHomePageCard";
 // import { Typography } from "@mui/material";
-import CardSlider from "../Profile/CardSlider";
+// import CardSlider from "../Profile/CardSlider";
 // 
 const theme = createTheme();
 export default function Home() {

@@ -8,7 +8,7 @@ export function SignUpSuccessfully(props) {
 
   return (
     <BoxContainer>
-      <Dogeimg src={Dogeimage} alt="doge.img" style></Dogeimg>
+      <Dogeimg src={Dogeimage} alt="doge.img" ></Dogeimg>
       <SubmitButton
         type="submit"
         onClick={() => {

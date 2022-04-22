@@ -6,7 +6,7 @@ import NotificationCard from './cardNotification';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-function NotificationPage() {
+function NotificationPage({ setDrawer }) {
 
     const [notifications, setNotifications] = useState();
     const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -39,14 +39,19 @@ function NotificationPage() {
         <Box className={classes.mainBox}>
             <Box className={classes.headingContainer}>
                 <Typography className={classes.heading}>Notifications</Typography>
-                <IconButton>
+                <IconButton onClick={() => setDrawer(false)}>
                     <ArrowForwardIcon />
                 </IconButton>
             </Box>
             <Box>
                 {
-                    typeof (notifications) !== "undefined" && (notifications.map((data, index) =>
-                        <NotificationCard data={data} key={index} />
+                    typeof (notifications) !== "undefined" && (notifications.map((data, index) => {
+                        if (data) {
+                            return <NotificationCard data={data} key={index} />
+                        } else {
+                            return null
+                        }
+                    }
                     ))
                 }
             </Box>

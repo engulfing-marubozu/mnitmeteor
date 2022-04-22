@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Typography, Paper, Button, styled } from "@mui/material";
 import { useSelector } from "react-redux";
+import poster from "../Images/poster.jpg";
 import profileIcon from "./profileIcon.svg";
 import UpdatePhoneNo from "./UpdateProfile";
 import { ToastContainer, toast } from "react-toastify";
-import Collapse from '@mui/material/Collapse';
+import Collapse from "@mui/material/Collapse";
 import "react-toastify/dist/ReactToastify.css";
 // ========================================================MAIN FUNCTION=================================================================
 
@@ -17,13 +18,15 @@ export default function ProfilePage(props) {
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
-    return <Button sx={{ color: "#5e35b1", py: 0.2 }} {...other}>
-      {!expand && "update"}
-      {expand && "cancel"}
-    </Button>
+    return (
+      <Button sx={{ color: "#5e35b1", py: 0.2 }} {...other}>
+        {!expand && "update"}
+        {expand && "cancel"}
+      </Button>
+    );
   })(({ theme, expand }) => ({
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   }));
@@ -36,30 +39,32 @@ export default function ProfilePage(props) {
   const notify = (value) => toast(value);
   useEffect(() => {
     window.scrollTo(0, 0);
-  })
+  });
   const updateHandler = () => {
     setOpenUpdate(!openUpdate);
-  }
+  };
   return (
     <div>
-      <Paper
+      <Box
         sx={{
-          bgcolor: "#5e35b1",
+          // bgcolor: "#5e35b1",
           width: "100%",
           height: "280px",
           borderRadius: 0,
         }}
-      ></Paper>
+      >
+        <img src={poster} alt="backgroundposter" />
+      </Box>
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "#C8C6C6",
+          position: "relative",
+          backgroundColor: "#f5f5f5",
         }}
       >
         <Box
           sx={{
             width: "100%",
-            position: "relative",
             display: "flex",
             justifyContent: { xs: "center", sm: "space-between" },
             flexDirection: { xs: "column", sm: "row" },
@@ -68,11 +73,13 @@ export default function ProfilePage(props) {
         >
           <Paper
             sx={{
+              // borderRadius: "50%",
               width: { xs: "100px", sm: "138px" },
               height: { xs: "100px", sm: "138px" },
               position: "absolute",
-              left: { xs: "50", sm: "6rem" },
-              top: { xs: "-2.5rem", sm: "-4rem" },
+              left: { sm: "6rem" },
+              // right:50,
+              top: { xs: "-4.2rem" },
             }}
             elevation={0}
           >
@@ -114,8 +121,7 @@ export default function ProfilePage(props) {
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
-            >
-            </ExpandMore>
+            ></ExpandMore>
           </Box>
         </Box>
         <Collapse in={expanded} timeout="auto" unmountOnExit>

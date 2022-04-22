@@ -73,7 +73,7 @@ function SellFormNew() {
                 setContactModel(true);
               } else if (phoneNumber && isLoggedIn) {
                 merge(values);
-                Navigate("/Profile");
+                Navigate("/profile");
               }
             }}
           >
@@ -120,8 +120,8 @@ function SellFormNew() {
             formData={{ merge, formValue }}
             onClose={setContactModel}
           >
-             Oops! We don’t have your phone number ☹️.<br></br> 
-Your phone number will only be shared with prospective buyers.
+            Oops! We don’t have your phone number ☹️.<br></br>
+            Your phone number will only be shared with prospective buyers.
           </GetPhoneNo>
         </POPUPElement>
       )}

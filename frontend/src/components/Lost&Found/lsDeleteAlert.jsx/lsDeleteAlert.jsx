@@ -32,6 +32,7 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
     // ================================================
 
     const AgreeHandler = ({ id, name, flag, postedBy }) => {
+        handleClose();
         axios.post('http://localhost:5000/deleteLnfItem', {
 
             objID: id,
@@ -43,13 +44,13 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
             .then(function (response) {
                 console.log(response.data);
                 setLostFound(response.data);
-                handleClose();
+
                 // setLostFound(resp)
             })
             .catch(function (error) {
                 console.log(error);
             });
-        // handleClose();
+
     }
 
     // ===============================================================================================================

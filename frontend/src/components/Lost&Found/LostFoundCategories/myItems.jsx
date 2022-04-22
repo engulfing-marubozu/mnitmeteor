@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect, } from 'react'
-import { useSelector } from 'react-redux';
 import axios from 'axios'
 import LostFoundSkeleton from '../lostfoundSkeleton';
 import LostFoundCard from '../Lost&FoundCard/L&FCard';
@@ -8,7 +7,7 @@ import LostFoundCard from '../Lost&FoundCard/L&FCard';
 
 function LostFoundMyItems() {
   const [myItems, setMyItems] = useState();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
 
   useEffect(() => {
@@ -46,7 +45,11 @@ function LostFoundMyItems() {
           )
         }) :
           (typeof (myItems) !== "undefined" && myItems.map((data, index) => {
-            return (<LostFoundCard key={index} data={data} setLostFound={setMyItems} flag={4} />)
+            if (data) {
+              return (<LostFoundCard key={index} data={data} setLostFound={setMyItems} flag={4} />)
+            } else {
+              return null;
+            }
           })))}
       </>
     </>

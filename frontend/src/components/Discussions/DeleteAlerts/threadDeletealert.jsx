@@ -31,6 +31,7 @@ export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
     };
     // ================================================
     const AgreeHandler = async () => {
+        handleClose();
         try {
             const response = await axios.post(
                 "http://localhost:5000/delete_thread",
@@ -42,14 +43,16 @@ export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
                 }
             );
             if (mountedRef.current) {
+                console.log(response.data);
                 setThread(response.data);
+                // setThread(response.data);
                 // console.log(response.data);
             }
 
         } catch (err) {
             console.log(err);
         }
-        handleClose();
+
     }
 
     // ===============================================================================================================

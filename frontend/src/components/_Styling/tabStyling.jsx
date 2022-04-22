@@ -13,9 +13,6 @@ export const NavTab = styled((props) => <Tab disableRipple {...props} />)(({ the
     padding: "0.5rem",
     minWidth: 0,
     fontSize: "11px",
-    // [theme.breakpoints.up('md')]: {
-    //     minWidth: 0,
-    // },
     fontWeight: theme.typography.fontWeightRegular,
     color: 'rgba(0, 0, 0, 0.85)',
     '&:hover': {
@@ -84,7 +81,7 @@ export const forumContainStyle = makeStyles({
     mainBox: {
         maxWidth: "900px",
         display: "flex",
-        padding:"24px 0px 40px 0px ",
+        padding: "24px 0px 40px 0px ",
         margin: "0rem auto",
         "@media (max-width: 1200px)": {
             padding: "24px 42px 40px 42px",

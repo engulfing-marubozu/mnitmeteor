@@ -2,12 +2,16 @@ import React, { useState, useRef } from 'react'
 import { useSelector } from "react-redux"
 import { TextField, Box } from '@mui/material';
 import { AddCommentButton } from '../DiscussionStyling/discussionStyling';
-import axios from 'axios'
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { modelPopUp } from '../../../AStatemanagement/Actions/userActions';
 
 function AddCommentBox({ addCommentData, setLocalCardData }) {
     const [disabledPost, setDisabledPost] = useState(true);
+    const dispatch = useDispatch();
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const token = localUserData?.token;
+    const isLoggedIn = localUserData?.isLogin;
     const inputComment = useRef(null);
 
 
@@ -36,14 +40,19 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
         inputComment.current.value = null;
         setDisabledPost(true);
     }
-
+    const submitCheck = () => {
+        if (isLoggedIn) {
+            submitHandler()
+        } else {
+            dispatch(modelPopUp(true));
+        }
+    }
     // ==============================================================================================================================================
     return (
         // <ThemeProvider theme={theme}>
         <Box sx={{ mt: "1rem" }} >
             <Box>
                 <TextField
-                    autoFocus={true}
                     color="primary"
                     fullWidth
                     placeholder='Add a comment...'
@@ -54,7 +63,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
                 />
             </Box>
             <Box sx={{ display: "flex", flexDirection: "flex-end" }}>
-                <AddCommentButton disabled={disabledPost} onClick={submitHandler} size="large"> Add Comment</AddCommentButton>
+                <AddCommentButton disabled={disabledPost} onClick={submitCheck} size="large"> Add Comment</AddCommentButton>
             </Box>
         </Box>
     )

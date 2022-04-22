@@ -75,9 +75,7 @@ export default function CardForPublishedAds(props) {
           variant="h6"
           noWrap
           sx={{
-            fontWeight: "bold",
-            fontSize: { xs: "medium" },
-            py: "5px",
+            fontSize: { xs: "14px", sm: "16px" },
           }}
         >
           {title}

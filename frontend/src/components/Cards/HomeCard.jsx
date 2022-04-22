@@ -44,16 +44,16 @@ const useStyles = makeStyles({
 
 export default function HomeCard({ cardData }) {
   //  console.log(cardData);
-  // =============================================CARD DATA===========================================================================
+  // =============================================CARD DATA======================================
   const Image = cardData?.images[0]?.image;
   const title = cardData?.title.charAt(0).toUpperCase() + cardData?.title.slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
-  //  =================================================================================================================================
+  //  ============================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
-  // ==================================================================================================================================
+  // ==============================================================================================
   const [likeButton, setLikeButton] = useState();
 
   React.useEffect(() => {

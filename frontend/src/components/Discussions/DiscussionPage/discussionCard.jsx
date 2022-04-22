@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Typography, Box, Paper, Avatar, Stack, IconButton, CardHeader, Tooltip } from "@mui/material";
+import { Typography, Box, Paper, Avatar, Stack, IconButton, CardHeader, Tooltip, Link } from "@mui/material";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
@@ -20,7 +20,8 @@ import axios from 'axios';
 import { RWebShare } from 'react-web-share';
 import { LikeDislikeChecker } from './likeDislikeChecker';
 import ThreadDeleteAlert from '../DeleteAlerts/threadDeletealert';
-
+import ReadMore from '../../_Styling/readmore';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data, setThread, flag }) {
     const [localCardData, setLocalCardData] = useState(data);
@@ -41,6 +42,7 @@ function DiscussionCard({ data, setThread, flag }) {
     };
 
     // ===========================================================LIKEHANDLER=====================================================================================================================================================
+    // console.log(data);
     const likes = data.likes;
     const dislikes = data.dislikes;
     const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
@@ -105,6 +107,7 @@ function DiscussionCard({ data, setThread, flag }) {
     const comments = localCardData?.discussions.slice(0).reverse();
     const cardId = localCardData?._id;
     const commentCount = localCardData?.discussions.length;
+    const document = localCardData?.document;
     // ============================================================================================================================
     const classes = DiscussionCardStyle();
     const likeButton = LikeButtonStyle(likeDislike);
@@ -175,10 +178,23 @@ function DiscussionCard({ data, setThread, flag }) {
                             <Typography variant='h6' sx={{ my: 1.5, lineHeight: 1.3 }}>
                                 {title}
                             </Typography>
-                            <Typography color="text.secondary" sx={{ mb: 1 }} >
+                            {/* <Typography color="text.secondary" sx={{ mb: 1 }} > */}
+                            <ReadMore>
                                 {description}
-                            </Typography>
+                            </ReadMore>
+                            {
+                                document && (
+                                    <Box>
+                                        <Link className={classes.pdfContainer} href={document} target="_blank">
+                                            <PictureAsPdfIcon color="error" fontSize="small" />
+                                            <Typography noWrap className={classes.fileName}>mypdfdocument</Typography>
+                                        </Link>
+                                    </Box>
+                                )
+                            }
+
                         </Box>
+
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <Box sx={{ width: "94%" }}>
                                 <AddCommentBox addCommentData={addCommentData} setLocalCardData={setLocalCardData} />
@@ -265,5 +281,4 @@ function DiscussionCard({ data, setThread, flag }) {
 
     )
 }
-
 export default DiscussionCard;

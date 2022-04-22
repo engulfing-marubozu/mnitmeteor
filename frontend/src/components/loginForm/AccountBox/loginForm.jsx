@@ -54,7 +54,7 @@ export function LoginForm(props) {
         window.localStorage.setItem("auth", JSON.stringify(localStorageData));
         const userData = await JSON.parse(window.localStorage.getItem("auth"));
         userData && socket.emit("initialise_user", userData.user.email);
-        isSellNowClicked && Navigate("SellProduct");
+        isSellNowClicked && Navigate("sellproduct");
       }
     } catch (err) {
       console.log(err);
@@ -110,12 +110,12 @@ export function LoginForm(props) {
         >
           Forget your password ?
         </MutedLink>
-        <Marginer direction="vertical" margin="0.8em" />
+        <Marginer direction="vertical" margin="0.8rem" />
         <SubmitButton type="submit">
           Signin
         </SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin="0.5em" />
+      <Marginer direction="vertical" margin="0.5rem" />
       <MutedText style={{ fontSize: "11px" }}>
         Don't have an account ?{" "}
         <BoldLink onClick={() => Switch({ active: "signup" })}>Signup</BoldLink>

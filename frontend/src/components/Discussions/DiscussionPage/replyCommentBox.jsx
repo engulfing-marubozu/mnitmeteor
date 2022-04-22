@@ -50,7 +50,6 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
         <Box sx={{ width: "94%", pt: { xs: "1rem" } }} >
             <form>
                 <TextField
-                    autoFocus={true}
                     size="small"
                     color="primary"
                     fullWidth

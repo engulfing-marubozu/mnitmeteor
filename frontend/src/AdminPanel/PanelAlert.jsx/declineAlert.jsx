@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function DeclineAlert({ DeclineRequest, data }) {
+export default function DeclineAlert({ DeclineRequest, data, handleExpandClick }) {
     const [open, setOpen] = React.useState(false);
 
     // ===============================================
@@ -46,7 +46,7 @@ export default function DeclineAlert({ DeclineRequest, data }) {
                         Cancel
                     </PanelButton>
                     <PanelButton
-                        onClick={() => { DeclineRequest(data, handleClose) }}
+                        onClick={() => { DeclineRequest(data, handleClose, handleExpandClick) }}
                         variant="contained"
                         color="error"
                     >

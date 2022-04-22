@@ -57,7 +57,7 @@ function ProductCard(props) {
   return (
     <main>
       <Container
-        sx={{ pt: { xs: 5 }, pb: { xs: 5 }, maxWidth: { xs: "xs", sm: "sm", md: "md", lg: "lg" } }}
+        sx={{ pt: { xs: 5 }, pb: { xs: 5 }, maxWidth: { xs: "100%", sm: "sm", md: "md", lg: "lg" } }}
       >
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
           {(typeof (cardData) === "undefined" ? Array.from(new Array(24)).map((data, index) => {

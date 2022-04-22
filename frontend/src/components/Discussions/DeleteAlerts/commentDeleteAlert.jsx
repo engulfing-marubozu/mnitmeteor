@@ -30,6 +30,7 @@ export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
     };
     // ================================================
     const AgreeHandler = async () => {
+        handleClose();
         try {
             const response = await axios.post(
                 "http://localhost:5000/delete_comment",
@@ -42,14 +43,13 @@ export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
             );
             if (mountedRef) {
                 setLocalCardData(response.data);
-                // console.log(response.data);
-                // handleClose();
+                // console.log(response.data);      
             }
 
         } catch (err) {
             console.log(err);
         }
-        handleClose();
+
     }
 
 

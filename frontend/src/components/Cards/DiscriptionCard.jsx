@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  fetchDataForATF,
-  fetchDataForInterestedProduct,
-  modelPopUp,
-} from "../../AStatemanagement/Actions/userActions";
+import { fetchDataForATF, fetchDataForInterestedProduct, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
@@ -131,6 +127,7 @@ function DiscriptionCard() {
   }, [email, product_id]);
 
   // ================================================================CardData ===============================================================
+  console.log(cardData);
   const imageThumbnail = cardData?.images;
   const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
   const date = cardData ? new Date(cardData.createdAt) : "";
@@ -166,9 +163,9 @@ function DiscriptionCard() {
         </BoxContainer>
         <TextContainer>
           <Typography
-            variant="h4"
             sx={{
               fontWeight: "bold",
+              fontSize: { xs: 24, sm: 30 },
               px: { xs: 0, lg: 2 },
               pt: { lg: 0, xs: 2 },
             }}
@@ -188,7 +185,7 @@ function DiscriptionCard() {
             sx={{ pl: { lg: 2, xs: 0 } }}
           >
 
-            {/* =========================================INTERESTED UNINTERESTED BUTTON================================================================================= */}
+            {/* =========================================INTERESTED UNINTERESTED BUTTON================================ */}
             {isLoggedIn && userId !== postedbyId && (<OutlinedButton
               variant="outlined"
               sx={{
@@ -198,9 +195,9 @@ function DiscriptionCard() {
               onClick={interesetedClickHandler}
             >
               {!isInterested && "Interested"}
-              {isInterested && "Un-Interested"}
+              {isInterested && "Not-Interested"}
             </OutlinedButton>)}
-            {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ========================================================================================== */}
+            {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ===================== */}
             {!isLoggedIn && (<OutlinedButton
               variant="outlined"
               sx={{
@@ -213,7 +210,7 @@ function DiscriptionCard() {
               {isInterested && "Un-Interested"}
             </OutlinedButton>)}
 
-            {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================================================================          */}
+            {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================  */}
             {isLoggedIn && userId === postedbyId && (<OutlinedButton
               variant="outlined"
               sx={{
@@ -239,9 +236,9 @@ function DiscriptionCard() {
           </Stack>
 
           <Typography
-            variant="h5"
             sx={{
               fontWeight: "bold",
+              fontSize: { xs: 16, sm: 22 },
               pt: { xs: 2 },
               px: { lg: 2, xs: 0 },
               pb: { xs: 0 },

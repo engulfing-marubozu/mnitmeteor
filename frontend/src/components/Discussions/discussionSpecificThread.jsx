@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 // import DiscussionSkeleton from './discussionSkeleton';
 // import DiscussionCard from './DiscussionPage/discussionCard';

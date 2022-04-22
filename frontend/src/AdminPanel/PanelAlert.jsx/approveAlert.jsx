@@ -11,7 +11,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ApproveAlert({ ApproveRequest, data }) {
+export default function ApproveAlert({ ApproveRequest, data, handleExpandClick }) {
     const [open, setOpen] = React.useState(false);
 
     // ===============================================
@@ -46,7 +46,7 @@ export default function ApproveAlert({ ApproveRequest, data }) {
                         Cancel
                     </PanelButton>
                     <PanelButton
-                        onClick={() => { ApproveRequest(data,handleClose) }}
+                        onClick={() => { ApproveRequest(data, handleClose, handleExpandClick) }}
                         variant="contained"
                         color="success"
                     >

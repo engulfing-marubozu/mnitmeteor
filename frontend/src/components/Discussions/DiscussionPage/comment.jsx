@@ -75,17 +75,17 @@ function Comments({ commentData, addCommentData, actionData, setLocalCardData })
         if (isLoggedIn) {
             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-                console.log("true1")
+                // console.log("true1")
                 const data = { status: "true1", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-                console.log("true1")
+                // console.log("true1")
                 const data = { status: "true1", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-                console.log("false2")
+                // console.log("false2")
                 const data = { status: "false2", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             }
@@ -101,18 +101,18 @@ function Comments({ commentData, addCommentData, actionData, setLocalCardData })
         if (isLoggedIn) {
             if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-                console.log("false1")
+                // console.log("false1")
                 const data = { status: "false1", ...addReplyData }
                 dispatch(actionForLikeThread(data));
 
             } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-                console.log("false1")
+                // console.log("false1")
                 const data = { status: "false1", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
                 setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-                console.log("true2")
+                // console.log("true2")
                 const data = { status: "true2", ...addReplyData }
                 dispatch(actionForLikeThread(data));
             }

@@ -30,6 +30,7 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
     };
     // ================================================
     const AgreeHandler = async () => {
+        handleClose();
         try {
             const response = await axios.post(
                 "http://localhost:5000/delete_reply",
@@ -43,12 +44,13 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
             if (mountedRef.current) {
                 setLocalCommentData(response.data);
                 // console.log(response.data);
+
             }
 
         } catch (err) {
             console.log(err);
         }
-        handleClose();
+
     }
 
 

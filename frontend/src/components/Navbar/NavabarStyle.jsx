@@ -1,9 +1,9 @@
-
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha } from "@mui/material/styles";
+import { makeStyles } from '@mui/styles';
+// import { deepPurple } from "@mui/material/colors";
 import Menu from '@mui/material/Menu';
-
-
+// import Button from "@mui/material/Button";
 export const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -44,3 +44,23 @@ export const StyledMenu = styled((props) => (
     },
   },
 }));
+
+export const NavbarStyle = makeStyles({
+  menuIcon: {
+    display: "none",
+    "@media (max-width: 600px)": {
+      display: "flex",
+    },
+    siteIcon: {
+      color: "#512da8",
+      display: "flex",
+      fontSize: 26,
+      margin: "0px 8px",
+      "@media (max-width: 600px)": {
+        margin: "0px 4px"
+      },
+    },
+  }
+
+
+})

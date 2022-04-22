@@ -8,7 +8,7 @@ import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
 import DiscriptionCard from "../Cards/DiscriptionCard";
 import Profile from "../Profile/Profile";
-import AdminPanel from "../../AdminPanel/AdminPanelCard/adminpanel";
+import AdminPanel from "../../AdminPanel/adminpanel";
 import Favourites from "../Favourites/Favourites";
 import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
@@ -25,9 +25,7 @@ import SpecificLostFound from "../Lost&Found/specificLostFound";
 function RouterCon() {
 
   const localUserData = useSelector((state) => state.loginlogoutReducer);
-  // console.log(localUserData);
   const localStorageData = JSON.parse(window.localStorage.getItem('auth'));
-  // console.log(localStorageData);
   const isLoggedIn = localStorageData ? localStorageData.isLogin : localUserData.isLogin;
 
   return (
@@ -35,41 +33,41 @@ function RouterCon() {
       {/* <Route path="/home" element ={<Home/>}/> */}
       <Route path="/" element={<Home />}>
         <Route index element={<ProductCard Category="recommendation" />} />
-        <Route path="Product/:category" element={<ProductCard />} />
+        <Route path="product/:category" element={<ProductCard />} />
       </Route>
-      <Route path="About" element={<About />} />
-      <Route path="Discussions" element={<Discussions />}>
+      <Route path="about" element={<About />} />
+      <Route path="discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
         <Route path=":id" element={<SpecificThread />} />
-        <Route path="CreateNewTopic" element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />} />
-        <Route path="MyTopics" element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />} />
-        <Route path="SavedTopics" element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />} />
+        <Route path="createnewtopic" element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />} />
+        <Route path="mytopics" element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />} />
+        <Route path="savedtopics" element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />} />
       </Route>
-      <Route path="Lost&Found" element={<LostFound />} >
+      <Route path="lost&found" element={<LostFound />} >
         <Route index element={<LostFoundCardArray />} />
         <Route path=":id" element={<SpecificLostFound />} />
-        <Route path="Lost&FoundForm" element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />} />
-        <Route path="LostItems" element={isLoggedIn ? <LostItems /> : <Navigate to="/" />} />
-        <Route path="FoundItems" element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />} />
-        <Route path="MyItems" element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />} />
+        <Route path="lost&foundform" element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />} />
+        <Route path="lostitems" element={isLoggedIn ? <LostItems /> : <Navigate to="/" />} />
+        <Route path="founditems" element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />} />
+        <Route path="myitems" element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />} />
       </Route>
       <Route
-        path="Sellproduct"
+        path="sellproduct"
         element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}
       />
       <Route
-        path="ProductDiscription/:productId"
+        path="productdiscription/:productId"
         element={<DiscriptionCard />}
       />
       <Route
-        path="Profile"
+        path="profile"
         element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
       />
       <Route
-        path="Favourites"
+        path="favourites"
         element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
       />
-      <Route path="Adminpanel" element={<AdminPanel />} />
+      <Route path="adminpanel" element={<AdminPanel />} />
       <Route path="*" element={<div>No Page found </div>} />
     </Routes>
   );

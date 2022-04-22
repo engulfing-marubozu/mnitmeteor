@@ -17,7 +17,7 @@ function FoundItems() {
         }
       } catch (err) {
         console.log(err);
-      }
+      } 
     };
     axiosPosts();
     return () => (isSubscribed = false);
@@ -31,7 +31,12 @@ function FoundItems() {
         )
       }) :
         (typeof (foundItems) !== "undefined" && foundItems.map((data, index) => {
-          return (<LostFoundCard key={index} data={data} setLostFound={setFoundItems} flag={3} />)
+          if (data) {
+            return (<LostFoundCard key={index} data={data} setLostFound={setFoundItems} flag={3} />)
+          } else {
+            return null;
+          }
+
         })))}
     </>
   );

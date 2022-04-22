@@ -59,7 +59,7 @@ export default function CategorySlider() {
   // ================================TAB CLICK HANDLERS
   const Navigate = useNavigate();
   const TabClickHandler = (flag) => {
-    Navigate(`/Product/${flag}`);
+    Navigate(`/product/${flag}`);
   };
   useEffect(() => {
     const tabValue =

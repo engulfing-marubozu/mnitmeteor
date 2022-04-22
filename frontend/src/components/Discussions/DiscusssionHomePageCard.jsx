@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Paper, IconButton, Typography, Stack, Avatar } from "@mui/material";
+import { Box, Paper, IconButton, Typography, Stack, Avatar,Link } from "@mui/material";
 import ShareIcon from '@mui/icons-material/Share';
 import { DiscussionHomePageCardStyle, DiscussionCommonStyle } from './DiscussionStyling/discussionCardStyliing';
 export default function DiscusssionHomePageCard() {
@@ -21,16 +21,14 @@ export default function DiscusssionHomePageCard() {
                         variant="body2"
                         color="text.secondary"
                         sx={{
-                            mb: 1, wordBreak: "break-all", height: "120px", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box",
+                            display:"inline",
+                            mb: 1, wordBreak: "break-all", height: "120px", overflow: "hidden", textOverflow: "ellipsis",
                             WebkitLineClamp: 6,
                             WebkitBoxOrient: "vertical",
                         }}>
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,am quis laudantium deleniti vel est recusandae, doloremque sequi,   Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,
+                        Numquam quis laudantium deleniti vel est recusandae, doloremque sequi,Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, quos, totam, sint modi ad cum similique molestiae quisquam ab atque sunt illo error laboriosam nihil omnis in recusandae nisi nemo.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora aut quaerat enim ratione dicta. Fugiat perspiciatis suscipit beatae laborum provident. Rem perspiciatis aut, dolor velit aspernatur reiciendis architecto earum error.
                     </Typography>
                 </Box>
                 <Box className={classes.dHomeActionBox}>

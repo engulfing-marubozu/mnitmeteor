@@ -39,8 +39,8 @@ export default function NavbarTabs(props) {
   const [value, setValue] = React.useState(0);
   useEffect(() => {
     if (location.pathname === "/") { setValue(0) }
-    else if (location.pathname.includes("/Discussions")) { setValue(1) }
-    else if (location.pathname.includes("/Lost&Found")) { setValue(2) }
+    else if (location.pathname.includes("/discussions")) { setValue(1) }
+    else if (location.pathname.includes("/lost&found")) { setValue(2) }
     else {
       setValue(false);
     }
@@ -52,10 +52,8 @@ export default function NavbarTabs(props) {
       <AntTab label={<Badge badgeContent={props.updateBadge} color="error">
         Home
       </Badge>}  onClick={() => { Navigate("/") }} />
-      <AntTab label="Discussions" onClick={() => { Navigate("Discussions") }} />
-      <AntTab label="Lost&Found" onClick={() => { Navigate("Lost&Found") }} />
+      <AntTab label="Discussions" onClick={() => { Navigate("discussions") }} />
+      <AntTab label="Lost&Found" onClick={() => { Navigate("lost&found") }} />
     </AntTabs>
-
-
   );
 }

@@ -124,7 +124,7 @@ const fetch_livedata = async (req, res) => {
     //   console.log(category);
     if (category === "recommendation") {
       //  console.log("hello");
-      fetch_post = await Product.where("is_verified").equals(true);
+      fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
 
       //   console.log(fetch_post);
       //  res.status(200).send(fetch_post);

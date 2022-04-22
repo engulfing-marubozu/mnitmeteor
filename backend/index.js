@@ -25,6 +25,7 @@ const port = 5000;
 // Database connection
 
 database_url = process.env.MONGODB_ATLAS;
+// console.log(database_url);
 mongoose
   .connect(database_url)
   .then(() => {

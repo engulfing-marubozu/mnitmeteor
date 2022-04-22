@@ -4,7 +4,7 @@ const {
 } = require("../Message_service/Sendgrid_Email/send_customised_email");
 
 const send_published_Ads = async (req, res) => {
-  console.log("deepak madarchod");
+  console.log("deepak ");
   console.log(req.user._id);
   user_id = req.user._id;
   const user = await User.findById(user_id);

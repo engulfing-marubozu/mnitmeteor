@@ -1,15 +1,15 @@
 const express = require("express");
 const {new_thread,handle_admin_thread} = require("../controllers/Threads/create_thread");
-const { fetch_live_threads, fetch_own_threads,fetch_false_threads} = require("../Controllers/Threads/send_thread");
-const {  send_saved_threads } = require("../Controllers/Threads/send_saved_threads");
-const { save_threads} = require("../Controllers/Threads/save_thread");
-const { delete_thread } = require("../Controllers/Threads/delete_thread");
-const { delete_comment } = require("../Controllers/Threads/delete_comment");
-const { delete_reply } = require("../Controllers/Threads/delete_reply");
-const { add_comment } = require("../Controllers/Threads/add_comments&replies");
+const { fetch_live_threads, fetch_own_threads,fetch_false_threads} = require("../controllers/Threads/send_thread");
+const {  send_saved_threads } = require("../controllers/Threads/send_saved_threads");
+const { save_threads} = require("../controllers/Threads/save_thread");
+const { delete_thread } = require("../controllers/Threads/delete_thread");
+const { delete_comment } = require("../controllers/Threads/delete_comment");
+const { delete_reply } = require("../controllers/Threads/delete_reply");
+const { add_comment } = require("../controllers/Threads/add_comments&replies");
 const {authorization} = require("../Middlewares/authorization")
-const {send_commented_replied_threads}  = require("../Controllers/Threads/send_commented_replied_thread")
-const {like_and_dislike_threads}  = require("../Controllers/Threads/like_and_dislike_threads")
+const {send_commented_replied_threads}  = require("../controllers/Threads/send_commented_replied_thread")
+const {like_and_dislike_threads}  = require("../controllers/Threads/like_and_dislike_threads")
 
 const router = express.Router();
 

@@ -36,6 +36,9 @@ const user_schema = new mongoose.Schema(
     password: {
       type: String,
     },
+    profile_pic: {
+      type: String, //it will never be null 
+    },
     products_posted: {
       type: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       default: [],

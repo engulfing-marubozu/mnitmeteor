@@ -2,22 +2,38 @@ const { User } = require("../Models");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
-const { parse } = require("path/posix");
+// const { parse } = require("path/posix");
 const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
+const lib = require("../Middlewares/counter.js");
+
 sgMail.setApiKey(
  process.env.SENDGRID_API_KEY
 );
 
 saltRounds = 8;
+// var number;
+// console.log(value);
+var value;
+async function check(){
+ 
+      value = await lib.value();
+      
+  // console.log(t);
 
+}
+// console.log(lib.value().then());
+
+console.log(value);
 
 ///    SIGNUP FUNCTION
 const signUp = async (req, res) => {               
   console.log("came to sign up");
+  console.log("hellio");
   console.log(req.body);
   try {
     console.log(req.body.email);
+    console.log("yaar2");
     console.log(Object.keys(req.body).length);
     let email = req.body.email.toLowerCase();
     if (Object.keys(req.body).length !== 1) {
@@ -25,10 +41,17 @@ const signUp = async (req, res) => {
       console.log("reached api");
       let password = req.body.password;
       // var name = req.body.name;
+      console.log("yaar");
+      // check();
+      value = await lib.value();
+      console.log("value is "+value);
+      genTwoPoke = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/${value}.png`;
+
       bcrypt.hash(password, saltRounds, function (err, hash) {
         const user = new User({
           email: email,
           password: hash,
+          profile_pic: genTwoPoke
         });
         user.save(function (err) {
           if (err) {

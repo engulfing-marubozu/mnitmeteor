@@ -86,7 +86,7 @@ function SellFormNew() {
                   helperText="Mention the key features of your item (e.g. brand, model, type)"
                 // inputProps={{ maxLength: 10 }}
                 />
-                <Typography className={classes.boldText}>Discription *</Typography>
+                <Typography className={classes.boldText}>Description *</Typography>
                 <TextfieldWrapper
                   name="description"
                   helperText="Include condition, features and reason for selling"

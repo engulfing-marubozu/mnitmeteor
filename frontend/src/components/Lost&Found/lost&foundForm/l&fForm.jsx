@@ -90,7 +90,7 @@ function LostFoundForm() {
                                     size="small"
                                     helperText="Mention the key features of your item (e.g. brand, model, type)"
                                 />
-                                <Typography className={classes.boldTextSecond}>Discription *</Typography>
+                                <Typography className={classes.boldTextSecond}>Description *</Typography>
                                 <TextfieldWrapper
                                     name="description"
                                     helperText="Please provide proper detail of item with contact details  "

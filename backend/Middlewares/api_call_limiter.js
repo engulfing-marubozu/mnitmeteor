@@ -32,7 +32,7 @@ const api_call_limiter = async (req, res, next) => {
     });
 
   else {
-    console.log("land bc")
+    console.log("arey")
     next();}
 };
 

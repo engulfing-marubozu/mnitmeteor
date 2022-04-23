@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
-import {
-  GlobalStyles,
-  AppBar,
-  Stack,
-  CssBaseline,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Box,
-} from "@mui/material";
+import { GlobalStyles, AppBar, Stack, CssBaseline, Toolbar, Typography, Button, IconButton, Box, Drawer } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { deepPurple } from "@mui/material/colors";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import MenuIcon from "@mui/icons-material/Menu";
-import { StyledMenu } from "./NavabarStyle";
-import MymenuBar from "./Categories/MenuBar";
 import { useNavigate } from "react-router-dom";
 import Userbar from "./Userbar";
 import { useSelector, useDispatch } from "react-redux";
-import {SellNowclick,modelPopUp,} from "../../AStatemanagement/Actions/userActions";
+import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
 import NavbarTabs from "./navbarTabs";
+import { NavbarStyle } from "./NavabarStyle";
+import MymenuBar from "./Categories/MenuBar";
 const { io } = require("socket.io-client");
 const socket = io("http://localhost:5000", { reconnection: true });
 // =============================================================================================================================================================================================
@@ -45,26 +35,24 @@ export const OutlinedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-// ==========================================================================================================================================================================
+// ==========================================================================================================
 function Navbar() {
-  // const localUserData = useSelector((state) => state.loginlogoutReducer);
-  // const token = localUserData.token;
   const Navigate = useNavigate();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [postsPending, setpostPending] = useState(0);
   const [notificationPending, setNotificationPending] = useState(0);
-  const open = Boolean(anchorEl);
+  const [menuDrawer, setMenuDrawer] = useState(false);
+  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  const dispatch = useDispatch();
 
-  // =====================================================================================================================================================================
+  // ===========================================================================================================
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setMenuDrawer(true);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT============================================================================================================
+  const menuClose = () => {
+    setMenuDrawer(false);
+  }
+  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT==================================================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
   };
@@ -74,51 +62,41 @@ function Navbar() {
       window.removeEventListener("resize", sizeEventHandler);
     };
   }, [windowWidth]);
-  // =============================================================================================================================================================
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const dispatch = useDispatch();
-  // const LocalUserData=useSelector((state)=>loginlogoutReducer);
-  // const isLoggedIn=localUserData.isLogin;
-  // const
-  console.log(notificationPending);
-  // ========================================================SOCKET-IO==========================================================================================================
+  // ========================================================SOCKET-IO==============================================
 
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    console.log("land2");
-    // console.log(userData);
     userData && socket.emit("initialise_user", userData.user.email);
   }, []);
 
+
   React.useEffect(() => {
-    
-      const call =async ()=>{
-        try {
-          const userData = JSON.parse(window.localStorage.getItem("auth"));
-          const token = userData.token
-          console.log("fjne")
-          const response =
-         await axios.post(
-           "http://localhost:5000/get_notif_alert_count",
-           {  },
-           {
-             headers: {
-               Authorization: `Bearer ${token}`,
-             },
-           }
-         );
-         // console.log(response.data);
-         setNotificationPending( response.data.count  );
-       } catch (err) {
-         console.log(err);
-       };
-      }
-   call();
+    const call = async () => {
+      try {
+        const userData = JSON.parse(window.localStorage.getItem("auth"));
+        const token = userData?.token
+        console.log("fjne")
+        const response =
+          await axios.post(
+            "http://localhost:5000/get_notif_alert_count",
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        // console.log(response.data);
+        setNotificationPending(response.data.count);
+      } catch (err) {
+        console.log(err);
+      };
+    }
+    call();
   }, [notificationPending]);
 
   React.useEffect(() => {
     socket.on("approve_post_update", () => {
-      // console.log("land1");
       setpostPending(postsPending + 1);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,15 +104,16 @@ function Navbar() {
 
   React.useEffect(() => {
     socket.on("decline/approve/interesred_post_notification", () => {
-      console.log("land");
       setNotificationPending((prev) => {
-        // console.log(prev);
         return prev + 1;
       });
     });
   }, []);
 
-  // ========================================================================================================================================================================
+
+  const classes = NavbarStyle();
+
+  // ================================================================================================================
   return (
     <>
       <GlobalStyles
@@ -144,32 +123,28 @@ function Navbar() {
       <AppBar
         position="sticky"
         color="default"
-        elevation={9}
-        sx={{
-          borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-        }}
+        elevation={3}
       >
         <Toolbar>
-          <Box sx={{ display: { xs: "flex", sm: "none" } }}>
-            <IconButton
-              sx={{ p: 0 }}
-              size="large"
-              onClick={handleClick}
-              color="inherit"
-            >
+          <Box className={classes.menuIcon}>
+            <IconButton sx={{ p: 0 }} size="large" onClick={handleClick} color="inherit">
               <MenuIcon />
             </IconButton>
-            <StyledMenu
-              // id="demo-customized-menu"
-              // MenuListProps={{
-              //   "aria-labelledby": "demo-customized-button",
-              // }}
+            <Drawer
+              anchor='left'
+              open={menuDrawer}
+              onClose={menuClose}
+            >
+
+              <MymenuBar menuClose={menuClose} />
+            </Drawer>
+            {/* <StyledMenu
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
             >
               <MymenuBar menuClose={handleClose} />
-            </StyledMenu>
+            </StyledMenu> */}
           </Box>
           <Stack
             alignItems={"center"}
@@ -179,25 +154,15 @@ function Navbar() {
               ml: { xs: 0, md: 1.5, lg: 6 },
             }}
           >
-            <AcUnitIcon
-              sx={{
-                color: "#512da8",
-                display: { xs: "flex" },
-                fontSize: { xs: 20, sm: 26 },
-                mx: { xs: 0.5, sm: 1 },
-              }}
-            />
-            <Typography
-              variant="h5"
-              color="inherit"
-              noWrap
+            <AcUnitIcon className={classes.siteIcon} />
+            <Typography variant="h5" color="inherit" noWrap
               sx={{
                 fontWeight: 700,
                 fontSize: { xs: "18px", md: "24px" },
                 display: { xs: "flex" },
               }}
               onClick={() => {
-                Navigate("/Adminpanel");
+                Navigate("/adminpanel");
               }}
             >
               {windowWidth}
@@ -252,7 +217,7 @@ function Navbar() {
               onClick={() => {
                 !isLoggedIn && dispatch(SellNowclick(true));
                 !isLoggedIn && dispatch(modelPopUp(true));
-                isLoggedIn && Navigate("/SellProduct");
+                isLoggedIn && Navigate("/sellproduct");
               }}
             >
               Sell Now

@@ -49,7 +49,6 @@ function LostFoundForm() {
     const Navigate = useNavigate();
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const [, setimagearray] = useState([]);
-    // console.log(imagearray);
     const onDrop = (pictures) => {
         setimagearray(pictures);
     };
@@ -67,20 +66,9 @@ function LostFoundForm() {
                         initialValues={{ ...INITIAL_FORM_STATE }}
                         validationSchema={FORM_VALIDATION}
                         onSubmit={(values) => {
-                            // console.log(values);
                             sendLostItem(values, localUserData);
-                            Navigate("/Lost&Found/MyItems");
+                            Navigate("/lost&found/myitems");
                         }}
-                    // onSubmit={(values.adTitle) => {
-                    // console.log(values.adTitle);
-                    //   setFormValue(values)
-                    //   if (!phoneNumber && isLoggedIn) {
-                    //     setContactModel(true);
-                    //   } else if (phoneNumber && isLoggedIn) {
-                    //     merge(values);
-                    //     Navigate("/Profile");
-                    //   }
-                    // }}
                     >
                         <Form>
                             <Box className={classes.ContentBoxSecond}>

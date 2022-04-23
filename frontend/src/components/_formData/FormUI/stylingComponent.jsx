@@ -143,4 +143,52 @@ export const useStyles = makeStyles({
         color: "#d50000",
         margin: "3px 14px 0px ",
     },
+
+    //========================================================================================================
+    container: {
+        position: "relative",
+        alignItems: "center",
+        display: "flex",
+        padding: '5px 16px',
+        background: '#3f4257',
+        borderRadius: '30px',
+        color: 'white',
+        fontWeight: 400,
+        fontSize: '14px',
+        margin: '5px auto',
+        transition: 'all 0.2s ease-in',
+        cursor: 'pointer',
+        outline: 'none',
+        border: 'none',
+    },
+
+    container__input: {
+        /* Take the full size */
+        height: "100%",
+        left: 0,
+        position: "absolute",
+        top: 0,
+        width: "100%",
+        /* Make it transparent */
+        opacity: 0,
+    },
+
+    container__icon: {
+        marginRight: "8px",
+    },
+    //====================================================================================
+    pdfContainer: {
+        display: "flex",
+        flexDirection: "row",
+        margin: "5px auto ",
+        alignItems: "center",
+        border: "1px solid  #e0e0e0",
+        borderRadius: "4px",
+        padding: '2px',
+    },
+    fileName: {
+        width: "120px",
+        padding: "0px 2px 3px "
+    }
+
 });

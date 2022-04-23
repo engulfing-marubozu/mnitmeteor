@@ -20,11 +20,11 @@ export function LostFoundNavigation() {
     const dispatch = useDispatch();
     const location = useLocation();
     useEffect(() => {
-        if (location.pathname === "/Lost&Found") { setValue(0) }
-        else if (location.pathname === "/Lost&Found/LostItems") { setValue(1) }
-        else if (location.pathname === "/Lost&Found/FoundItems") { setValue(2) }
-        else if (location.pathname === "/Lost&Found/Lost&FoundForm") { setValue(3) }
-        else if (location.pathname === "/Lost&Found/MyItems") { setValue(4) }
+        if (location.pathname === "/lost&found") { setValue(0) }
+        else if (location.pathname === "/lost&found/lostitems") { setValue(1) }
+        else if (location.pathname === "/lost&found/founditems") { setValue(2) }
+        else if (location.pathname === "/lost&found/lost&foundform") { setValue(3) }
+        else if (location.pathname === "/lost&found/myitems") { setValue(4) }
         else {
             setValue(false);
         }
@@ -43,10 +43,10 @@ export function LostFoundNavigation() {
         <Paper sx={{ bgcolor: "white", display: "flex", justifyContent: "center", }}>
             <NavTabs value={value} variant="scrollable" scrollButtons={false} >
                 <NavTab icon={<ExploreIcon />} label="Explore" onClick={() => { TabClickHandler("") }} />
-                <NavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { TabClickHandler("LostItems") }} />
-                <NavTab icon={<SearchIcon />} label="Found Items" onClick={() => { TabClickHandler("FoundItems") }} />
-                <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { TabClickHandler("Lost&FoundForm") }} />
-                <NavTab icon={<SearchIcon />} label="My Items" onClick={() => { TabClickHandler("MyItems") }} />
+                <NavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { TabClickHandler("lostitems") }} />
+                <NavTab icon={<SearchIcon />} label="Found Items" onClick={() => { TabClickHandler("founditems") }} />
+                <NavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { TabClickHandler("lost&foundform") }} />
+                <NavTab icon={<SearchIcon />} label="My Items" onClick={() => { TabClickHandler("myitems") }} />
             </NavTabs>
         </Paper>
 
@@ -73,11 +73,11 @@ export function LostFoundVerticalNavigation() {
     }
 
     useEffect(() => {
-        if (location.pathname === "/Lost&Found") { setValue(0) }
-        else if (location.pathname === "/Lost&Found/LostItems") { setValue(1) }
-        else if (location.pathname === "/Lost&Found/FoundItems") { setValue(2) }
-        else if (location.pathname === "/Lost&Found/Lost&FoundForm") { setValue(3) }
-        else if (location.pathname === "/Lost&Found/MyItems") { setValue(4) }
+        if (location.pathname === "/lost&found") { setValue(0) }
+        else if (location.pathname === "/lost&found/lostitems") { setValue(1) }
+        else if (location.pathname === "/lost&found/founditems") { setValue(2) }
+        else if (location.pathname === "/lost&found/lost&foundform") { setValue(3) }
+        else if (location.pathname === "/lost&found/myitems") { setValue(4) }
         else {
             setValue(false);
         }
@@ -91,10 +91,10 @@ export function LostFoundVerticalNavigation() {
             <Paper className={classes.paperStyle}>
                 <NavTabs value={value} orientation="vertical">
                     <VerticalNavTab icon={<ExploreIcon />} label="Explore" onClick={() => { TabClickHandler("") }} />
-                    <VerticalNavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { TabClickHandler("LostItems") }} />
-                    <VerticalNavTab icon={<SearchIcon />} label="Found Items" onClick={() => { TabClickHandler("FoundItems") }} />
-                    <VerticalNavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { TabClickHandler("Lost&FoundForm") }} />
-                    <VerticalNavTab icon={<SearchIcon />} label="My Items" onClick={() => { TabClickHandler("MyItems") }} />
+                    <VerticalNavTab icon={<QuestionMarkIcon />} label="Lost Items" onClick={() => { TabClickHandler("lostitems") }} />
+                    <VerticalNavTab icon={<SearchIcon />} label="Found Items" onClick={() => { TabClickHandler("founditems") }} />
+                    <VerticalNavTab icon={<CreateIcon />} label="Lost&Found Form" onClick={() => { TabClickHandler("lost&foundform") }} />
+                    <VerticalNavTab icon={<SearchIcon />} label="My Items" onClick={() => { TabClickHandler("myitems") }} />
                 </NavTabs>
             </Paper>
         </Box>

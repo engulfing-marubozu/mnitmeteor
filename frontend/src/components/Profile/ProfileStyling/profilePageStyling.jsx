@@ -7,30 +7,32 @@ import { makeStyles } from '@mui/styles';
 export const ProfileBoxStyle = makeStyles({
     mainBox: {
         width: "100%",
-        display: "flex",
-        justifyContent: "center",
+        margin: "0px auto",
+        // display:"flex",
+        // justifyContent: "center",
+        // "@media (max-width: 1300px)": {
+        //     width: "980px"
+        // },
+        // "@media (max-width: 1000px)": {
+        //     width: "780px"
+        // },
+        // "@media (max-width: 860px)": {
+        //     width: "600px"
+        // },
+        // "@media (max-width: 660px)": {
+        //     width: "480px"
+        // },
+        // "@media (max-width: 480px)": {
+        //     width: "100%"
+        // },
 
     },
-    titleHolder: {
-        width:"100%",
-        display: "flex",
-        flexDirection: "row",
-        backgroundColor: "white",
-        justifyContent: "center",
-    },
-    heading: {
-        fontSize: "1.5rem",
-        fontWeight: "bold",
-        color: "#5e35b1",
-        padding:"1rem 4rem"
-    }
 })
 
 export const ProfileTabs = styled(Tabs)({
     // borderBottom: '1px solid #e8e8e8',
-    paddingLeft: "6rem",
     width: "100%",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     '& .MuiTabs-indicator': {
         // backgroundColor: '#1890ff',
     },
@@ -38,14 +40,14 @@ export const ProfileTabs = styled(Tabs)({
 
 export const ProfileTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }) => ({
     textTransform: 'none',
-    //  padding:"rem",
+    //  padding:"0rem",
     // [theme.breakpoints.up('sm')]: {
     //     minWidth: 0,
     // },
-    // fontWeight: 'bold',
-        fontWeight: theme.typography.fontWeightMedium,
+    fontWeight: 'bold',
+    // fontWeight: theme.typography.fontWeightMedium,
 
-    fontSize: '1.3rem',
+    fontSize: '1rem',
     // fontWeight: theme.typography.fontWeightRegular,
     // marginRight: theme.spacing(1),
     color: 'rgba(0, 0, 0, 0.85)',

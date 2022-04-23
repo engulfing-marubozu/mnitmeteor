@@ -26,7 +26,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-function AdminPanelPage({ data, ApproveRequest, DeclineRequest }) {
+function SellingPanel({ data, ApproveRequest, DeclineRequest }) {
     console.log(data);
     const [expanded, setExpanded] = React.useState(false);
     const imageThumbnail = data?.images;
@@ -89,15 +89,14 @@ function AdminPanelPage({ data, ApproveRequest, DeclineRequest }) {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardActions sx={{ px: "1rem", pb: "1rem", display: "flex" }}>
-                        <ApproveAlert ApproveRequest={ApproveRequest} data={data} />
-                        <DeclineAlert DeclineRequest={DeclineRequest} data={data} />
+                        <ApproveAlert ApproveRequest={ApproveRequest} data={data} handleExpandClick={handleExpandClick} />
+                        <DeclineAlert DeclineRequest={DeclineRequest} data={data} handleExpandClick={handleExpandClick} />
                     </CardActions>
                 </Collapse>
             </Card>
         </Box >
 
-
     );
 }
 
-export default AdminPanelPage;
+export default SellingPanel;

@@ -11,9 +11,10 @@ import "./l&fImageStyle.css";
 import { useSelector } from 'react-redux';
 import { RWebShare } from 'react-web-share';
 import LostFoundDeleteAlert from '../lsDeleteAlert.jsx/lsDeleteAlert';
+import ReadMore from '../../_Styling/readmore';
 export default function LostFoundCard({ data, flag, setLostFound }) {
-//    console.log({data,flag,setLostFound});
-
+    //    console.log({data,flag,setLostFound});
+    console.log(data);
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const userLoggedIn = localUserData?.userData._id;
     const date = new Date(data.createdAt);
@@ -22,6 +23,7 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
     const postedBy = data?.posted_by;
     const userEmail = data?.email.slice(0, 11);
     const category = data?.category;
+    const description=data?.description;
     const images = data?.imgs.map((img, index) => {
         return {
             original: `${img.image}`,
@@ -42,7 +44,7 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
                         <Box>
                             {
                                 (postedBy === userLoggedIn) && (
-                                    <LostFoundDeleteAlert deleteData={{ id: data._id, name: data.name, flag: flag,postedBy:postedBy }} setLostFound={setLostFound} />
+                                    <LostFoundDeleteAlert deleteData={{ id: data._id, name: data.name, flag: flag, postedBy: postedBy }} setLostFound={setLostFound} />
                                 )
                             }
                             <RWebShare
@@ -77,11 +79,11 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
                 </Box>
                 <CardContent sx={{ py: 0 }}>
                     <Typography variant="h6">{itemName}</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, praesentium necessitatibus. Sunt architecto ut esse
-                        voluptatum tempore velit blanditiis eligendi debitis dignissimos, exercitationem omnis u
-                        llam officia eum mollitia veniam ipsam.
-                    </Typography>
+                    {/* <Typography variant="body2" color="text.secondary"> */}
+                    <ReadMore>
+                        {description }
+                    </ReadMore>
+                    {/* </Typography> */}
                 </CardContent>
                 <CardActions sx={{ px: "1rem", pb: "1rem", display: "flex" }}>
                     <Typography className={classes.lfcategory}> {category}</Typography>

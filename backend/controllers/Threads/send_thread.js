@@ -9,15 +9,15 @@ const fetch_live_threads = async (req,res)=>{
     if(!user_id)
     {
 //   const user_id = req.user._id;
-  const universal_threads = await Thread.find({is_verified: true});
+  const universal_threads = await Thread.find({is_verified: true}).sort({'createdAt':-1});
 //   const user_specific_threads = await Thread.find({posted_by:user_id});
    res.status(200).send({universal_threads})
   }
 else{
   console.log("hbe")
   //   const user_id = req.user._id;
-  const universal_threads = await Thread.find({is_verified: true});
-  const saved_threads = await User.findById(user_id, {saved_threads:1});
+  const universal_threads = await Thread.find({is_verified: true}).sort({'createdAt':-1});
+  const saved_threads = await User.findById(user_id, {saved_threads:1}).sort({'createdAt':-1});
 //   const user_specific_threads = await Thread.find({posted_by:user_id});
    res.status(200).send({universal_threads, saved_threads})
 }
@@ -31,7 +31,7 @@ const fetch_false_threads = async(req,res)=>{
   console.log("Send threads to admin to approve/dis");
   try{
 //   const user_id = req.user._id;
-  const universal_threads_false = await Thread.find({is_verified:false});
+  const universal_threads_false = await Thread.find({is_verified:false}).sort({date:-1});
 //   const user_specific_threads = await Thread.find({posted_by:user_id});
    res.status(200).send(universal_threads_false);
   }
@@ -46,7 +46,7 @@ const fetch_own_threads = async (req,res)=>{
    try{
    const user_id = req.user._id;
   const user = await User.findById(user_id);
-   const user_specific_threads = await Thread.find({posted_by:user_id});
+   const user_specific_threads = await Thread.find({posted_by:user_id , is_verified:true}).sort({date:-1});
    const saved_threads =  user.threads_saved;
    console.log(saved_threads)
     res.status(200).send({ user_specific_threads,saved_threads})

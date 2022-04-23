@@ -1,17 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import { styled } from '@mui/system';
 
-const HorizontalMargin = styled.span`
-  display: flex;
-  width: ${({ margin }) =>
-    typeof margin === "string" ? margin : `${margin}px`};
-`;
+const HorizontalMargin = styled('span')(({ margin }) => ({
+  display: 'flex',
+  width: typeof margin === "string" ? margin : `${margin}px`,
+}));
 
-const VerticalMargin = styled.span`
-  display: flex;
-  height: ${({ margin }) =>
-    typeof margin === "string" ? margin : `${margin}px`};
-`;
+const VerticalMargin = styled('span')(({ margin }) => ({
+  display: 'flex',
+  height: typeof margin === "string" ? margin : `${margin}px`,
+}));
 
 function Marginer(props) {
   const { direction } = props;

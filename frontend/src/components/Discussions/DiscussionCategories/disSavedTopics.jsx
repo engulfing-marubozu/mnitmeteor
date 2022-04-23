@@ -23,6 +23,7 @@ function DiscussionSavedTopics() {
         );
         if (isSubscribed) {
           setSavedTopics(response.data);
+          console.log(response.data);
         }
       } catch (err) {
         console.log(err);
@@ -42,7 +43,11 @@ function DiscussionSavedTopics() {
         )
       }) :
         (typeof (savedTopics) !== "undefined" && savedTopics.map((data, index) => {
-          return (<DiscussionCard key={index} data={data} setThread={setSavedTopics} flag={2} />)
+          if (data) {
+            return (<DiscussionCard key={index} data={data} setThread={setSavedTopics} flag={2} />)
+          } else {
+            return null;
+          }
         })))}
     </>
 

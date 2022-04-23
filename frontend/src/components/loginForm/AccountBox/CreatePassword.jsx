@@ -112,7 +112,7 @@ export function CreatePassword(props) {
         {formErrors.confirmPassword && (
           <Validationlabel>{formErrors.confirmPassword}</Validationlabel>
         )}
-        <Marginer direction="vertical" margin={10} />
+        <Marginer direction="vertical" margin={15} />
         <SubmitButton type="submit">
           {props.data.flag === "createpassword" && "Register"}
           {props.data.flag === "resetpassword" && "Reset"}

@@ -44,7 +44,12 @@ export default function DiscussionMyTopics() {
         )
       }) :
         (typeof (myTopics) !== "undefined" && myTopics.map((data, index) => {
-          return (<DiscussionCard key={index} data={data} setThread={setMyTopics} flag={3} />)
+          if (data) {
+            return (<DiscussionCard key={index} data={data} setThread={setMyTopics} flag={3} />)
+
+          } else {
+            return null;
+          }
         })))}
     </>
 

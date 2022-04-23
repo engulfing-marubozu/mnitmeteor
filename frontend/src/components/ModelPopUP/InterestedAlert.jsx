@@ -52,9 +52,7 @@ export default function InterestedAlert(props) {
             Interested
           </Typography>
           <Typography variant="body1">
-            Et et tempor labore in.Sint ullamco anim incididunt cillum quis et
-            id velit laboris magna.Sint eiusmod elit quis amet dolore.Anim
-            aliquip elit incididunt eu enim sint officia enim quis.
+          Looks like you are interested in the product! Contact details of the seller will be sent to you by email if you continue.
           </Typography>
           <Stack
             direction="row"

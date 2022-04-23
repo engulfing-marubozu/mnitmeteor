@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const {SendLost, LostCheck, HandleAdmin}= require("../controllers/lostitem");
-const {FetchFalse, FetchLost,FetchOnlyFound,FetchOnlyLost,FetchOnlyLostUser} = require("../Controllers/fetchlost")
+const {FetchFalse, FetchLost,FetchOnlyFound,FetchOnlyLost,FetchOnlyLostUser} = require("../controllers/fetchlost")
 const {authorization} = require("../Middlewares/authorization")
-const {deleteLNF} = require("../Controllers/deletelnf.js")
+const {deleteLNF} = require("../controllers/deletelnf.js")
 
 router.post('/sendlostpost',authorization,SendLost); //lost form 
 router.get('/fetchlost',FetchLost); //explore button

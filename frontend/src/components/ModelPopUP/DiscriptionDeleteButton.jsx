@@ -49,7 +49,7 @@ export default function DiscriptionProductDelete(props) {
                         Delete
                     </Typography>
                     <Typography variant="body1">
-                    Looks like you are interested in the product! Contact details of the seller will be sent to you by email if you continue. 
+                    Are you sure you want to delete this item from the database?
                     </Typography>
                     <Stack
                         direction="row"

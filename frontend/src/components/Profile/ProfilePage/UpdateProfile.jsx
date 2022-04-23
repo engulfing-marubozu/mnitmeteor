@@ -51,7 +51,7 @@ export default function UpdatePhoneNo(props) {
   // ===================================================ResendOtp========================================================================================
   const ResendOtp = () => {
     setIsActive(true);
-  }
+  };
   // =======================================================================================================================================================
   useEffect(() => {
     // console.log(formErrors);
@@ -64,8 +64,7 @@ export default function UpdatePhoneNo(props) {
         } else {
           setTimer((prevtime) => prevtime - 1);
         }
-
-      }, 1000)
+      }, 1000);
     }
     if (!showSubmit) {
       if (Object.keys(formErrors).length === 0 && getOtp) {
@@ -97,7 +96,13 @@ export default function UpdatePhoneNo(props) {
   }, [formErrors, isActive, timer]);
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", borderTop: 'solid 0.2px', }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        borderTop: "solid 0.2px",
+      }}
+    >
       <Box
         sx={{
           maxWidth: { sm: 600, xs: 320 },
@@ -110,7 +115,7 @@ export default function UpdatePhoneNo(props) {
             <FormContainer onSubmit={PhoneNoHandler}>
               <Stack direction="column" spacing={0.5} alignItems="center">
                 <Input
-                  autoFocus={true}
+                  // autoFocus={true}
                   type="number"
                   id="phone"
                   name="phone"
@@ -118,9 +123,7 @@ export default function UpdatePhoneNo(props) {
                   ref={phoneNoRef}
                 />
                 <Validationlabel>{formErrors.phoneNo}</Validationlabel>
-                <CustomizeButton type="submit">
-                  Get OTP
-                </CustomizeButton>
+                <CustomizeButton type="submit">Get OTP</CustomizeButton>
               </Stack>
             </FormContainer>
           )}
@@ -131,8 +134,6 @@ export default function UpdatePhoneNo(props) {
                   We have sent code to your phone number 
                   <span style={{ color: " #5b2da3" ,fontSize:'11px',marginLeft:"5px"}}>{`   ${phoneAuthDetails?.mobile_no}`}</span>
                 </MutedText> */}
-
-
                 <Input
                   autoFocus={true}
                   type="number"
@@ -141,20 +142,24 @@ export default function UpdatePhoneNo(props) {
                   ref={phoneNoRef}
                 />
                 <Validationlabel>{formErrors.otp}</Validationlabel>
-                <CustomizeButton type="button">
-                  Submit
-                </CustomizeButton>
+                <CustomizeButton type="button">Submit</CustomizeButton>
               </Stack>
-              {!isActive &&
+              {!isActive && (
                 <MutedText style={{ fontSize: "12px" }}>
                   Didn't receive code ?
                   <BoldLink onClick={ResendOtp}>Resend</BoldLink>
-                </MutedText>}
-              {isActive &&
-                <MutedText style={{ fontSize: "12px" }}>
-                  Resend OTP in  {<span style={{ color: " #5b2da3" }}>00:{timer >= 10 ? timer : `0${timer}`}</span>}
                 </MutedText>
-              }
+              )}
+              {isActive && (
+                <MutedText style={{ fontSize: "12px" }}>
+                  Resend OTP in{" "}
+                  {
+                    <span style={{ color: " #5b2da3" }}>
+                      00:{timer >= 10 ? timer : `0${timer}`}
+                    </span>
+                  }
+                </MutedText>
+              )}
             </FormContainer>
           )}
         </Box>

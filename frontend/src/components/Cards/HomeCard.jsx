@@ -80,7 +80,7 @@ export default function HomeCard({ cardData }) {
           component="img"
           classes={{ img: Classes.image }}
           maxwidth="280px"
-          sx={{ height: { xs: "160px", sm: "180px" }, p: { sm: 1.5, xs: 1 } }}
+          sx={{ height: { xs: "160px", sm: "180px" }}}
           image={Image}
           alt="Image"
         />

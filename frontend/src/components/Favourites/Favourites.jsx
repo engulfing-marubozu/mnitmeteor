@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import FavouritesCard from "./favouriteCard";
-//import HomeCard from "../Cards/HomeCard";
 import Container from "@mui/material/Container";
 import { useSelector } from "react-redux";
 import Grid from "@mui/material/Grid";
@@ -38,7 +37,7 @@ function Favourites() {
   return (
     <div>
       <Typography
-        variant={"h4"}
+        variant="h5"
         fontWeight={"bold"}
         sx={{
           px: "20px",
@@ -72,5 +71,4 @@ function Favourites() {
     </div>
   );
 }
-
 export default Favourites;

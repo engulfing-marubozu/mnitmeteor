@@ -1,14 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Box, Container, Grid } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import StylingInterestedProduct from "./stylingInterestedProduct";
+import CardForInterestedProduct from "./CardForInterestedProduct";
 
 function InterestedProduct(props) {
-  const [arr, setarr] = useState();
+  const [cardData, setCardData] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
-  const interestedList = useSelector((state) => state.InterestedReducer?.interestedData)
+  const interestedList = useSelector(
+    (state) => state.InterestedReducer?.interestedData
+  );
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
@@ -19,25 +22,36 @@ function InterestedProduct(props) {
             authorization: `Bearer ${token}`,
           },
         }
-      ); if (isSubscribed) {
-        setarr(response.data);
-        // console.log(response.data);
+      );
+      if (isSubscribed) {
+        setCardData(response.data);
       }
-
     }
 
     call();
     return () => {
-      return isSubscribed = false;
-    }
+      return (isSubscribed = false);
+    };
   }, [interestedList, token]);
-
-  const arrlength = typeof (arr) === "undefined" ? 0 : arr.length;
-  // console.log(arrlength);
-  // console.log(arr); 
+  console.log(cardData);
   // ====================================================================================================================================
   return (
-    <StylingInterestedProduct length={arrlength} arr={arr}></StylingInterestedProduct>
+    <Box>
+      <Container sx={{ py: 2, maxWidth: { xs: "100%", md: "97%", lg: "90%" } }}>
+        <Grid container spacing={{ xs: 2, sm: 3 , lg:4}}>
+          {typeof cardData !== "undefined" &&
+            cardData.map((data, index) => {
+              if (data !== null) {
+                return (
+                  <Grid item xs={6} md={4} key={index}>
+                    <CardForInterestedProduct cardData={data} />
+                  </Grid>
+                );
+              } else return null;
+            })}
+        </Grid>
+      </Container>
+    </Box>
   );
 }
 export default InterestedProduct;

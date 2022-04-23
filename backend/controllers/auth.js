@@ -45,7 +45,8 @@ const signUp = async (req, res) => {
       // check();
       value = await lib.value();
       console.log("value is "+value);
-      genTwoPoke = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/${value}.png`;
+      genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
+      // genTwoPoke = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/${value}.png`;
 
       bcrypt.hash(password, saltRounds, function (err, hash) {
         const user = new User({

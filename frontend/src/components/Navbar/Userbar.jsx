@@ -65,9 +65,8 @@ function Userbar({ updateNotification, setNotificationPending }) {
               color: "#263238",
               fontWeight: "bold",
             }}
-          >
-            <PersonIcon sx={{ fontSize: { xs: 16, sm: 24 } }} />
-          </Avatar>
+            // src={}
+          />
         </Tooltip>
       </IconButton>
       <Menu

@@ -30,7 +30,6 @@ const theme = createTheme({
 function Profile() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <ProfilePage /> */}
       <ProfileContentBox />
     </ThemeProvider>
   );

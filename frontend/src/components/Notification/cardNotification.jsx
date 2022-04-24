@@ -5,7 +5,7 @@ import { NotificationCardStyle } from './notificationStyling';
 import NotificationReadMore from "./notificationReadMore"
 // import DeleteIcon from '@mui/icons-material/Delete';
 function NotificationCard({ data }) {
-    console.log(data);
+    // console.log(data);
     const DeleteHandler = () => {
         console.log("deepak ");
     }

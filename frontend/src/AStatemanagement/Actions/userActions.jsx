@@ -253,23 +253,23 @@ export const actionForDeleteThread = (data) => {
     }
   }
 }
-export const actionForDeleteThreadComment = (data) => {
-  console.log(data);
-  return async (dispatch) => {
-    try {
+// export const actionForDeleteThreadComment = (data) => {
+//   console.log(data);
+//   return async (dispatch) => {
+//     try {
 
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
-export const actionForDeleteThreadReply = (data) => {
-  console.log(data);
-  return async (dispatch) => {
-    try {
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// }
+// export const actionForDeleteThreadReply = (data) => {
+//   console.log(data);
+//   return async (dispatch) => {
+//     try {
 
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// }

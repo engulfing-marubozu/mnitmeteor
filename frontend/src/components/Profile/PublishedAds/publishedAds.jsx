@@ -4,7 +4,7 @@ import { Container, Grid, Box } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CardForPublishedAds from "./CardForPublishedAd";
-
+import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
   const [cardData, setCardData] = useState();
@@ -34,13 +34,30 @@ function PublishedAds() {
       isSubscribed = false;
     };
   }, [publishedAdsData, token]);
-  // console.log(publishedAdsData);
+  console.log(publishedAdsData);
   // ===================================================================================================================================================================
   return (
-    <Box>
+    <Box sx={{ py: "2rem" }}>
       <Container sx={{ width: { xs: "100%", md: "97%", lg: "90%" } }}>
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-          {typeof cardData !== "undefined" &&
+          {typeof cardData === "undefined"
+            ? Array.from(new Array(6)).map((data, index) => {
+                return (
+                  <Grid item xs={6} md={4} key={index}>
+                    <HomeCardSkeleton />
+                  </Grid>
+                );
+              })
+            : cardData.map((data, index) => {
+                if (data !== null) {
+                  return (
+                    <Grid item xs={6} md={4} key={index}>
+                      <CardForPublishedAds cardData={data} />
+                    </Grid>
+                  );
+                } else return null;
+              })}
+          {/* {typeof cardData !== "undefined" &&
             cardData.map((data, index) => {
               if (data !== null) {
                 return (
@@ -49,7 +66,7 @@ function PublishedAds() {
                   </Grid>
                 );
               } else return null;
-            })}
+            })} */}
         </Grid>
       </Container>
     </Box>

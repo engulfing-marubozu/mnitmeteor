@@ -30,8 +30,6 @@ function ProductCard(props) {
       return (prev + 4 < cardData.length ? prev + 4 : cardData.length)
     })
   }
-
-
   useEffect(() => {
     // console.log(category);
     let isSubscribed = true;

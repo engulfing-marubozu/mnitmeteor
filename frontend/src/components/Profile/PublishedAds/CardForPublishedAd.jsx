@@ -7,11 +7,12 @@ import {
   IconButton,
   Typography,
   Box,
+  Tooltip,
 } from "@mui/material";
 import {
-  ProfileCardStyle,
+  CardStyleFirst,
   CardContentNoPadding,
-} from "../ProfileStyling/profileCardStyling";
+} from "../../_Styling/cardStyling";
 import { Link } from "react-router-dom";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import ShareIcon from "@mui/icons-material/Share";
@@ -29,7 +30,7 @@ export default function CardForPublishedAds(props) {
 
   // ====================================================================
 
-  const classes = ProfileCardStyle();
+  const classes = CardStyleFirst();
   return (
     <Card className={classes.card}>
       <Link to={`/ProductDiscription/${props.cardData._id}`}>
@@ -42,26 +43,28 @@ export default function CardForPublishedAds(props) {
         />
       </Link>
       <CardContentNoPadding className={classes.cardContent}>
-        <Typography className={classes.title} noWrap>
-          {title}
-        </Typography>
-        <CardActions disableSpacing className={classes.cardActions}>
+        <Box className={classes.sizeSecBox}>
+          <Typography className={classes.title} noWrap>
+            {title}  
+          </Typography>
           <Typography className={classes.date}>{properDate}</Typography>
-          <Box className={classes.actionBox}>
-            <RWebShare
-              data={{
-                text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
-                title: title,
-              }}
-              onClick={() => console.log("shared successfully!")}
-            >
+        </Box>
+        <CardActions disableSpacing className={classes.cardActions}>
+          <ProductDeleteAlert productId={props.cardData._id} />
+          <RWebShare
+            data={{
+              text: "Mnit Market",
+              url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+              title: title,
+            }}
+            onClick={() => console.log("shared successfully!")}
+          >
+            <Tooltip title="Share" arrow>
               <IconButton className={classes.iconButton}>
                 <ShareIcon className={classes.Icon} />
               </IconButton>
-            </RWebShare>
-            <ProductDeleteAlert productId={props.cardData._id} />
-          </Box>
+            </Tooltip>
+          </RWebShare>
         </CardActions>
       </CardContentNoPadding>
     </Card>

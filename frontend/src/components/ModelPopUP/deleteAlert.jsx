@@ -7,15 +7,18 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForDeletingPublishedAds } from "../../AStatemanagement/Actions/userActions";
-import { ModelColorButton, ModelOutlinedButton, ColorButton } from "./ModelPopUpStyling";
-// ===========================================================MAIN CONTENT===========================================
+import { ModelColorButton, ModelOutlinedButton } from "./ModelPopUpStyling";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton, Tooltip } from "@mui/material";
+import { CardStyleFirst } from "../_Styling/cardStyling";
+// ===========================================================MAIN CONTENT=====================
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function ProductDeleteAlert(props) {
   const dispatch = useDispatch();
-  // ======================================================ALERT OPEN CLOSE HANDLERS ===============================
+  // ======================================================ALERT OPEN CLOSE HANDLERS ==========
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,20 +26,22 @@ export default function ProductDeleteAlert(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  // ================================================= PUBLISHED ADS DELETE ========================================
+  // ================================================= PUBLISHED ADS DELETE ==============--=========
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const AgreeHandler = () => {
     const productData = { token: token, productId: props.productId };
     dispatch(fetchDataForDeletingPublishedAds(productData));
     handleClose();
   };
-
+  const classes = CardStyleFirst();
   // ===============================================================================================================
   return (
     <div>
-      <ColorButton variant="outlined" onClick={handleClickOpen}>
-        Delete
-      </ColorButton>
+      <Tooltip title="Delete" arrow>
+        <IconButton sx={{ p: "0.25rem" }} onClick={handleClickOpen}>
+          <DeleteIcon className={classes.Icon} />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -45,7 +50,7 @@ export default function ProductDeleteAlert(props) {
       >
         <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
         <DialogContent>
-          <DialogContentText >
+          <DialogContentText>
             Are you sure you want to delete this product Lorem
           </DialogContentText>
         </DialogContent>
@@ -53,9 +58,7 @@ export default function ProductDeleteAlert(props) {
           <ModelOutlinedButton variant="outlined" onClick={handleClose}>
             Disagree
           </ModelOutlinedButton>
-          <ModelColorButton onClick={AgreeHandler}>
-            Agree
-          </ModelColorButton>
+          <ModelColorButton onClick={AgreeHandler}>Agree</ModelColorButton>
         </DialogActions>
       </Dialog>
     </div>

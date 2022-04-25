@@ -5,6 +5,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import CardForPublishedAds from "./CardForPublishedAd";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
+import EmptySpace from "../../_EmptySpaces/emptySpace";
+import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
   const [cardData, setCardData] = useState();
@@ -40,23 +42,31 @@ function PublishedAds() {
     <Box sx={{ py: "2rem" }}>
       <Container sx={{ width: { xs: "100%", md: "97%", lg: "90%" } }}>
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-          {typeof cardData === "undefined"
-            ? Array.from(new Array(6)).map((data, index) => {
+          {typeof cardData === "undefined" ? (
+            Array.from(new Array(6)).map((data, index) => {
+              return (
+                <Grid item xs={6} md={4} key={index}>
+                  <HomeCardSkeleton />
+                </Grid>
+              );
+            })
+          ) : cardData.length > 0 ? (
+            cardData.map((data, index) => {
+              if (data !== null) {
                 return (
                   <Grid item xs={6} md={4} key={index}>
-                    <HomeCardSkeleton />
+                    <CardForPublishedAds cardData={data} />
                   </Grid>
                 );
-              })
-            : cardData.map((data, index) => {
-                if (data !== null) {
-                  return (
-                    <Grid item xs={6} md={4} key={index}>
-                      <CardForPublishedAds cardData={data} />
-                    </Grid>
-                  );
-                } else return null;
-              })}
+              } else return null;
+            })
+          ) : (
+            <Box
+              sx={{ display: "flex", width: "100%", justifyContent: "center" }}
+            >
+              <EmptySpace source={profileEmpty.myAds} />
+            </Box>
+          )}
           {/* {typeof cardData !== "undefined" &&
             cardData.map((data, index) => {
               if (data !== null) {

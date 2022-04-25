@@ -1,6 +1,9 @@
 import { makeStyles } from "@mui/styles";
 export const FooterStyle = makeStyles({
   mainBox: {
+    position:"absolute",
+    bottom:0,
+    width:"100%",
     backgroundColor: "#f5f5f5",
     padding: "12px 72px",
     "@media(max-width:1200px)": {

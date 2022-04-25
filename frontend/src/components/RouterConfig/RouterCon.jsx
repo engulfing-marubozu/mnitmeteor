@@ -1,4 +1,3 @@
-
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "../HomePage/Home";
 import About from "../About/About";
@@ -19,14 +18,16 @@ import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedT
 import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
 import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import SpecificThread from "../Discussions/discussionSpecificThread";
 import SpecificLostFound from "../Lost&Found/specificLostFound";
+// import DeveloperNotes from "../Links/developerNotes";
 function RouterCon() {
-
   const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const localStorageData = JSON.parse(window.localStorage.getItem('auth'));
-  const isLoggedIn = localStorageData ? localStorageData.isLogin : localUserData.isLogin;
+  const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
+  const isLoggedIn = localStorageData
+    ? localStorageData.isLogin
+    : localUserData.isLogin;
 
   return (
     <Routes>
@@ -39,17 +40,38 @@ function RouterCon() {
       <Route path="discussions" element={<Discussions />}>
         <Route index element={<DiscussionCardArray />} />
         <Route path=":id" element={<SpecificThread />} />
-        <Route path="createnewtopic" element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />} />
-        <Route path="mytopics" element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />} />
-        <Route path="savedtopics" element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />} />
+        <Route
+          path="createnewtopic"
+          element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />}
+        />
+        <Route
+          path="mytopics"
+          element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />}
+        />
+        <Route
+          path="savedtopics"
+          element={isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />}
+        />
       </Route>
-      <Route path="lost&found" element={<LostFound />} >
+      <Route path="lost&found" element={<LostFound />}>
         <Route index element={<LostFoundCardArray />} />
         <Route path=":id" element={<SpecificLostFound />} />
-        <Route path="lost&foundform" element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />} />
-        <Route path="lostitems" element={isLoggedIn ? <LostItems /> : <Navigate to="/" />} />
-        <Route path="founditems" element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />} />
-        <Route path="myitems" element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />} />
+        <Route
+          path="lost&foundform"
+          element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />}
+        />
+        <Route
+          path="lostitems"
+          element={isLoggedIn ? <LostItems /> : <Navigate to="/" />}
+        />
+        <Route
+          path="founditems"
+          element={isLoggedIn ? <FoundItems /> : <Navigate to="/" />}
+        />
+        <Route
+          path="myitems"
+          element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />}
+        />
       </Route>
       <Route
         path="sellproduct"
@@ -67,6 +89,7 @@ function RouterCon() {
         path="favourites"
         element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
       />
+      {/* <Route path="developernotes" element={<DeveloperNotes />} /> */}
       <Route path="adminpanel" element={<AdminPanel />} />
       <Route path="*" element={<div>No Page found </div>} />
     </Routes>

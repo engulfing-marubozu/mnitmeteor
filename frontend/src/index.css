@@ -3,6 +3,8 @@
 html,
 body {
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 #root {
   min-height: 100vh;
@@ -23,6 +25,6 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color:#b39ddb; /* color of the scroll thumb */
+  background-color: #b39ddb; /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }

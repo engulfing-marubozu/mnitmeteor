@@ -149,15 +149,11 @@ export const ProfileBoxStyle = makeStyles({
   },
   cardContainer: {
     backgroundColor: "#b39ddb",
-    minHeight: "360px",
   },
 });
 //   =================================================
 export const ProfileTabs = styled(Tabs)({
   width: "100%",
-  //   "@media(max-width:600px)":{
-  //       marginLeft:"24px",
-  //   }
 });
 
 export const ProfileTab = styled((props) => <Tab disableRipple {...props} />)(

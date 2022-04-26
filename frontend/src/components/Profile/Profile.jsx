@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import ProfileContentBox from "./newProfilePage/profileContentBox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SuccessfulSubmission from "../ModelPopUP/onFormSubmission";
@@ -44,18 +45,24 @@ function Profile() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
-      {submitPopUp && isLoggedIn && (
-        <POPUPElement
-          open={submitPopUp}
-          onClose={SubmitPopUpHandler}
-          portelId={"portal"}
-        >
-          <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            what is your name my name is deeepak
-          </SuccessfulSubmission>
-        </POPUPElement>
-      )}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
+        {submitPopUp && isLoggedIn && (
+          <POPUPElement
+            open={submitPopUp}
+            onClose={SubmitPopUpHandler}
+            portelId={"portal"}
+          >
+            <SuccessfulSubmission onClose={SubmitPopUpHandler}>
+              what is your name my name is deeepak
+            </SuccessfulSubmission>
+          </POPUPElement>
+        )}
+      </motion.div>
     </ThemeProvider>
   );
 }

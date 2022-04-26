@@ -1,5 +1,6 @@
 import * as React from "react";
 // import { RWebShare } from "react-web-share";
+import { motion } from "framer-motion";
 import {
   Card,
   CardMedia,
@@ -46,26 +47,31 @@ export default function CardForInterestedProduct({ cardData }) {
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
   return (
-    <Box className={classSec.zMainBox}>
-      <Card className={classes.card}>
-        <Link to={`/ProductDiscription/${cardData?._id}`}>
-          <CardMedia
-            component="img"
-            classes={{ img: classes.image }}
-            className={classes.cardMedia}
-            image={Image}
-            alt="Image"
-          />
-        </Link>
-        <CardContentNoPadding className={classes.cardContent}>
-          <Box className={classes.sizeBox}>
-            <Typography className={classes.title} noWrap>
-              {title}
-            </Typography>
-            <Typography className={classes.date}>{properDate}</Typography>
-          </Box>
-          <CardActions disableSpacing className={classes.cardActions}>
-            {/* <RWebShare
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Box className={classSec.zMainBox}>
+        <Card className={classes.card}>
+          <Link to={`/ProductDiscription/${cardData?._id}`}>
+            <CardMedia
+              component="img"
+              classes={{ img: classes.image }}
+              className={classes.cardMedia}
+              image={Image}
+              alt="Image"
+            />
+          </Link>
+          <CardContentNoPadding className={classes.cardContent}>
+            <Box className={classes.sizeBox}>
+              <Typography className={classes.title} noWrap>
+                {title}
+              </Typography>
+              <Typography className={classes.date}>{properDate}</Typography>
+            </Box>
+            <CardActions disableSpacing className={classes.cardActions}>
+              {/* <RWebShare
               data={{
                 text: "Mnit Market",
                 url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
@@ -73,27 +79,28 @@ export default function CardForInterestedProduct({ cardData }) {
               }}
               onClick={() => console.log("shared successfully!")}
             > */}
-            <IconButton className={classes.iconButton}>
-              <Tooltip title="Share" arrow>
-                <ShareIcon className={classes.Icon} />
-              </Tooltip>
-            </IconButton>
-            {/* </RWebShare> */}
-          </CardActions>
-        </CardContentNoPadding>
-      </Card>
+              <IconButton className={classes.iconButton}>
+                <Tooltip title="Share" arrow>
+                  <ShareIcon className={classes.Icon} />
+                </Tooltip>
+              </IconButton>
+              {/* </RWebShare> */}
+            </CardActions>
+          </CardContentNoPadding>
+        </Card>
 
-      <Box className={classSec.zaction}>
-        <IconButton
-          onClick={removeInteresetedHandler}
-          classes={{ root: classSec.crossIconButton }}
-          size="small"
-        >
-          <Tooltip title="Remove" placement="right" arrow>
-            <CloseIcon className={classSec.crossIcon} />
-          </Tooltip>
-        </IconButton>
+        <Box className={classSec.zaction}>
+          <IconButton
+            onClick={removeInteresetedHandler}
+            classes={{ root: classSec.crossIconButton }}
+            size="small"
+          >
+            <Tooltip title="Remove" placement="right" arrow>
+              <CloseIcon className={classSec.crossIcon} />
+            </Tooltip>
+          </IconButton>
+        </Box>
       </Box>
-    </Box>
+    </motion.div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import axios from "axios";
 import DiscussionCard from "./discussionCard";
 import DiscussionSkeleton from "../discussionSkeleton";
@@ -14,16 +15,13 @@ function DiscussionCardArray() {
     let isSubscribed = true;
     async function call() {
       try {
-        // console.log(userID);
         const response = await axios.post(
           "http://localhost:5000/fetch_live_threads",
           { user_id: userID }
         );
         if (isSubscribed) {
-          console.log(response.data);
           setDiscussionData(response.data?.universal_threads);
         }
-        // console.log(response.data);
       } catch (err) {
         console.log(err);
       }
@@ -33,7 +31,11 @@ function DiscussionCardArray() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {typeof discussionData === "undefined" ? (
         Array.from(new Array(4)).map((data, index) => {
           return <DiscussionSkeleton key={index} />;
@@ -54,10 +56,9 @@ function DiscussionCardArray() {
           }
         })
       ) : (
-        <EmptySpace source={DiscussionEmpty.explore}/>
-    
+        <EmptySpace source={DiscussionEmpty.explore} />
       )}
-    </>
+    </motion.div>
   );
 }
 

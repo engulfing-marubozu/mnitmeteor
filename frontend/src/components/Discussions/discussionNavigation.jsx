@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Avatar, Paper, Box } from '@mui/material';
+import { Paper, Box } from '@mui/material';
 import ExploreIcon from '@mui/icons-material/Explore';
 import CreateIcon from '@mui/icons-material/Create';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';

@@ -1,18 +1,31 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 function EmptySpace({ source }) {
   return (
-    <Box>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Box>
-        {/* <Typography>this is empty space</Typography> */}
         <img
           src={source.svg}
           alt="empty space"
           style={{ width: "100%", height: "380px", objectFit: "contain" }}
         />
       </Box>
-      <Typography sx={{fontSize:{sm:"16px",xs:"12px" } ,fontWeight:"bold",textAlign:"center",px:{sm:"1.5rem" ,xs:"1rem"}}}>{source.text}</Typography>
-    </Box>
+      <Typography
+        sx={{
+          fontSize: { sm: "16px", xs: "12px" },
+          fontWeight: "bold",
+          textAlign: "center",
+          px: { sm: "1.5rem", xs: "1rem" },
+        }}
+      >
+        {source.text}
+      </Typography>
+    </motion.div>
   );
 }
 

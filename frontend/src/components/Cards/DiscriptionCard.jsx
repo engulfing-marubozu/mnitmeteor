@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
@@ -167,69 +168,83 @@ function DiscriptionCard() {
 
   return (
     <>
-      <Wrapper>
-        <BoxContainer>
-          {images && (
-            <div className="discriptioncardImage">
-              <ImageGallery showPlayButton={false} items={images} />
-            </div>
-          )}
-        </BoxContainer>
-        <TextContainer>
-          <Typography className={classes.title}>{title}</Typography>
-          <Typography variant="body2" className={classes.date}>
-            {properDate}
-          </Typography>
-          <Stack className={classes.buttonContainer}>
-            {/* =========================================INTERESTED UNINTERESTED BUTTON================================ */}
-            {isLoggedIn && userId !== postedbyId && (
-              <OutlinedButton
-                variant="outlined"
-                className={classes.buttonStyle}
-                onClick={interesetedClickHandler}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <Wrapper>
+          <BoxContainer>
+            {images && (
+              <motion.div
+                className="discriptioncardImage"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
               >
-                {!isInterested && "Interested"}
-                {isInterested && "Not-Interested"}
-              </OutlinedButton>
+                <ImageGallery showPlayButton={false} items={images} />
+              </motion.div>
             )}
-            {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ===================== */}
-            {!isLoggedIn && (
-              <OutlinedButton
-                variant="outlined"
-                className={classes.buttonStyle}
-                onClick={interesetedClickHandler}
-              >
-                {!isInterested && "Interested"}
-                {isInterested && "Un-Interested"}
-              </OutlinedButton>
-            )}
+          </BoxContainer>
+          <TextContainer>
+            <Typography className={classes.title}>{title}</Typography>
+            <Typography variant="body2" className={classes.date}>
+              {properDate}
+            </Typography>
+            <Stack className={classes.buttonContainer}>
+              {/* =========================================INTERESTED UNINTERESTED BUTTON================================ */}
+              {isLoggedIn && userId !== postedbyId && (
+                <OutlinedButton
+                  variant="outlined"
+                  className={classes.buttonStyle}
+                  onClick={interesetedClickHandler}
+                >
+                  {!isInterested && "Interested"}
+                  {isInterested && "Not-Interested"}
+                </OutlinedButton>
+              )}
+              {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ===================== */}
+              {!isLoggedIn && (
+                <OutlinedButton
+                  variant="outlined"
+                  className={classes.buttonStyle}
+                  onClick={interesetedClickHandler}
+                >
+                  {!isInterested && "Interested"}
+                  {isInterested && "Un-Interested"}
+                </OutlinedButton>
+              )}
 
-            {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================  */}
-            {isLoggedIn && userId === postedbyId && (
-              <OutlinedButton
-                variant="outlined"
-                onClick={() => {
-                  setDeletePopUp(true);
-                }}
+              {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================  */}
+              {isLoggedIn && userId === postedbyId && (
+                <OutlinedButton
+                  variant="outlined"
+                  className={classes.buttonStyle}
+                  onClick={() => {
+                    setDeletePopUp(true);
+                  }}
+                >
+                  Delete
+                </OutlinedButton>
+              )}
+              {/* =================================================================================================================================== */}
+              <ColorButton
+                className={classes.buttonStyle}
+                variant="contained"
+                onClick={favouriteClickHandler}
               >
-                Delete
-              </OutlinedButton>
-            )}
-            {/* =================================================================================================================================== */}
-            <ColorButton
-              className={classes.buttonStyle}
-              variant="contained"
-              onClick={favouriteClickHandler}
-            >
-              {!isAddedToFav && "Add to Favourites"}
-              {isAddedToFav && "Remove from Favourites"}
-            </ColorButton>
-          </Stack>
+                {!isAddedToFav && "Add to Favourites"}
+                {isAddedToFav && "Remove from Favourites"}
+              </ColorButton>
+            </Stack>
 
-          <Typography className={classes.descpHeading}>Description</Typography>
-          <Typography className={classes.descrp}>{Description}</Typography>
-        </TextContainer>
-      </Wrapper>
+            <Typography className={classes.descpHeading}>
+              Description
+            </Typography>
+            <Typography className={classes.descrp}>{Description}</Typography>
+          </TextContainer>
+        </Wrapper>
+      </motion.div>
       {/* ===================================================================ALERTS ===================================================== */}
       {modelPopup && isLoggedIn && (
         <POPUPElement
@@ -273,7 +288,6 @@ function DiscriptionCard() {
           />
         </POPUPElement>
       )}
-      {/* ==========================================================================================================================================      */}
     </>
   );
 }

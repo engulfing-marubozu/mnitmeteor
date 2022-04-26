@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography } from "@mui/material";
@@ -43,7 +44,11 @@ function DiscussionForm() {
   // =======================================================================================================================================================================================================
   const classes = useStyles();
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Box className={classes.mainBoxSecond}>
         <Paper className={classes.paperStyleSecond}>
           <Box className={classes.headingBoxSecond}>
@@ -58,7 +63,7 @@ function DiscussionForm() {
             onSubmit={(values) => {
               dispatch(forumPopUp(true));
               const call = async (data) => {
-                // console.log(values)
+          
                 // const response =
                 await axios.post(
                   "http://localhost:5000/create_thread",
@@ -77,7 +82,7 @@ function DiscussionForm() {
               if (values.document) {
                 const reader = new FileReader();
                 reader.onload = () => {
-                  // console.log(reader.result);
+                  
                   const data = { ...values, document: reader.result };
                   call(data);
                 };
@@ -118,7 +123,7 @@ function DiscussionForm() {
           </Formik>
         </Paper>
       </Box>
-    </>
+    </motion.div>
   );
 }
 

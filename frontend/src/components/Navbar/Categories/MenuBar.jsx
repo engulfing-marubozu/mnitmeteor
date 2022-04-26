@@ -11,7 +11,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuBarCategory from "./MenuBarCategories";
 import { styled } from '@mui/material/styles';
-// import { StyledMenu } from "../NavabarStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";

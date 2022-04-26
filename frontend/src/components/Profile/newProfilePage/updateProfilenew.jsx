@@ -11,23 +11,22 @@ import { PhoneNumberValidator } from "../../loginForm/AccountBox/validator";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForPhoneNoAuth } from "../../../AStatemanagement/Actions/userActions";
 
-// ================================================================Main FUNCTION =========================================================
+// =====================================================================
 export default function UpdatePhoneNo(props) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  //  =================================================================================================================================
+  //  ===================================================================
   const phoneNoRef = useRef();
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  // =================================================================OTP HANDLER=========================================================================
+  // ====================================================================
   const PhoneNoHandler = (event) => {
     event.preventDefault();
     const phoneNo = phoneNoRef.current.value;
     setFormErrors(PhoneNumberValidator(phoneNo));
     setIsSubmit(true);
   };
-  // console.log(formErrors);
-  // =======================================================================================================================================================
+  // ===================================================================
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       const data = {

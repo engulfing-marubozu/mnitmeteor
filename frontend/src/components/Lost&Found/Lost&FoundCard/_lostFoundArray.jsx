@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import LostFoundCard from "./L&FCard";
 import axios from "axios";
 import LostFoundSkeleton from "../lostfoundSkeleton";
@@ -24,9 +25,12 @@ function PostsWithAxios() {
     axiosPosts();
     return () => (isSubscribe = false);
   }, []);
-  // console.log(lfData);
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {typeof lfData === "undefined" ? (
         Array.from(new Array(3)).map((data, index) => {
           return <LostFoundSkeleton key={index} />;
@@ -43,10 +47,9 @@ function PostsWithAxios() {
           );
         })
       ) : (
-        <EmptySpace source={lostFoundEmpty.explore}/>
-
+        <EmptySpace source={lostFoundEmpty.explore} />
       )}
-    </>
+    </motion.div>
   );
 }
 

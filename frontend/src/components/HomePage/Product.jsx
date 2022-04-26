@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import axios from "axios";
 import HomeCard from "../Cards/HomeCard";
 import { useParams } from "react-router-dom";
@@ -36,7 +37,6 @@ function ProductCard(props) {
     });
   };
   useEffect(() => {
-    // console.log(category);
     let isSubscribed = true;
     const Call = async () => {
       try {
@@ -44,7 +44,6 @@ function ProductCard(props) {
           category,
           email,
         });
-        // console.log(cardDetails.data);
         if (isSubscribed) {
           setCardData(cardDetails.data);
         }
@@ -56,7 +55,11 @@ function ProductCard(props) {
     return () => (isSubscribed = false);
   }, [category, email, isLoggedIn]);
   return (
-    <main>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Container
         sx={{
           pt: { xs: 5 },
@@ -103,7 +106,7 @@ function ProductCard(props) {
           </ModelOutlinedButton>
         </Box>
       )}
-    </main>
+    </motion.div>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import POPUPElement from "../ModelPopUP/POPUPElement";
 import GetPhoneDetails from "../ContactDetails/getPhoneDetails";
 import { useStyles } from "../_formData/FormUI/stylingComponent";
@@ -60,7 +61,6 @@ function SellFormNew() {
           },
         }
       );
-      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +68,11 @@ function SellFormNew() {
   // =======================================================================================================================================================================================================
   const classes = useStyles();
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Box className={classes.mainBox}>
         <Paper className={classes.paperStyle}>
           <Box className={classes.headingBox}>
@@ -144,33 +148,8 @@ function SellFormNew() {
           </GetPhoneDetails>
         </POPUPElement>
       )}
-    </>
+    </motion.div>
   );
 }
 
 export default SellFormNew;
-
-//   const token = useSelector((state) => state.loginlogoutReducer.token);
-//   const [imagearray, setimagearray] = useState([]);
-//   const onDrop = (pictures) => {
-//     setimagearray(pictures);
-//   };
-//   const merge = async (values) => {
-//     console.log(values);
-//     // setimagearray([...imagearray, values]);
-//     console.log(token);
-//     try {
-//       const response = await axios.post(
-//         "http://localhost:5000/product_details",
-//         { images: imagearray, details: values },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-//       console.log(response.data);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };

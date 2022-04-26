@@ -1,4 +1,5 @@
 import * as React from "react";
+import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
 import {
   Box,
@@ -57,53 +58,59 @@ export default function HomeCard({ cardData }) {
   const classSec = CardStyleSecond();
   // ===================================================================================================================================
   return (
-    <HoverCard className={classSec.hoverCard}>
-      <Link to={`/ProductDiscription/${cardData._id}`}>
-        <CardMedia
-          component="img"
-          classes={{ img: classes.image }}
-          className={classes.cardMedia}
-          image={Image}
-          alt="Image"
-        />
-      </Link>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <HoverCard className={classSec.hoverCard}>
+        <Link to={`/ProductDiscription/${cardData._id}`}>
+          <CardMedia
+            component="img"
+            classes={{ img: classes.image }}
+            className={classes.cardMedia}
+            image={Image}
+            alt="Image"
+          />
+        </Link>
 
-      <CardContentNoPadding className={classes.cardContent}>
-        <Box className={classes.sizeSecBox}>
-          <Typography noWrap className={classes.title}>
-            {title}
-          </Typography>
-          <Typography className={classes.date}>{properDate}</Typography>
-        </Box>
+        <CardContentNoPadding className={classes.cardContent}>
+          <Box className={classes.sizeSecBox}>
+            <Typography noWrap className={classes.title}>
+              {title}
+            </Typography>
+            <Typography className={classes.date}>{properDate}</Typography>
+          </Box>
 
-        <CardActions disableSpacing className={classes.cardActions}>
-          <IconButton
-            onClick={LikeButtonHandler}
-            sx={{
-              p: "0.25rem",
-              color: likeButton && isLoggedIn ? "#512da8" : "text.disabled",
-            }}
-          >
-            <Tooltip title="Add to Favourites" arrow>
-              <FavoriteIcon className={classes.Icon} />
-            </Tooltip>
-          </IconButton>
-          <RWebShare
-            data={{
-              text: "Mnit Market",
-              url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
-              title: `${title}`,
-            }}
-            onClick={() => console.log("shared successfully!")}
-          >
-            <IconButton className={classes.iconButton}>
-              <Tooltip title="Share" arrow>
-                <ShareIcon className={classes.Icon} />
+          <CardActions disableSpacing className={classes.cardActions}>
+            <IconButton
+              onClick={LikeButtonHandler}
+              sx={{
+                p: "0.25rem",
+                color: likeButton && isLoggedIn ? "#512da8" : "text.disabled",
+              }}
+            >
+              <Tooltip title="Add to Favourites" arrow>
+                <FavoriteIcon className={classes.Icon} />
               </Tooltip>
             </IconButton>
-          </RWebShare>
-        </CardActions>
-      </CardContentNoPadding>
-    </HoverCard>
+            <RWebShare
+              data={{
+                text: "Mnit Market",
+                url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
+                title: `${title}`,
+              }}
+              onClick={() => console.log("shared successfully!")}
+            >
+              <IconButton className={classes.iconButton}>
+                <Tooltip title="Share" arrow>
+                  <ShareIcon className={classes.Icon} />
+                </Tooltip>
+              </IconButton>
+            </RWebShare>
+          </CardActions>
+        </CardContentNoPadding>
+      </HoverCard>
+    </motion.div>
   );
 }

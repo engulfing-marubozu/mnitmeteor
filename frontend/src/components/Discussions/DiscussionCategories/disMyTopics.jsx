@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import DiscussionSkeleton from "../discussionSkeleton";
 import DiscussionCard from "../DiscussionPage/discussionCard";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
@@ -12,7 +13,9 @@ export default function DiscussionMyTopics() {
   const [myTopics, setMyTopics] = useState();
   const dispatch = useDispatch();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const submitPopUp = useSelector((state) => state.ModelPopUpReducer.forumPopUp);
+  const submitPopUp = useSelector(
+    (state) => state.ModelPopUpReducer.forumPopUp
+  );
   const isLoggedIn = localUserData.isLogin;
   const SubmitPopUpHandler = () => {
     dispatch(forumPopUp(false));
@@ -22,7 +25,7 @@ export default function DiscussionMyTopics() {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
-      console.log("deepak");
+  
       const response = await axios.get(
         "http://localhost:5000/fetch_own_threads",
         {
@@ -32,7 +35,6 @@ export default function DiscussionMyTopics() {
         }
       );
       if (isSubscribed) {
-        console.log(response.data);
         setMyTopics(response.data.user_specific_threads);
       }
     }
@@ -40,11 +42,14 @@ export default function DiscussionMyTopics() {
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // console.log(myTopics)
 
   // ====================================================================================
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {typeof myTopics === "undefined" ? (
         Array.from(new Array(4)).map((data, index) => {
           return <DiscussionSkeleton key={index} />;
@@ -78,6 +83,6 @@ export default function DiscussionMyTopics() {
           </SuccessfulSubmission>
         </POPUPElement>
       )}
-    </>
+    </motion.div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography } from "@mui/material";
 import ButtonWrapper from "../../_formData/FormUI/ButtonWrapper";
@@ -30,7 +31,6 @@ const FORM_VALIDATION = Yup.object().shape({
 });
 
 const sendLostItem = (data, localUserData) => {
-  // console.log(data)
   axios
     .post(
       "http://localhost:5000/sendlftoadmin",
@@ -49,7 +49,7 @@ const sendLostItem = (data, localUserData) => {
       }
     )
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
     })
     .catch(function (error) {
       console.log(error);
@@ -69,7 +69,11 @@ function LostFoundForm() {
   // =======================================================================================================================================================================================================
   const classes = useStyles();
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Box className={classes.mainBoxSecond}>
         <Paper className={classes.paperStyleSecond}>
           <Box className={classes.headingBoxSecond}>
@@ -124,7 +128,7 @@ function LostFoundForm() {
           </Formik>
         </Paper>
       </Box>
-    </>
+    </motion.div>
   );
 }
 

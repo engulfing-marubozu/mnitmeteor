@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import LostFoundSkeleton from "../lostfoundSkeleton";
 import LostFoundCard from "../Lost&FoundCard/L&FCard";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
@@ -8,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
 import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
+
 
 function LostFoundMyItems() {
   const [myItems, setMyItems] = useState();
@@ -45,7 +47,11 @@ function LostFoundMyItems() {
   // console.log(myItems);
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {typeof myItems === "undefined" ? (
         Array.from(new Array(3)).map((data, index) => {
           return <LostFoundSkeleton key={index} />;
@@ -79,7 +85,7 @@ function LostFoundMyItems() {
           </SuccessfulSubmission>
         </POPUPElement>
       )}
-    </>
+    </motion.div>
   );
 }
 

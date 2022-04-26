@@ -18,11 +18,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
   const [drawer, setDrawer] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  // console.log(location.pathname)
 
-  // useEffect(() => {
-  //   setNotificationCount(props.updateNotification);
-  // }, [props.updateNotification])
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);

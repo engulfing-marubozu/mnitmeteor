@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
 import {
   Box,
@@ -49,54 +50,60 @@ export default function FavouritesCard(props) {
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
   return (
-    <Box className={classSec.zMainBox}>
-      <Card className={classes.card} elevation={3}>
-        <Link to={`/ProductDiscription/${props.cardData._id}`}>
-          <CardMedia
-            component="img"
-            classes={{ img: classes.image }}
-            className={classes.cardMedia}
-            image={Image}
-            alt="Image"
-          />
-        </Link>
-        <CardContentNoPadding className={classes.cardContent}>
-          <Box className={classes.sizeBox}>
-            <Typography noWrap className={classes.title}>
-              {title}
-            </Typography>
-            <Typography className={classes.date}>{properDate}</Typography>
-          </Box>
-          <CardActions disableSpacing className={classes.cardActions}>
-            <RWebShare
-              data={{
-                text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
-                title: title,
-              }}
-              onClick={() => console.log("shared successfully!")}
-            >
-              <IconButton className={classes.iconButton}>
-                <Tooltip title="Share" arrow>
-                  <ShareIcon className={classes.Icon} />
-                </Tooltip>
-              </IconButton>
-            </RWebShare>
-          </CardActions>
-        </CardContentNoPadding>
-      </Card>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Box className={classSec.zMainBox}>
+        <Card className={classes.card} elevation={3}>
+          <Link to={`/ProductDiscription/${props.cardData._id}`}>
+            <CardMedia
+              component="img"
+              classes={{ img: classes.image }}
+              className={classes.cardMedia}
+              image={Image}
+              alt="Image"
+            />
+          </Link>
+          <CardContentNoPadding className={classes.cardContent}>
+            <Box className={classes.sizeBox}>
+              <Typography noWrap className={classes.title}>
+                {title}
+              </Typography>
+              <Typography className={classes.date}>{properDate}</Typography>
+            </Box>
+            <CardActions disableSpacing className={classes.cardActions}>
+              <RWebShare
+                data={{
+                  text: "Mnit Market",
+                  url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+                  title: title,
+                }}
+                onClick={() => console.log("shared successfully!")}
+              >
+                <IconButton className={classes.iconButton}>
+                  <Tooltip title="Share" arrow>
+                    <ShareIcon className={classes.Icon} />
+                  </Tooltip>
+                </IconButton>
+              </RWebShare>
+            </CardActions>
+          </CardContentNoPadding>
+        </Card>
 
-      <Box className={classSec.zaction}>
-        <IconButton
-          onClick={removeFromFavouritesHandler}
-          classes={{ root: classSec.crossIconButton }}
-          size="small"
-        >
-          <Tooltip title="Remove" placement="right" arrow>
-            <CloseIcon className={classSec.crossIcon} />
-          </Tooltip>
-        </IconButton>
+        <Box className={classSec.zaction}>
+          <IconButton
+            onClick={removeFromFavouritesHandler}
+            classes={{ root: classSec.crossIconButton }}
+            size="small"
+          >
+            <Tooltip title="Remove" placement="right" arrow>
+              <CloseIcon className={classSec.crossIcon} />
+            </Tooltip>
+          </IconButton>
+        </Box>
       </Box>
-    </Box>
+    </motion.div>
   );
 }

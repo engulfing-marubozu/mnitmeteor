@@ -59,7 +59,7 @@ export const addToInterested = (data) => {
 
 // ==================================================================
 export const AdminPanelMode = (data) => {
-  console.log(data);
+  // console.log(data);
   return {
     type: ADMIN_PANEL_MODE,
     payload: data,
@@ -95,7 +95,6 @@ export const fetchDataForATF = (likedata) => {
           },
         }
       );
-      // console.log(response.data);
       dispatch(addToFavourites(response.data));
     } catch (err) {
       console.log(err);
@@ -110,7 +109,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
     try {
       const { productId, userToken, isInterested } = interestedData;
       if (isInterested) {
-        console.log("dfb");
         response = await axios.post(
           "http://localhost:5000/interested_update",
           { productId, isInterested },
@@ -120,10 +118,8 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-        console.log(response.data);
-        console.log(response.data.status);
+
         if (response.data.status === "success") {
-          console.log("bleh");
           socket.emit(
             "admin decline/approve/interested event",
             response.data.seller_id
@@ -132,8 +128,9 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } else console.log("jnen");
-        dispatch(addToInterested(response.data.updatedUser));
+        } else {
+          dispatch(addToInterested(response.data.updatedUser));
+        }
       } else {
         response = await axios.post(
           "http://localhost:5000/un_interested_update",
@@ -152,7 +149,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         // dispatch(addToFavourites(response.data.updatedUser));
         //   } else {
         //
-        console.log(response.data);
         dispatch(addToInterested(response.data));
       }
     } catch (err) {
@@ -163,7 +159,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
 // ==================================================================
 
 export const fetchDataForDeletingPublishedAds = (deletingData) => {
-  // console.log(deletingData);
   const { token, productId } = deletingData;
   return async (dispatch) => {
     try {
@@ -207,7 +202,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
         user: response.data.user,
       };
       window.localStorage.setItem("auth", JSON.stringify(data));
-      console.log(JSON.parse(window.localStorage.getItem("auth")));
+      // console.log(JSON.parse(window.localStorage.getItem("auth")));
       dispatch(AuthUser(data));
       // }
     } catch (err) {
@@ -218,7 +213,6 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
 
 // =====================================================================
 export const actionForLikeThread = (likeData) => {
-  console.log(likeData);
   return async (dispatch) => {
     try {
       await axios.post(

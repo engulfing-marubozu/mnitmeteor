@@ -10,13 +10,10 @@ import { Box, Typography } from "@mui/material";
 export default function UploadImage(props) {
   const { setFieldValue } = useFormikContext();
   const [, meta] = useField(props.name);
-  // console.log(meta);
   const [images, setImages] = React.useState([]);
   const maxNumber = 4;
 
   const onChange = (imageList, addUpdateIndex) => {
-    // data for submit
-    // console.log(imageList, addUpdateIndex);
     setFieldValue(props.name, imageList);
     setImages(imageList);
     props.onDrop(imageList);

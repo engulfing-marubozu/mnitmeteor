@@ -53,9 +53,7 @@ export default function CategorySlider() {
     Others: 4,
   };
   const [value, setValue] = React.useState(false);
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+ 
   // ================================TAB CLICK HANDLERS
   const Navigate = useNavigate();
   const TabClickHandler = (flag) => {
@@ -75,14 +73,12 @@ export default function CategorySlider() {
     <Box
       sx={{
         width: "100%",
-        // bgcolor: "#C8C6C6",
         display: "flex",
         justifyContent: "center",
       }}
     >
       <StyledTabs
         value={value}
-        // onChange={handleChange}
         variant="scrollable"
         scrollButtons={false}
       >

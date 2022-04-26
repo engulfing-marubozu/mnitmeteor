@@ -19,7 +19,6 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
     }
 
     const submitHandler = async () => {
-        // console.log(inputReply.current.value);
         const email = localUserData.userData.email.slice(0, 11);
         const response = await axios.post(
             "http://localhost:5000/add_comment",
@@ -36,13 +35,10 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
                 },
             }
         );
-        // console.log(response.data);
         let updatedComment = response.data;
 
         setLocalCommentData(updatedComment);
-        console.log(updatedComment);
         inputReply.current.value = "";
-        // console.log(setExpandedReplies);
         setExpandedReplies && (setExpandedReplies(true));
         setDisabledPost(true);
     }

@@ -10,7 +10,6 @@ export function TextfieldWrapper({ name, ...otherProps }) {
             event.target.value = " ";
             return;
         };
-        // console.log(event.target.value);
         setFieldValue(name, event.target.value);
     };
     const configTextfield = {
@@ -32,7 +31,6 @@ export function TextfieldWrapper({ name, ...otherProps }) {
 export function SelectWrapper({ name, categories, ...otherProps }) {
     const { setFieldValue } = useFormikContext();
     const [field, meta] = useField(name);
-    // console.log(meta);
     const handleChange = (event) => {
         setFieldValue(name, event.target.value);
     };

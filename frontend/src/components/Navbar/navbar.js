@@ -75,7 +75,6 @@ function Navbar() {
       try {
         const userData = JSON.parse(window.localStorage.getItem("auth"));
         const token = userData?.token
-        console.log("fjne")
         const response =
           await axios.post(
             "http://localhost:5000/get_notif_alert_count",
@@ -86,7 +85,6 @@ function Navbar() {
               },
             }
           );
-        // console.log(response.data);
         setNotificationPending(response.data.count);
       } catch (err) {
         console.log(err);

@@ -6,6 +6,7 @@ import {
   InterestedReducer,
   DeletePublishedAdsReducer,
   PhoneAuthReducer,
+  AdminPanelReducer,
 } from "./UserReducer";
 import {} from "./UserReducer";
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   InterestedReducer,
   DeletePublishedAdsReducer,
   PhoneAuthReducer,
+  AdminPanelReducer,
 });
 
 export default rootReducer;

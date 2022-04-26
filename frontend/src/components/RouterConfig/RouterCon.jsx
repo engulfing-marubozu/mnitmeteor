@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Home from "../HomePage/Home";
 import About from "../About/About";
 import Discussions from "../Discussions/discussion";
@@ -18,7 +19,6 @@ import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedT
 import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
 import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
-import { useSelector } from "react-redux";
 import SpecificThread from "../Discussions/discussionSpecificThread";
 import SpecificLostFound from "../Lost&Found/specificLostFound";
 // import DeveloperNotes from "../Links/developerNotes";
@@ -31,7 +31,6 @@ function RouterCon() {
 
   return (
     <Routes>
-      {/* <Route path="/home" element ={<Home/>}/> */}
       <Route path="/" element={<Home />}>
         <Route index element={<ProductCard Category="recommendation" />} />
         <Route path="product/:category" element={<ProductCard />} />

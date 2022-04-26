@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchDataForATF, fetchDataForInterestedProduct, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
+import {
+  fetchDataForATF,
+  fetchDataForInterestedProduct,
+  modelPopUp,
+} from "../../AStatemanagement/Actions/userActions";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
 import { Typography, Stack } from "@mui/material";
 import { OutlinedButton, ColorButton } from "../Navbar/navbar";
-import { BoxContainer, TextContainer, Wrapper } from "./StylingDiscriptionCard";
+import {
+  BoxContainer,
+  DescriptionStyle,
+  TextContainer,
+  Wrapper,
+} from "./StylingDiscriptionCard";
 import axios from "axios";
 import { TimeSince } from "../TimeElapsed/timecalc";
 import POPUPElement from "../ModelPopUP/POPUPElement";
 import InterestedAlert from "../ModelPopUP/InterestedAlert";
-import GetPhoneNo from "../ContactDetails/GetPhoneNo";
+import GetPhoneNoNew from "../ContactDetails/getPhoneDetails";
 import DiscriptionProductDelete from "../ModelPopUP/DiscriptionDeleteButton";
 import "./discriptionImageStyle.css";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -28,7 +37,7 @@ function DiscriptionCard() {
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
   const { email, _id: userId } = userData;
-  const userInterestedData = useSelector((state) => state.InterestedReducer)
+  const userInterestedData = useSelector((state) => state.InterestedReducer);
   const dispatch = useDispatch();
   // ========================================================LIKESTATUS==========================================================================================
   const [isAddedToFav, setIsAddedToFav] = useState(false);
@@ -49,20 +58,21 @@ function DiscriptionCard() {
     if (input === true) {
       setIsInterested(!isInterested);
       const interestedData = { productId: params.productId, userToken: token };
-      !isInterested &&
+      if (!isInterested) {
         dispatch(
           fetchDataForInterestedProduct({
             ...interestedData,
             isInterested: true,
           })
         );
-      isInterested &&
+      } else {
         dispatch(
           fetchDataForInterestedProduct({
             ...interestedData,
             isInterested: false,
           })
         );
+      }
     }
   };
 
@@ -78,20 +88,23 @@ function DiscriptionCard() {
         console.log(attempts_left, status, ttl_seconds);
         if (status) {
           alert(
-            `${attempts_left - 1} attempts left for another ${ttl_seconds} seconds`
+            `${
+              attempts_left - 1
+            } attempts left for another ${ttl_seconds} seconds`
           );
           modelInputHandler(true);
         } else {
-          const interestedData = { productId: params.productId, userToken: token };
+          const interestedData = {
+            productId: params.productId,
+            userToken: token,
+          };
           dispatch(
             fetchDataForInterestedProduct({
               ...interestedData,
               isInterested: false,
             })
           );
-          alert(
-            `max attempts done. Please retry after ${ttl_seconds} seconds`
-          );
+          alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
         }
       }
     } else {
@@ -126,10 +139,13 @@ function DiscriptionCard() {
     };
   }, [email, product_id]);
 
+  const classes = DescriptionStyle();
   // ================================================================CardData ===============================================================
-  console.log(cardData);
+  // console.log(cardData);
   const imageThumbnail = cardData?.images;
-  const title = cardData ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1) : " ";
+  const title = cardData
+    ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1)
+    : " ";
   const date = cardData ? new Date(cardData.createdAt) : "";
   const properDate = date ? TimeSince(date) : " ";
   const Description = cardData ? cardData.description : " ";
@@ -137,15 +153,15 @@ function DiscriptionCard() {
   const productId = cardData ? cardData._id : " ";
   //==============================================IMAGE PRODUCER ======================================================================
 
-  const images = typeof (imageThumbnail) !== "undefined" ? (
-    imageThumbnail.map((img, index) => {
-      return {
-        original: `${imageThumbnail[index]?.image}`,
-        thumbnail: `${imageThumbnail[index]?.thumbnail}`,
-      }
-    })
-  )
-    : false;
+  const images =
+    typeof imageThumbnail !== "undefined"
+      ? imageThumbnail.map((img, index) => {
+          return {
+            original: `${imageThumbnail[index]?.image}`,
+            thumbnail: `${imageThumbnail[index]?.thumbnail}`,
+          };
+        })
+      : false;
 
   // =======================================================================================================================
 
@@ -157,76 +173,51 @@ function DiscriptionCard() {
             <div className="discriptioncardImage">
               <ImageGallery showPlayButton={false} items={images} />
             </div>
-
-          )
-          }
+          )}
         </BoxContainer>
         <TextContainer>
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: { xs: 24, sm: 30 },
-              px: { xs: 0, lg: 2 },
-              pt: { lg: 0, xs: 2 },
-            }}
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: "bold", px: { xs: 1, lg: 3 }, pt: 0, pb: 2 }}
-          >
+          <Typography className={classes.title}>{title}</Typography>
+          <Typography variant="body2" className={classes.date}>
             {properDate}
           </Typography>
-          <Stack
-            spacing={{ xs: 1, sm: 2, md: 3 }}
-            direction="row"
-            display={{ sm: "flex" }}
-            sx={{ pl: { lg: 2, xs: 0 } }}
-          >
-
+          <Stack className={classes.buttonContainer}>
             {/* =========================================INTERESTED UNINTERESTED BUTTON================================ */}
-            {isLoggedIn && userId !== postedbyId && (<OutlinedButton
-              variant="outlined"
-              sx={{
-                fontSize: { xs: "10px", md: "15px" },
-                fontWeight: "bold",
-              }}
-              onClick={interesetedClickHandler}
-            >
-              {!isInterested && "Interested"}
-              {isInterested && "Not-Interested"}
-            </OutlinedButton>)}
+            {isLoggedIn && userId !== postedbyId && (
+              <OutlinedButton
+                variant="outlined"
+                className={classes.buttonStyle}
+                onClick={interesetedClickHandler}
+              >
+                {!isInterested && "Interested"}
+                {isInterested && "Not-Interested"}
+              </OutlinedButton>
+            )}
             {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ===================== */}
-            {!isLoggedIn && (<OutlinedButton
-              variant="outlined"
-              sx={{
-                fontSize: { xs: "10px", md: "15px" },
-                fontWeight: "bold",
-              }}
-              onClick={interesetedClickHandler}
-            >
-              {!isInterested && "Interested"}
-              {isInterested && "Un-Interested"}
-            </OutlinedButton>)}
+            {!isLoggedIn && (
+              <OutlinedButton
+                variant="outlined"
+                className={classes.buttonStyle}
+                onClick={interesetedClickHandler}
+              >
+                {!isInterested && "Interested"}
+                {isInterested && "Un-Interested"}
+              </OutlinedButton>
+            )}
 
             {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================  */}
-            {isLoggedIn && userId === postedbyId && (<OutlinedButton
-              variant="outlined"
-              sx={{
-                fontSize: { xs: "10px", md: "15px" },
-                fontWeight: "bold",
-              }}
-              onClick={() => { setDeletePopUp(true) }}
-            >
-              Delete
-            </OutlinedButton>)}
+            {isLoggedIn && userId === postedbyId && (
+              <OutlinedButton
+                variant="outlined"
+                onClick={() => {
+                  setDeletePopUp(true);
+                }}
+              >
+                Delete
+              </OutlinedButton>
+            )}
             {/* =================================================================================================================================== */}
             <ColorButton
-              sx={{
-                fontSize: { xs: "10px", md: "15px" },
-                fontWeight: "bold",
-              }}
+              className={classes.buttonStyle}
               variant="contained"
               onClick={favouriteClickHandler}
             >
@@ -235,23 +226,8 @@ function DiscriptionCard() {
             </ColorButton>
           </Stack>
 
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: { xs: 16, sm: 22 },
-              pt: { xs: 2 },
-              px: { lg: 2, xs: 0 },
-              pb: { xs: 0 },
-            }}
-          >
-            Description
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ pt: { xs: 0 }, px: { lg: 2, xs: 0 }, whiteSpace: "pre-line", wordBreak: "break-all" }}
-          >
-            {Description}
-          </Typography>
+          <Typography className={classes.descpHeading}>Description</Typography>
+          <Typography className={classes.descrp}>{Description}</Typography>
         </TextContainer>
       </Wrapper>
       {/* ===================================================================ALERTS ===================================================== */}
@@ -274,31 +250,29 @@ function DiscriptionCard() {
           onClose={setContactModel}
           portelId={"contactDetailPortal"}
         >
-          <GetPhoneNo
+          <GetPhoneNoNew
             modelInputHandler={modelInputHandler}
             flag={true}
             onClose={setContactModel}
           >
-            Oops! We don’t have your phone number ☹️.
-            Your phone number will only be shared with prospective buyers.
-          </GetPhoneNo>
+            Oops! We don’t have your phone number ☹️. Your phone number will
+            only be shared with prospective buyers.
+          </GetPhoneNoNew>
         </POPUPElement>
       )}
 
-      {
-        deletePopUp && isLoggedIn && (
-          <POPUPElement
-            open={deletePopUp}
+      {deletePopUp && isLoggedIn && (
+        <POPUPElement
+          open={deletePopUp}
+          onClose={setDeletePopUp}
+          portelId={"alertPortal"}
+        >
+          <DiscriptionProductDelete
+            productId={productId}
             onClose={setDeletePopUp}
-            portelId={"alertPortal"}
-          >
-            <DiscriptionProductDelete
-              productId={productId}
-              onClose={setDeletePopUp}
-            />
-          </POPUPElement>
-        )
-      }
+          />
+        </POPUPElement>
+      )}
       {/* ==========================================================================================================================================      */}
     </>
   );

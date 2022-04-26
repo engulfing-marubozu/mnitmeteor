@@ -66,7 +66,7 @@ function Navbar() {
 
   React.useEffect(() => {
     const userData = JSON.parse(window.localStorage.getItem("auth"));
-    userData && socket.emit("initialise_user", userData.user.email);
+    userData && socket.emit("initialise_user", userData?.user?.email);
   }, []);
 
 
@@ -138,13 +138,7 @@ function Navbar() {
 
               <MymenuBar menuClose={menuClose} />
             </Drawer>
-            {/* <StyledMenu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-            >
-              <MymenuBar menuClose={handleClose} />
-            </StyledMenu> */}
+
           </Box>
           <Stack
             alignItems={"center"}

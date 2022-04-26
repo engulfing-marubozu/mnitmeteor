@@ -18,10 +18,9 @@ export const FooterStyle = makeStyles({
   },
   itemContainer: {
     display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
     paddingBottom: "12px",
     borderBottom: "1px solid #e0e0e0",
+    justifyContent:"space-around",
     "@media(max-width:600px)": {
       justifyContent: "space-between",
     },

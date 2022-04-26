@@ -51,8 +51,8 @@ export const CardStyleFirst = makeStyles({
     padding: "0",
   },
   iconButton: {
-    color: "#512da8",
     padding: "0.25rem",
+    color: "#512da8",
   },
   Icon: {
     fontSize: "24px",
@@ -95,7 +95,6 @@ export const CardStyleSecond = makeStyles({
     },
   },
 });
-
 export const CardContentNoPadding = styled(CardContent)(`
   &:last-child {
     padding-bottom: 6px;

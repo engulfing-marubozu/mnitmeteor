@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LostFoundSkeleton from "../lostfoundSkeleton";
 import LostFoundCard from "../Lost&FoundCard/L&FCard";
+import POPUPElement from "../../ModelPopUP/POPUPElement";
+import SuccessfulSubmission from "../../ModelPopUP/onFormSubmission";
+import { useSelector, useDispatch } from "react-redux";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
+import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
+
 function LostFoundMyItems() {
   const [myItems, setMyItems] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
+  const dispatch = useDispatch();
+  const submitPopUp = useSelector((state) => state.ModelPopUpReducer.lnfPopUp);
+  const isLoggedIn = localUserData.isLogin;
+  const SubmitPopUpHandler = () => {
+    dispatch(lnfPopUp(false));
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,7 +66,18 @@ function LostFoundMyItems() {
           }
         })
       ) : (
-        <EmptySpace source={lostFoundEmpty.myItems}/>
+        <EmptySpace source={lostFoundEmpty.myItems} />
+      )}
+      {submitPopUp && isLoggedIn && (
+        <POPUPElement
+          open={submitPopUp}
+          onClose={SubmitPopUpHandler}
+          portelId={"portal"}
+        >
+          <SuccessfulSubmission onClose={SubmitPopUpHandler}>
+            what is your name my name is deeepak
+          </SuccessfulSubmission>
+        </POPUPElement>
       )}
     </>
   );

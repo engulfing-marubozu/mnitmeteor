@@ -7,16 +7,14 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { FooterStyle } from "./footerStyling";
+import {useDispatch} from "react-redux"
+import { AdminPanelMode } from "../../AStatemanagement/Actions/userActions";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link
-        color="inherit"
-        href="#"
-        sx={{ textDecoration: "none" }}
-      >
+      <Link color="inherit" href="#" sx={{ textDecoration: "none" }}>
         Mnit Market
       </Link>{" "}
       {new Date().getFullYear()}
@@ -25,6 +23,7 @@ function Copyright() {
   );
 }
 function Footer() {
+  const dispatch=useDispatch();
   const classes = FooterStyle();
   return (
     <Box className={classes.mainBox}>
@@ -43,7 +42,9 @@ function Footer() {
           </Box>
           <Box className={classes.linkFixer}>
             <Typography className={classes.headingTypo}>Links</Typography>
-            <Link className={classes.linkStyle} href="#">
+            <Link className={classes.linkStyle} onClick ={()=>{
+              dispatch(AdminPanelMode(true))
+            }}>
               <Typography className={classes.linkTypo}>Admin Panel</Typography>
             </Link>
             <Link className={classes.linkStyle} href="#">

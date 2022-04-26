@@ -124,7 +124,7 @@ export default function MymenuBar({ menuClose }) {
           sx={{ color: "white", bgcolor: "#673ab7", mt: "0.8rem" }}
           onClick={() => {
             const userData = JSON.parse(window.localStorage.getItem("auth"));
-            const user_id = userData.user.email;
+            const user_id = userData?.user?.email;
             socket.emit("log_out_socket", user_id);
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));

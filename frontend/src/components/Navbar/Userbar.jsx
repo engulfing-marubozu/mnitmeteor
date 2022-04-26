@@ -5,7 +5,6 @@ import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import { useDispatch } from "react-redux";
 import { LogoutUser, modelPopUp } from "../../AStatemanagement/Actions/userActions";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
@@ -93,7 +92,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
         <MenuItem
           onClick={() => {
             const userData = JSON.parse(window.localStorage.getItem("auth"));
-            const user_id = userData.user.email;
+            const user_id = userData?.user?.email;
             socket.emit("log_out_socket", user_id);
             dispatch(LogoutUser());
             window.localStorage.removeItem("auth");

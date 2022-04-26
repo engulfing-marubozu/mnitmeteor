@@ -8,17 +8,13 @@ import {
   Validationlabel,
 } from "../../ContactDetails/getphoneNoStyling";
 import { PhoneNumberValidator } from "../../loginForm/AccountBox/validator";
-// import { useSelector, useDispatch } from "react-redux";
-// import { fetchDataForPhoneNoAuth } from "../../../AStatemanagement/Actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDataForPhoneNoAuth } from "../../../AStatemanagement/Actions/userActions";
 
 // ================================================================Main FUNCTION =========================================================
 export default function UpdatePhoneNo(props) {
-  //   const dispatch = useDispatch();
-  //   const token = useSelector((state) => state.loginlogoutReducer.token);
-  //   const phoneAuthDetails = useSelector(
-  //     (state) => state.PhoneAuthReducer.phoneAuthentication
-  //   );
-
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.loginlogoutReducer.token);
   //  =================================================================================================================================
   const phoneNoRef = useRef();
   const [formErrors, setFormErrors] = useState({});
@@ -34,11 +30,12 @@ export default function UpdatePhoneNo(props) {
   // =======================================================================================================================================================
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      //   const data = {
-      //     token: token,
-      //     phoneNo: phoneAuthDetails.mobile_no,
-      //   };
-      //   dispatch(fetchDataForPhoneNoAuth(data));
+      const data = {
+        token: token,
+        phoneNo: phoneNoRef.current.value,
+        flag:true,
+      };
+      dispatch(fetchDataForPhoneNoAuth(data));
       props.closeUpdate();
       props.notify("Successfully Updated");
     }

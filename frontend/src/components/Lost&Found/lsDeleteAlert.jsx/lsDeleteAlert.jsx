@@ -42,10 +42,7 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
 
         })
             .then(function (response) {
-                console.log(response.data);
                 setLostFound(response.data);
-
-                // setLostFound(resp)
             })
             .catch(function (error) {
                 console.log(error);

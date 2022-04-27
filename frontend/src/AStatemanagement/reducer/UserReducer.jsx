@@ -8,7 +8,11 @@ import {
   PHONE_NUMBER_AUTH,
   SELLNOW_CLICKED,
   DELETE_LF_ITEMS,
-  LIKE_THREAD
+  LIKE_THREAD,
+  ADMIN_PANEL_MODE,
+  FORUM_POPUP,
+  LNF_POPUP,
+  SELL_POPUP,
 } from "../Actions/types";
 
 const InitialState = {
@@ -44,11 +48,20 @@ export const loginlogoutReducer = (state = InitialState, action) => {
 // =======================================================================================================
 const modelPopInitialValue = {
   popUp: false,
+  sellPopUp: false,
+  forumPopUp: false,
+  lnfPopUp: false,
 };
 export const ModelPopUpReducer = (state = modelPopInitialValue, action) => {
   switch (action.type) {
     case MODEL_POPUP:
       return { ...state, popUp: action.payload };
+    case SELL_POPUP:
+      return { ...state, sellPopUp: action.payload };
+    case FORUM_POPUP:
+      return { ...state, forumPopUp: action.payload };
+    case LNF_POPUP:
+      return { ...state, lnfPopUp: action.payload };
     default:
       return state;
   }
@@ -68,7 +81,10 @@ export const FavouritesReducer = (state = favouritesInitialValue, action) => {
 };
 // ======================================================================================================
 const interestedInitialValue = {
-  interestedData: '', attempts_left: 3, status: true, ttl_seconds: 100
+  interestedData: "",
+  attempts_left: 3,
+  status: true,
+  ttl_seconds: 100,
 };
 export const InterestedReducer = (state = interestedInitialValue, action) => {
   switch (action.type) {
@@ -76,9 +92,15 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
       return {
         ...state,
         interestedData: action.payload.updatedUser,
-        ...(typeof (action.payload.attempts_left) !== "undefined" && { attempts_left: action.payload.attempts_left }),
-        ...(typeof (action.payload.status) !== "undefined" && { status: action.payload.status }),
-        ...(typeof (action.payload.ttl_seconds) !== "undefined" && { ttl_seconds: action.payload.ttl_seconds }),
+        ...(typeof action.payload.attempts_left !== "undefined" && {
+          attempts_left: action.payload.attempts_left,
+        }),
+        ...(typeof action.payload.status !== "undefined" && {
+          status: action.payload.status,
+        }),
+        ...(typeof action.payload.ttl_seconds !== "undefined" && {
+          ttl_seconds: action.payload.ttl_seconds,
+        }),
         // status: true,
         // ttl_seconds: 31
       };
@@ -86,7 +108,7 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
       return state;
   }
 };
-// ====================================================================================================
+// ======================================================================================
 const publishedAdInitialData = {};
 export const DeletePublishedAdsReducer = (
   state = publishedAdInitialData,
@@ -102,7 +124,7 @@ export const DeletePublishedAdsReducer = (
       return state;
   }
 };
-// ====================================================================================================
+// ============================================================================================
 const lfInitialState = {};
 export const lfDeleteReducer = (state = lfInitialState, action) => {
   switch (action.type) {
@@ -110,36 +132,27 @@ export const lfDeleteReducer = (state = lfInitialState, action) => {
       return {
         ...state,
         lfItemPosted: action.payload,
-      }
+      };
     default: {
       return state;
     }
   }
-}
-// =========================================================================================================
-const likeThreadInitialState={}
+};
+// ============================================================================================
+const likeThreadInitialState = {};
 export const likeThread = (state = likeThreadInitialState, action) => {
   switch (action.type) {
     case LIKE_THREAD:
       return {
         ...state,
-
-      }
+      };
     default: {
       return state;
     }
   }
-}
+};
 
-
-
-
-
-
-
-
-
-// ==================================================================================================
+// ===============================================================================================
 const phoneAuth = {};
 export const PhoneAuthReducer = (state = phoneAuth, action) => {
   switch (action.type) {
@@ -148,6 +161,19 @@ export const PhoneAuthReducer = (state = phoneAuth, action) => {
         ...state,
 
         phoneAuthentication: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+// =================================================================================================
+const intialState = { mode: false };
+export const AdminPanelReducer = (state = intialState, action) => {
+  switch (action.type) {
+    case ADMIN_PANEL_MODE:
+      return {
+        ...state,
+        mode: action.payload,
       };
     default:
       return state;

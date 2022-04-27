@@ -27,7 +27,6 @@ export function Otpform(props) {
       const response = await axios.post("http://localhost:5000/resendOtp", {
         email
       });
-      // console.log(response.data.otp);
       const otp = response.data.otp;
       // PROCEED WITH OTP DEPAK
       setRealOtp(otp);
@@ -55,7 +54,6 @@ export function Otpform(props) {
   }
 
   useEffect(() => {
-    // console.log(formErrors);
     let interval = null;
     if (isActive) {
       interval = setInterval(() => {

@@ -21,7 +21,6 @@ function Validatorfunc(values) {
 export default Validatorfunc;
 
 export function OtpValidator(values) {
-  // console.log([values.inputOtp, values.realOtp]);
   const errors = {};
   if (!values.inputOtp) {
     errors.otp = "OTP is required ";

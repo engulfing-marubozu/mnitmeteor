@@ -40,7 +40,6 @@ export function LoginForm(props) {
         email,
         password,
       });
-      //console.log(response.data);
       if (response.data.status === "wrong password") {
         notify("wrong password");
       } else if (response.data.status === "user not found") {
@@ -49,8 +48,6 @@ export function LoginForm(props) {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         dispatch(AuthUser(response.data));
         const localStorageData = { ...response.data, isLogin: true };
-        console.log(localStorageData);
-        // console.log(localStorageData);
         window.localStorage.setItem("auth", JSON.stringify(localStorageData));
         const userData = await JSON.parse(window.localStorage.getItem("auth"));
         userData && socket.emit("initialise_user", userData.user.email);
@@ -74,7 +71,6 @@ export function LoginForm(props) {
   };
 
   useEffect(() => {
-    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       Loginfunc(signinFormValue);
     }

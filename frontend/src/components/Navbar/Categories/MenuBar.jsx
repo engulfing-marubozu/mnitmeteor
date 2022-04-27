@@ -11,7 +11,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuBarCategory from "./MenuBarCategories";
 import { styled } from '@mui/material/styles';
-// import { StyledMenu } from "../NavabarStyle";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -124,7 +123,7 @@ export default function MymenuBar({ menuClose }) {
           sx={{ color: "white", bgcolor: "#673ab7", mt: "0.8rem" }}
           onClick={() => {
             const userData = JSON.parse(window.localStorage.getItem("auth"));
-            const user_id = userData.user.email;
+            const user_id = userData?.user?.email;
             socket.emit("log_out_socket", user_id);
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));

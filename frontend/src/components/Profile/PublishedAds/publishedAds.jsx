@@ -1,33 +1,21 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Container, Grid, Box } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Box } from "@mui/system";
-import { ProfileBoxStyle } from "../ProfileStyling/profilePageStyling";
-// import StylingPublishedAds from "./stylingPublishedAds";
 import CardForPublishedAds from "./CardForPublishedAd";
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
-
-const responsive = {
-  0: { items: 1 },
-  340: { items: 2 },
-  860: { items: 3 },
-  1300: { items: 4 },
-};
-
-
-// export const Carousel = () => (
-
-// );
-
+import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
+import EmptySpace from "../../_EmptySpaces/emptySpace";
+import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 function PublishedAds() {
-  // console.log("deepakpbulsih");
-  // ================================================================== DATA FETCHING=============================================================================================
-  const [arr, setarr] = useState();
+  // ================================================================== DATA FETCHING==============================
+  const [cardData, setCardData] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
-  const publishedAdsData = useSelector((state) => state.DeletePublishedAdsReducer?.publishedAdsData)
+  const publishedAdsData = useSelector(
+    (state) => state.DeletePublishedAdsReducer?.publishedAdsData
+  );
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
@@ -40,54 +28,68 @@ function PublishedAds() {
         }
       );
       if (isSubscribed) {
-        setarr(response.data);
-        // console.log(response.data);
+        setCardData(response.data);
       }
-
     }
     call();
     return () => {
       isSubscribed = false;
-    }
+    };
   }, [publishedAdsData, token]);
-
-
-  const items = (typeof arr !== "undefined" &&
-    arr.length !== 0 && (
-      arr.map((data, index) => {
-        if (data !== null) {
-          console.log("check")
-          return <CardForPublishedAds cardData={data} key={index} />;
-        }
-        else
-          return null;
-      })
-    ))
-  // console.log(items);
-
-  // const arrLength = typeof (arr) === "undefined" ? 0 : arr.length;
-  const classes = ProfileBoxStyle();
   // ===================================================================================================================================================================
   return (
-
-    <>
-      <Box
-        className={classes.mainBox} sx={{ pt: { xs: 5 }, pb: { xs: 5 } }}
-      >
-        {typeof arr !== "undefined" &&
-          (<AliceCarousel
-            mouseTracking
-            items={items}
-            responsive={responsive}
-            controlsStrategy="alternate"
-            disableDotsControls
-            disableButtonsControls
-          />)
-        }
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Box sx={{ py: "2rem" }}>
+        <Container sx={{ width: { xs: "100%", md: "97%", lg: "90%" } }}>
+          <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
+            {typeof cardData === "undefined" ? (
+              Array.from(new Array(3)).map((data, index) => {
+                return (
+                  <Grid item xs={6} md={4} key={index}>
+                    <HomeCardSkeleton />
+                  </Grid>
+                );
+              })
+            ) : cardData.length > 0 ? (
+              cardData.map((data, index) => {
+                if (data !== null) {
+                  return (
+                    <Grid item xs={6} md={4} key={index}>
+                      <CardForPublishedAds cardData={data} />
+                    </Grid>
+                  );
+                } else return null;
+              })
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                }}
+              >
+                <EmptySpace source={profileEmpty.myAds} />
+              </Box>
+            )}
+          </Grid>
+        </Container>
       </Box>
-
-    </>
+    </motion.div>
   );
 }
 
 export default PublishedAds;
+//  {typeof cardData !== "undefined" &&
+//           cardData.map((data, index) => {
+//             if (data !== null) {
+//               return (
+//                 <Grid item xs={6} md={4} key={index}>
+//                   <CardForPublishedAds cardData={data} />
+//                 </Grid>
+//               );
+//             } else return null;
+//           })}

@@ -32,9 +32,6 @@ export const VerticalNavTab = styled((props) => <Tab disableRipple {...props} />
     textTransform: 'none',
     padding: "0.5rem",
     minWidth: 0,
-    // [theme.breakpoints.up('md')]: {
-    //     minWidth: 0,
-    // },
     fontWeight: theme.typography.fontWeightRegular,
     color: 'rgba(0, 0, 0, 0.85)',
     '&:hover': {

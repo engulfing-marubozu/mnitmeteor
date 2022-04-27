@@ -30,7 +30,6 @@ const ExpandMore = styled((props) => {
 export default function LostFoundPanel({ data, ApproveRequest, DeclineRequest }) {
 
     const [expanded, setExpanded] = React.useState(false);
-    // console.log(data);
     const date = new Date(data.createdAt);
     const properDate = TimeSince(date);
     const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);

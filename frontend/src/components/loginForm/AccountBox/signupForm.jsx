@@ -23,7 +23,6 @@ export function SignupForm(props) {
         email,
       });
       if (response.data === "already registered") {
-        // console.log("already registered");
         notify("Already Registered");
       } else {
         const otpgen = response.data.otp;
@@ -58,7 +57,6 @@ export function SignupForm(props) {
     setIsSubmit(true);
   }
   useEffect(() => {
-    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       ////sink data which  will be sent on server
       verifySignUp();

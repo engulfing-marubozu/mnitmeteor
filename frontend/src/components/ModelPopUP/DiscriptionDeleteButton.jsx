@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 // ========================================================MAIN FUNCTION=================================================================
 
 export default function DiscriptionProductDelete(props) {
-    // ==========================================================GETTING DETAILS FROM STATE-REDUX =================================================
+    // ==========================================================GETTING DETAILS FROM STATE-REDUX =============================================
     const dispatch = useDispatch();
     let navigate = useNavigate();
     const token = useSelector((state) => state.loginlogoutReducer.token);
 
-    // ==============================================AGREE-DISAGREE HANDLER===================================================================================
+    // ==============================================AGREE-DISAGREE HANDLER===================================================================
     const deleteHandler = () => {
         const productData = { token: token, productId: props.productId };
         dispatch(fetchDataForDeletingPublishedAds(productData));
@@ -49,7 +49,7 @@ export default function DiscriptionProductDelete(props) {
                         Delete
                     </Typography>
                     <Typography variant="body1">
-                    Looks like you are interested in the product! Contact details of the seller will be sent to you by email if you continue. 
+                    Are you sure you want to delete this item from the database?
                     </Typography>
                     <Stack
                         direction="row"

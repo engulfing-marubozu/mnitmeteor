@@ -1,17 +1,20 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-// import AcUnitIcon from '@mui/icons-material/AcUnit';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { FooterStyle } from "./footerStyling";
+import {useDispatch} from "react-redux"
+import { AdminPanelMode } from "../../AStatemanagement/Actions/userActions";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/" sx={{ textDecoration: "none" }}>
+      <Link color="inherit" href="#" sx={{ textDecoration: "none" }}>
         Mnit Market
       </Link>{" "}
       {new Date().getFullYear()}
@@ -20,33 +23,57 @@ function Copyright() {
   );
 }
 function Footer() {
+  const dispatch=useDispatch();
+  const classes = FooterStyle();
   return (
-    <Box sx={{ bgcolor: "#7e57c2", py: 1, px: { lg: "72px", md: "38px", sm: "24px", xs: "16px" } }}>
-
-      <Box component="footer" sx={{ display: "flex", justifyContent: { sm: "flex-end", xs: "space-between" }, pb: "12px", borderBottom: "1px solid " }}>
-
-        <Box sx={{ mr: { sm: "4rem", xs: "0px" } }}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "12px", ml: "2px" }}>Support</Typography>
-          <Typography sx={{ fontSize: "10px" }}>Contact us!</Typography>
-          <Typography sx={{ fontSize: "10px" }}>Feedback/Issues?</Typography>
+    <Box className={classes.mainBox}>
+      <Box component="footer" className={classes.itemContainer}>
+        <Box className={classes.linkWrapper}>
+          <Box className={classes.linkFixer}>
+            <Typography className={classes.headingTypo}>Support</Typography>
+            <Link className={classes.linkStyle} href="#">
+              <Typography className={classes.linkTypo}>Contact us!</Typography>
+            </Link>
+            <Link className={classes.linkStyle} href="#">
+              <Typography className={classes.linkTypo}>
+                Feedback/Issues?
+              </Typography>
+            </Link>
+          </Box>
+          <Box className={classes.linkFixer}>
+            <Typography className={classes.headingTypo}>Links</Typography>
+            <Link className={classes.linkStyle} onClick ={()=>{
+              dispatch(AdminPanelMode(true))
+            }}>
+              <Typography className={classes.linkTypo}>Admin Panel</Typography>
+            </Link>
+            <Link className={classes.linkStyle} href="#">
+              <Typography className={classes.linkTypo}>
+                Developer Note's
+              </Typography>
+            </Link>
+          </Box>
         </Box>
-        <Box sx={{ mr: { sm: "4rem", xs: "0px" } }}>
-          <Typography sx={{ fontWeight: "bold", fontSize: "12px", ml: "2px" }}>Links</Typography>
-          <Typography sx={{ fontSize: "10px" }}>Admin Panel</Typography>
-          <Typography sx={{ fontSize: "10px" }}>Developer Note's </Typography>
-        </Box>
-        <Box>
-          <Typography sx={{ fontWeight: "bold", fontSize: "12px", ml: "2px" }}>Follow Us</Typography>
-          <Box sx={{ mt: "3px", p: 0 }}>
-            <FacebookIcon sx={{ color: "#5e35b1", mr: "6px" }} />
-            <InstagramIcon sx={{ color: "#5e35b1", mr: "6px" }} />
-            <TwitterIcon sx={{ color: "#5e35b1" }} />
+        <Box className={classes.iconBox}>
+          <Box>
+            <IconButton className={classes.iconButton}>
+              <FacebookIcon className={classes.Icon} />
+            </IconButton>
+            <IconButton className={classes.iconButton}>
+              <InstagramIcon className={classes.Icon} />
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton className={classes.iconButton}>
+              <TwitterIcon className={classes.Icon} />
+            </IconButton>
+            <IconButton className={classes.iconButton}>
+              <LinkedInIcon className={classes.Icon} />
+            </IconButton>
           </Box>
         </Box>
       </Box>
-      <Box>
-        <Copyright />
-      </Box>
+      <Copyright />
     </Box>
   );
 }

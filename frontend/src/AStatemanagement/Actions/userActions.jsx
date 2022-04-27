@@ -7,6 +7,10 @@ import {
   SELLNOW_CLICKED,
   DELETE_PUBLISHED_ADS,
   PHONE_NUMBER_AUTH,
+  ADMIN_PANEL_MODE,
+  LNF_POPUP,
+  FORUM_POPUP,
+  SELL_POPUP,
 } from "./types";
 import axios from "axios";
 // import { USER_SERVER } from "../components/Config.js";
@@ -27,10 +31,18 @@ export const SellNowclick = (bool) => {
 export const modelPopUp = (bool) => {
   return { type: MODEL_POPUP, payload: bool };
 };
+export const lnfPopUp = (bool) => {
+  return { type: LNF_POPUP, payload: bool };
+};
+export const forumPopUp = (bool) => {
+  return { type: FORUM_POPUP, payload: bool };
+};
+export const sellPopUp = (bool) => {
+  return { type: SELL_POPUP, payload: bool };
+};
 // ==================================================================
 
 export const addToFavourites = (data) => {
-  // console.log(data);
   return {
     type: ADD_TO_FAVOURITES,
     payload: data,
@@ -41,6 +53,15 @@ export const addToFavourites = (data) => {
 export const addToInterested = (data) => {
   return {
     type: ADD_TO_INTERESTED,
+    payload: data,
+  };
+};
+
+// ==================================================================
+export const AdminPanelMode = (data) => {
+  // console.log(data);
+  return {
+    type: ADMIN_PANEL_MODE,
     payload: data,
   };
 };
@@ -74,7 +95,6 @@ export const fetchDataForATF = (likedata) => {
           },
         }
       );
-      // console.log(response.data);
       dispatch(addToFavourites(response.data));
     } catch (err) {
       console.log(err);
@@ -89,7 +109,6 @@ export const fetchDataForInterestedProduct = (interestedData) => {
     try {
       const { productId, userToken, isInterested } = interestedData;
       if (isInterested) {
-        console.log("dfb");
         response = await axios.post(
           "http://localhost:5000/interested_update",
           { productId, isInterested },
@@ -99,16 +118,19 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-        console.log(response.data);
-        console.log(response.data.status)
-        if(response.data.status === "success")
-        {  console.log("bleh")
-          socket.emit("admin decline/approve/interested event", response.data.seller_id);
-          socket.emit("admin decline/approve/interested event", response.data.buyer_id);
+
+        if (response.data.status === "success") {
+          socket.emit(
+            "admin decline/approve/interested event",
+            response.data.seller_id
+          );
+          socket.emit(
+            "admin decline/approve/interested event",
+            response.data.buyer_id
+          );
+        } else {
+          dispatch(addToInterested(response.data.updatedUser));
         }
-        else
-        console.log("jnen")
-        dispatch(addToInterested(response.data.updatedUser));
       } else {
         response = await axios.post(
           "http://localhost:5000/un_interested_update",
@@ -126,8 +148,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         //     );
         // dispatch(addToFavourites(response.data.updatedUser));
         //   } else {
-        //     
-        console.log(response.data);
+        //
         dispatch(addToInterested(response.data));
       }
     } catch (err) {
@@ -137,9 +158,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
 };
 // ==================================================================
 
-
 export const fetchDataForDeletingPublishedAds = (deletingData) => {
-  // console.log(deletingData);
   const { token, productId } = deletingData;
   return async (dispatch) => {
     try {
@@ -160,13 +179,10 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 };
 // ==================================================================
 
-
 export const fetchDataForPhoneNoAuth = (phoneData) => {
   const { token, phoneNo, flag } = phoneData;
-  // console.log(token);
   return async (dispatch) => {
     try {
-      // console.log(flag);
       const response = await axios.post(
         "http://localhost:5000/mobile_no_update",
         { phoneNo, flag },
@@ -177,99 +193,44 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
         }
       );
       // console.log(response.data);
-
-      if (flag === false) {
-        dispatch(phoneAuth(response.data));
-      } else {
-        const { token } = JSON.parse(window.localStorage.getItem("auth"));
-        const data = {
-          isLogin: true,
-          token: token,
-          user: response.data.user,
-        };
-        window.localStorage.setItem("auth", JSON.stringify(data));
-        console.log(JSON.parse(window.localStorage.getItem("auth")));
-        dispatch(AuthUser(data));
-      }
+      // if (flag === false) {
+      //   dispatch(phoneAuth(response.data));
+      // } else {
+      const data = {
+        isLogin: true,
+        token: token,
+        user: response.data.user,
+      };
+      window.localStorage.setItem("auth", JSON.stringify(data));
+      // console.log(JSON.parse(window.localStorage.getItem("auth")));
+      dispatch(AuthUser(data));
+      // }
     } catch (err) {
       console.log(err);
     }
   };
 };
 
-// ====================================================================
-
-
-// export const  fetchDataForSendingEmails=(data)=>{
-//   // const {token,productId,flag}=data;
-//  return async (dispatch)=>{
-//    try{
-
-
-//    }catch (err){
-//      console.log(err);
-//    }
-//  }
-
-// }
 // =====================================================================
 export const actionForLikeThread = (likeData) => {
-  console.log(likeData);
   return async (dispatch) => {
     try {
       await axios.post(
         "http://localhost:5000/like_and_dislike_threads",
-        { status: likeData.status, comment_id: likeData.commentId, thread_id: likeData.cardId, reply_id: likeData.replyId },
+        {
+          status: likeData.status,
+          comment_id: likeData.commentId,
+          thread_id: likeData.cardId,
+          reply_id: likeData.replyId,
+        },
         {
           headers: {
             Authorization: `Bearer ${likeData.token}`,
           },
         }
       );
-      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
-  }
-
-}
-export const actionForDeleteThread = (data) => {
-  console.log(data);
-  return async (dispatch) => {
-    try {
-      // const response =
-      await axios.post(
-        "http://localhost:5000/product_details",
-        {  },
-        {
-          headers: {
-           // Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      // console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
-export const actionForDeleteThreadComment = (data) => {
-  console.log(data);
-  return async (dispatch) => {
-    try {
-
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
-export const actionForDeleteThreadReply = (data) => {
-  console.log(data);
-  return async (dispatch) => {
-    try {
-
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+  };
+};

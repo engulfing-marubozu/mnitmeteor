@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import axios from "axios";
 import HomeCard from "../Cards/HomeCard";
 import { useParams } from "react-router-dom";
@@ -6,6 +7,9 @@ import { useSelector } from "react-redux";
 import { Button, Grid, Container, styled, Box } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
 import HomeCardSkeleton from "../Cards/HomeCardSkeleton";
+import EmptySpace from "../_EmptySpaces/emptySpace";
+import { mainPageEmpty } from "../_EmptySpaces/EmptySvg";
+
 export const ModelOutlinedButton = styled(Button)(({ theme }) => ({
   lineHeight: 1.5,
   borderColor: deepPurple[700],
@@ -18,22 +22,21 @@ export const ModelOutlinedButton = styled(Button)(({ theme }) => ({
 }));
 
 function ProductCard(props) {
+  const [cardData, setCardData] = useState();
+  const [loadMore, setLoadMore] = useState(20);
   const params = useParams();
   const category = props.Category ? props.Category : params.category;
-  const [cardData, setCardData] = useState();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
-  const email = useSelector((state) => state.loginlogoutReducer.userData?.email);
-  const [loadMore, setLoadMore] = useState(20);
+  const email = useSelector(
+    (state) => state.loginlogoutReducer.userData?.email
+  );
   // ==========================================================================================
   const LoadMoreHandler = () => {
     setLoadMore((prev) => {
-      return (prev + 4 < cardData.length ? prev + 4 : cardData.length)
-    })
-  }
-
-
+      return prev + 4 < cardData.length ? prev + 4 : cardData.length;
+    });
+  };
   useEffect(() => {
-    // console.log(category);
     let isSubscribed = true;
     const Call = async () => {
       try {
@@ -41,7 +44,6 @@ function ProductCard(props) {
           category,
           email,
         });
-        // console.log(cardDetails.data);
         if (isSubscribed) {
           setCardData(cardDetails.data);
         }
@@ -52,21 +54,29 @@ function ProductCard(props) {
     Call();
     return () => (isSubscribed = false);
   }, [category, email, isLoggedIn]);
-
-  // console.log(cardData);
   return (
-    <main>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Container
-        sx={{ pt: { xs: 5 }, pb: { xs: 5 }, maxWidth: { xs: "100%", sm: "sm", md: "md", lg: "lg" } }}
+        sx={{
+          pt: { xs: 5 },
+          pb: { xs: 5 },
+          maxWidth: { xs: "100%", sm: "sm", md: "md", lg: "lg" },
+        }}
       >
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-          {(typeof (cardData) === "undefined" ? Array.from(new Array(24)).map((data, index) => {
-            return (
-              <Grid item xs={6} md={4} lg={3} key={index} >
-                <HomeCardSkeleton />
-              </Grid>
-            )
-          }) :
+          {typeof cardData === "undefined" ? (
+            Array.from(new Array(24)).map((data, index) => {
+              return (
+                <Grid item xs={6} md={4} lg={3} key={index}>
+                  <HomeCardSkeleton />
+                </Grid>
+              );
+            })
+          ) : cardData.length > 0 ? (
             cardData?.slice(0, loadMore).map((data, index) => {
               if (data !== null) {
                 return (
@@ -74,20 +84,29 @@ function ProductCard(props) {
                     <HomeCard cardData={data} />
                   </Grid>
                 );
-              }
-              else
-                return null;
-            }))}
+              } else return null;
+            })
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
+              <EmptySpace source={mainPageEmpty[`${category}`]} />
+            </Box>
+          )}
         </Grid>
       </Container>
-      {
-        (typeof (cardData) !== "undefined" && loadMore < cardData?.length) && (
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
-            <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>Load More</ModelOutlinedButton>
-          </Box>)
-      }
-
-    </main>
+      {typeof cardData !== "undefined" && loadMore < cardData?.length && (
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+          <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>
+            Load More
+          </ModelOutlinedButton>
+        </Box>
+      )}
+    </motion.div>
   );
 }
 

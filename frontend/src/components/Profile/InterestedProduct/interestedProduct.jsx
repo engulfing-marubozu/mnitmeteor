@@ -1,14 +1,21 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Box, Container, Grid } from "@mui/material";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import StylingInterestedProduct from "./stylingInterestedProduct";
+import CardForInterestedProduct from "./CardForInterestedProduct";
+import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
+import EmptySpace from "../../_EmptySpaces/emptySpace";
+import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
 function InterestedProduct(props) {
-  const [arr, setarr] = useState();
+  const [cardData, setCardData] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
-  const interestedList = useSelector((state) => state.InterestedReducer?.interestedData)
+  const interestedList = useSelector(
+    (state) => state.InterestedReducer?.interestedData
+  );
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
@@ -19,25 +26,72 @@ function InterestedProduct(props) {
             authorization: `Bearer ${token}`,
           },
         }
-      ); if (isSubscribed) {
-        setarr(response.data);
-        // console.log(response.data);
+      );
+      if (isSubscribed) {
+        setCardData(response.data);
       }
-
     }
 
     call();
     return () => {
-      return isSubscribed = false;
-    }
+      return (isSubscribed = false);
+    };
   }, [interestedList, token]);
-
-  const arrlength = typeof (arr) === "undefined" ? 0 : arr.length;
-  // console.log(arrlength);
-  // console.log(arr); 
+  // console.log(cardData);
   // ====================================================================================================================================
   return (
-    <StylingInterestedProduct length={arrlength} arr={arr}></StylingInterestedProduct>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Box sx={{ py: "2rem" }}>
+        <Container sx={{ maxWidth: { xs: "100%", md: "97%", lg: "90%" } }}>
+          <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
+            {typeof cardData === "undefined" ? (
+              Array.from(new Array(3)).map((data, index) => {
+                return (
+                  <Grid item xs={6} md={4} key={index}>
+                    <HomeCardSkeleton />
+                  </Grid>
+                );
+              })
+            ) : cardData.length > 0 ? (
+              cardData.map((data, index) => {
+                if (data !== null) {
+                  return (
+                    <Grid item xs={6} md={4} key={index}>
+                      <CardForInterestedProduct cardData={data} />
+                    </Grid>
+                  );
+                } else return null;
+              })
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                }}
+              >
+                <EmptySpace source={profileEmpty.myOrders} />
+              </Box>
+            )}
+          </Grid>
+        </Container>
+      </Box>
+    </motion.div>
   );
 }
 export default InterestedProduct;
+
+// {typeof cardData !== "undefined" &&
+//       cardData.map((data, index) => {
+//         if (data !== null) {
+//           return (
+//             <Grid item xs={6} md={4} key={index}>
+//               <CardForInterestedProduct cardData={data} />
+//             </Grid>
+//           );
+//         } else return null;
+//       })}

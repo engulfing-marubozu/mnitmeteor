@@ -1,11 +1,11 @@
-// import { Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import ProfileContentBox from "./newProfilePage/profileContentBox";
-// import InterestedProduct from "./InterestedProduct/interestedProduct";
-import ProfilePage from "./ProfilePage/ProfilePage";
-// import PublishedAds from "./PublishedAds/publishedAds";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { Carousel } from "./CardSlider";
+import SuccessfulSubmission from "../ModelPopUP/onFormSubmission";
+import POPUPElement from "../ModelPopUP/POPUPElement";
+import { sellPopUp } from "../../AStatemanagement/Actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: {
@@ -32,44 +32,39 @@ const theme = createTheme({
 });
 
 function Profile() {
+  const dispatch = useDispatch();
+  const submitPopUp = useSelector((state) => state.ModelPopUpReducer.sellPopUp);
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLoggedIn = localUserData.isLogin;
+  const SubmitPopUpHandler = () => {
+    dispatch(sellPopUp(false));
+  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      {/* <ProfilePage /> */}
-       <ProfileContentBox />
-      
-    
-
-    </ThemeProvider >
-
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
+        {submitPopUp && isLoggedIn && (
+          <POPUPElement
+            open={submitPopUp}
+            onClose={SubmitPopUpHandler}
+            portelId={"portal"}
+          >
+            <SuccessfulSubmission onClose={SubmitPopUpHandler}>
+              what is your name my name is deeepak
+            </SuccessfulSubmission>
+          </POPUPElement>
+        )}
+      </motion.div>
+    </ThemeProvider>
   );
 }
 
-export default Profile; 
-// {/* <Typography  */}
-// variant={"h4"}
-// fontWeight={"bold"}
-// sx={{
-//   px: "20px",
-//   py: "20px",
-//   mr: { xs: 1, md: 10 },
-//   display: "flex",
-//   justifyContent: "flex-end",
-// }}
-// > Published Ads
-// </Typography >
-// < PublishedAds />
-// <Typography
-// variant={"h4"}
-// fontWeight={"bold"}
-// sx={{
-//   px: "20px",
-//   py: "20px",
-//   mr: { xs: 1, md: 10 },
-//   display: "flex",
-//   justifyContent: "flex-end",
-// }}
-// >
-// Your Orders
-// </Typography >
-// <InterestedProduct length={0} />
-// {/* <Carousel />  */}
+export default Profile;

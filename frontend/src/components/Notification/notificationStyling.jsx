@@ -30,8 +30,6 @@ export const NotificationCardStyle = makeStyles({
     },
     readMore: {
         color: prop => prop > 0 ? "#2e7d32" : prop < 0 ? "#c62828" : "#673ab7",
-        // fontWeight: "bold",
-        // fontSize: "16px"
     }
 
 })

@@ -25,6 +25,7 @@ const port = 5000;
 // Database connection
 
 database_url = process.env.MONGODB_ATLAS;
+console.log(database_url);
 // console.log(database_url);
 mongoose
   .connect(database_url)
@@ -39,7 +40,7 @@ mongoose
 app.use(cors());
 app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyparser.json({ limit: "50mb" }));
-fs.readdirSync("./Routes").map((f) => app.use("/", require(`./Routes/${f}`)));
+fs.readdirSync("./routes").map((f) => app.use("/", require(`./routes/${f}`)));
 
 // socket io route and connects each time you run the server
 

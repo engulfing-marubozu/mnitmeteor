@@ -63,7 +63,6 @@ export function EmailForResetPassword(props) {
     setIsSubmit(true);
   }
   useEffect(() => {
-    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       ///VERIFY EMAIL WITH EXISTING DATA
       verifyResetPasswordEmail();

@@ -17,7 +17,7 @@ export default function MenuBarCategory({ menuClose }) {
   // ==============================
   return (
     <>
-      <Box sx={{ ml: "2rem" }}>
+      <Box sx={{ ml: "2.25rem" }}>
         <MenuItem onClick={() => { CategoryItemHandler("Book") }}><BookIcon fontSize="small" sx={{ mr: 2 }} />Books</MenuItem>
         <MenuItem onClick={() => { CategoryItemHandler("Cloth") }}><CheckroomIcon fontSize="small" sx={{ mr: 2 }} />Clothes</MenuItem>
         <MenuItem onClick={() => { CategoryItemHandler("Cycle") }}><DirectionsBikeIcon fontSize="small" sx={{ mr: 2 }} />Cycles</MenuItem>

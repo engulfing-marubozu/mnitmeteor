@@ -1,6 +1,6 @@
 const express = require("express");
 const {signUp , signIn, resetPassword, resendOtp} = require("../controllers/auth");
-const {mobile_no_update} = require("../Controllers/Profile_update/Mobile_no_update")
+const {mobile_no_update} = require("../controllers/Profile_update/Mobile_no_update")
 const {authorization} = require("../Middlewares/authorization")
 const router = express.Router();
 

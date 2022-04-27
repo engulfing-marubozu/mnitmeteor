@@ -8,7 +8,6 @@ function UploadDoc({ name, ...otherProps }) {
     const [showUpload, setShowUpload] = useState({ status: true, fileName: ' ' });
     const { setFieldValue } = useFormikContext();
     const [, meta] = useField(name);
-    console.log(meta);
 
     const ChangeHandler = (event) => {
         const file = event.target.files[0];

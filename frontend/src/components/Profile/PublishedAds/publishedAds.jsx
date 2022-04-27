@@ -10,7 +10,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
-  const [cardData, setCardData] = useState();
+  const [cardData, setCardData] = useState(false);
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
   const publishedAdsData = useSelector(
@@ -36,7 +36,7 @@ function PublishedAds() {
       isSubscribed = false;
     };
   }, [publishedAdsData, token]);
-  console.log(cardData);
+  // console.log(cardData);
   // ===================================================================================================================================================================
   return (
     <motion.div

@@ -27,7 +27,7 @@ import {
 } from "../_Styling/cardStyling";
 
 export default function HomeCard({ cardData ,index}) {
-  const [likeButton, setLikeButton] = useState();
+  const [likeButton, setLikeButton] = useState(false);
   const Image = cardData?.images[0]?.image;
   const title =
     cardData?.title.charAt(0).toUpperCase() + cardData?.title.slice(1);
@@ -41,6 +41,7 @@ export default function HomeCard({ cardData ,index}) {
 
   React.useEffect(() => {
     setLikeButton(cardData.blue_heart);
+    // return ()=>{s
   }, [cardData.blue_heart]);
 
   const LikeButtonHandler = () => {
@@ -56,7 +57,7 @@ export default function HomeCard({ cardData ,index}) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
-  console.log(cardData.blue_heart ,index);
+  console.log(cardData.blue_heart ,index,likeButton);
  
   // ===================================================================================================================================
   return (

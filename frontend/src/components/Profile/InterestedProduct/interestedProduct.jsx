@@ -10,7 +10,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
 function InterestedProduct(props) {
-  const [cardData, setCardData] = useState();
+  const [cardData, setCardData] = useState(false);
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
   const interestedList = useSelector(
@@ -37,7 +37,7 @@ function InterestedProduct(props) {
       return (isSubscribed = false);
     };
   }, [interestedList, token]);
-  console.log(cardData);
+  // console.log(cardData);
   // ====================================================================================================================================
   return (
     <motion.div

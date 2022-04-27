@@ -26,7 +26,7 @@ export const lostFoundEmpty = {
 
   foundItems: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650803479/Curious-rafiki_pz4bpy.svg",
-    text: "This is the page for all unattended items found in the campus ",
+    text: "This is the page for all unattended items found in the campus. ",
   },
   myItems: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650802163/No_data-pana_1_gonjav.svg",
@@ -36,7 +36,7 @@ export const lostFoundEmpty = {
 export const profileEmpty = {
   myAds: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650879269/product-presentation-animate_nzfkcr.svg",
-    text: "The ads your publish will appear here. Go ahead and publish some ads by clicking the sell now button. ",
+    text: "The ads you publish will appear here. Go ahead and publish some ads by clicking the sell now button. ",
   },
 
   myOrders: {

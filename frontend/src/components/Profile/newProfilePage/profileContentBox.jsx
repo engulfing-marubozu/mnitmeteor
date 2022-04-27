@@ -34,7 +34,7 @@ function ProfileContentBox() {
     <Box>
       <Paper className={classes.bannerBack}>
         <Box className={classes.smlUserBox}>
-          <Typography className={classes.nameTypo}>2019UME1827</Typography>
+          <Typography className={classes.nameTypo}>{userId}</Typography>
         </Box>
       </Paper>
       <Box className={classes.parentBox}>

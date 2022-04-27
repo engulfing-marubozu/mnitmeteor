@@ -17,6 +17,7 @@ const products = async (req, res) => {
     const user_id = req.user._id;
     // console.log(user_id);
     // console.log(req.user);
+    console.log(image_array);
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
@@ -27,7 +28,7 @@ const products = async (req, res) => {
       })
     );
 
-    //  console.log(image_cloud_link);
+      console.log(image_cloud_link);
 
     const Product_save = new Product({
       title: title,
@@ -126,7 +127,7 @@ const fetch_livedata = async (req, res) => {
       //  console.log("hello");
       fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
 
-      //   console.log(fetch_post);
+        console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
       //  console.log("hemllo");

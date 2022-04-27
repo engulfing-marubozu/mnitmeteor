@@ -46,7 +46,7 @@ function NotificationPage({ setDrawer }) {
         ) : notifications.length > 0 ? (
           notifications.map((data, index) => {
             if (data) {
-              return <NotificationCard data={data} key={index} />;
+              return <NotificationCard data={data} key={index} index={index} />;
             } else {
               return null;
             }

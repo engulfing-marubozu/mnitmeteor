@@ -3,9 +3,12 @@ import { Box, Typography, IconButton, Tooltip, Paper } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NotificationCardStyle } from "./notificationStyling";
 import NotificationReadMore from "./notificationReadMore";
-function NotificationCard({ data }) {
+import { useSelector } from "react-redux";
+function NotificationCard({ data ,index}) {
+  // const localUserData=useSelector((state)=>state.loginlogout)
   const DeleteHandler = () => {
     console.log("deepak ");
+
   };
   // const status = 1;
   const classes = NotificationCardStyle(data.status);

@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Box, Typography, IconButton, Tooltip, Paper } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NotificationCardStyle } from "./notificationStyling";
@@ -7,10 +8,22 @@ import { useSelector } from "react-redux";
 function NotificationCard({ data ,index}) {
   const localUserData=useSelector((state)=>state.loginlogoutReducer)
   const token=localUserData.token;
-  const DeleteHandler = () => {
-    console.log("deepak ");
-    console.log(index,token);
-    // console.log(token)
+  const DeleteHandler = async () => {
+    try {
+      const response =
+     await axios.post(
+       "http://localhost:5000/delete_notification",
+       { index : index },
+       {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       }
+     );
+      console.log(response.data);
+   } catch (err) {
+     console.log(err);
+   }
 
   };
   // const status = 1;

@@ -31,6 +31,7 @@ const delete_thread = async (req, res) => {
     if (req.body.flag === 1) {
         console.log("habibi")
       const all_thread = await Thread.find({});
+      console.log(all_thread);
       res.status(200).send( all_thread );
     } else if (req.body.flag === 2) {
       const saved_thread_data = await User.findOne({ _id: user_id });

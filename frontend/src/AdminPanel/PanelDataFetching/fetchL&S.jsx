@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import LostFoundPanel from '../AdminPanelCard/lostfoundPanel';
+import { socket } from '../../components/Navbar/navbar';
 // import { socket } from '../../components/Navbar/navbar';
 import axios from "axios";
 
@@ -16,11 +17,15 @@ function FetchLostFound() {
     const ApproveRequestLF = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-            await axios.post("http://localhost:5000/adminresponse", {
+          const response =  await axios.post("http://localhost:5000/adminresponse", {
                 to_approve: true,
                 posted_by: cardData.posted_by,
                 _id: cardData._id,
             });
+            if (response.data === "product approved") {
+                socket.emit("admin approve event");
+                socket.emit("admin decline/approve/interested event", cardData.posted_by);
+            }
             if (mountedRef.current) {
                 handleExpandClick();
                 setlfFlag(!lfFlag);
@@ -33,11 +38,14 @@ function FetchLostFound() {
     const DeclineRequestLF = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-            await axios.post("http://localhost:5000/adminresponse", {
+           const response = await axios.post("http://localhost:5000/adminresponse", {
                 to_approve: false,
                 posted_by: cardData.posted_by,
                 _id: cardData._id,
             });
+            if (response.data === "product Ad request declined") {
+                socket.emit("admin decline/approve/interested event",  cardData.posted_by);
+            }
             if (mountedRef.current) {
                 handleExpandClick();
                 setlfFlag(!lfFlag);

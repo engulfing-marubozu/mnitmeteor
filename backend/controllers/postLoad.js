@@ -129,6 +129,7 @@ const admin_response = async (req, res) => {
 const fetch_livedata = async (req, res) => {
   // console.log(req.body.email);
   //  console.log("reached to pick up data");
+  
   try {
     const email = req.body.email;
     const category = req.body.category;
@@ -146,7 +147,8 @@ const fetch_livedata = async (req, res) => {
         .equals(category)
         .where("is_verified")
         .equals(true);
-      //  console.log(fetch_post);
+        console.log("bhak bc");
+      console.log(fetch_post);
       //    res.status(200).send(fetch_post);
     }
 
@@ -165,7 +167,6 @@ const fetch_livedata = async (req, res) => {
       res.status(200).send(fetch_post);
     } else res.status(200).send(fetch_post);
   } catch (err) {
-    res.status.send("404");
     console.log(err);
   }
 };

@@ -12,6 +12,7 @@ const HandleAdmin = async (req, res) => {
   approval = req.body.to_approve;
   id = req.body._id;
   refID = req.body.posted_by;
+  const date = new Date();
   if (approval) {
     console.log("approve ho gaya ");
     LostItem.findOneAndUpdate(
@@ -24,14 +25,32 @@ const HandleAdmin = async (req, res) => {
     await User.findByIdAndUpdate(refID, {
       $addToSet: { lf_items_posted: id },
     });
+    const xy=  await User.findByIdAndUpdate(req.body.posted_by, {
+      $addToSet: {
+        notification: {
+          status: 1,
+          content: `Dear user, your lost/found item has been approved.`,
+          createdAt :date,
+        },
+      },
+    });
     console.log("Updated user database");
-    res.send("Approved");
+    res.send("product approved");
     // console.log(saveLostItem);
   } else {
     console.log(id);
     console.log("This item should be deleted");
     await LostItem.findOneAndDelete({ _id: id });
-    res.send("Deleted");
+    const xy=  await User.findByIdAndUpdate(req.body.posted_by, {
+      $addToSet: {
+        notification: {
+          status: -1,
+          content: `Dear user, your lost/found item has been deleted as it did not meet our policy.`,
+          createdAt :date,
+        },
+      },
+    });
+    res.send("product Ad request declined");
   }
 };
 const SendLost = async (req, res) => {

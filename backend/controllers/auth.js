@@ -64,10 +64,11 @@ const signUp = async (req, res) => {
         });
       });
     } else {
+      console.log("phas gaya");
       const findUser = await User.findOne({ email });
       if (findUser) return res.status(200).send("already registered");
 
-      otp = Math.floor(Math.random() * 1000 + 1000);
+       otp = Math.floor(Math.random() * 1000 + 1000);
 
       const sendH = "Your OTP is " + otp;
       const msg = {

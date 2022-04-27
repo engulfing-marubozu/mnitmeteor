@@ -192,19 +192,13 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           },
         }
       );
-      // console.log(response.data);
-      // if (flag === false) {
-      //   dispatch(phoneAuth(response.data));
-      // } else {
       const data = {
         isLogin: true,
         token: token,
         user: response.data.user,
       };
       window.localStorage.setItem("auth", JSON.stringify(data));
-      // console.log(JSON.parse(window.localStorage.getItem("auth")));
       dispatch(AuthUser(data));
-      // }
     } catch (err) {
       console.log(err);
     }

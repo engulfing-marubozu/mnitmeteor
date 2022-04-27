@@ -26,7 +26,7 @@ import {
   CardStyleSecond,
 } from "../_Styling/cardStyling";
 
-export default function HomeCard({ cardData }) {
+export default function HomeCard({ cardData ,index}) {
   const [likeButton, setLikeButton] = useState();
   const Image = cardData?.images[0]?.image;
   const title =
@@ -56,6 +56,8 @@ export default function HomeCard({ cardData }) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
+  console.log(cardData.blue_heart ,index);
+ 
   // ===================================================================================================================================
   return (
     <motion.div

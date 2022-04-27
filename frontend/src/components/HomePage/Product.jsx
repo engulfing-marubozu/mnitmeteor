@@ -81,7 +81,7 @@ function ProductCard(props) {
               if (data !== null) {
                 return (
                   <Grid item xs={6} md={4} lg={3} key={index}>
-                    <HomeCard cardData={data} />
+                    <HomeCard cardData={data} index={index} />
                   </Grid>
                 );
               } else return null;

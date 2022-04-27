@@ -36,6 +36,7 @@ function PublishedAds() {
       isSubscribed = false;
     };
   }, [publishedAdsData, token]);
+  console.log(cardData);
   // ===================================================================================================================================================================
   return (
     <motion.div

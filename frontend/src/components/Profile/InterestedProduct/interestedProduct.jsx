@@ -37,7 +37,7 @@ function InterestedProduct(props) {
       return (isSubscribed = false);
     };
   }, [interestedList, token]);
-  // console.log(cardData);
+  console.log(cardData);
   // ====================================================================================================================================
   return (
     <motion.div

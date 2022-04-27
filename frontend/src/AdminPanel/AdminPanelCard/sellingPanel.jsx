@@ -66,11 +66,8 @@ function SellingPanel({ data, ApproveRequest, DeclineRequest }) {
                 </Box>
                 <CardContent sx={{ py: 0 }}>
                     <Typography variant="h6">{title}</Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" >
                         {description}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, praesentium necessitatibus. Sunt architecto ut esse
-                        voluptatum tempore velit blanditiis eligendi debitis dignissimos, exercitationem omnis u
-                        llam officia eum mollitia veniam ipsam.
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing sx={{ px: "1rem" }}>

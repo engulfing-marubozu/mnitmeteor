@@ -23,8 +23,12 @@ const products = async (req, res) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url
         );
-
-        return { image: image_upload_response.url };
+        const thumbnail_upload_response = await  cloudinary.v2.uploader.upload(
+          image.data_url ,
+          {transormation:
+          {width: 250, height: 150, crop: "scale"}}
+        )
+        return { image: image_upload_response.url , thumbnail: thumbnail_upload_response.url };
       })
     );
 
@@ -40,9 +44,9 @@ const products = async (req, res) => {
     try {
       const saved_product = await Product_save.save();
       console.log(saved_product);
-      await User.findByIdAndUpdate(user_id, {
-        $addToSet: { products_posted: saved_product._id },
-      });
+      // await User.findByIdAndUpdate(user_id, {
+      //   $addToSet: { products_posted: saved_product._id },
+      // });
 
       res
         .status(200)
@@ -86,6 +90,9 @@ const admin_response = async (req, res) => {
     if (response) {
       console.log("came to save in database");
       await Product.findOneAndUpdate({ _id: id }, { is_verified: true });
+      await User.findByIdAndUpdate(user_id, {
+        $addToSet: { products_posted: id },
+      });
       await User.findByIdAndUpdate(user_id, {
         $addToSet: {
           notification: {

@@ -53,7 +53,7 @@ const interested_update= async (req, res)=>
 
 
 // always try to use async await in mongoose queries
-// this function will fetch the user id from the jwt token and will will return all the interested of any user
+// this function will fetch the user id from the jwt token and will return all the interested of any user
 const send_interested_products = async (req, res) => {
     console.log("deepak ");
     console.log(req.user._id);

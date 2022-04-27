@@ -37,7 +37,7 @@ const delete_published_Ads = async (req, res) => {
       { $pull: { products_posted: product_id } },
       { new: true }
     );
-
+  console.log(likes);
     if (likes.length > 0) {
       await likes.map(async (user) => {
         await User.findByIdAndUpdate(user._id, {

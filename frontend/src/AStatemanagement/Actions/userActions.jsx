@@ -185,7 +185,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
     try {
       const response = await axios.post(
         "http://localhost:5000/mobile_no_update",
-        { phoneNo, flag },
+        { phoneNo },
         {
           headers: {
             Authorization: `Bearer ${token}`,

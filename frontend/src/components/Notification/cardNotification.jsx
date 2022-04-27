@@ -5,9 +5,12 @@ import { NotificationCardStyle } from "./notificationStyling";
 import NotificationReadMore from "./notificationReadMore";
 import { useSelector } from "react-redux";
 function NotificationCard({ data ,index}) {
-  // const localUserData=useSelector((state)=>state.loginlogout)
+  const localUserData=useSelector((state)=>state.loginlogoutReducer)
+  const token=localUserData.token;
   const DeleteHandler = () => {
     console.log("deepak ");
+    console.log(index,token);
+    // console.log(token)
 
   };
   // const status = 1;

@@ -93,21 +93,25 @@ const admin_response = async (req, res) => {
       await User.findByIdAndUpdate(user_id, {
         $addToSet: { products_posted: id },
       });
+      const date = new Date();
       await User.findByIdAndUpdate(user_id, {
         $addToSet: {
           notification: {
             status: 1,
             content: `Dear user, your Ad request for the product ${product_title} has been approved. We will notify you once we get any interested buyer for your item.`,
+            createdAt :date,
           },
         },
       });
       res.status(200).send("product approved");
     } else {
+      const date = new Date();
       await User.findByIdAndUpdate(user_id, {
         $addToSet: {
           notification: {
             status: -1,
             content: `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`,
+            createdAt :date,
           },
         },
       });
@@ -161,6 +165,7 @@ const fetch_livedata = async (req, res) => {
       res.status(200).send(fetch_post);
     } else res.status(200).send(fetch_post);
   } catch (err) {
+    res.status.send("404");
     console.log(err);
   }
 };
@@ -184,6 +189,7 @@ const send_specific_product = async (req, res) => {
     console.log(product);
     res.status(200).send(product);
   } catch (err) {
+    res.status(200).send("404");
     console.log(err);
   }
 };

@@ -86,7 +86,7 @@ function ProductCard(props) {
             ? cardData?.slice(0, loadMore).map((data, index) => {
                 if (data !== null) {
                   return (
-                    <Grid item xs={6} md={4} lg={3} key={index}>
+                    <Grid item xs={6} md={4} lg={3} key={data._id}>
                       <HomeCard cardData={data} index={index} />
                     </Grid>
                   );

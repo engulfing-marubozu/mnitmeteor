@@ -1,6 +1,6 @@
 const express = require("express");
 const {new_thread,handle_admin_thread} = require("../controllers/Threads/create_thread");
-const { fetch_live_threads, fetch_own_threads,fetch_false_threads} = require("../controllers/Threads/send_thread");
+const { fetch_live_threads, fetch_own_threads,fetch_false_threads, specific_thread} = require("../controllers/Threads/send_thread");
 const {  send_saved_threads } = require("../controllers/Threads/send_saved_threads");
 const { save_threads} = require("../controllers/Threads/save_thread");
 const { delete_thread } = require("../controllers/Threads/delete_thread");
@@ -15,6 +15,7 @@ const router = express.Router();
 
 router.post('/create_thread', authorization, new_thread); //saves with is_verified false
 router.post('/fetch_live_threads',  fetch_live_threads);
+router.post('/send_specific_thread',  specific_thread);
 router.get('/fetch_own_threads', authorization, fetch_own_threads)
 router.get('/fetch_false_threads',fetch_false_threads);
 router.post('/handle_admin_thread',handle_admin_thread);

@@ -42,7 +42,7 @@ const delete_thread = async (req, res) => {
       );
       console.log(array);
       res.status(200).send(array);
-    } else {
+    } else if(flag===3){
       const saved_thread_data = await User.findOne({ _id: user_id });
       const array = await Promise.all(
         saved_thread_data.threads_posted.map(async (object) => {
@@ -51,6 +51,9 @@ const delete_thread = async (req, res) => {
       );
       console.log(array);
       res.status(200).send(array);
+    }
+    else{
+      res.status(200).send();
     }
   } catch (err) {
     res.status(200).send(err);

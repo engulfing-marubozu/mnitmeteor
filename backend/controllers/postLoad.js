@@ -24,11 +24,10 @@ const products = async (req, res) => {
           image.data_url
         );
         const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
-          image.data_url,
-          {
-            transormation:
-              { width: 250, height: 150, crop: "scale" }
-          }
+          image.data_url,{
+            width: 250, height: 150, 
+            crop: "thumb"
+        }
         )
         return { image: image_upload_response.url, thumbnail: thumbnail_upload_response.url };
       })
@@ -136,21 +135,24 @@ const fetch_livedata = async (req, res) => {
     const email = req.body.email;
     const category = req.body.category;
     let fetch_post;
+    const start = req.body.pointer;
     //   console.log(category);
     if (category === "recommendation") {
       //  console.log("hello");
-      fetch_post = await Product.where("is_verified").equals(true).sort({ createdAt: -1 });
+      fetch_post = await Product.find({is_verified:true}).skip(pointer).limit(20).sort({date:-1});
 
       console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
       //  console.log("hemllo");
-      fetch_post = await Product.where("category")
-        .equals(category)
-        .where("is_verified")
-        .equals(true);
-        console.log("bhak bc");
+      // fetch_post = await Product.where("category")
+      //   .equals(category)
+      //   .where("is_verified")
+      //   .equals(true);
+      //   console.log("bhak bc");
+        fetch_post = await Product.find({is_verified:true, category: category}).skip(pointer).limit(20).sort({date:-1});
       console.log(fetch_post);
+
       //    res.status(200).send(fetch_post);
     }
 

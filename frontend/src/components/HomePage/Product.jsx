@@ -45,6 +45,7 @@ function ProductCard(props) {
           category,
           email,
         });
+        console.log(cardDetails.data);
         if (isSubscribed) {
           setCardData(cardDetails.data);
         }

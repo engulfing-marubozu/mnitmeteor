@@ -180,7 +180,7 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 // ==================================================================
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  const { token, phoneNo, flag } = phoneData;
+  const { token, phoneNo} = phoneData;
   return async (dispatch) => {
     try {
       const response = await axios.post(

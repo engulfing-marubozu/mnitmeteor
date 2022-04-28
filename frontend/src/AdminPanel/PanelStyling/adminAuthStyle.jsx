@@ -34,7 +34,7 @@ export const AdminloginStyle = makeStyles({
     display: "flex",
     alignItems: "center",
     width: "100%",
-    height: "100vh",
+    minHeight: "100vh",
     backgroundColor: "#212121",
     position: "relative",
   },

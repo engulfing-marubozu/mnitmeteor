@@ -32,7 +32,6 @@ export default function UpdatePhoneNo(props) {
       const data = {
         token: token,
         phoneNo: phoneNoRef.current.value,
-        flag:true,
       };
       dispatch(fetchDataForPhoneNoAuth(data));
       props.closeUpdate();

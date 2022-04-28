@@ -33,12 +33,10 @@ export default function GetPhoneDetails(props) {
   }
   // ==================================================================================
   useEffect(() => {
-    // console.log(formErrors)
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       const data = {
         token: token,
         phoneNo: phoneNoRef.current.value,
-        flag: true,
       };
       dispatch(fetchDataForPhoneNoAuth(data));
       // ==========================================for Discription page =============

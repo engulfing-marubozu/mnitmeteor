@@ -1,5 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 import { IconButton, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -7,8 +8,6 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { FooterStyle } from "./footerStyling";
-import {useDispatch} from "react-redux"
-import { AdminPanelMode } from "../../AStatemanagement/Actions/userActions";
 
 function Copyright() {
   return (
@@ -23,7 +22,7 @@ function Copyright() {
   );
 }
 function Footer() {
-  const dispatch=useDispatch();
+  const Navigate=useNavigate();
   const classes = FooterStyle();
   return (
     <Box className={classes.mainBox}>
@@ -42,9 +41,12 @@ function Footer() {
           </Box>
           <Box className={classes.linkFixer}>
             <Typography className={classes.headingTypo}>Links</Typography>
-            <Link className={classes.linkStyle} onClick ={()=>{
-              dispatch(AdminPanelMode(true))
-            }}>
+            <Link
+              className={classes.linkStyle}
+              onClick={() => {
+                Navigate("/adminportel");
+              }}
+            >
               <Typography className={classes.linkTypo}>Admin Panel</Typography>
             </Link>
             <Link className={classes.linkStyle} href="#">

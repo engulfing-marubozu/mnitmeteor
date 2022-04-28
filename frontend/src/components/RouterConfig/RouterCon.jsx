@@ -8,7 +8,7 @@ import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
 import RenderDiscriptionCard from "../Cards/DiscriptionCard/renderDiscriptionCard";
 import Profile from "../Profile/Profile";
-import AdminPanel from "../../AdminPanel/adminpanel";
+// import AdminPanel from "../../AdminPanel/adminpanel";
 import Favourites from "../Favourites/Favourites";
 import DiscussionForm from "../Discussions/DiscussionForm/discussionForm";
 import DiscussionCardArray from "../Discussions/DiscussionPage/_discussionArray";
@@ -21,6 +21,9 @@ import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
 import SpecificThread from "../Discussions/discussionSpecificThread";
 import SpecificLostFound from "../Lost&Found/specificLostFound";
+import AdminPortel from "../../AdminPanel/AdminPortel/adminportel";
+import AdminLogin from "../../AdminPanel/AdminPortel/adminLogin";
+import AdminPanel from "../../AdminPanel/adminpanel";
 // import DeveloperNotes from "../Links/developerNotes";
 function RouterCon() {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
@@ -33,7 +36,7 @@ function RouterCon() {
     <AnimatePresence>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route index element={<ProductCard Category="recommendation" />} />
+          <Route index element={<ProductCard category="recommendation" />} />
           <Route path="product/:category" element={<ProductCard />} />
         </Route>
         <Route path="discussions" element={<Discussions />}>
@@ -57,7 +60,7 @@ function RouterCon() {
         <Route path="lost&found" element={<LostFound />}>
           <Route index element={<LostFoundCardArray />} />
           <Route path=":lnfCardId" element={<SpecificLostFound />} />
-          <Route path="lostitems" element={<LostItems />} />  
+          <Route path="lostitems" element={<LostItems />} />
           <Route path="founditems" element={<FoundItems />} />
           <Route
             path="lost&foundform"
@@ -85,7 +88,10 @@ function RouterCon() {
           element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
         />
         {/* <Route path="developernotes" element={<DeveloperNotes />} /> */}
-        <Route path="adminpanel" element={<AdminPanel />} />
+        <Route path="adminportel" element={<AdminPortel />}>
+          <Route index element={<AdminLogin />} />
+          <Route path="adminpanel" element={<AdminPanel />} />
+        </Route>
         <Route path="*" element={<div>No Page found </div>} />
       </Routes>
     </AnimatePresence>

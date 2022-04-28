@@ -56,25 +56,25 @@ export const mainPageEmpty = {
     svg:" ",
     text:" ",
   },
-  Book: {
+  books: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808352/Audiobook-pana_ytqtxn.svg",
     text: "Books can be our best friends, for all the right reasons. Help others by selling a book now by clicking the Sell Now button.",
   },
-  Cycle: {
+  cycle: {
     text: "Ever felt you don’t need your cycle anymore? Sell It now!",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650809045/Couple_bicycle-pana_xjlgr5.svg",
   },
 
-  Cloth: {
+  clothes: {
     text: "Sell your lab coats, uniforms by clicking the Sell Now Button. ",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808992/People_buying_halloween_stuff-rafiki_1_ryyaog.svg",
   },
-  Electronics: {
+  electronics: {
     text: "Being techies ourselves, we are sure something would come up here soon.",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808982/Nerd-amico_gjh2xw.svg",
   },
 
-  Others: {
+  others: {
     text: "others",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808780/Otters_swimming-amico_yuysm1.svg",
   },

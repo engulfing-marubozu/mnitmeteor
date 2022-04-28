@@ -25,7 +25,7 @@ export default function SpecificThread() {
         );
         if (isSubscribed) {
           if (response.data === 404) {
-            Navigate("*");
+            Navigate("/*");
           } else {
             setLnfData(response.data);
           }

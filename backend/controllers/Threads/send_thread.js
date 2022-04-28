@@ -57,4 +57,30 @@ const fetch_own_threads = async (req,res)=>{
   }
  }
  
-module.exports = {fetch_live_threads, fetch_own_threads,fetch_false_threads}
+const specific_thread =async (req, res)=>{
+  console.log("aa gayaaa");
+ const {email, thread_id} = req.body;
+ try{
+  if(email)
+  {
+    const thread = await Thread.findById(thread_id);
+   
+    const user = await User.findOne({email});
+    const saved_status = user.threads_saved.includes(thread_id);
+
+    res.status(200).send({thread, saved_status});
+     }
+  
+else{
+    const thread = await Thread.findById(thread_id);
+   
+    res.status(200).send({thread, saved_status:false});}
+
+ }
+ catch(err)
+ {
+    res.status(200).send("404");
+   console.log(err);
+ }
+} 
+module.exports = {fetch_live_threads, fetch_own_threads,fetch_false_threads, specific_thread}

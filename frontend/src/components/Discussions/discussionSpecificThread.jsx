@@ -18,14 +18,15 @@ export default function SpecificThread() {
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/send_specific_product",
+          "http://localhost:5000/send_specific_thread",
           { email, thread_id}
         );
         if (isSubscribed) {
           if (response.data === 404) {
             Navigate("/*");
           } else {
-            setDiscsnData(response.data);
+            console.log(response.data);
+            setDiscsnData(response.data.thread);
           }
         }
       } catch (err) {

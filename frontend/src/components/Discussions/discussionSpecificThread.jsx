@@ -25,7 +25,7 @@ export default function SpecificThread() {
           if (response.data === 404) {
             Navigate("/*");
           } else {
-            setDiscsnData(response.data);
+            setDiscsnData(response.data.thread);
           }
         }
       } catch (err) {

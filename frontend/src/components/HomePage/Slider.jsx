@@ -12,9 +12,9 @@ export default function CategorySlider() {
   const params = useParams();
   const paramstoIndex = {
     books: 0,
-    clothes: 1,
+    cycle: 1,
     electronics: 2,
-    cycle: 3,
+    uniform: 3,
     others: 4,
   };
   const [value, setValue] = React.useState(false);
@@ -55,15 +55,15 @@ export default function CategorySlider() {
         <StyledTab
           icon={
             <Avatar
-              alt="ClothIcon"
-              src={ClothIcon}
+              alt="BicycleIcon"
+              src={BicycleIcon}
               className={classes.avatar}
               variant="rounded"
             />
           }
-          label="Clothes"
+          label="Cycle"
           onClick={() => {
-            TabClickHandler("clothes");
+            TabClickHandler("cycle");
           }}
         />
         <StyledTab
@@ -80,18 +80,19 @@ export default function CategorySlider() {
             TabClickHandler("electronics");
           }}
         />
+
         <StyledTab
           icon={
             <Avatar
-              alt="BicycleIcon"
-              src={BicycleIcon}
+              alt="ClothIcon"
+              src={ClothIcon}
               className={classes.avatar}
               variant="rounded"
             />
           }
-          label="Bicycles"
+          label="Uniform"
           onClick={() => {
-            TabClickHandler("cycle");
+            TabClickHandler("uniform");
           }}
         />
         <StyledTab

@@ -15,7 +15,7 @@ function routeChecker(route) {
     "recommendation",
     "books",
     "cycle",
-    "clothes",
+    "uniform",
     "electronics",
     "others",
   ];

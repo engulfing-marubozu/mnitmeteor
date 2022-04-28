@@ -11,7 +11,7 @@ const delete_notification = async(req,res)=>{
     updated_array.splice(user.notification.length - 1 - index , 1 );
     console.log(user);
     await User.findByIdAndUpdate({"_id":user_id}, {"notification": updated_array});
-    res.status(200).send();
+    res.status(200).send(updated_array);
    }
    catch(err)
    {

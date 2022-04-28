@@ -28,7 +28,7 @@ function NotificationPage({ setDrawer }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // ===========================================================================================
-console.log(notifications)
+  console.log(notifications);
   const classes = NotificationPageStyle();
   return (
     <Box className={classes.mainBox}>
@@ -46,13 +46,20 @@ console.log(notifications)
         ) : notifications.length > 0 ? (
           notifications.map((data, index) => {
             if (data) {
-              return <NotificationCard data={data} key={index} index={index} />;
+              return (
+                <NotificationCard
+                  data={data}
+                  key={index}
+                  index={index}
+                  setNotifications={setNotifications}
+                />
+              );
             } else {
               return null;
             }
           })
         ) : (
-          <EmptySpace source={notificationEmpty.notification}/>
+          <EmptySpace source={notificationEmpty.notification} />
         )}
       </Box>
     </Box>

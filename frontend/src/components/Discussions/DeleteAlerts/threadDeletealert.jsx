@@ -51,7 +51,7 @@ export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
       if (flag === 4) {
           Navigate("/discussions");
       } else if (mountedRef.current) {
-        // console.log(response.data);
+        console.log(response.data);
         setThread(response.data);
       }
     } catch (err) {

@@ -3,30 +3,31 @@ import axios from "axios";
 import { Box, Typography, IconButton, Tooltip, Paper } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NotificationCardStyle } from "./notificationStyling";
+import { TimeSince } from "../TimeElapsed/timecalc";
 import NotificationReadMore from "./notificationReadMore";
 import { useSelector } from "react-redux";
-function NotificationCard({ data ,index}) {
-  const localUserData=useSelector((state)=>state.loginlogoutReducer)
-  const token=localUserData.token;
+function NotificationCard({ data, index, setNotifications }) {
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const token = localUserData.token;
   const DeleteHandler = async () => {
     try {
-      const response =
-     await axios.post(
-       "http://localhost:5000/delete_notification",
-       { index : index },
-       {
-         headers: {
-           Authorization: `Bearer ${token}`,
-         },
-       }
-     );
-      console.log(response.data);
-   } catch (err) {
-     console.log(err);
-   }
-
+      const response = await axios.post(
+        "http://localhost:5000/delete_notification",
+        { index: index },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setNotifications(response.data);
+      // console.log(response.data);/
+    } catch (err) {
+      console.log(err);
+    }
   };
-  // const status = 1;
+  const date = new Date(data.createdAt);
+  const properDate = TimeSince(date);
   const classes = NotificationCardStyle(data.status);
   return (
     <Paper className={classes.cardMainBox}>
@@ -43,7 +44,7 @@ function NotificationCard({ data ,index}) {
                   : "General"}
               </Typography>
               <Typography sx={{ mx: "10px", fontSize: "12px", mt: "3px" }}>
-                26 sep 2020
+                {properDate}
               </Typography>
             </Box>
             <IconButton sx={{ p: 0.5 }} onClick={DeleteHandler}>

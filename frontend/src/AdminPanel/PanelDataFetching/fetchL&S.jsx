@@ -80,10 +80,10 @@ function FetchLostFound() {
         <>
             {
                 lfData &&
-                lfData.map((product, index) => {
+                lfData.map((product) => {
                     return (
                         <LostFoundPanel
-                            key={index}
+                            key={product._id}
                             data={product}
                             ApproveRequest={ApproveRequestLF}
                             DeclineRequest={DeclineRequestLF}

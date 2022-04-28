@@ -65,7 +65,7 @@ export const mainPageEmpty = {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650809045/Couple_bicycle-pana_xjlgr5.svg",
   },
 
-  clothes: {
+  uniform: {
     text: "Sell your lab coats, uniforms by clicking the Sell Now Button. ",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808992/People_buying_halloween_stuff-rafiki_1_ryyaog.svg",
   },

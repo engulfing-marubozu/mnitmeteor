@@ -15,7 +15,7 @@ function routeChecker(route) {
     "recommendation",
     "books",
     "cycle",
-    "clothes",
+    "uniform",
     "electronics",
     "others",
   ];
@@ -24,6 +24,7 @@ function routeChecker(route) {
 function ProductCard(props) {
   const [cardData, setCardData] = useState();
   const [loadMore, setLoadMore] = useState(20);
+  const [pointer, setPointerData] = useState(1);
   const Navigate = useNavigate();
   const params = useParams();
   const category = props.category ? props.category : params.category;
@@ -33,8 +34,11 @@ function ProductCard(props) {
   );
   // ==========================================================================================
   const LoadMoreHandler = () => {
+    setPointerData((prev) => {
+      return prev + 20;
+    });
     setLoadMore((prev) => {
-      return prev + 4 < cardData.length ? prev + 4 : cardData.length;
+      return prev + 20 < cardData.length ? prev + 20 : cardData.length;
     });
   };
   useEffect(() => {
@@ -44,6 +48,7 @@ function ProductCard(props) {
         const cardDetails = await axios.post(`http://localhost:5000/fetch`, {
           category,
           email,
+          pointer,
         });
         console.log(cardDetails.data);
         if (isSubscribed) {
@@ -60,7 +65,7 @@ function ProductCard(props) {
     }
 
     return () => (isSubscribed = false);
-  }, [category, email, isLoggedIn, Navigate]);
+  }, [category, email, isLoggedIn, Navigate, pointer]);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -87,7 +92,7 @@ function ProductCard(props) {
             ? cardData?.slice(0, loadMore).map((data, index) => {
                 if (data !== null) {
                   return (
-                    <Grid item xs={6} md={4} lg={3} key={index}>
+                    <Grid item xs={6} md={4} lg={3} key={data._id}>
                       <HomeCard cardData={data} index={index} />
                     </Grid>
                   );

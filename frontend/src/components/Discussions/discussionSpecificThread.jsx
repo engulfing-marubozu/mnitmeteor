@@ -26,7 +26,7 @@ export default function SpecificThread() {
             Navigate("/*");
           } else {
             console.log(response.data);
-            setDiscsnData(response.data.thread);
+           setDiscsnData(response.data.thread);
           }
         }
       } catch (err) {

@@ -111,7 +111,6 @@ export const DescriptionStyle = makeStyles({
   descrp: {
     fontSize: "1rem",
     padding: "0 2rem",
-    whiteSpace: "pre-line",
     "@media(max-width:1200px)": {
       padding: "0 0 0",
     },

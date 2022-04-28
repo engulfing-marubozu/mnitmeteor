@@ -25,7 +25,6 @@ export default function DiscussionMyTopics() {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
-  
       const response = await axios.get(
         "http://localhost:5000/fetch_own_threads",
         {
@@ -55,11 +54,11 @@ export default function DiscussionMyTopics() {
           return <DiscussionSkeleton key={index} />;
         })
       ) : myTopics.length > 0 ? (
-        myTopics.map((data, index) => {
+        myTopics.map((data) => {
           if (data) {
             return (
               <DiscussionCard
-                key={index}
+                key={data._id}
                 data={data}
                 setThread={setMyTopics}
                 flag={3}

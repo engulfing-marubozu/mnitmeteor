@@ -10,7 +10,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
-  const [cardData, setCardData] = useState(false);
+  const [cardData, setCardData] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
   const publishedAdsData = useSelector(
@@ -36,7 +36,7 @@ function PublishedAds() {
       isSubscribed = false;
     };
   }, [publishedAdsData, token]);
-  // console.log(cardData);
+  console.log(cardData);
   // ===================================================================================================================================================================
   return (
     <motion.div
@@ -56,10 +56,10 @@ function PublishedAds() {
                 );
               })
             ) : cardData.length > 0 ? (
-              cardData.map((data, index) => {
+              cardData.map((data) => {
                 if (data !== null) {
                   return (
-                    <Grid item xs={6} md={4} key={index}>
+                    <Grid item xs={6} md={4} key={data._id}>
                       <CardForPublishedAds cardData={data} />
                     </Grid>
                   );
@@ -84,13 +84,3 @@ function PublishedAds() {
 }
 
 export default PublishedAds;
-//  {typeof cardData !== "undefined" &&
-//           cardData.map((data, index) => {
-//             if (data !== null) {
-//               return (
-//                 <Grid item xs={6} md={4} key={index}>
-//                   <CardForPublishedAds cardData={data} />
-//                 </Grid>
-//               );
-//             } else return null;
-//           })}

@@ -45,6 +45,7 @@ function ProductCard(props) {
           email,
         });
         if (isSubscribed) {
+          // console.log(cardDetails.data);
           setCardData(cardDetails.data);
         }
       } catch (err) {

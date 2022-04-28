@@ -57,7 +57,7 @@ export default function HomeCard({ cardData ,index}) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
-  console.log(cardData.blue_heart ,index,likeButton);
+  // console.log(cardData.blue_heart ,index,likeButton);
  
   // ===================================================================================================================================
   return (

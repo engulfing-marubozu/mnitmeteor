@@ -88,7 +88,7 @@ function DiscussionCard({ data, setThread, flag }) {
             totalCount: prev.totalCount + 1,
           };
         });
-    
+
         const data = { status: "true1", ...addCommentData };
         dispatch(actionForLikeThread(data));
       } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
@@ -128,7 +128,7 @@ function DiscussionCard({ data, setThread, flag }) {
             totalCount: prev.totalCount - 1,
           };
         });
-    
+
         const data = { status: "false1", ...addCommentData };
         dispatch(actionForLikeThread(data));
       } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
@@ -248,7 +248,7 @@ function DiscussionCard({ data, setThread, flag }) {
                 {title}
               </Typography>
               {/* <Typography color="text.secondary" sx={{ mb: 1 }} > */}
-              <ReadMore>{description}</ReadMore>
+              <ReadMore words={220}>{description}</ReadMore>
               {document && (
                 <Box>
                   <Link

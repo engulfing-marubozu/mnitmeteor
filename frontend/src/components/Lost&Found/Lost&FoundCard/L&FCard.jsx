@@ -20,9 +20,9 @@ import { useSelector } from "react-redux";
 import { RWebShare } from "react-web-share";
 import LostFoundDeleteAlert from "../lsDeleteAlert.jsx/lsDeleteAlert";
 import ReadMore from "../../_Styling/readmore";
-export default function LostFoundCard({ data, flag, setLostFound }) {
 
-  // console.log(data);
+
+export default function LostFoundCard({ data, flag, setLostFound }) {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const userLoggedIn = localUserData?.userData._id;
   const date = new Date(data.createdAt);
@@ -94,9 +94,9 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
           </Box>
           <CardContent sx={{ py: 0 }}>
             <Typography variant="h6">{itemName}</Typography>
-            {/* <Typography variant="body2" color="text.secondary"> */}
-            <ReadMore>{description}</ReadMore>
-            {/* </Typography> */}
+            <ReadMore words={180}>
+              {description}
+            </ReadMore>
           </CardContent>
           <CardActions sx={{ px: "1rem", pb: "1rem", display: "flex" }}>
             <Typography className={classes.lfcategory}> {category}</Typography>

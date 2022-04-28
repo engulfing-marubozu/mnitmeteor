@@ -60,7 +60,7 @@ export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
             {title}
           </Typography>
 
-          <ReadMore>{description}</ReadMore>
+          <ReadMore words={220}>{description}</ReadMore>
           {document && (
             <Box>
               <Link

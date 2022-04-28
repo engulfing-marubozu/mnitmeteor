@@ -23,16 +23,18 @@ const products = async (req, res) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url
         );
-        const thumbnail_upload_response = await  cloudinary.v2.uploader.upload(
-          image.data_url ,
-          {transormation:
-          {width: 250, height: 150, crop: "scale"}}
+        const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
+          image.data_url,
+          {
+            transormation:
+              { width: 250, height: 150, crop: "scale" }
+          }
         )
-        return { image: image_upload_response.url , thumbnail: thumbnail_upload_response.url };
+        return { image: image_upload_response.url, thumbnail: thumbnail_upload_response.url };
       })
     );
 
-      console.log(image_cloud_link);
+    console.log(image_cloud_link);
 
     const Product_save = new Product({
       title: title,
@@ -99,7 +101,7 @@ const admin_response = async (req, res) => {
           notification: {
             status: 1,
             content: `Dear user, your Ad request for the product ${product_title} has been approved. We will notify you once we get any interested buyer for your item.`,
-            createdAt :date,
+            createdAt: date,
           },
         },
       });
@@ -111,7 +113,7 @@ const admin_response = async (req, res) => {
           notification: {
             status: -1,
             content: `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`,
-            createdAt :date,
+            createdAt: date,
           },
         },
       });
@@ -136,9 +138,9 @@ const fetch_livedata = async (req, res) => {
     //   console.log(category);
     if (category === "recommendation") {
       //  console.log("hello");
-      fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
+      fetch_post = await Product.where("is_verified").equals(true).sort({ createdAt: -1 });
 
-        console.log(fetch_post);
+      console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
       //  console.log("hemllo");
@@ -165,7 +167,7 @@ const fetch_livedata = async (req, res) => {
       res.status(200).send(fetch_post);
     } else res.status(200).send(fetch_post);
   } catch (err) {
-    res.status.send("404");
+    res.status(200).send("404");
     console.log(err);
   }
 };

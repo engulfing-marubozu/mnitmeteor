@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import Home from "../HomePage/Home";
@@ -6,7 +6,7 @@ import Discussions from "../Discussions/discussion";
 import LostFound from "../Lost&Found/lostFound";
 import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
-import DiscriptionCard from "../Cards/DiscriptionCard";
+import RenderDiscriptionCard from "../Cards/DiscriptionCard/renderDiscriptionCard";
 import Profile from "../Profile/Profile";
 import AdminPanel from "../../AdminPanel/adminpanel";
 import Favourites from "../Favourites/Favourites";
@@ -31,14 +31,14 @@ function RouterCon() {
 
   return (
     <AnimatePresence>
-      <Routes >
+      <Routes>
         <Route path="/" element={<Home />}>
           <Route index element={<ProductCard Category="recommendation" />} />
           <Route path="product/:category" element={<ProductCard />} />
         </Route>
         <Route path="discussions" element={<Discussions />}>
           <Route index element={<DiscussionCardArray />} />
-          <Route path=":id" element={<SpecificThread />} />
+          <Route path=":threadId" element={<SpecificThread />} />
           <Route
             path="createnewtopic"
             element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />}
@@ -56,18 +56,12 @@ function RouterCon() {
         </Route>
         <Route path="lost&found" element={<LostFound />}>
           <Route index element={<LostFoundCardArray />} />
-          <Route path=":id" element={<SpecificLostFound />} />
+          <Route path=":lnfCardId" element={<SpecificLostFound />} />
+          <Route path="lostitems" element={<LostItems />} />  
+          <Route path="founditems" element={<FoundItems />} />
           <Route
             path="lost&foundform"
             element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="lostitems"
-            element={<LostItems />}
-          />
-          <Route
-            path="founditems"
-            element={ <FoundItems />}
           />
           <Route
             path="myitems"
@@ -80,7 +74,7 @@ function RouterCon() {
         />
         <Route
           path="productdiscription/:productId"
-          element={<DiscriptionCard />}
+          element={<RenderDiscriptionCard />}
         />
         <Route
           path="profile"

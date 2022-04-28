@@ -64,10 +64,10 @@ function Favourites() {
                 );
               })
             ) : cardData.length > 0 ? (
-              cardData.map((data, index) => {
+              cardData.map((data) => {
                 if (data !== null) {
                   return (
-                    <Grid item xs={6} md={4} lg={3} key={index}>
+                    <Grid item xs={6} md={4} lg={3} key={data._id}>
                       <FavouritesCard cardData={data} />
                     </Grid>
                   );

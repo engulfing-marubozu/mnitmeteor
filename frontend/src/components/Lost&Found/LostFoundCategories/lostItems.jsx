@@ -41,7 +41,7 @@ function LostItems() {
             if (data) {
               return (
                 <LostFoundCard
-                  key={index}
+                  key={data._id}
                   data={data}
                   setLostFound={setLostItems}
                   flag={2}

@@ -40,7 +40,7 @@ function FoundItems() {
           if (data) {
             return (
               <LostFoundCard
-                key={index}
+                key={data._id}
                 data={data}
                 setLostFound={setFoundItems}
                 flag={3}

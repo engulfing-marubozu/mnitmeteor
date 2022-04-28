@@ -49,11 +49,11 @@ function DiscussionSavedTopics() {
           return <DiscussionSkeleton key={index} />;
         })
       ) : savedTopics.length > 0 ? (
-        savedTopics.map((data, index) => {
+        savedTopics.map((data) => {
           if (data) {
             return (
               <DiscussionCard
-                key={index}
+                key={data._id}
                 data={data}
                 setThread={setSavedTopics}
                 flag={2}

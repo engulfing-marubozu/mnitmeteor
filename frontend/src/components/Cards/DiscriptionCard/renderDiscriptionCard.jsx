@@ -1,16 +1,16 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import DiscussionCard from './DiscussionPage/discussionCard';
-export default function SpecificThread() {
-  const [discsnData, setDiscsnData] = useState();
+import DiscriptionCard from "./discriptionCard";
+
+export default function RenderDiscriptionCard() {
+  const [descrpData, setDescrpData] = useState();
   const Navigate = useNavigate();
   const params = useParams();
-  const thread_id = params.threadId;
+  const product_id = params.productId;
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
-  const {email} = userData;
+  const { email, _id: userId } = userData;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,13 +19,13 @@ export default function SpecificThread() {
       try {
         const response = await axios.post(
           "http://localhost:5000/send_specific_product",
-          { email, thread_id}
+          { email, product_id }
         );
         if (isSubscribed) {
           if (response.data === 404) {
             Navigate("*");
           } else {
-            setDiscsnData(response.data);
+            setDescrpData(response.data);
           }
         }
       } catch (err) {
@@ -36,14 +36,15 @@ export default function SpecificThread() {
     return () => {
       isSubscribed = false;
     };
-  }, [email, thread_id, Navigate]);
+  }, [email, product_id, Navigate]);
 
   return (
     <>
-      {typeof discsnData !== "undefined" && (
-        <DiscussionCard
-          data={discsnData}
-          flag={4}
+      {typeof descrpData !== "undefined" && (
+        <DiscriptionCard
+          descrpData={descrpData}
+          productId={product_id}
+          userId={userId}
         />
       )}
     </>

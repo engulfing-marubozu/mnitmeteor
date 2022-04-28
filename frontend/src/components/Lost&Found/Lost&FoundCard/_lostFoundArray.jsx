@@ -36,10 +36,10 @@ function PostsWithAxios() {
           return <LostFoundSkeleton key={index} />;
         })
       ) : lfData.length > 0 ? (
-        lfData.map((data, index) => {
+        lfData.map((data) => {
           return (
             <LostFoundCard
-              key={index}
+              key={data._id}
               data={data}
               setLostFound={setlfData}
               flag={1}

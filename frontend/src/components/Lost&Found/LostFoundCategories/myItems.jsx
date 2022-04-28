@@ -10,7 +10,6 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
 import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
 
-
 function LostFoundMyItems() {
   const [myItems, setMyItems] = useState();
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
@@ -57,11 +56,11 @@ function LostFoundMyItems() {
           return <LostFoundSkeleton key={index} />;
         })
       ) : myItems.length ? (
-        myItems.map((data, index) => {
+        myItems.map((data) => {
           if (data) {
             return (
               <LostFoundCard
-                key={index}
+                key={data._id}
                 data={data}
                 setLostFound={setMyItems}
                 flag={4}

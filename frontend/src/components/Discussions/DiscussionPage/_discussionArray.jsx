@@ -8,7 +8,7 @@ import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 function DiscussionCardArray() {
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const userID = localUserData?.user?._id;
-  // =======================================================================================================================================================================
+  // ====================================================================================================================================
   const [discussionData, setDiscussionData] = useState();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,11 +41,11 @@ function DiscussionCardArray() {
           return <DiscussionSkeleton key={index} />;
         })
       ) : discussionData.length > 0 ? (
-        discussionData.map((data, index) => {
+        discussionData.map((data) => {
           if (data) {
             return (
               <DiscussionCard
-                key={index}
+                key={data._id}
                 data={data}
                 setThread={setDiscussionData}
                 flag={1}

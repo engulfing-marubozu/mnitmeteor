@@ -1,51 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
   fetchDataForInterestedProduct,
   modelPopUp,
-} from "../../AStatemanagement/Actions/userActions";
-import { useParams } from "react-router-dom";
+} from "../../../AStatemanagement/Actions/userActions";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
 import { Typography, Stack } from "@mui/material";
-import { OutlinedButton, ColorButton } from "../Navbar/navbar";
+import { OutlinedButton, ColorButton } from "../../Navbar/navbar";
 import {
   BoxContainer,
   DescriptionStyle,
   TextContainer,
   Wrapper,
-} from "./StylingDiscriptionCard";
-import axios from "axios";
-import { TimeSince } from "../TimeElapsed/timecalc";
-import POPUPElement from "../ModelPopUP/POPUPElement";
-import InterestedAlert from "../ModelPopUP/InterestedAlert";
-import GetPhoneNoNew from "../ContactDetails/getPhoneDetails";
-import DiscriptionProductDelete from "../ModelPopUP/DiscriptionDeleteButton";
-import "./discriptionImageStyle.css";
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function DiscriptionCard() {
-  const params = useParams();
+} from "../StylingDiscriptionCard";
+import { TimeSince } from "../../TimeElapsed/timecalc";
+import POPUPElement from "../../ModelPopUP/POPUPElement";
+import InterestedAlert from "../../ModelPopUP/InterestedAlert";
+import GetPhoneNoNew from "../../ContactDetails/getPhoneDetails";
+import DiscriptionProductDelete from "../../ModelPopUP/DiscriptionDeleteButton";
+import "../discriptionImageStyle.css";
+import ReadMore from "../../_Styling/readmore";
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function DiscriptionCard({ descrpData, productId,userId}) {
   const [modelPopup, setModelPopup] = useState(false);
   const [contactModel, setContactModel] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
-  const product_id = params.productId;
-  const [isInterested, setIsInterested] = useState(false);
-  const [cardData, setcardData] = useState();
-  // =============================================================================================================================
+  const [isInterested, setIsInterested] = useState(descrpData?.show_intereted);
+  const [isAddedToFav, setIsAddedToFav] = useState(descrpData?.blue_heart);
+  // ==========================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  const userData = useSelector((state) => state.loginlogoutReducer.userData);
-  const { email, _id: userId } = userData;
   const userInterestedData = useSelector((state) => state.InterestedReducer);
   const dispatch = useDispatch();
-  // ========================================================LIKESTATUS==========================================================================================
-  const [isAddedToFav, setIsAddedToFav] = useState(false);
+  // ========================================================LIKESTATUS=======================================
   const favouriteClickHandler = () => {
     if (isLoggedIn) {
       setIsAddedToFav(!isAddedToFav);
-      const likeData = { productId: params.productId, userToken: token };
+      const likeData = { productId: productId, userToken: token };
       !isAddedToFav &&
         dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
       isAddedToFav &&
@@ -58,7 +52,7 @@ function DiscriptionCard() {
   const modelInputHandler = (input) => {
     if (input === true) {
       setIsInterested(!isInterested);
-      const interestedData = { productId: params.productId, userToken: token };
+      const interestedData = { productId: productId, userToken: token };
       if (!isInterested) {
         dispatch(
           fetchDataForInterestedProduct({
@@ -96,7 +90,7 @@ function DiscriptionCard() {
           modelInputHandler(true);
         } else {
           const interestedData = {
-            productId: params.productId,
+            productId: productId,
             userToken: token,
           };
           dispatch(
@@ -112,47 +106,16 @@ function DiscriptionCard() {
       dispatch(modelPopUp(true));
     }
   };
-
-  // ============================================= FETCHING DATA================================================================================
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    let isSubscribed = true;
-    const call = async () => {
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/send_specific_product",
-          { email, product_id }
-        );
-        if (isSubscribed) {
-          // console.log(response.data);
-          setIsAddedToFav(response.data.blue_heart);
-          setIsInterested(response.data.show_interested);
-          setcardData(response.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    call();
-    return () => {
-      isSubscribed = false;
-    };
-  }, [email, product_id]);
-
   const classes = DescriptionStyle();
-  // ================================================================CardData ===============================================================
-  // console.log(cardData);
-  const imageThumbnail = cardData?.images;
-  const title = cardData
-    ? cardData.title.charAt(0).toUpperCase() + cardData.title.slice(1)
-    : " ";
-  const date = cardData ? new Date(cardData.createdAt) : "";
-  const properDate = date ? TimeSince(date) : " ";
-  const Description = cardData ? cardData.description : " ";
-  const postedbyId = cardData ? cardData.posted_by : " ";
-  const productId = cardData ? cardData._id : " ";
-  //==============================================IMAGE PRODUCER ======================================================================
+  // ================================================================CardData =======================================
+  const imageThumbnail = descrpData?.images;
+  const title =
+    descrpData.title.charAt(0).toUpperCase() + descrpData.title.slice(1);
+  const date = new Date(descrpData.createdAt);
+  const properDate = TimeSince(date);
+  const Description = descrpData.description;
+  const postedbyId = descrpData.posted_by;
+  //==============================================IMAGE PRODUCER ====================================================
 
   const images =
     typeof imageThumbnail !== "undefined"
@@ -164,7 +127,7 @@ function DiscriptionCard() {
         })
       : false;
 
-  // =======================================================================================================================
+  // ============================================================================================================
 
   return (
     <>
@@ -241,7 +204,11 @@ function DiscriptionCard() {
             <Typography className={classes.descpHeading}>
               Description
             </Typography>
-            <Typography className={classes.descrp}>{Description}</Typography>
+            <ReadMore words={600} classname={classes.descrp}>
+              {Description}
+            </ReadMore>
+            {/* <Typography className={classes.descrp}>{Description}
+            </Typography> */}
           </TextContainer>
         </Wrapper>
       </motion.div>

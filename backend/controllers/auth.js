@@ -222,5 +222,8 @@ const resendOtp = async (req, res)=>{
    });
 }
 
+const auth_token = (req, res)=>{
+    res.status(200).send("authorised_user");
+}
 
-module.exports = { signIn, signUp, resetPassword , resendOtp};
+module.exports = { signIn, signUp, resetPassword , resendOtp, auth_token};

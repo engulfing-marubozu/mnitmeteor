@@ -24,6 +24,7 @@ function routeChecker(route) {
 function ProductCard(props) {
   const [cardData, setCardData] = useState();
   const [loadMore, setLoadMore] = useState(20);
+  const [pointer, setPointerData] = useState(1);
   const Navigate = useNavigate();
   const params = useParams();
   const category = props.category ? props.category : params.category;
@@ -33,8 +34,11 @@ function ProductCard(props) {
   );
   // ==========================================================================================
   const LoadMoreHandler = () => {
+    setPointerData((prev) => {
+      return prev + 20;
+    });
     setLoadMore((prev) => {
-      return prev + 4 < cardData.length ? prev + 4 : cardData.length;
+      return prev + 20 < cardData.length ? prev + 20 : cardData.length;
     });
   };
   useEffect(() => {
@@ -44,6 +48,7 @@ function ProductCard(props) {
         const cardDetails = await axios.post(`http://localhost:5000/fetch`, {
           category,
           email,
+          pointer,
         });
         if (isSubscribed) {
           setCardData(cardDetails.data);
@@ -59,7 +64,7 @@ function ProductCard(props) {
     }
 
     return () => (isSubscribed = false);
-  }, [category, email, isLoggedIn, Navigate]);
+  }, [category, email, isLoggedIn, Navigate, pointer]);
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -27,7 +27,7 @@ const products = async (req, res) => {
           image.data_url,
           {
             transormation:
-              { width: 250, height: 150, crop: "scale" }
+              { width: 250, height: 150, crop: "thumb" }
           }
         )
         return { image: image_upload_response.url, thumbnail: thumbnail_upload_response.url };

@@ -28,5 +28,6 @@ router.post('/delete_thread', authorization, delete_thread);
 router.post('/delete_comment', authorization, delete_comment);
 router.post('/delete_reply', authorization, delete_reply);
 router.post('/like_and_dislike_threads', authorization, like_and_dislike_threads);
+
 module.exports= router;
 

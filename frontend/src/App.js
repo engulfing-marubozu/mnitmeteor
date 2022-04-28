@@ -1,5 +1,7 @@
 import "./App.css";
 import React, { useEffect } from "react";
+import axios from "axios"
+
 import RouterCon from "./components/RouterConfig/RouterCon";
 import Wrapper from "./components/RouterConfig/Wrapper";
 import { useDispatch } from "react-redux";
@@ -33,12 +35,35 @@ const theme = createTheme({
 function App() {
   //  ==================================================================================================
   const dispatch = useDispatch();
-  const bool = Boolean(JSON.parse(window.localStorage.getItem("auth")))
+  const local_storage_data = JSON.parse(window.localStorage.getItem("auth"))
   useEffect(() => {
-    if (bool) {
-      dispatch(AuthUser(JSON.parse(window.localStorage.getItem("auth"))));
-    }
-  }, [dispatch, bool]);
+    // if (bool) {
+    //   dispatch(AuthUser(JSON.parse(window.localStorage.getItem("auth"))));
+    // }
+
+const call = async()=>{
+  try {
+    const response =
+   await axios.post(
+     "http://localhost:5000/auth_token",
+     {  },
+     {
+       headers: {
+         Authorization: `Bearer ${local_storage_data.token}`,
+       },
+     }
+   );
+   console.log(response.data);
+ } catch (err) {
+   
+   console.log(err);
+ }
+}
+   
+ if(local_storage_data)
+   call();
+
+  }, [dispatch, local_storage_data]);
 
   // ====================================================================================================
   return (

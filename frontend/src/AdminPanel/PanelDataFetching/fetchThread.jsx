@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import ThreadPanel from "../AdminPanelCard/threadPanel";
+import { socket } from '../../components/Navbar/navbar';
 import axios from "axios";
 
 export default function FetchThread() {
@@ -17,12 +18,17 @@ export default function FetchThread() {
     const ApproveRequestThread = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-            await axios.post("http://localhost:5000/handle_admin_thread", {
+        const response =     await axios.post("http://localhost:5000/handle_admin_thread", {
                 to_approve: true,
                 posted_by: cardData.posted_by,
                 _id: cardData._id,
             });
-            // console.log(response);
+            
+            if (response.data === "product approved") {
+                console.log("bleh");
+                socket.emit("admin approve event");
+                socket.emit("admin decline/approve/interested event", cardData.posted_by);
+            }
             if (mountedRef.current) {
                 handleExpandClick();
                 settflag(!tflag);
@@ -36,13 +42,17 @@ export default function FetchThread() {
     const DeclineRequestThread = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-            // const response = 
+             const response = 
             await axios.post("http://localhost:5000/handle_admin_thread", {
                 to_approve: false,
                 posted_by: cardData.posted_by,
                 _id: cardData._id,
             });
             // console.log(response)
+            console.log(response);
+            if (response.data === "product Ad request declined") {
+                socket.emit("admin decline/approve/interested event",  cardData.posted_by);
+            }
             if (mountedRef.current) {
                 handleExpandClick();
                 settflag(!tflag);

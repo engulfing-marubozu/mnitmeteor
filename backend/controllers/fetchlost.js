@@ -73,7 +73,7 @@ const FetchFalse = async (req, res) => {
     console.log(err);
     res.status(200).send(err);
   }
-};
+};cd 
 const FetchByID = async (req,res)=> {
   const email = req.body.email;
   console.log("fetching by id for "+email);
@@ -88,7 +88,7 @@ const FetchByID = async (req,res)=> {
 
   } catch (err) {
     console.log(err);
-    res.status(404).send("404");
+    res.status(200).send("404");
   }
 } 
 module.exports = {

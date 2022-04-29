@@ -7,6 +7,7 @@ const deleteLNF = async (req, res) => {
   id = req.body.objID;
   console.log(id);
   flag = req.body.flag;
+  if(flag)
   posted_by = req.body.posted_by;
   LostItem.findByIdAndDelete(id, function (err, res) {
     console.log(err);
@@ -31,6 +32,9 @@ const deleteLNF = async (req, res) => {
     // res.send();
   } else {
     console.log("Incorrect flag");
+    //send deepak
+
+    res.status(200).send(null);
   }
   console.log(req.body.name);
 };

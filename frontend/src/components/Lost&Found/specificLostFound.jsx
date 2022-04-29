@@ -6,7 +6,7 @@ import axios from "axios";
 import LostFoundCard from "./Lost&FoundCard/L&FCard";
 
 
-export default function SpecificThread() {
+export default function SpecificLostFound (){
   const [lnfData, setLnfData] = useState();
   const Navigate = useNavigate();
   const params = useParams();

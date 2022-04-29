@@ -34,9 +34,9 @@ function ProductCard(props) {
   );
   // ==========================================================================================
   const LoadMoreHandler = () => {
-    setPointerData((prev) => {
-      return prev + 20;
-    });
+    // setPointerData((prev) => {
+    //   return prev + 20;
+    // });
     setLoadMore((prev) => {
       return prev + 20 < cardData.length ? prev + 20 : cardData.length;
     });
@@ -51,7 +51,12 @@ function ProductCard(props) {
           pointer,
         });
         if (isSubscribed) {
+          console.log(cardDetails.data);
           setCardData(cardDetails.data);
+          // setCardData((prev)=>{
+          //   // console.log(prev);
+          //   // console.log(...prev);
+          //   return {...prev,...cardDetails.data}});
         }
       } catch (err) {
         console.log(err);

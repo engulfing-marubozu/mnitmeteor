@@ -24,17 +24,23 @@ import DiscriptionProductDelete from "../../ModelPopUP/DiscriptionDeleteButton";
 import "../discriptionImageStyle.css";
 import ReadMore from "../../_Styling/readmore";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
 function DiscriptionCard({ descrpData, productId,userId}) {
   const [modelPopup, setModelPopup] = useState(false);
   const [contactModel, setContactModel] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
-  const [isInterested, setIsInterested] = useState(descrpData?.show_intereted);
+  const [isInterested, setIsInterested] = useState(descrpData?.show_interested);
   const [isAddedToFav, setIsAddedToFav] = useState(descrpData?.blue_heart);
   // ==========================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const userInterestedData = useSelector((state) => state.InterestedReducer);
   const dispatch = useDispatch();
+
+
   // ========================================================LIKESTATUS=======================================
   const favouriteClickHandler = () => {
     if (isLoggedIn) {
@@ -48,7 +54,7 @@ function DiscriptionCard({ descrpData, productId,userId}) {
       dispatch(modelPopUp(true));
     }
   };
-  // ========================================================INTERESTEDMODELPOPUPINPUTHANDLER====================================================================
+  // ========================================================INTERESTEDMODELPOPUPINPUTHANDLER==================
   const modelInputHandler = (input) => {
     if (input === true) {
       setIsInterested(!isInterested);
@@ -71,7 +77,7 @@ function DiscriptionCard({ descrpData, productId,userId}) {
     }
   };
 
-  // =====================================================INTERESTED======================================================================================
+  // =====================================================INTERESTED================================================
   const interesetedClickHandler = () => {
     if (isLoggedIn) {
       if (!isInterested) {

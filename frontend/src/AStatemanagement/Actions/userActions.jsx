@@ -118,7 +118,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-
+        console.log(response.data,isInterested)
         if (response.data.status === "success") {
           socket.emit(
             "admin decline/approve/interested event",
@@ -128,7 +128,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } else {
+        } else {  
           dispatch(addToInterested(response.data.updatedUser));
         }
       } else {
@@ -149,6 +149,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
         // dispatch(addToFavourites(response.data.updatedUser));
         //   } else {
         //
+        console.log(response.data);
         dispatch(addToInterested(response.data));
       }
     } catch (err) {

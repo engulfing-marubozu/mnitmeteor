@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./App.css";
 import React, { useEffect } from "react";
 import axios from "axios"
@@ -35,7 +36,6 @@ const theme = createTheme({
 function App() {
   //  ==================================================================================================
   const dispatch = useDispatch();
-  console.log("deepak");
   const local_storage_data = JSON.parse(window.localStorage.getItem("auth"))
   useEffect(() => {
  
@@ -65,7 +65,7 @@ function App() {
     if (local_storage_data) {
       call();
     }
-  }, [dispatch, local_storage_data]);
+  }, []);
 
   // ====================================================================================================
   return (

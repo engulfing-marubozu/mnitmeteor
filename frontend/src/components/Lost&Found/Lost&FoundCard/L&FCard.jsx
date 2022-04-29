@@ -23,13 +23,14 @@ import ReadMore from "../../_Styling/readmore";
 
 
 export default function LostFoundCard({ data, flag, setLostFound }) {
+  console.log(data);
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const userLoggedIn = localUserData?.userData._id;
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
-  const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);
+  const itemName = data?.name?.charAt(0).toUpperCase() + data?.name?.slice(1);
   const postedBy = data?.posted_by;
-  const userEmail = data?.email.slice(0, 11);
+  const userEmail = data?.email?.slice(0, 11);
   const category = data?.category;
   const description = data?.description;
   const images = data?.imgs.map((img, index) => {
@@ -66,7 +67,7 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
                 <RWebShare
                   data={{
                     text: "Mnit Market",
-                    url: `http://localhost:3000/Lost&Found/${data._id}`,
+                    url: `http://localhost:3000/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}
                   onClick={() => console.log("shared successfully!")}

@@ -22,23 +22,19 @@ function routeChecker(route) {
   return routes.some((data) => data === route);
 }
 function ProductCard(props) {
-  const [cardData, setCardData] = useState();
-  const [loadMore, setLoadMore] = useState(20);
+  const [cardData, setCardData] = useState([]);
   const [pointer, setPointerData] = useState(1);
   const Navigate = useNavigate();
   const params = useParams();
   const category = props.category ? props.category : params.category;
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
+  // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogIn);
   const email = useSelector(
     (state) => state.loginlogoutReducer.userData?.email
   );
   // ==========================================================================================
   const LoadMoreHandler = () => {
-    // setPointerData((prev) => {
-    //   return prev + 20;
-    // });
-    setLoadMore((prev) => {
-      return prev + 20 < cardData.length ? prev + 20 : cardData.length;
+    setPointerData((prev) => {
+      return prev + 2;
     });
   };
   useEffect(() => {
@@ -50,14 +46,16 @@ function ProductCard(props) {
           email,
           pointer,
         });
-        console.log(cardDetails.data);
+        // console.log(cardDetails.data);
         if (isSubscribed) {
-          console.log(cardDetails.data);
-          setCardData(cardDetails.data);
-          // setCardData((prev)=>{
-          //   // console.log(prev);
-          //   // console.log(...prev);
-          //   return {...prev,...cardDetails.data}});
+          // console.log(cardDetails.data);
+          // setCardData(cardDetails.data);
+          console.log("deepak")
+          setCardData((prev) => {
+            // console.log(prev);
+            // console.log(...prev);
+            return [...prev, ...cardDetails.data];
+          });
         }
       } catch (err) {
         console.log(err);
@@ -70,7 +68,8 @@ function ProductCard(props) {
     }
 
     return () => (isSubscribed = false);
-  }, [category, email, isLoggedIn, Navigate, pointer]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointer,category]);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -94,7 +93,7 @@ function ProductCard(props) {
                 );
               })
             : cardData.length > 0
-            ? cardData?.slice(0, loadMore).map((data, index) => {
+            ? cardData?.map((data, index) => {
                 if (data !== null) {
                   return (
                     <Grid item xs={6} md={4} lg={3} key={data._id}>
@@ -116,13 +115,13 @@ function ProductCard(props) {
               )}
         </Grid>
       </Container>
-      {typeof cardData !== "undefined" && loadMore < cardData?.length && (
+      {/* {pointer <=cardData?.length && ( */}
         <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
           <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>
             Load More
           </ModelOutlinedButton>
         </Box>
-      )}
+      {/* )} */}
     </motion.div>
   );
 }

@@ -81,10 +81,14 @@ const FetchByID = async (req,res)=> {
   const uid = req.body.lnfcard_id;
   try {
     const data = await LostItem.find({is_verified: true, _id: uid});
-    res.status(200).send(data);   
-} catch (error) {
-    console.log(error);
-    res.status(200).send(err);
+    //if id dne
+
+    // if( 404 , 404, , flag )
+    res.status(200).send(data[0]);   
+
+  } catch (err) {
+    console.log(err);
+    res.status(404).send("404");
   }
 } 
 module.exports = {

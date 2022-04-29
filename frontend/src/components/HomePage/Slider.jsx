@@ -1,61 +1,24 @@
-import * as React from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import React, { useEffect } from "react";
 import { Box, Avatar } from "@mui/material";
 import BookIcon1 from "./SliderIcons/books-2.svg";
 import ElectronicsIcon from "./SliderIcons/computer_icon.svg";
 import BicycleIcon from "./SliderIcons/cycle-2.svg";
 import ClothIcon from "./SliderIcons/clothes.svg";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { styled } from "@mui/material/styles";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
-// ================================================  STYLING TABS ======================================================================================================
-const StyledTabs = styled((props) => (
-  <Tabs
-    {...props}
-    TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
-  />
-))({
-  "& .MuiTabs-indicator": {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-  },
-  "& .MuiTabs-indicatorSpan": {
-    width: "100%",
-    backgroundColor: "#635ee7",
-  },
-});
-const StyledTab = styled((props) => <Tab {...props} />)(({ theme }) => ({
-  textTransform: "none",
-  fontWeight: theme.typography.fontWeightRegular,
-  fontSize: theme.typography.pxToRem(15),
-  marginRight: theme.spacing(1),
-  color: "Black",
-  "&.Mui-selected": {
-    color: "Black",
-  },
-  "&.Mui-focusVisible": {
-    backgroundColor: "rgba(100, 95, 228, 0.32)",
-  },
-}));
-// ====================================================================MAIN FUNCTION ======================================================================================
+import { StyledTab, StyledTabs, HomePageStyle } from "./homePageStyling";
 export default function CategorySlider() {
   // =========================================================CLICKHANDLERS============================================================================================================
   const params = useParams();
   const paramstoIndex = {
-    Book: 0,
-    Cloth: 1,
-    Electronics: 2,
-    Cycle: 3,
-    Others: 4,
+    books: 0,
+    cycle: 1,
+    electronics: 2,
+    uniform: 3,
+    others: 4,
   };
   const [value, setValue] = React.useState(false);
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+
   // ================================TAB CLICK HANDLERS
   const Navigate = useNavigate();
   const TabClickHandler = (flag) => {
@@ -70,62 +33,23 @@ export default function CategorySlider() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.category]);
   // =======================================================================================================================================================================
+  const classes = HomePageStyle();
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        // bgcolor: "#C8C6C6",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <StyledTabs
-        value={value}
-        // onChange={handleChange}
-        variant="scrollable"
-        scrollButtons={false}
-      >
+    <Box className={classes.mainBox}>
+      <StyledTabs value={value} variant="scrollable" scrollButtons={false}>
         <StyledTab
           icon={
             <Avatar
               alt="BookIcon"
               src={BookIcon1}
-              sx={{ width: { sm: 60, xs: 40 }, height: { sm: 60, xs: 40 } }}
+              className={classes.avatar}
               variant="rounded"
             />
           }
           label="Books"
           onClick={() => {
-            TabClickHandler("Book");
-          }}
-        />
-        <StyledTab
-          icon={
-            <Avatar
-              alt="ClothIcon"
-              src={ClothIcon}
-              sx={{ width: { sm: 60, xs: 40 }, height: { sm: 60, xs: 40 } }}
-              variant="rounded"
-            />
-          }
-          label="Clothes"
-          onClick={() => {
-            TabClickHandler("Cloth");
-          }}
-        />
-        <StyledTab
-          icon={
-            <Avatar
-              alt="ElectronicsIcon"
-              src={ElectronicsIcon}
-              sx={{ width: { sm: 60, xs: 40 }, height: { sm: 60, xs: 40 } }}
-              variant="rounded"
-            />
-          }
-          label="Electronics"
-          onClick={() => {
-            TabClickHandler("Electronics");
+            TabClickHandler("books");
           }}
         />
         <StyledTab
@@ -133,31 +57,53 @@ export default function CategorySlider() {
             <Avatar
               alt="BicycleIcon"
               src={BicycleIcon}
-              sx={{ width: { sm: 60, xs: 40 }, height: { sm: 60, xs: 40 } }}
+              className={classes.avatar}
               variant="rounded"
             />
           }
-          label="Bicycles"
+          label="Cycle"
           onClick={() => {
-            TabClickHandler("Cycle");
+            TabClickHandler("cycle");
           }}
         />
         <StyledTab
           icon={
             <Avatar
-              sx={{
-                width: { sm: 60, xs: 40 },
-                height: { sm: 60, xs: 40 },
-                bgcolor: "transparent",
-              }}
+              alt="ElectronicsIcon"
+              src={ElectronicsIcon}
+              className={classes.avatar}
               variant="rounded"
-            >
+            />
+          }
+          label="Electronics"
+          onClick={() => {
+            TabClickHandler("electronics");
+          }}
+        />
+
+        <StyledTab
+          icon={
+            <Avatar
+              alt="ClothIcon"
+              src={ClothIcon}
+              className={classes.avatar}
+              variant="rounded"
+            />
+          }
+          label="Uniform"
+          onClick={() => {
+            TabClickHandler("uniform");
+          }}
+        />
+        <StyledTab
+          icon={
+            <Avatar className={classes.otheravta} variant="rounded">
               <MoreHorizIcon sx={{ color: "black" }} />
             </Avatar>
           }
           label="Others"
           onClick={() => {
-            TabClickHandler("Others");
+            TabClickHandler("others");
           }}
         ></StyledTab>
       </StyledTabs>

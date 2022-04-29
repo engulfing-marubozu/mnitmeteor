@@ -21,4 +21,3 @@ const NotificationReadMore = ({ children, data }) => {
     );
 };
 export default NotificationReadMore;
-// style={{ color: "#673ab7",  }

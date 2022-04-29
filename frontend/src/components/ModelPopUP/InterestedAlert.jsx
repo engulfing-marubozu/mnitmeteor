@@ -4,17 +4,17 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, Stack, Typography } from "@mui/material";
 import { ModelColorButton, ModelOutlinedButton } from "./ModelPopUpStyling";
 import { useSelector } from "react-redux";
-// ========================================================MAIN FUNCTION=================================================================
+// ========================================================MAIN FUNCTION=======================================
 
 export default function InterestedAlert(props) {
-  // ==========================================================GETTING DETAILS FROM STATE-REDUX =================================================
+  // ==========================================================GETTING DETAILS FROM STATE-REDUX ================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const phoneNumber = useSelector(
     (state) => state.loginlogoutReducer.userData.Mobile_no
   );
   // console.log(phoneNumber);
 
-  // ==============================================AGREE-DISAGREE HANDLER===================================================================================
+  // ==============================================AGREE-DISAGREE HANDLER=======================================
   const AgreeHandler = () => {
     if (!phoneNumber && isLoggedIn) {
       props.onClose(false);
@@ -27,7 +27,7 @@ export default function InterestedAlert(props) {
   const DisagreeHandler = () => {
     props.onClose(false);
   };
-  // =======================================================================================================================================
+  // ============================================================================================================
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Box

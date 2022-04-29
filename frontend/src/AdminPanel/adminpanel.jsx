@@ -7,7 +7,7 @@ import FetchThread from "./PanelDataFetching/fetchThread";
 function AdminPanel() {
   return (
     <>
-      <Typography variant="h5" sx={{ m: "2rem" }}>
+      <Typography variant="h5" sx={{ m: "1rem" ,color:"white" }}>
         This is Admin Panel
       </Typography>
       <FetchSellProd />

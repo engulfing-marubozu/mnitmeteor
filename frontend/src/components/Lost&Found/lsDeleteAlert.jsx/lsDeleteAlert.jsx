@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect,useState} from "react";
+import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -15,7 +16,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const Navigate=useNavigate();
     const mountedRef = useRef(true);
     useEffect(() => {
         return () => {
@@ -42,10 +44,10 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
 
         })
             .then(function (response) {
-                console.log(response.data);
+                if(flag===5){
+                    Navigate("/lost&found")
+                }
                 setLostFound(response.data);
-
-                // setLostFound(resp)
             })
             .catch(function (error) {
                 console.log(error);

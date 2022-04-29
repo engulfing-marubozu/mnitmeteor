@@ -1,24 +1,24 @@
 export const sellCategories = [
     {
-        value: 'Book',
-        label: 'Book',
+        value: 'books',
+        label: 'Books',
     },
     {
-        value: 'Cycle',
+        value: 'cycle',
         label: 'Cycle'
 
     },
     {
-        value: 'Electronics',
+        value: 'electronics',
         label: 'Electronics',
     },
     {
-        value: 'Cloth',
-        label: 'Cloth',
+        value: 'uniform',
+        label: 'Uniform',
     },
     {
-        value: 'Other',
-        label: 'Other',
+        value: 'others',
+        label: 'Others',
     },
 ];
 export const lostFoundCategories = [
@@ -29,29 +29,5 @@ export const lostFoundCategories = [
     {
         value: 'Found',
         label: 'Found'
-
-    },
-];
-export const forumCategories = [
-    {
-        value: 'Book',
-        label: 'Book',
-    },
-    {
-        value: 'Cycle',
-        label: 'Cycle'
-
-    },
-    {
-        value: 'Electronics',
-        label: 'Electronics',
-    },
-    {
-        value: 'Cloth',
-        label: 'Cloth',
-    },
-    {
-        value: 'Other',
-        label: 'Other',
     },
 ];

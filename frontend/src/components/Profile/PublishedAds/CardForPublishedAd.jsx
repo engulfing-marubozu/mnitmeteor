@@ -1,4 +1,5 @@
 import * as React from "react";
+import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
 import {
   Card,
@@ -7,11 +8,12 @@ import {
   IconButton,
   Typography,
   Box,
+  Tooltip,
 } from "@mui/material";
 import {
-  ProfileCardStyle,
+  CardStyleFirst,
   CardContentNoPadding,
-} from "../ProfileStyling/profileCardStyling";
+} from "../../_Styling/cardStyling";
 import { Link } from "react-router-dom";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import ShareIcon from "@mui/icons-material/Share";
@@ -29,25 +31,32 @@ export default function CardForPublishedAds(props) {
 
   // ====================================================================
 
-  const classes = ProfileCardStyle();
+  const classes = CardStyleFirst();
   return (
-    <Card className={classes.card}>
-      <Link to={`/ProductDiscription/${props.cardData._id}`}>
-        <CardMedia
-          component="img"
-          classes={{ img: classes.image }}
-          className={classes.cardMedia}
-          image={Image}
-          alt="Image"
-        />
-      </Link>
-      <CardContentNoPadding className={classes.cardContent}>
-        <Typography className={classes.title} noWrap>
-          {title}
-        </Typography>
-        <CardActions disableSpacing className={classes.cardActions}>
-          <Typography className={classes.date}>{properDate}</Typography>
-          <Box className={classes.actionBox}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Card className={classes.card}>
+        <Link to={`/ProductDiscription/${props.cardData._id}`}>
+          <CardMedia
+            component="img"
+            classes={{ img: classes.image }}
+            className={classes.cardMedia}
+            image={Image}
+            alt="Image"
+          />
+        </Link>
+        <CardContentNoPadding className={classes.cardContent}>
+          <Box className={classes.sizeSecBox}>
+            <Typography className={classes.title} noWrap>
+              {title}
+            </Typography>
+            <Typography className={classes.date}>{properDate}</Typography>
+          </Box>
+          <CardActions disableSpacing className={classes.cardActions}>
+            <ProductDeleteAlert productId={props.cardData._id} />
             <RWebShare
               data={{
                 text: "Mnit Market",
@@ -56,14 +65,15 @@ export default function CardForPublishedAds(props) {
               }}
               onClick={() => console.log("shared successfully!")}
             >
-              <IconButton className={classes.iconButton}>
-                <ShareIcon className={classes.Icon} />
-              </IconButton>
+              <Tooltip title="Share" arrow>
+                <IconButton className={classes.iconButton}>
+                  <ShareIcon className={classes.Icon} />
+                </IconButton>
+              </Tooltip>
             </RWebShare>
-            <ProductDeleteAlert productId={props.cardData._id} />
-          </Box>
-        </CardActions>
-      </CardContentNoPadding>
-    </Card>
+          </CardActions>
+        </CardContentNoPadding>
+      </Card>
+    </motion.div>
   );
 }

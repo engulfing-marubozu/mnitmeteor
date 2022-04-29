@@ -1,5 +1,6 @@
 import * as React from "react";
-import { RWebShare } from "react-web-share";
+// import { RWebShare } from "react-web-share";
+import { motion } from "framer-motion";
 import {
   Card,
   CardMedia,
@@ -7,20 +8,22 @@ import {
   IconButton,
   Typography,
   Box,
+  Tooltip,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
+import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForInterestedProduct } from "../../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../../TimeElapsed/timecalc";
-import { ColorButton } from "../../ModelPopUP/ModelPopUpStyling";
 import {
-  ProfileCardStyle,
+  CardStyleFirst,
   CardContentNoPadding,
-} from "../ProfileStyling/profileCardStyling";
+  CardStyleSecond,
+} from "../../_Styling/cardStyling";
 
 export default function CardForInterestedProduct({ cardData }) {
-  console.log(cardData);
+  // console.log(cardData);
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
@@ -31,7 +34,7 @@ export default function CardForInterestedProduct({ cardData }) {
   const token = useSelector((state) => state.loginlogoutReducer.token);
   const dispatch = useDispatch();
   // =========================================================================================
-  const removeInteresetedClickHandler = () => {
+  const removeInteresetedHandler = () => {
     const interestedData = { productId: cardData?._id, userToken: token };
     dispatch(
       fetchDataForInterestedProduct({
@@ -41,26 +44,34 @@ export default function CardForInterestedProduct({ cardData }) {
     );
   };
 
-  const classes = ProfileCardStyle();
+  const classes = CardStyleFirst();
+  const classSec = CardStyleSecond();
   return (
-    <Card className={classes.card}>
-      <Link to={`/ProductDiscription/${cardData?._id}`}>
-        <CardMedia
-          component="img"
-          classes={{ img: classes.image }}
-          className={classes.cardMedia}
-          image={Image}
-          alt="Image"
-        />
-      </Link>
-      <CardContentNoPadding className={classes.cardContent}>
-        <Typography className={classes.title} noWrap>
-          {title}
-        </Typography>
-        <CardActions disableSpacing className={classes.cardActions}>
-          <Typography className={classes.date}>{properDate}</Typography>
-          <Box className={classes.actionBox}>
-            {/* <RWebShare
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Box className={classSec.zMainBox}>
+        <Card className={classes.card}>
+          <Link to={`/ProductDiscription/${cardData?._id}`}>
+            <CardMedia
+              component="img"
+              classes={{ img: classes.image }}
+              className={classes.cardMedia}
+              image={Image}
+              alt="Image"
+            />
+          </Link>
+          <CardContentNoPadding className={classes.cardContent}>
+            <Box className={classes.sizeBox}>
+              <Typography className={classes.title} noWrap>
+                {title}
+              </Typography>
+              <Typography className={classes.date}>{properDate}</Typography>
+            </Box>
+            <CardActions disableSpacing className={classes.cardActions}>
+              {/* <RWebShare
               data={{
                 text: "Mnit Market",
                 url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
@@ -68,19 +79,28 @@ export default function CardForInterestedProduct({ cardData }) {
               }}
               onClick={() => console.log("shared successfully!")}
             > */}
-            <IconButton className={classes.iconButton}>
-              <ShareIcon className={classes.Icon} />
-            </IconButton>
-            {/* </RWebShare> */}
-            <ColorButton
-              variant="outlined"
-              onClick={removeInteresetedClickHandler}
-            >
-              Remove
-            </ColorButton>
-          </Box>
-        </CardActions>
-      </CardContentNoPadding>
-    </Card>
+              <IconButton className={classes.iconButton}>
+                <Tooltip title="Share" arrow>
+                  <ShareIcon className={classes.Icon} />
+                </Tooltip>
+              </IconButton>
+              {/* </RWebShare> */}
+            </CardActions>
+          </CardContentNoPadding>
+        </Card>
+
+        <Box className={classSec.zaction}>
+          <IconButton
+            onClick={removeInteresetedHandler}
+            classes={{ root: classSec.crossIconButton }}
+            size="small"
+          >
+            <Tooltip title="Remove" placement="right" arrow>
+              <CloseIcon className={classSec.crossIcon} />
+            </Tooltip>
+          </IconButton>
+        </Box>
+      </Box>
+    </motion.div>
   );
 }

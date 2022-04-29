@@ -27,3 +27,7 @@ l .lfImageStyle {
     overflow: hidden;
   }
 }
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:focus {
+  border: 3px solid #7e57c2;
+}

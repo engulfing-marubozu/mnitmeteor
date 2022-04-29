@@ -22,7 +22,6 @@ export function CreatePassword(props) {
     try {
       // const response =
        await axios.post("http://localhost:5000/signUp", { email, password });
-      // console.log(response);
     }
     catch (err) {
       console.log(err);
@@ -34,7 +33,6 @@ export function CreatePassword(props) {
     try {
       // const response = 
       await axios.post("http://localhost:5000/resetPassword", { email, password });
-      // console.log(response);
     }
     catch (err) {
       console.log(err);
@@ -56,19 +54,15 @@ export function CreatePassword(props) {
 
   const RegisterHandler = (event) => {
     event.preventDefault();
-    // console.log(password);
     setFormErrors(PasswordValidator(password));
     setIsSubmit(true);
   };
   useEffect(() => {
-    // console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      // console.log(props.data);
       const details = {
         email: props.data.email,
         password: password.newpassword,
       };
-      // console.log(details);
       if (props.data.flag === "createpassword")
         Credentials(details);
       else
@@ -80,8 +74,6 @@ export function CreatePassword(props) {
   }, [formErrors]);
   return (
     <BoxContainer>
-      {/* <MutedText style={{textAlign:"center",margin:"0px,0px"}}>
-      </MutedText> */}
       <FormContainer onSubmit={RegisterHandler}>
         <Input
           autoFocus={true}
@@ -105,7 +97,6 @@ export function CreatePassword(props) {
           value={password.confirmpassword}
           onChange={PasswordHandler}
         />
-        {/* <Passwordlabel>Both passwords must match.</Passwordlabel> */}
         {formErrors.Password && (
           <Validationlabel>{formErrors.Password}</Validationlabel>
         )}

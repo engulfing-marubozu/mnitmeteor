@@ -17,17 +17,23 @@ const products = async (req, res) => {
     const user_id = req.user._id;
     // console.log(user_id);
     // console.log(req.user);
+    console.log(image_array);
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url
         );
-
-        return { image: image_upload_response.url };
+        const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
+          image.data_url,{
+            width: 250, height: 150, 
+            crop: "thumb"
+        }
+        )
+        return { image: image_upload_response.url, thumbnail: thumbnail_upload_response.url };
       })
     );
 
-    //  console.log(image_cloud_link);
+    console.log(image_cloud_link);
 
     const Product_save = new Product({
       title: title,
@@ -39,9 +45,9 @@ const products = async (req, res) => {
     try {
       const saved_product = await Product_save.save();
       console.log(saved_product);
-      await User.findByIdAndUpdate(user_id, {
-        $addToSet: { products_posted: saved_product._id },
-      });
+      // await User.findByIdAndUpdate(user_id, {
+      //   $addToSet: { products_posted: saved_product._id },
+      // });
 
       res
         .status(200)
@@ -86,20 +92,27 @@ const admin_response = async (req, res) => {
       console.log("came to save in database");
       await Product.findOneAndUpdate({ _id: id }, { is_verified: true });
       await User.findByIdAndUpdate(user_id, {
+        $addToSet: { products_posted: id },
+      });
+      const date = new Date();
+      await User.findByIdAndUpdate(user_id, {
         $addToSet: {
           notification: {
             status: 1,
             content: `Dear user, your Ad request for the product ${product_title} has been approved. We will notify you once we get any interested buyer for your item.`,
+            createdAt: date,
           },
         },
       });
       res.status(200).send("product approved");
     } else {
+      const date = new Date();
       await User.findByIdAndUpdate(user_id, {
         $addToSet: {
           notification: {
             status: -1,
             content: `Dear user, your Ad request for the product ${product_title} has been declined as it does not meet our policy.`,
+            createdAt: date,
           },
         },
       });
@@ -117,11 +130,14 @@ const admin_response = async (req, res) => {
 const fetch_livedata = async (req, res) => {
   // console.log(req.body.email);
   //  console.log("reached to pick up data");
+  
   try {
     const email = req.body.email;
     const category = req.body.category;
     let fetch_post;
+    const pointer = req.body.pointer;
     //   console.log(category);
+<<<<<<< HEAD
     if (category === "recommendation") {
       //  console.log("hello");
       fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
@@ -140,6 +156,27 @@ const fetch_livedata = async (req, res) => {
       //    res.status(200).send(fetch_post);
     }
 
+=======
+   
+      if (category === "recommendation") {
+    
+    //    fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
+    
+      fetch_post =await Product.find({is_verified:true}).sort({createdAt: -1}).skip(pointer -1 ).limit(20);  // **first it will sort in order of date and then apply skip and limit
+          console.log(fetch_post);
+        //  res.status(200).send(fetch_post);
+      } else {
+    
+        // fetch_post = await Product.where("category")
+        //   .equals(category)
+        //   .where("is_verified")
+        //   .equals(true);
+      
+        fetch_post =await Product.find({is_verified:true, category:category}).sort({createdAt: -1}).skip(pointer-1).limit(20);
+        //  console.log(fetch_post);
+        //    res.status(200).send(fetch_post);
+      }
+>>>>>>> c76f0a476337ace4b5b44635b2fa900fceff495b
     if (email) {
       const { favourites } = await User.findOne({ email: email });
       //  console.log(favourites);
@@ -178,6 +215,7 @@ const send_specific_product = async (req, res) => {
     console.log(product);
     res.status(200).send(product);
   } catch (err) {
+    res.status(200).send("404");
     console.log(err);
   }
 };

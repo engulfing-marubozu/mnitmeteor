@@ -64,10 +64,11 @@ const signUp = async (req, res) => {
         });
       });
     } else {
+      console.log("phas gaya");
       const findUser = await User.findOne({ email });
       if (findUser) return res.status(200).send("already registered");
 
-      otp = Math.floor(Math.random() * 1000 + 1000);
+       otp = Math.floor(Math.random() * 1000 + 1000);
 
       const sendH = "Your OTP is " + otp;
       const msg = {
@@ -113,7 +114,7 @@ const signIn = (req, res) => {
             if (result === true) {
               console.log("password matched in server");
               foundUser.password="";
-             const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
+             const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
               res.status(200).json({user : foundUser
                 , token : token});
             } else {
@@ -221,5 +222,8 @@ const resendOtp = async (req, res)=>{
    });
 }
 
+const auth_token = (req, res)=>{
+    res.status(200).send("authorised_user");
+}
 
-module.exports = { signIn, signUp, resetPassword , resendOtp};
+module.exports = { signIn, signUp, resetPassword , resendOtp, auth_token};

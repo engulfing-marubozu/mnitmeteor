@@ -1,44 +1,66 @@
-import React from 'react'
+import React from "react";
+import axios from "axios";
 import { Box, Typography, IconButton, Tooltip, Paper } from "@mui/material";
-import ClearIcon from '@mui/icons-material/Clear';
-import { NotificationCardStyle } from './notificationStyling';
-import NotificationReadMore from "./notificationReadMore"
-// import DeleteIcon from '@mui/icons-material/Delete';
-function NotificationCard({ data }) {
-    console.log(data);
-    const DeleteHandler = () => {
-        console.log("deepak ");
+import ClearIcon from "@mui/icons-material/Clear";
+import { NotificationCardStyle } from "./notificationStyling";
+import { TimeSince } from "../TimeElapsed/timecalc";
+import NotificationReadMore from "./notificationReadMore";
+import { useSelector } from "react-redux";
+function NotificationCard({ data, index, setNotifications }) {
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const token = localUserData.token;
+  const DeleteHandler = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/delete_notification",
+        { index: index },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setNotifications(response.data);
+      // console.log(response.data);/
+    } catch (err) {
+      console.log(err);
     }
-    // const status = 1;
-    const classes = NotificationCardStyle(data.status);
-    return (
-        <Paper className={classes.cardMainBox}>
-            <Box className={classes.indicatorWrapper}>
-                <Box className={classes.indicator} ></Box>
-                <Box className={classes.contentBox}>
-                    <Box className={classes.headingContainer}>
-                        <Box className={classes.headingContainer}>
-                            <Typography className={classes.heading}>{data.status === 1 ? "Approved" : data.status === -1 ? "Decline" : "General"}</Typography>
-                            <Typography sx={{ mx: "10px", fontSize: "12px", mt: "3px" }}>
-                                26 sep 2020
-                            </Typography>
-                        </Box>
-                        <IconButton sx={{ p: 0.5 }} onClick={DeleteHandler}>
-                            <Tooltip title='Remove' arrow >
-                                <ClearIcon fontSize="small" />
-                                {/* <DeleteIcon fontSize="small" /> */}
-                            </Tooltip>
-                        </IconButton>
-                    </Box>
-                    {/* <Typography variant="body2"> */}
-                    <NotificationReadMore words={180} data={data.status} >
-                        {data.content}
-                    </NotificationReadMore>
-                    {/* </Typography> */}
-                </Box>
+  };
+  const date = new Date(data.createdAt);
+  const properDate = TimeSince(date);
+  const classes = NotificationCardStyle(data.status);
+  return (
+    <Paper className={classes.cardMainBox}>
+      <Box className={classes.indicatorWrapper}>
+        <Box className={classes.indicator}></Box>
+        <Box className={classes.contentBox}>
+          <Box className={classes.headingContainer}>
+            <Box className={classes.headingContainer}>
+              <Typography className={classes.heading}>
+                {data.status === 1
+                  ? "Approved"
+                  : data.status === -1
+                  ? "Decline"
+                  : "General"}
+              </Typography>
+              <Typography sx={{ mx: "10px", fontSize: "12px", mt: "3px" }}>
+                {properDate}
+              </Typography>
             </Box>
-        </Paper>
-    )
+            <IconButton sx={{ p: 0.5 }} onClick={DeleteHandler}>
+              <Tooltip title="Remove" arrow>
+                <ClearIcon fontSize="small" />
+              </Tooltip>
+            </IconButton>
+          </Box>
+
+          <NotificationReadMore words={180} data={data.status}>
+            {data.content}
+          </NotificationReadMore>
+        </Box>
+      </Box>
+    </Paper>
+  );
 }
 
-export default NotificationCard
+export default NotificationCard;

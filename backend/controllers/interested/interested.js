@@ -21,11 +21,13 @@ const interested_update= async (req, res)=>
                 buyer =  await User.findByIdAndUpdate( id, {$addToSet :  {interested : product_id}} , {new : true} );
                 seller = await User.findById(product.posted_by)
                 await send_interested_email(seller.email , buyer.email, product.title, seller.Mobile_no , buyer.Mobile_no )
+                const date = new Date();
                 await User.findByIdAndUpdate(seller._id, {
                   $push: {
                     notification: {
                       status: 0,
                       content: `Dear user, we have found an interested buyer for your product ${product.title}. please check your e_mail for further details.`,
+                      createdAt :date,
                     },
                   },
                 });
@@ -35,6 +37,7 @@ const interested_update= async (req, res)=>
                     notification: {
                       status: 0,
                       content: `Dear User, please check your e_mail for details of seller of the product ${product.title}.`,
+                      createdAt :date,
                     },
                   },
                 });
@@ -53,7 +56,7 @@ const interested_update= async (req, res)=>
 
 
 // always try to use async await in mongoose queries
-// this function will fetch the user id from the jwt token and will will return all the interested of any user
+// this function will fetch the user id from the jwt token and will return all the interested of any user
 const send_interested_products = async (req, res) => {
     console.log("deepak ");
     console.log(req.user._id);

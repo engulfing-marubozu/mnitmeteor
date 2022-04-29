@@ -9,12 +9,12 @@ import { useNavigate } from "react-router-dom";
 // ========================================================MAIN FUNCTION=================================================================
 
 export default function DiscriptionProductDelete(props) {
-    // ==========================================================GETTING DETAILS FROM STATE-REDUX =================================================
+    // ==========================================================GETTING DETAILS FROM STATE-REDUX =============================================
     const dispatch = useDispatch();
     let navigate = useNavigate();
     const token = useSelector((state) => state.loginlogoutReducer.token);
 
-    // ==============================================AGREE-DISAGREE HANDLER===================================================================================
+    // ==============================================AGREE-DISAGREE HANDLER===================================================================
     const deleteHandler = () => {
         const productData = { token: token, productId: props.productId };
         dispatch(fetchDataForDeletingPublishedAds(productData));

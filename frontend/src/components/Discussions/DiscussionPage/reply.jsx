@@ -28,17 +28,15 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     isLoggedIn ? (setExpanded(!expanded)) : (dispatch(modelPopUp(true)));
   };
   //  ========================================================================================================================================================================
-  // console.log(replyData);
+
   const replyId = replyData?._id;
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;
   const repliedBy = replyData?.replied_by; ///replied by id 
   const repliedTo = replyData?.replied_to;
-  // console.log(repliedTo);
   const date = new Date(replyData?.createdAt);
   const properDate = TimeSince(date);
   const replySqrData = { ...addReplyData, replyId: replyId, repliedTo: userId }
-  // console.log(replySqrData);
   // ======================================================================================================
 
   const likes = replyData.likes;
@@ -53,17 +51,16 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     if (isLoggedIn) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount + 1) } })
-        // console.log("true1")
         const data = { status: "true1", ...replySqrData }
         dispatch(actionForLikeThread(data));
       } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 2) } })
-        // console.log("true1")
+    
         const data = { status: "true1", ...replySqrData }
         dispatch(actionForLikeThread(data));
       } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-        // console.log("false2")
+      
         const data = { status: "false2", ...replySqrData }
         dispatch(actionForLikeThread(data));
       }
@@ -77,20 +74,15 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     if (isLoggedIn) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.likeStatus, totalCount: (prev.totalCount - 1) } })
-        // console.log("false1")
         const data = { status: "false1", ...replySqrData }
         dispatch(actionForLikeThread(data));
 
       } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => { return { ...prev, likeStatus: !prev.likeStatus, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount - 2) } })
-        // dispatch(actionForLikeThread())flase1
-        // console.log("false1")
         const data = { status: "false1", ...replySqrData }
         dispatch(actionForLikeThread(data));
       } else if (!likeDislike.likeStatus && likeDislike.dislikeStatus) {
         setLikeDislike((prev) => { return { ...prev, dislikeStatus: !prev.dislikeStatus, totalCount: (prev.totalCount + 1) } })
-        // dispatch(actionForLikeThread())flase1
-        // console.log("true2")
         const data = { status: "true2", ...replySqrData }
         dispatch(actionForLikeThread(data));
       }

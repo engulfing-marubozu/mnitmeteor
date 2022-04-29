@@ -79,10 +79,10 @@ function FetchSellProd() {
         <>
             {
                 sellData &&
-                sellData.map((product, index) => {
+                sellData.map((product) => {
                     return (
                         <SellingPanel
-                            key={index}
+                            key={product._id}
                             data={product}
                             ApproveRequest={ApproveRequest}
                             DeclineRequest={DeclineRequest}

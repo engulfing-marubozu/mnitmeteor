@@ -51,6 +51,7 @@ const new_thread = async (req, res) => {
   }
 };
 const handle_admin_thread = async (req, res) => {
+  const date = new Date();
   console.log("Admin response is here! ");
   // console.log(req.body);
   approval = req.body.to_approve;
@@ -65,11 +66,20 @@ const handle_admin_thread = async (req, res) => {
           threads_posted: id,
         },
       });
-
+    const xy=  await User.findByIdAndUpdate(req.body.posted_by, {
+        $addToSet: {
+          notification: {
+            status: 1,
+            content: `Dear user, your thread has been approved. We wish you find a great team.`,
+            createdAt :date,
+          },
+        },
+      });
+      console.log(xy);
       res
         .status(200)
         .send(
-          "Verified thread saved in database with and user's thread updated"
+          "product approved"
         );
     });
   } else {
@@ -79,7 +89,16 @@ const handle_admin_thread = async (req, res) => {
     Thread.findByIdAndDelete(id, function(res){
       console.log(res);
     });
-    res.send("Deleted "+id);
+    await User.findByIdAndUpdate(req.body.posted_by, {
+      $addToSet: {
+        notification: {
+          status: -1,
+          content: `Dear user, your thread request has been declined as it did not meet our policy.`,
+          createdAt :date,
+        },
+      },
+    });
+    res.send("product Ad request declined");
   }
 };
 module.exports = { new_thread, handle_admin_thread };

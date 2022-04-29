@@ -1,9 +1,8 @@
-.discriptioncardImage{
-  width:100%;
+.discriptioncardImage {
+  width: 100%;
 }
 
 .discriptioncardImage .image-gallery {
-
   width: 100%;
 }
 
@@ -42,4 +41,9 @@
     height: 260px;
     overflow: hidden;
   }
+}
+
+.image-gallery-thumbnail.active,
+.image-gallery-thumbnail:focus {
+  border: 3px solid #7e57c2;
 }

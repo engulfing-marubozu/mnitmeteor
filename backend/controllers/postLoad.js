@@ -134,7 +134,9 @@ const fetch_livedata = async (req, res) => {
         .equals(category)
         .where("is_verified")
         .equals(true);
-      //  console.log(fetch_post);
+      //if type of fetch post
+
+       console.log("empty thing " + fetch_post);
       //    res.status(200).send(fetch_post);
     }
 

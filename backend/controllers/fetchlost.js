@@ -4,6 +4,8 @@ const FetchLost = async (req, res) => {
   try {
     const data = await LostItem.find({is_verified: true}).sort({'createdAt':-1});
     console.log("Reached fetched state");
+
+    console.log(data);
     // const ldata = JSON.stringify(data);
     res.status(200).send(data);
   } catch (err) {
@@ -17,6 +19,7 @@ const FetchOnlyFound = async (req, res) => {
     const data = await LostItem.find({is_verified: true, category: "Found" }).sort({'createdAt':-1});
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
+    // console.log("data is " + data);
     res.status(200).send(data);
   } catch (err) {
     console.log("tyuy");

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {SendLost, LostCheck, HandleAdmin}= require("../controllers/lostitem");
-const {FetchFalse, FetchLost,FetchOnlyFound,FetchOnlyLost,FetchOnlyLostUser} = require("../controllers/fetchlost")
+const {FetchFalse, FetchLost,FetchOnlyFound,FetchOnlyLost,FetchOnlyLostUser, FetchByID} = require("../controllers/fetchlost")
 const {authorization} = require("../Middlewares/authorization")
 const {deleteLNF} = require("../controllers/deletelnf.js")
 
@@ -14,4 +14,5 @@ router.post('/deleteLnfItem',deleteLNF);
 router.post('/sendlftoadmin',authorization,LostCheck);
 router.get('/sendfalseitems',FetchFalse);
 router.post('/adminresponse',HandleAdmin);
+router.post('/send_specific_products',FetchByID); 
 module.exports= router;

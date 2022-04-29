@@ -50,6 +50,7 @@ function ProductCard(props) {
           email,
           pointer,
         });
+        console.log(cardDetails.data);
         if (isSubscribed) {
           console.log(cardDetails.data);
           setCardData(cardDetails.data);

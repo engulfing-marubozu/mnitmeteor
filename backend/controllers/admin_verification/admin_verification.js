@@ -1,11 +1,14 @@
 const jwt = require ("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const {User} = require("../../Models")
 const expressjwt = require("express-jwt")
 
 const admin_verification = (req, res) => {
+    
     const admin_email_list = ["2019ume1141@mnit.ac.in", "2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
     const authHeader = req.headers.authorization;
     const unicode = req.body.unicode;
+    console.log("unicode is " + unicode);
     console.log(authHeader);
     if (authHeader) {
         const token = authHeader.split(' ')[1];
@@ -16,8 +19,10 @@ const admin_verification = (req, res) => {
                 console.log("error");
                 return res.status(200).send("403");
             }
-           else{
+              req.user=user;
+              console.log(req.user)
                const admin= await User.findById(req.user._id);
+               console.log(admin)
             //    if(admin_email_list.includes(admin.email)  )
             //       res.status(200).send("200");
             //     else
@@ -27,6 +32,7 @@ const admin_verification = (req, res) => {
                   
                   if(admin_email_list.includes(admin.email)  )
                          {console.log("unicode verified and admin verified");
+                         console.log("sfhvhdjs")
                              res.status(200).send("200");}
                 else
                 {
@@ -38,7 +44,7 @@ const admin_verification = (req, res) => {
                   res.status(200).send("403");
                 }
               });
-           }
+           
         
        
         });

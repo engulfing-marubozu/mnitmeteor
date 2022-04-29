@@ -11,7 +11,7 @@ import {
 import { useSelector } from "react-redux";
 const AuthAdmin = async (data) => {
   try {
-    const response = await axios.post(`http://localhost:5000/fetch`, data);
+    const response = await axios.post(`http://localhost:5000/admin_verification`, data);
     return response.data;
     // console.log(response);
   } catch (err) {
@@ -22,13 +22,31 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
   const inputRef = useRef();
-  const userData = useSelector((state) => state.loginlogoutReducer);
-  const token = userData.token;
+  // const userData = useSelector((state) => state.loginlogoutReducer);
+  const localStorageData=JSON.parse(window.localStorage.getItem("auth"))
+  const token = localStorageData.token;
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmit) {
-      const data = { code: inputRef.current.value, token: token };
-      const authData = AuthAdmin(data);
-      console.log(authData);
+      // const data = { , token: token };
+      const run = async ()=>{
+        try {
+          console.log("toek " + token);
+          const response =
+         await axios.post(
+           "http://localhost:5000/admin_verification",
+           { unicode: inputRef.current.value },
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+          console.log(response.data);
+       } catch (err) {
+         console.log(err);
+       }
+      }
+      run();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, isSubmit]);

@@ -73,13 +73,8 @@ const FetchFalse = async (req, res) => {
     console.log(err);
     res.status(200).send(err);
   }
-<<<<<<< HEAD
-};cd 
-const FetchByID = async (req,res)=> {
-=======
 };
 const FetchByID = async (req, res) => {
->>>>>>> 7d34f73488a3b997a377f303e7e5dcd5be6c98af
   const email = req.body.email;
   console.log("fetching by id for " + email);
 

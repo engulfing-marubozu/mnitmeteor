@@ -114,7 +114,7 @@ const signIn = (req, res) => {
             if (result === true) {
               console.log("password matched in server");
               foundUser.password="";
-             const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
+             const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
               res.status(200).json({user : foundUser
                 , token : token});
             } else {

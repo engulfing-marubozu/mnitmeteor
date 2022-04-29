@@ -135,27 +135,27 @@ const fetch_livedata = async (req, res) => {
     const email = req.body.email;
     const category = req.body.category;
     let fetch_post;
-    const start = req.body.pointer;
+    const pointer = req.body.pointer;
     //   console.log(category);
-    if (category === "recommendation") {
-      //  console.log("hello");
-      fetch_post = await Product.find({is_verified:true}).skip(pointer).limit(20).sort({date:-1});
-
-      console.log(fetch_post);
-      //  res.status(200).send(fetch_post);
-    } else {
-      //  console.log("hemllo");
-      // fetch_post = await Product.where("category")
-      //   .equals(category)
-      //   .where("is_verified")
-      //   .equals(true);
-      //   console.log("bhak bc");
-        fetch_post = await Product.find({is_verified:true, category: category}).skip(pointer).limit(20).sort({date:-1});
-      console.log(fetch_post);
-
-      //    res.status(200).send(fetch_post);
-    }
-
+   
+      if (category === "recommendation") {
+    
+    //    fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
+    
+      fetch_post =await Product.find({is_verified:true}).sort({createdAt: -1}).skip(pointer -1 ).limit(20);  // **first it will sort in order of date and then apply skip and limit
+          console.log(fetch_post);
+        //  res.status(200).send(fetch_post);
+      } else {
+    
+        // fetch_post = await Product.where("category")
+        //   .equals(category)
+        //   .where("is_verified")
+        //   .equals(true);
+      
+        fetch_post =await Product.find({is_verified:true, category:category}).sort({createdAt: -1}).skip(pointer-1).limit(20);
+        //  console.log(fetch_post);
+        //    res.status(200).send(fetch_post);
+      }
     if (email) {
       const { favourites } = await User.findOne({ email: email });
       //  console.log(favourites);

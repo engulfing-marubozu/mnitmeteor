@@ -137,26 +137,6 @@ const fetch_livedata = async (req, res) => {
     let fetch_post;
     const pointer = req.body.pointer;
     //   console.log(category);
-<<<<<<< HEAD
-    if (category === "recommendation") {
-      //  console.log("hello");
-      fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
-
-      //   console.log(fetch_post);
-      //  res.status(200).send(fetch_post);
-    } else {
-      //  console.log("hemllo");
-      fetch_post = await Product.where("category")
-        .equals(category)
-        .where("is_verified")
-        .equals(true);
-      //if type of fetch post
-
-       console.log("empty thing " + fetch_post);
-      //    res.status(200).send(fetch_post);
-    }
-
-=======
    
       if (category === "recommendation") {
     
@@ -176,7 +156,6 @@ const fetch_livedata = async (req, res) => {
         //  console.log(fetch_post);
         //    res.status(200).send(fetch_post);
       }
->>>>>>> c76f0a476337ace4b5b44635b2fa900fceff495b
     if (email) {
       const { favourites } = await User.findOne({ email: email });
       //  console.log(favourites);

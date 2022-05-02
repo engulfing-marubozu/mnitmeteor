@@ -14,12 +14,7 @@ import {
 } from "./types";
 import axios from "axios";
 const { io } = require("socket.io-client");
-<<<<<<< HEAD
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
-=======
-const socket = io("http://localhost:5000", { reconnection: true });
-
->>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };
@@ -112,13 +107,8 @@ export const fetchInterestedActions = (interestedData) => {
     try {
       const { productId, userToken,isInterested } = interestedData;
       if (isInterested) {
-<<<<<<< HEAD
         response = await axios.post(
           `${process.env.REACT_APP_API}/interested_update`,
-=======
-        const response = await axios.post(
-          "http://localhost:5000/interested_update",
->>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
           { productId, isInterested },
           {
             headers: {
@@ -141,13 +131,8 @@ export const fetchInterestedActions = (interestedData) => {
           // dispatch(addToInterested(response.data.updatedUser));
         }
       } else {
-<<<<<<< HEAD
         response = await axios.post(
           `${process.env.REACT_APP_API}/un_interested_update`,
-=======
-        const response = await axios.post(
-          "http://localhost:5000/un_interested_update",
->>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
           { productId, isInterested },
           {
             headers: {

@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "./App.css";
 import React, { useEffect } from "react";
 import axios from "axios"
-
 import RouterCon from "./components/RouterConfig/RouterCon";
 import Wrapper from "./components/RouterConfig/Wrapper";
 import { useDispatch } from "react-redux";
@@ -37,6 +35,7 @@ function App() {
   //  ==================================================================================================
   const dispatch = useDispatch();
   const local_storage_data = JSON.parse(window.localStorage.getItem("auth"))
+  console.log("app.js")
   useEffect(() => {
  
     const call = async () => {

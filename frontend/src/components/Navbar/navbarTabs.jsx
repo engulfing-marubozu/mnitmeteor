@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { Tabs, Tab, Badge } from '@mui/material';
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Badge from "@mui/material/Badge";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { useEffect } from 'react';

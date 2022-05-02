@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { NotificationPageStyle } from "./notificationStyling";
 import NotificationCard from "./cardNotification";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import NotificationSkeleton from "./notificationSkeleton";
 import EmptySpace from "../_EmptySpaces/emptySpace";
+import { NotificationPageStyle } from "./notificationStyling";
+import { useSelector } from "react-redux";
 import { notificationEmpty } from "../_EmptySpaces/EmptySvg";
+
 function NotificationPage({ setDrawer }) {
   const [notifications, setNotifications] = useState();
   const token = useSelector((state) => state.loginlogoutReducer.token);
@@ -65,13 +68,4 @@ function NotificationPage({ setDrawer }) {
     </Box>
   );
 }
-
 export default NotificationPage;
-// {typeof notifications !== "undefined" &&
-// notifications.map((data, index) => {
-//   if (data) {
-//     return <NotificationCard data={data} key={index} />;
-//   } else {
-//     return null;
-//   }
-// })}

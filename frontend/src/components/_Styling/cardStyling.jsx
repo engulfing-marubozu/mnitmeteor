@@ -1,5 +1,7 @@
 import { makeStyles } from "@mui/styles";
-import { CardContent, styled, Card } from "@mui/material";
+import styled from "@emotion/styled";
+import CardContent from "@mui/material/CardContent";
+import Card from "@mui/material/Card";
 export const CardStyleFirst = makeStyles({
   image: {
     width: "100%",

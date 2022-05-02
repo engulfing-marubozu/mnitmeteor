@@ -1,7 +1,9 @@
-import * as React from "react";
+import React from "react";
 import { styled } from "@mui/material/styles";
-import { Tabs, Tab, IconButton } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import IconButton  from "@mui/material/IconButton";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import poster from "../Images/poster1.jpg";
 import EditIcon from "@mui/icons-material/Edit";
 export const ProfileBoxStyle = makeStyles({

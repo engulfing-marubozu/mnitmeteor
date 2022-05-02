@@ -1,11 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { Box, Typography, IconButton, Tooltip, Paper } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Paper from "@mui/material/Paper";
 import ClearIcon from "@mui/icons-material/Clear";
+import NotificationReadMore from "./notificationReadMore";
 import { NotificationCardStyle } from "./notificationStyling";
 import { TimeSince } from "../TimeElapsed/timecalc";
-import NotificationReadMore from "./notificationReadMore";
 import { useSelector } from "react-redux";
+
 function NotificationCard({ data, index, setNotifications }) {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const token = localUserData.token;

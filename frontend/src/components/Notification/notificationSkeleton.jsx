@@ -1,5 +1,6 @@
 import React from "react";
-import { Skeleton, Box } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
+import  Box from "@mui/material/Box";
 
 function NotificationSkeleton() {
   return (

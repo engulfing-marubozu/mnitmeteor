@@ -1,7 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, Stack, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 import { ModelColorButton, ModelOutlinedButton } from "./ModelPopUpStyling";
 import { useSelector } from "react-redux";
 // ========================================================MAIN FUNCTION=======================================
@@ -32,7 +34,7 @@ export default function InterestedAlert(props) {
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Box
         sx={{
-          width: { md:600,sm: 480, xs: 320 },
+          width: { md: 600, sm: 480, xs: 320 },
           backgroundColor: "white ",
           borderRadius: "7px",
         }}
@@ -52,7 +54,8 @@ export default function InterestedAlert(props) {
             Interested
           </Typography>
           <Typography variant="body1">
-          Looks like you are interested in the product! Contact details of the seller will be sent to you by email if you continue.
+            Looks like you are interested in the product! Contact details of the
+            seller will be sent to you by email if you continue.
           </Typography>
           <Stack
             direction="row"

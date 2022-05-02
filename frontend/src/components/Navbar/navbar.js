@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
-import { GlobalStyles, AppBar, Stack, CssBaseline, Toolbar, Typography, Button, IconButton, Box, Drawer } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { deepPurple } from "@mui/material/colors";
+import axios from 'axios'
+import GlobalStyles from "@mui/material/GlobalStyles";
+import AppBar from "@mui/material/AppBar";
+import CssBaseline from "@mui/material/CssBaseline";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import Stack from "@mui/material/Stack";
+import deepPurple from "@mui/material/colors/deepPurple";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
 import Userbar from "./Userbar";
+import MymenuBar from "./Categories/MenuBar";
+import NavbarTabs from "./navbarTabs";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
-import NavbarTabs from "./navbarTabs";
 import { NavbarStyle } from "./NavabarStyle";
-import MymenuBar from "./Categories/MenuBar";
 const { io } = require("socket.io-client");
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
 // =============================================================================================================================================================================================

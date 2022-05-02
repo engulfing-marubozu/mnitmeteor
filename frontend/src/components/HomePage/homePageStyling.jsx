@@ -1,5 +1,7 @@
-import { Tabs, Tab,Button } from "@mui/material";
-import { deepPurple } from "@mui/material/colors";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Button from "@mui/material/Button";
+import deepPurple from "@mui/material/colors/deepPurple";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 export const StyledTabs = styled((props) => (
@@ -36,7 +38,7 @@ export const ModelOutlinedButton = styled(Button)(({ theme }) => ({
   lineHeight: 1.5,
   borderColor: deepPurple[700],
   color: "#512da8",
-  fontSize: "0.8rem",
+  fontSize: "0.6rem",
   backgroundColor: "transparent",
   "&:hover": {
     borderColor: deepPurple[700],
@@ -66,3 +68,28 @@ export const HomePageStyle = makeStyles({
     },
   },
 });
+
+// export const BannerStyle = {
+//   divStyle: (props) => ({
+//     width: "100%",
+//     display: "flex",
+//     height: "320px",
+//     backgroundPosition: "center",
+//     backgroundRepeat: "no-repeat",
+//     backgroundSize: "cover",
+//     position: "relative",
+//     opacity: "0.9",
+//     // backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url(${props.image})`,
+//   }),
+
+//   textDiv: {
+//     height: "110px",
+//     position: "absolute",
+//     color: "white",
+//     fontWeight: "bold",
+//     fontSize: "3rem",
+//     top: "5.25rem",
+//     left: "4.5rem",
+//     overflow: "hidden",
+//   },
+// });

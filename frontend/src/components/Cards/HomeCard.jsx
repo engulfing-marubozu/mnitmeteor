@@ -1,14 +1,12 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
-import {
-  Box,
-  CardMedia,
-  IconButton,
-  Typography,
-  CardActions,
-  Tooltip,
-} from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import CardActions from "@mui/material/CardActions";
+import Tooltip from "@mui/material/Tooltip";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-router-dom";
@@ -26,7 +24,7 @@ import {
   CardStyleSecond,
 } from "../_Styling/cardStyling";
 
-export default function HomeCard({ cardData ,index}) {
+export default function HomeCard({ cardData, index }) {
   const [likeButton, setLikeButton] = useState(false);
   const Image = cardData?.images[0]?.image;
   const title =
@@ -57,7 +55,7 @@ export default function HomeCard({ cardData ,index}) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
- 
+
   // ===================================================================================================================================
   return (
     <motion.div

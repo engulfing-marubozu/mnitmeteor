@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useFormikContext, useField } from 'formik';
 import { useStyles } from '../FormUI/stylingComponent';
-import { Box, Typography, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Stack from '@mui/material/Stack';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import ClearIcon from '@mui/icons-material/Clear';
 function UploadDoc({ name, ...otherProps }) {

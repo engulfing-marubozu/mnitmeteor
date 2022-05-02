@@ -13,9 +13,13 @@ import {
   SELL_POPUP,
 } from "./types";
 import axios from "axios";
-// import { USER_SERVER } from "../components/Config.js";
 const { io } = require("socket.io-client");
+<<<<<<< HEAD
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
+=======
+const socket = io("http://localhost:5000", { reconnection: true });
+
+>>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };
@@ -103,14 +107,18 @@ export const fetchDataForATF = (likedata) => {
 };
 // ==================================================================
 
-export const fetchDataForInterestedProduct = (interestedData) => {
-  let response;
+export const fetchInterestedActions = (interestedData) => {
   return async (dispatch) => {
     try {
-      const { productId, userToken, isInterested } = interestedData;
+      const { productId, userToken,isInterested } = interestedData;
       if (isInterested) {
+<<<<<<< HEAD
         response = await axios.post(
           `${process.env.REACT_APP_API}/interested_update`,
+=======
+        const response = await axios.post(
+          "http://localhost:5000/interested_update",
+>>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
           { productId, isInterested },
           {
             headers: {
@@ -118,7 +126,7 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-        console.log(response.data,isInterested)
+        // console.log(response.data);
         if (response.data.status === "success") {
           socket.emit(
             "admin decline/approve/interested event",
@@ -128,12 +136,18 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } else {  
-          dispatch(addToInterested(response.data.updatedUser));
+        } else {
+          console.log("maa ka bhosda");
+          // dispatch(addToInterested(response.data.updatedUser));
         }
       } else {
+<<<<<<< HEAD
         response = await axios.post(
           `${process.env.REACT_APP_API}/un_interested_update`,
+=======
+        const response = await axios.post(
+          "http://localhost:5000/un_interested_update",
+>>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
           { productId, isInterested },
           {
             headers: {
@@ -141,16 +155,19 @@ export const fetchDataForInterestedProduct = (interestedData) => {
             },
           }
         );
-
-        //   if (response.data.status) {
-        //     alert(
-        //       `${response.data.attempts_left} attempts left for another ${response.data.ttl_seconds} seconds`
-        //     );
-        // dispatch(addToFavourites(response.data.updatedUser));
-        //   } else {
-        //
-        console.log(response.data);
-        dispatch(addToInterested(response.data));
+        console.log(response);
+      //   const { status, ttl_seconds, attempts_left } = response.data;
+      //   if (status) {
+      //     console.log("deepak");
+      //     console.log(response.data);
+      //     alert(
+      //       `${attempts_left} attempts left for another ${ttl_seconds} seconds`
+      //     );
+      //     setIsInterested(!interestedData);
+      //   } else {
+      //     console.log(response.data);
+      //     alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
+      //   }
       }
     } catch (err) {
       console.log(err);
@@ -181,7 +198,7 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 // ==================================================================
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  const { token, phoneNo} = phoneData;
+  const { token, phoneNo } = phoneData;
   return async (dispatch) => {
     try {
       const response = await axios.post(

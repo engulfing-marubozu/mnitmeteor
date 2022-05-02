@@ -1,20 +1,18 @@
 import * as React from "react";
 // import { RWebShare } from "react-web-share";
 import { motion } from "framer-motion";
-import {
-  Card,
-  CardMedia,
-  CardActions,
-  IconButton,
-  Typography,
-  Box,
-  Tooltip,
-} from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import CardActions from "@mui/material/CardActions";
+import Tooltip from "@mui/material/Tooltip";
 import ShareIcon from "@mui/icons-material/Share";
+import Card from "@mui/material/Card";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDataForInterestedProduct } from "../../../AStatemanagement/Actions/userActions";
+import { fetchInterestedActions } from "../../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import {
   CardStyleFirst,
@@ -35,9 +33,10 @@ export default function CardForInterestedProduct({ cardData }) {
   const dispatch = useDispatch();
   // =========================================================================================
   const removeInteresetedHandler = () => {
+    // data to send request //
     const interestedData = { productId: cardData?._id, userToken: token };
     dispatch(
-      fetchDataForInterestedProduct({
+      fetchInterestedActions({
         ...interestedData,
         isInterested: false,
       })

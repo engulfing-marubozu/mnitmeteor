@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "./App.css";
 import React, { useEffect } from "react";
 import axios from "axios"
 // require("dotenv").config();
@@ -37,6 +36,7 @@ function App() {
   //  ==================================================================================================
   const dispatch = useDispatch();
   const local_storage_data = JSON.parse(window.localStorage.getItem("auth"))
+  console.log("app.js")
   useEffect(() => {
  
     const call = async () => {

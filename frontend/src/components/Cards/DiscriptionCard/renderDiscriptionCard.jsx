@@ -11,7 +11,6 @@ export default function RenderDiscriptionCard() {
   const product_id = params.productId;
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
   const { email, _id: userId } = userData;
-
   useEffect(() => {
     window.scrollTo(0, 0);
     let isSubscribed = true;
@@ -36,7 +35,8 @@ export default function RenderDiscriptionCard() {
     return () => {
       isSubscribed = false;
     };
-  }, [email, product_id, Navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, product_id]);
 
   return (
     <>

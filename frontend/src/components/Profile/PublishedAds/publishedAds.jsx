@@ -1,12 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Container, Grid, Box } from "@mui/material";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import CardForPublishedAds from "./CardForPublishedAd";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
+import { useSelector } from "react-redux";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
@@ -35,7 +37,8 @@ function PublishedAds() {
     return () => {
       isSubscribed = false;
     };
-  }, [publishedAdsData, token]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publishedAdsData]);
   console.log(cardData);
   // ===================================================================================================================================================================
   return (

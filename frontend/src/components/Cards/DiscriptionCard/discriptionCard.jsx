@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import {
   fetchDataForATF,
-  fetchDataForInterestedProduct,
+  fetchInterestedActions,
   modelPopUp,
 } from "../../../AStatemanagement/Actions/userActions";
 import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
-import { Typography, Stack } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 import { OutlinedButton, ColorButton } from "../../Navbar/navbar";
 import {
   BoxContainer,
@@ -25,10 +26,7 @@ import "../discriptionImageStyle.css";
 import ReadMore from "../../_Styling/readmore";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-
-
-function DiscriptionCard({ descrpData, productId,userId}) {
+function DiscriptionCard({ descrpData, productId, userId }) {
   const [modelPopup, setModelPopup] = useState(false);
   const [contactModel, setContactModel] = useState(false);
   const [deletePopUp, setDeletePopUp] = useState(false);
@@ -37,9 +35,7 @@ function DiscriptionCard({ descrpData, productId,userId}) {
   // ==========================================================================================================
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const token = useSelector((state) => state.loginlogoutReducer.token);
-  const userInterestedData = useSelector((state) => state.InterestedReducer);
   const dispatch = useDispatch();
-
 
   // ========================================================LIKESTATUS=======================================
   const favouriteClickHandler = () => {
@@ -61,16 +57,9 @@ function DiscriptionCard({ descrpData, productId,userId}) {
       const interestedData = { productId: productId, userToken: token };
       if (!isInterested) {
         dispatch(
-          fetchDataForInterestedProduct({
+          fetchInterestedActions({
             ...interestedData,
             isInterested: true,
-          })
-        );
-      } else {
-        dispatch(
-          fetchDataForInterestedProduct({
-            ...interestedData,
-            isInterested: false,
           })
         );
       }
@@ -83,37 +72,22 @@ function DiscriptionCard({ descrpData, productId,userId}) {
       if (!isInterested) {
         setModelPopup(true);
       } else if (isInterested) {
-        //"show pop for how many attempt are left for uninterested "
-        // console.log(userInterestedData);
-        const { attempts_left, status, ttl_seconds } = userInterestedData;
-        console.log(attempts_left, status, ttl_seconds);
-        if (status) {
-          alert(
-            `${
-              attempts_left - 1
-            } attempts left for another ${ttl_seconds} seconds`
-          );
-          modelInputHandler(true);
-        } else {
-          const interestedData = {
-            productId: productId,
-            userToken: token,
-          };
-          dispatch(
-            fetchDataForInterestedProduct({
-              ...interestedData,
-              isInterested: false,
-            })
-          );
-          alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
-        }
+        // call to backend for checking data for permission
+        const interestedData = {
+          productId: productId,
+          userToken: token,
+          isInterested: false,
+          setIsInterested: setIsInterested,
+        };
+        dispatch(fetchInterestedActions(interestedData));
+        // setIsInterested(!isInterested);
       }
     } else {
       dispatch(modelPopUp(true));
     }
   };
   const classes = DescriptionStyle();
-  console.log(descrpData);
+  // console.log(descrpData);
   // ================================================================CardData =======================================
   const imageThumbnail = descrpData?.images;
   const title =
@@ -265,5 +239,4 @@ function DiscriptionCard({ descrpData, productId,userId}) {
     </>
   );
 }
-
 export default DiscriptionCard;

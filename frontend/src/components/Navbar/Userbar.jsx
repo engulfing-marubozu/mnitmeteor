@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Badge, Drawer } from '@mui/material';
+import Badge from "@mui/material/Badge";
+import Drawer from "@mui/material/Drawer";
+import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {
+  LogoutUser,
+  modelPopUp,
+} from "../../AStatemanagement/Actions/userActions";
 import { useDispatch } from "react-redux";
-import { LogoutUser, modelPopUp } from "../../AStatemanagement/Actions/userActions";
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation, useNavigate } from "react-router-dom";
-import { Tooltip, Avatar, Menu, MenuItem, Box, IconButton } from "@mui/material";
 import NotificationPage from "../Notification/notificationPage";
 const { io } = require("socket.io-client");
+<<<<<<< HEAD
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
 function Userbar({ updateNotification, setNotificationPending }) {
+=======
+const socket = io("http://localhost:5000", { reconnection: true });
+>>>>>>> 3937dc3813a4149e40dceee8f36c9958ef3aab5b
 
+function Userbar({ updateNotification, setNotificationPending }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
@@ -29,21 +43,25 @@ function Userbar({ updateNotification, setNotificationPending }) {
   const BadgeHandler = () => {
     setDrawer(true);
     setNotificationPending(0);
-  }
+  };
 
   return (
     <Box>
       <IconButton sx={{ p: 0.65, mr: { xs: 1, sm: 2 } }} onClick={BadgeHandler}>
         <Badge badgeContent={updateNotification} color="error">
           <Tooltip title="Notifications" arrow>
-            <NotificationsIcon sx={{ fontSize: { xs: 20, sm: 24 }, color: "#263238", }} />
+            <NotificationsIcon
+              sx={{ fontSize: { xs: 20, sm: 24 }, color: "#263238" }}
+            />
           </Tooltip>
         </Badge>
       </IconButton>
       <Drawer
-        anchor='right'
+        anchor="right"
         open={drawer}
-        onClose={() => { setDrawer(false) }}
+        onClose={() => {
+          setDrawer(false);
+        }}
       >
         <NotificationPage setDrawer={setDrawer} />
       </Drawer>
@@ -80,10 +98,23 @@ function Userbar({ updateNotification, setNotificationPending }) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-
-        <MenuItem onClick={() => { Navigate("/profile"); handleCloseUserMenu(); }}><AccountCircleIcon sx={{ fontsize: 3, mr: 1 }} />Profile</MenuItem>
-        <MenuItem onClick={() => { Navigate("/favourites"); handleCloseUserMenu(); }}>
-          <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />Favourites
+        <MenuItem
+          onClick={() => {
+            Navigate("/profile");
+            handleCloseUserMenu();
+          }}
+        >
+          <AccountCircleIcon sx={{ fontsize: 3, mr: 1 }} />
+          Profile
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            Navigate("/favourites");
+            handleCloseUserMenu();
+          }}
+        >
+          <FavoriteSharpIcon sx={{ fontsize: 3, mr: 1 }} />
+          Favourites
         </MenuItem>
         <MenuItem
           onClick={() => {
@@ -93,7 +124,11 @@ function Userbar({ updateNotification, setNotificationPending }) {
             dispatch(LogoutUser());
             window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
-            if (location.pathname !== "/" && location.pathname !== '/discussions' && location.pathname !== '/lost&found') {
+            if (
+              location.pathname !== "/" &&
+              location.pathname !== "/discussions" &&
+              location.pathname !== "/lost&found"
+            ) {
               Navigate("/");
             }
           }}
@@ -103,7 +138,6 @@ function Userbar({ updateNotification, setNotificationPending }) {
         </MenuItem>
       </Menu>
     </Box>
-
   );
 }
 

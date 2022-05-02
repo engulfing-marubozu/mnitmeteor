@@ -107,7 +107,7 @@ export const fetchInterestedActions = (interestedData) => {
     try {
       const { productId, userToken,isInterested } = interestedData;
       if (isInterested) {
-        response = await axios.post(
+      const  response = await axios.post(
           `${process.env.REACT_APP_API}/interested_update`,
           { productId, isInterested },
           {
@@ -131,7 +131,7 @@ export const fetchInterestedActions = (interestedData) => {
           // dispatch(addToInterested(response.data.updatedUser));
         }
       } else {
-        response = await axios.post(
+      const  response = await axios.post(
           `${process.env.REACT_APP_API}/un_interested_update`,
           { productId, isInterested },
           {

@@ -18,7 +18,7 @@ export default function SpecificThread() {
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/send_specific_thread",
+          `${process.env.REACT_APP_API}/send_specific_thread`,
           { email, thread_id}
         );
         if (isSubscribed) {

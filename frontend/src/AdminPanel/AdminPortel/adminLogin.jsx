@@ -11,10 +11,10 @@ import {
 import { useSelector } from "react-redux";
 const AuthAdmin = async (data) => {
   try {
-    const response = await axios.post(`http://localhost:5000/admin_verification`, data);
+    const response = await axios.post(`${process.env.REACT_APP_API}/admin_verification`, data);
     return response.data;
     // console.log(response);
-  } catch (err) {
+  } catch (err) {                            
     console.log(err);
   }
 };
@@ -24,7 +24,7 @@ export default function AdminLogin() {
   const inputRef = useRef();
   // const userData = useSelector((state) => state.loginlogoutReducer);
   const localStorageData=JSON.parse(window.localStorage.getItem("auth"))
-  const token = localStorageData.token;
+  const token = localStorageData?.token;
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmit) {
       // const data = { , token: token };
@@ -33,7 +33,7 @@ export default function AdminLogin() {
           console.log("toek " + token);
           const response =
          await axios.post(
-           "http://localhost:5000/admin_verification",
+           `${process.env.REACT_APP_API}/admin_verification`,
            { unicode: inputRef.current.value },
            {
              headers: {

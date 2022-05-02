@@ -53,7 +53,7 @@ function SellFormNew() {
       console.log("sent to save in database");
       // const response =
       await axios.post(
-        "http://localhost:5000/product_details",
+        `${process.env.REACT_APP_API}/product_details`,
         { images: imagearray, details: values },
         {
           headers: {

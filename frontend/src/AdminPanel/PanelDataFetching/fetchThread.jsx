@@ -23,7 +23,7 @@ export default function FetchThread() {
     handleClose();
     try {
       const response = await axios.post(
-        "http://localhost:5000/handle_admin_thread",
+        `${process.env.REACT_APP_API}/handle_admin_thread`,
         {
           to_approve: true,
           posted_by: cardData.posted_by,
@@ -55,7 +55,7 @@ export default function FetchThread() {
     handleClose();
     try {
       const response = await axios.post(
-        "http://localhost:5000/handle_admin_thread",
+        `${process.env.REACT_APP_API}/handle_admin_thread`,
         {
           to_approve: false,
           posted_by: cardData.posted_by,
@@ -78,8 +78,8 @@ export default function FetchThread() {
       console.log(err);
     }
   };
-  // lf get code: "http://localhost:5000/sendfalseitems"
-  // post code http://localhost:5000/adminresponse
+  // lf get code: `${process.env.REACT_APP_API}/sendfalseitems"
+  // post code ${process.env.REACT_APP_API}/adminresponse
 
   // =======================================================================================================
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function FetchThread() {
     const admin_thread_load = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/fetch_false_threads"
+          `${process.env.REACT_APP_API}/fetch_false_threads`
         );
         if (isSubscribed) {
           setThreadData(response.data);

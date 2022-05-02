@@ -19,7 +19,7 @@ export function SignupForm(props) {
   const verifySignUp = async () => {
     try {
       const { email } = signupEmail;
-      const response = await axios.post("http://localhost:5000/signUp", {
+      const response = await axios.post(`${process.env.REACT_APP_API}/signUp`, {
         email,
       });
       if (response.data === "already registered") {

@@ -13,7 +13,9 @@ function LostItems() {
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {
-        const response = await axios("http://localhost:5000/onlylost"); // get
+
+        console.log(`${process.env.REACT_APP_API}`);
+        const response = await axios(`${process.env.REACT_APP_API}/onlylost`); // get
         if (isSubscribed) {
           setLostItems(response.data);
         }

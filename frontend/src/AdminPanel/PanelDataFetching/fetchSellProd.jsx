@@ -16,7 +16,7 @@ function FetchSellProd() {
     const ApproveRequest = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-            const response = await axios.post("http://localhost:5000/admin_response", {
+            const response = await axios.post(`${process.env.REACT_APP_API}/admin_response`, {
                 id: cardData._id,
                 response: true,
             });
@@ -38,7 +38,7 @@ function FetchSellProd() {
         handleClose();
         const user_id = cardData.posted_by;
         try {
-            const response = await axios.post("http://localhost:5000/admin_response", {
+            const response = await axios.post(`${process.env.REACT_APP_API}/admin_response`, {
                 id: cardData._id,
                 response: false,
             });
@@ -61,7 +61,7 @@ function FetchSellProd() {
         const admin_post_load = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:5000/admin_postLoad"
+                    `${process.env.REACT_APP_API}/admin_postLoad`
                 );
                 if (isSubscribed) {
                     setSellData(response.data.data);

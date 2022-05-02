@@ -2,7 +2,7 @@
 import "./App.css";
 import React, { useEffect } from "react";
 import axios from "axios"
-
+// require("dotenv").config();
 import RouterCon from "./components/RouterConfig/RouterCon";
 import Wrapper from "./components/RouterConfig/Wrapper";
 import { useDispatch } from "react-redux";
@@ -42,7 +42,7 @@ function App() {
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/auth_token",
+          `${process.env.REACT_APP_API}/auth_token`,
           {},
           {
             headers: {

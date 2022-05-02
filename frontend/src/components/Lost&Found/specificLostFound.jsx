@@ -14,7 +14,7 @@ export default function SpecificLostFound() {
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/send_specific_lost",
+          `${process.env.REACT_APP_API}/send_specific_lost`,
           {lnfcard_id }
         );
         if (isSubscribed) {

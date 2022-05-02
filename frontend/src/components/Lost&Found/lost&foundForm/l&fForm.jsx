@@ -33,7 +33,7 @@ const FORM_VALIDATION = Yup.object().shape({
 const sendLostItem = (data, localUserData) => {
   axios
     .post(
-      "http://localhost:5000/sendlftoadmin",
+      `${process.env.REACT_APP_API}/sendlftoadmin`,
       {
         categories: data.categories,
         title: data.adTitle,

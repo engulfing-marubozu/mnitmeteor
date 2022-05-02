@@ -14,7 +14,7 @@ function PostsWithAxios() {
     let isSubscribe = true;
     const axiosPosts = async () => {
       try {
-        const response = await axios("http://localhost:5000/fetchlost"); //get
+        const response = await axios(`${process.env.REACT_APP_API}/fetchlost`); //get
         if (isSubscribe) {
           setlfData(response.data);
         }

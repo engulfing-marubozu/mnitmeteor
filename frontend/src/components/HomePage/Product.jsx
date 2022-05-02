@@ -41,7 +41,7 @@ function ProductCard(props) {
     let isSubscribed = true;
     const Call = async () => {
       try {
-        const cardDetails = await axios.post(`http://localhost:5000/fetch`, {
+        const cardDetails = await axios.post(`${process.env.REACT_APP_API}/fetch`, {
           category,
           email,
           pointer,

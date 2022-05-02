@@ -16,7 +16,7 @@ function DiscussionCardArray() {
     async function call() {
       try {
         const response = await axios.post(
-          "http://localhost:5000/fetch_live_threads",
+          `${process.env.REACT_APP_API}/fetch_live_threads`,
           { user_id: userID }
         );
         if (isSubscribed) {

@@ -18,7 +18,7 @@ export default function RenderDiscriptionCard() {
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/send_specific_product",
+          `${process.env.REACT_APP_API}/send_specific_product`,
           { email, product_id }
         );
         if (isSubscribed) {

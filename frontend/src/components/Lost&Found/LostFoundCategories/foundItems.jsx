@@ -13,7 +13,7 @@ function FoundItems() {
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {
-        const response = await axios("http://localhost:5000/onlyfound"); //get
+        const response = await axios(`${process.env.REACT_APP_API}/onlyfound`); //get
         if (isSubscribed) {
           setFoundItems(response.data);
         }

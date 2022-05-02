@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { styled } from "@mui/system";
+import { styled } from '@mui/material/styles';
 export const Wrapper = styled("div")({
   width: "100 %",
   height: "100 %",
@@ -61,7 +61,7 @@ export const DescriptionStyle = makeStyles({
     fontSize: "1.85rem",
     padding: "0 2rem",
     "@media(max-width:1200px)": {
-      fontSize:"1.7rem",
+      fontSize: "1.7rem",
       padding: "1rem 0 0rem",
     },
     "@media(max-width:600px)": {

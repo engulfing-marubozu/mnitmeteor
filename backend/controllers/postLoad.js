@@ -142,7 +142,7 @@ const fetch_livedata = async (req, res) => {
 
       //    fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
 
-      fetch_post = await Product.find({ is_verified: true }).sort({ createdAt: -1 }).skip(pointer - 1).limit(2);  // **first it will sort in order of date and then apply skip and limit
+      fetch_post = await Product.find({ is_verified: true }).sort({ createdAt: -1 }).skip(pointer - 1).limit(20);  // **first it will sort in order of date and then apply skip and limit
       console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
@@ -152,7 +152,7 @@ const fetch_livedata = async (req, res) => {
       //   .where("is_verified")
       //   .equals(true);
 
-      fetch_post = await Product.find({ is_verified: true, category: category }).sort({ createdAt: -1 }).skip(pointer - 1).limit(2);
+      fetch_post = await Product.find({ is_verified: true, category: category }).sort({ createdAt: -1 }).skip(pointer - 1).limit(20);
       //  console.log(fetch_post);
       //    res.status(200).send(fetch_post);
     }

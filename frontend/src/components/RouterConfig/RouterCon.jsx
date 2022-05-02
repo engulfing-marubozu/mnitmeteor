@@ -6,6 +6,11 @@ import Discussions from "../Discussions/discussion";
 import LostFound from "../Lost&Found/lostFound";
 import AproductSellCard from "../SellnowNew/AproductSellCard";
 import ProductCard from "../HomePage/Product";
+import BooksCard from "../HomePage/productCategory/books";
+import CycleCard from "../HomePage/productCategory/cycle";
+import ElectronicsCard from "../HomePage/productCategory/electronics";
+import UniformCard from "../HomePage/productCategory/uniform";
+import OthersCard from "../HomePage/productCategory/others";
 import RenderDiscriptionCard from "../Cards/DiscriptionCard/renderDiscriptionCard";
 import Profile from "../Profile/Profile";
 import Favourites from "../Favourites/Favourites";
@@ -35,8 +40,12 @@ function RouterCon() {
     <AnimatePresence>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route index element={<ProductCard category="recommendation" />} />
-          <Route path="product/:category" element={<ProductCard />} />
+          <Route index element={<ProductCard />} />
+          <Route path="product/books" element={<BooksCard />} />
+          <Route path="product/cycle" element={<CycleCard />} />
+          <Route path="product/electronics" element={<ElectronicsCard />} />
+          <Route path="product/uniform" element={<UniformCard />} />
+          <Route path="product/others" element={<OthersCard />} />
         </Route>
         <Route path="discussions" element={<Discussions />}>
           <Route index element={<DiscussionCardArray />} />

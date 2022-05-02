@@ -5,18 +5,11 @@ import ElectronicsIcon from "./SliderIcons/computer_icon.svg";
 import BicycleIcon from "./SliderIcons/cycle-2.svg";
 import ClothIcon from "./SliderIcons/clothes.svg";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { StyledTab, StyledTabs, HomePageStyle } from "./homePageStyling";
 export default function CategorySlider() {
   // =========================================================CLICKHANDLERS============================================================================================================
-  const params = useParams();
-  const paramstoIndex = {
-    books: 0,
-    cycle: 1,
-    electronics: 2,
-    uniform: 3,
-    others: 4,
-  };
+  const location = useLocation();
   const [value, setValue] = React.useState(false);
 
   // ================================TAB CLICK HANDLERS
@@ -25,13 +18,20 @@ export default function CategorySlider() {
     Navigate(`/product/${flag}`);
   };
   useEffect(() => {
-    const tabValue =
-      typeof paramstoIndex[params.category] === "undefined"
-        ? false
-        : paramstoIndex[params.category];
-    setValue(tabValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.category]);
+    if (location.pathname === "/product/books") {
+      setValue(0);
+    } else if (location.pathname === "/product/cycle") {
+      setValue(1);
+    } else if (location.pathname === "/product/electronics") {
+      setValue(2);
+    } else if (location.pathname === "/product/uniform") {
+      setValue(3);
+    } else if (location.pathname === "/product/others") {
+      setValue(4);
+    } else {
+      setValue(false);
+    }
+  }, [location.pathname, setValue]);
   // =======================================================================================================================================================================
   const classes = HomePageStyle();
 

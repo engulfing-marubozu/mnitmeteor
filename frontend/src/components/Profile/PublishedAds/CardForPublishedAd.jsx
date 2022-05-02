@@ -1,27 +1,23 @@
-import * as React from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
-import {
-  Card,
-  CardMedia,
-  CardActions,
-  IconButton,
-  Typography,
-  Box,
-  Tooltip,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import CardActions from "@mui/material/CardActions";
+import Tooltip from "@mui/material/Tooltip";
+import ShareIcon from "@mui/icons-material/Share";
 import {
   CardStyleFirst,
   CardContentNoPadding,
 } from "../../_Styling/cardStyling";
 import { Link } from "react-router-dom";
 import { TimeSince } from "../../TimeElapsed/timecalc";
-import ShareIcon from "@mui/icons-material/Share";
 import ProductDeleteAlert from "../../ModelPopUP/deleteAlert";
 
 export default function CardForPublishedAds(props) {
-  // console.log(props.cardData);
-  // =============================================CARD DATA=============
   const Image = props.cardData?.images[0]?.image;
   const title =
     props.cardData.title.charAt(0).toUpperCase() +

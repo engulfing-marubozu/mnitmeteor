@@ -1,7 +1,8 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";

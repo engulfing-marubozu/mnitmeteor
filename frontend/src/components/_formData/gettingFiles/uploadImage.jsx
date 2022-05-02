@@ -4,8 +4,8 @@ import { useStyles } from "../FormUI/stylingComponent";
 import { CustomButton } from "./PreviewImage";
 import PreviewImage from "./PreviewImage";
 import { useField, useFormikContext } from "formik";
-import { Box, Typography } from "@mui/material";
-
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function UploadImage(props) {
   const { setFieldValue } = useFormikContext();

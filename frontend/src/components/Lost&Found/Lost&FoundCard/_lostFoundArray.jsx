@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Box from "@mui/material/Box";
+import { ModelOutlinedButton } from "../../HomePage/homePageStyling";
 import LostFoundCard from "./L&FCard";
 import axios from "axios";
 import LostFoundSkeleton from "../lostfoundSkeleton";
@@ -8,7 +10,12 @@ import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
 
 function PostsWithAxios() {
   const [lfData, setlfData] = useState();
-
+  const [pointer, setPointerData] = useState(1);
+  const LoadMoreHandler = () => {
+    setPointerData((prev) => {
+      return prev + 20;
+    });
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
     let isSubscribe = true;
@@ -48,6 +55,15 @@ function PostsWithAxios() {
         })
       ) : (
         <EmptySpace source={lostFoundEmpty.explore} />
+      )}
+      {pointer <= lfData?.length && lfData?.length > 2 && (
+        <Box
+          sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}
+        >
+          <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>
+            Load More
+          </ModelOutlinedButton>
+        </Box>
       )}
     </motion.div>
   );

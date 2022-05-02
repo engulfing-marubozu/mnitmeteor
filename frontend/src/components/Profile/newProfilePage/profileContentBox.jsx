@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Box, Typography, Paper, Collapse } from "@mui/material";
+import Collapse from "@mui/material/Collapse";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import {
@@ -13,6 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 import PublishedAds from "../PublishedAds/publishedAds";
 import InterestedProduct from "../InterestedProduct/interestedProduct";
 import { useSelector } from "react-redux";
+
 function ProfileContentBox() {
   const [value, setValue] = useState(0);
   const [tabSwitch, setTabSwitch] = useState(0);

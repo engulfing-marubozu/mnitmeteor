@@ -1,18 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Box,
-  Tooltip,
-  CardActions,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
+import IconButton from "@mui/material/IconButton";
+import CardActions from "@mui/material/CardActions";
+import Tooltip from "@mui/material/Tooltip";
+import ShareIcon from "@mui/icons-material/Share";
 import Avatar from "@mui/material/Avatar";
 import ImageGallery from "react-image-gallery";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import ShareIcon from "@mui/icons-material/Share";
 import { LostFoundCardStyle } from "./LostFoundStyling";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import "./l&fImageStyle.css";
@@ -21,9 +19,8 @@ import { RWebShare } from "react-web-share";
 import LostFoundDeleteAlert from "../lsDeleteAlert.jsx/lsDeleteAlert";
 import ReadMore from "../../_Styling/readmore";
 
-
 export default function LostFoundCard({ data, flag, setLostFound }) {
-  console.log(data);
+  // console.log(data);
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const userLoggedIn = localUserData?.userData._id;
   const date = new Date(data.createdAt);
@@ -95,9 +92,7 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
           </Box>
           <CardContent sx={{ py: 0 }}>
             <Typography variant="h6">{itemName}</Typography>
-            <ReadMore words={180}>
-              {description}
-            </ReadMore>
+            <ReadMore words={180}>{description}</ReadMore>
           </CardContent>
           <CardActions sx={{ px: "1rem", pb: "1rem", display: "flex" }}>
             <Typography className={classes.lfcategory}> {category}</Typography>

@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
 import React, { useState } from "react";
+import Typography from "@mui/material/Typography";
 const ReadMore = ({ children, words, classname }) => {
   const text = children;
   const textLength = text?.length;

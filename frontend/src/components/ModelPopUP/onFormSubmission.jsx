@@ -1,7 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, Stack, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 // ========================================================MAIN FUNCTION=======================================
 
 export default function SuccessfulSubmission({ onClose, children }) {
@@ -18,7 +20,7 @@ export default function SuccessfulSubmission({ onClose, children }) {
       >
         <Stack direction="row" justifyContent="flex-end">
           <IconButton
-            sx={{ p: "4px" ,margin:"4px 4px 0 0" }}
+            sx={{ p: "4px", margin: "4px 4px 0 0" }}
             onClick={() => {
               onClose();
             }}

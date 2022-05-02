@@ -1,15 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
-import {
-  Box,
-  Tooltip,
-  Card,
-  CardMedia,
-  CardActions,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import CardActions from "@mui/material/CardActions";
+import Tooltip from "@mui/material/Tooltip";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";

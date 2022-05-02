@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import { styled } from '@mui/material/styles';
 export const FormContainer = styled("form")({
   padding: "10px 5px",
   width: "100%",

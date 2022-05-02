@@ -1,6 +1,8 @@
-import { Typography } from "@mui/material";
 import React, { useState } from "react";
+import  Typography from "@mui/material/Typography";
 import { NotificationCardStyle } from "./notificationStyling";
+
+
 const NotificationReadMore = ({ children, data }) => {
     const text = children;
     const textLength = text?.length;

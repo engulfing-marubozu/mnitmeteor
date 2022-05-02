@@ -5,11 +5,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataForDeletingPublishedAds } from "../../AStatemanagement/Actions/userActions";
 import { ModelColorButton, ModelOutlinedButton } from "./ModelPopUpStyling";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, Tooltip } from "@mui/material";
 import { CardStyleFirst } from "../_Styling/cardStyling";
 // ===========================================================MAIN CONTENT=====================
 const Transition = React.forwardRef(function Transition(props, ref) {

@@ -20,6 +20,7 @@ function DiscussionCardArray() {
           { user_id: userID }
         );
         if (isSubscribed) {
+          console.log(response.data);
           setDiscussionData(response.data?.universal_threads);
         }
       } catch (err) {
@@ -43,6 +44,7 @@ function DiscussionCardArray() {
       ) : discussionData.length > 0 ? (
         discussionData.map((data) => {
           if (data) {
+            
             return (
               <DiscussionCard
                 key={data._id}

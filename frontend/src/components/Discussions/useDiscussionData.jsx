@@ -20,6 +20,7 @@ function useDiscussionData(
           `${process.env.REACT_APP_API}/fetch_live_threads`,
           { user_id: userId, pointer: pointer }
         );
+        console.log("hello "+ response);
         if (isSubscribed) {
           console.log("delete");
           setData((prev) => {
@@ -68,7 +69,7 @@ function useDiscussionData(
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointer]);
-  return { loading, hasMore, data };
+  return ({loading,data,hasMore})
 }
 
 export default useDiscussionData;

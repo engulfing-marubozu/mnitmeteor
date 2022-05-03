@@ -22,11 +22,13 @@ function DiscussionCardArray() {
   const observer = useRef();
   const lastCardElementRef = useCallback(
     (node) => {
+      console.log(node);
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          lastPointer.current=pointer;
+          console.log("deepak")
+          // lastPointer.current=pointer;
           setPointer((prev) => prev + 20);
         }
       });
@@ -36,6 +38,7 @@ function DiscussionCardArray() {
     [loading, hasMore]
   );
 
+  console.log(hasMore,loading,data);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -74,7 +77,7 @@ function DiscussionCardArray() {
           );
         }
       })}
-      {!loading && data.length === 0 && !hasMore && (
+      {!loading && data?.length === 0 && !hasMore && (
         <EmptySpace source={DiscussionEmpty.explore} />
       )}
     </motion.div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useDiscussionData(
+function useGetMyTopics(
   lastPointer,
   userId,
   pointer,
@@ -10,16 +10,25 @@ function useDiscussionData(
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
+  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
 
   useEffect(() => {
     setLoading(true);
     let isSubscribed = true;
     const Call = async () => {
       try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API}/fetch_live_threads`,
-          { user_id: userId, pointer: pointer }
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/fetch_own_threads`,
+          {
+            headers: {
+              authorization: `Bearer ${localUserData?.token}`,
+            },
+          }
         );
+        // const response = await axios.post(
+        //   `${process.env.REACT_APP_API}/fetch_live_threads`,
+        //   { user_id: userId, pointer: pointer }
+        // );
         if (isSubscribed) {
           console.log("delete");
           setData((prev) => {
@@ -46,10 +55,11 @@ function useDiscussionData(
     let isSubscribed = true;
     const Call = async () => {
       try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API}/fetch_live_threads`,
-          { user_id: userId, pointer: pointer }
-        );
+        
+        // const response = await axios.post(
+        //   `${process.env.REACT_APP_API}/fetch_live_threads`,
+        //   { user_id: userId, pointer: pointer }
+        // );
         if (isSubscribed) {
           console.log(response.data.universal_threads);
           setData((prev) => {
@@ -70,5 +80,4 @@ function useDiscussionData(
   }, [pointer]);
   return { loading, hasMore, data };
 }
-
-export default useDiscussionData;
+export default useGetMyTopics;

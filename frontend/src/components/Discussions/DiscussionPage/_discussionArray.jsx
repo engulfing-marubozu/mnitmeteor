@@ -9,7 +9,6 @@ import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 function DiscussionCardArray() {
   const [pointer, setPointer] = useState(1);
   const [threadDelete, setThreadDelete] = useState(false);
-  const observer = useRef();
   const lastPointer=useRef(0);
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const userId = localUserData?.user?._id;
@@ -20,7 +19,7 @@ function DiscussionCardArray() {
     threadDelete,
     setThreadDelete
   );
-
+  const observer = useRef();
   const lastCardElementRef = useCallback(
     (node) => {
       if (loading) return;

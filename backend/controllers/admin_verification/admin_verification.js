@@ -18,7 +18,7 @@ const timeConvert = (d)=>{
 }
 const admin_verification = async(req, res, next) => {
     
-    const admin_email_list = ["2019ume1141@mnit.ac.in", "2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
+    const admin_email_list = [ "2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
     const authHeader = req.headers.authorization;
     const unicode = req.body.unicode;
     console.log("unicode is " + unicode);
@@ -43,45 +43,39 @@ const admin_verification = async(req, res, next) => {
             req.user=user;
             console.log(req.user)
             const admin= await User.findById(req.user._id);
-            console.log(admin)
-            bcrypt.compare(unicode, process.env.UNICODE, function (err, result) {
-                if (result === true) {
-                  
-                    if(admin_email_list.includes(admin.email)  )
-                         {console.log("unicode verified and admin verified");
-                         console.log("sfhvhdjs")
-                             res.status(200).send("200");}
-                    else
-                    {
-                        {console.log("unicode verified but admin is does not have the access");
-                        res.status(200).send("403");}
-                    }
-                }else {
-                    //check krna 24 hours ki hai ki nhi 
-                        console.log("Unicode is wrong ");
+            console.log(admin.email);
+            console.log("Unicode given in env " + process.env.UNICODE);
+            console.log("Entered " + unicode);
+            if(unicode===process.env.UNICODE){
+                console.log("Unicode is correct, now checking admin or not");
+                if(admin_email_list.includes(admin.email)  )
+                     {console.log("unicode verified and admin verified");
+                     console.log("sfhvhdjs")
+                         res.status(200).send("Hey Admin!");}
+                else
+                {
+                    {console.log("unicode verified but admin is does not have the access");
+                    res.status(200).send("Not an admin. Admins have been reported for misuse of key");}
+                }
+            }else{
+                console.log("Unicode is wrong ");
 
-                        const redisHandler = async(token,res)=>{
-                            const hits = await redis.incr(token);    
-                            if(hits>2){
-                                await redis.set(token,-1);
-                                const blockingTime = 40;
-                                var time_block = timeConvert(blockingTime);
+                const redisHandler = async(token,res)=>{
+                    const hits = await redis.incr(token);    
+                    if(hits>2){
+                        await redis.set(token,-1);
+                        const blockingTime = 5;
+                        var time_block = timeConvert(blockingTime);
 
-                                await redis.expire(token,blockingTime); //40 seconds 
-                                return res.status(200).send(`You are blocked for ${time_block}.`);
-                            }
-                            res.status(200).send(`Hey, this portal is only for admins. Furthur unsuccessful attempts would block the input. You are remaining with ${3-hits} attempts`);    
-                        }
-                        redisHandler(token,res);
-                        
-                        
+                        await redis.expire(token,blockingTime); //40 seconds 
+                        return res.status(200).send(`You are blocked for ${time_block}.`);
                     }
-                    
-                    
+                    res.status(200).send(` You are remaining with ${3-hits} attempts`);    
+                }
+                redisHandler(token,res);
                 
-              });
-           
-        
+            }
+            
        
         });
     } else {

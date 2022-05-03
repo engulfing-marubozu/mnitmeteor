@@ -32,7 +32,7 @@ const admin_verification = async(req, res, next) => {
         if(hs==-1){
             var time_remaining =  await redis.ttl(token); 
             time_remaining = timeConvert(time_remaining);
-            return res.status(200).send(`Please wait for ${time_remaining} `);
+            return res.status(200).send(`Hey, due to excessive attempts, you can not access it for ${time_remaining} `);
         }
         //if key(token) == -1, you already have tried so much, try again after ttl(token) hours 
         jwt.verify(token, process.env.JWT_SECRET,async (err, user) => {
@@ -64,11 +64,13 @@ const admin_verification = async(req, res, next) => {
                             const hits = await redis.incr(token);    
                             if(hits>2){
                                 await redis.set(token,-1);
-                                const time_block = 40;
-                                await redis.expire(token,time_block); //40 seconds 
-                                return res.status(200).send(`You are blocked for ${time_block} hours`);
+                                const blockingTime = 40;
+                                var time_block = timeConvert(blockingTime);
+
+                                await redis.expire(token,blockingTime); //40 seconds 
+                                return res.status(200).send(`You are blocked for ${time_block}.`);
                             }
-                            res.status(200).send(`You are remaining with ${3-hits}`);    
+                            res.status(200).send(`Hey, this portal is only for admins. Furthur unsuccessful attempts would block the input. You are remaining with ${3-hits} attempts`);    
                         }
                         redisHandler(token,res);
                         

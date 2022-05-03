@@ -5,8 +5,18 @@ const expressjwt = require("express-jwt")
 const Redis = require("redis");
 const redis = Redis.createClient();
 redis.connect();
+const timeConvert = (d)=>{
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
 
-const admin_verification = (req, res, next) => {
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    return hDisplay + mDisplay + sDisplay; 
+}
+const admin_verification = async(req, res, next) => {
     
     const admin_email_list = ["2019ume1141@mnit.ac.in", "2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
     const authHeader = req.headers.authorization;
@@ -17,6 +27,13 @@ const admin_verification = (req, res, next) => {
     if (authHeader) {
         const token = authHeader.split(' ')[1];
         console.log(token);
+        const hs = await redis.get(token);
+        console.log(hs);
+        if(hs==-1){
+            var time_remaining =  await redis.ttl(token); 
+            time_remaining = timeConvert(time_remaining);
+            return res.status(200).send(`Please wait for ${time_remaining} `);
+        }
         //if key(token) == -1, you already have tried so much, try again after ttl(token) hours 
         jwt.verify(token, process.env.JWT_SECRET,async (err, user) => {
             if (err) {
@@ -27,10 +44,6 @@ const admin_verification = (req, res, next) => {
             console.log(req.user)
             const admin= await User.findById(req.user._id);
             console.log(admin)
-        //    if(admin_email_list.includes(admin.email)  )
-            //       res.status(200).send("200");
-            //     else
-            //       res.status(200).send("403");  
             bcrypt.compare(unicode, process.env.UNICODE, function (err, result) {
                 if (result === true) {
                   
@@ -45,20 +58,25 @@ const admin_verification = (req, res, next) => {
                     }
                 }else {
                     //check krna 24 hours ki hai ki nhi 
-                    //if key(token) == -1,  
-                    // console.log("Unicode is wrong ");
-                    // const hits = await redis.incr(token);
-                    // //create the token with his key 
-                    // if(hits<2){
-                    //     const text= `You have ${3-hits}  attempts left`;
-                    //     console.log("You have %d hits left",3-hits);
-                    //     return res.send(200).send(text);
-                    // }
-                    // console.log("Try again after 24 hours");
-                    //token()
-                    //uss map mein key create violation ki 
-                    res.status(200).send("You have ")
-                }
+                        console.log("Unicode is wrong ");
+
+                        const redisHandler = async(token,res)=>{
+                            const hits = await redis.incr(token);    
+                            if(hits>2){
+                                await redis.set(token,-1);
+                                const time_block = 40;
+                                await redis.expire(token,time_block); //40 seconds 
+                                return res.status(200).send(`You are blocked for ${time_block} hours`);
+                            }
+                            res.status(200).send(`You are remaining with ${3-hits}`);    
+                        }
+                        redisHandler(token,res);
+                        
+                        
+                    }
+                    
+                    
+                
               });
            
         

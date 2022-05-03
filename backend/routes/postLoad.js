@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/uuidinput', uuidinput);
 router.post('/product_details', authorization, products);
 router.get('/admin_postLoad',  admin_postLoad);
-router.post('/admin_response', authorization, admin_response);
+router.post('/admin_response', admin_response);
 router.post('/fetch', fetch_livedata);
 router.post('/send_specific_product', send_specific_product);
 

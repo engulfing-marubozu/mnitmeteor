@@ -16,10 +16,16 @@ function FetchSellProd() {
     const ApproveRequest = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
+            // const response = await axios.post(`${process.env.REACT_APP_API}/admin_response`, {
+            //     id: cardData._id,
+            //     response: true,
+            // });
+            console.log("approval ke lie aayaa hai ");
             const response = await axios.post(`${process.env.REACT_APP_API}/admin_response`, {
                 id: cardData._id,
                 response: true,
             });
+            
             if (response.data === "product approved") {
                 socket.emit("admin approve event");
                 socket.emit("admin decline/approve/interested event", cardData.posted_by);

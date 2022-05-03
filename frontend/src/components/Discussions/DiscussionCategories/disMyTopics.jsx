@@ -78,7 +78,7 @@ export default function DiscussionMyTopics() {
           portelId={"portal"}
         >
           <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            what is your name my name is deeepak
+            what is your name my name is dee
           </SuccessfulSubmission>
         </POPUPElement>
       )}

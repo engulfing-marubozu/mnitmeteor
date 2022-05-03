@@ -61,7 +61,7 @@ function FetchLostFound() {
         const admin_lf_load = async () => {
             try {
                 const response = await axios.get(
-                    "process.env.REACT_APP_API/sendfalseitems"
+                    `${process.env.REACT_APP_API}/sendfalseitems`
                 );
                 if (isSubscribed) {
                     setlfData(response.data);

@@ -22,7 +22,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
 import { NavbarStyle } from "./NavabarStyle";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
 // =============================================================================================================================================================================================
 
 export const ColorButton = styled(Button)(({ theme }) => ({
@@ -86,7 +86,7 @@ function Navbar() {
         const token = userData?.token
         const response =
           await axios.post(
-            "http://localhost:5000/get_notif_alert_count",
+            `${process.env.REACT_APP_API}/get_notif_alert_count`,
             {},
             {
               headers: {

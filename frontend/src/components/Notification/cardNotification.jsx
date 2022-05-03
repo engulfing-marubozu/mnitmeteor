@@ -17,7 +17,7 @@ function NotificationCard({ data, index, setNotifications }) {
   const DeleteHandler = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/delete_notification",
+        `${process.env.REACT_APP_API}/delete_notification`,
         { index: index },
         {
           headers: {

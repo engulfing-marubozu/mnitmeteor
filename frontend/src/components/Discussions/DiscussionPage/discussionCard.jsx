@@ -184,7 +184,7 @@ function DiscussionCard({ data, setPointer, setThreadDelete, flag, index }) {
         const thread_id = cardId;
         // const response =
         await axios.post(
-          "http://localhost:5000/save_threads",
+          `${process.env.REACT_APP_API}/save_threads`,
           { thread_id },
           {
             headers: {

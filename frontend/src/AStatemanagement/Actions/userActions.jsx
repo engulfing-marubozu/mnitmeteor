@@ -14,8 +14,7 @@ import {
 } from "./types";
 import axios from "axios";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
-
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };
@@ -87,7 +86,7 @@ export const fetchDataForATF = (likedata) => {
     try {
       const { productId, userToken, isLiked } = likedata;
       const response = await axios.post(
-        "http://localhost:5000/favourites_update",
+        `${process.env.REACT_APP_API}/favourites_update`,
         { productId, isLiked },
         {
           headers: {
@@ -108,8 +107,8 @@ export const fetchInterestedActions = (interestedData) => {
     try {
       const { productId, userToken,isInterested } = interestedData;
       if (isInterested) {
-        const response = await axios.post(
-          "http://localhost:5000/interested_update",
+      const  response = await axios.post(
+          `${process.env.REACT_APP_API}/interested_update`,
           { productId, isInterested },
           {
             headers: {
@@ -132,8 +131,8 @@ export const fetchInterestedActions = (interestedData) => {
           // dispatch(addToInterested(response.data.updatedUser));
         }
       } else {
-        const response = await axios.post(
-          "http://localhost:5000/un_interested_update",
+      const  response = await axios.post(
+          `${process.env.REACT_APP_API}/un_interested_update`,
           { productId, isInterested },
           {
             headers: {
@@ -167,7 +166,7 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/delete_published_Ads",
+        `${process.env.REACT_APP_API}/delete_published_Ads`,
         { productId },
         {
           headers: {
@@ -188,7 +187,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/mobile_no_update",
+        `${process.env.REACT_APP_API}/mobile_no_update`,
         { phoneNo },
         {
           headers: {
@@ -214,7 +213,7 @@ export const actionForLikeThread = (likeData) => {
   return async (dispatch) => {
     try {
       await axios.post(
-        "http://localhost:5000/like_and_dislike_threads",
+        `${process.env.REACT_APP_API}/like_and_dislike_threads`,
         {
           status: likeData.status,
           comment_id: likeData.commentId,

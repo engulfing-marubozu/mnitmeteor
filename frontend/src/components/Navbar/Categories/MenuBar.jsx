@@ -21,7 +21,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { LogoutUser, modelPopUp, SellNowclick } from "../../../AStatemanagement/Actions/userActions";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

@@ -26,7 +26,7 @@ function LostFoundMyItems() {
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/lnfmyitems", {
+        const response = await axios.get(`${process.env.REACT_APP_API}/lnfmyitems`, {
           headers: {
             authorization: `Bearer ${token}`,
           },

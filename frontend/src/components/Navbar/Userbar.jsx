@@ -19,7 +19,8 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import NotificationPage from "../Notification/notificationPage";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
+// function Userbar({ updateNotification, setNotificationPending }) {
 
 function Userbar({ updateNotification, setNotificationPending }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);

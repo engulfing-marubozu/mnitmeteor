@@ -18,7 +18,7 @@ function NotificationPage({ setDrawer }) {
   useEffect(() => {
     const fetch_notification = async () => {
       const response = await axios.get(
-        "http://localhost:5000/send_notification",
+        `${process.env.REACT_APP_API}/send_notification`,
         {
           headers: {
             authorization: `Bearer ${token}`,

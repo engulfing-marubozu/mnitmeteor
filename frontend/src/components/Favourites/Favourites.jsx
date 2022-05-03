@@ -24,7 +24,7 @@ function Favourites() {
     let isSubscribed = true;
     async function call() {
       const response = await axios.get(
-        "http://localhost:5000/send_favourites",
+        `${process.env.REACT_APP_API}/send_favourites`,
         {
           headers: {
             authorization: `Bearer ${token}`,

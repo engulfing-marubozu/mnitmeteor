@@ -150,3 +150,18 @@ export default DiscussionCardArray;
 // }
 
 // export default DiscussionCardArray;
+
+
+// const [discussionData, setDiscussionData] = useState();
+// useEffect(() => {
+//   window.scrollTo(0, 0);
+//   let isSubscribed = true;
+//   async function call() {
+//     try {
+//       const response = await axios.post(
+//         `${process.env.REACT_APP_API}/fetch_live_threads`,
+//         { user_id: userID }
+//       );
+//       if (isSubscribed) {
+//         console.log(response.data);
+//         setDiscussionData(response.data?.universal_threads);

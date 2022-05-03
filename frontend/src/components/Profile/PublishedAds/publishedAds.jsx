@@ -22,7 +22,7 @@ function PublishedAds() {
     let isSubscribed = true;
     async function call() {
       const response = await axios.get(
-        "http://localhost:5000/send_published_Ads",
+        `${process.env.REACT_APP_API}/send_published_Ads`,
         {
           headers: {
             authorization: `Bearer ${token}`,

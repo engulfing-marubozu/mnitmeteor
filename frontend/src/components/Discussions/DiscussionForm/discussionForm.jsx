@@ -66,7 +66,7 @@ function DiscussionForm() {
           
                 // const response =
                 await axios.post(
-                  "http://localhost:5000/create_thread",
+                  `${process.env.REACT_APP_API}/create_thread`,
                   {
                     title: data.adTitle,
                     description: data.description,

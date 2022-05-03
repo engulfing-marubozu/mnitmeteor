@@ -26,7 +26,7 @@ export default function DiscussionMyTopics() {
     let isSubscribed = true;
     async function call() {
       const response = await axios.get(
-        "http://localhost:5000/fetch_own_threads",
+        `${process.env.REACT_APP_API}/fetch_own_threads`,
         {
           headers: {
             authorization: `Bearer ${localUserData?.token}`,

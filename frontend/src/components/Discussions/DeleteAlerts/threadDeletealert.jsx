@@ -47,7 +47,7 @@ export default function ThreadDeleteAlert({
     handleClose();
     try {
       const response = await axios.post(
-        "http://localhost:5000/delete_thread",
+        `${process.env.REACT_APP_API}/delete_thread`,
         { thread_id: threadData.cardId, flag: flag },
         {
           headers: {

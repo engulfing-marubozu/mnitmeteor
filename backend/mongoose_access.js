@@ -12,6 +12,25 @@ mongoose
     console.error(`Error connecting to the database. Here \n${err}`);
   });
 
+const copyitem = async()=>{
+  const data = await Thread.findById("6270d8400f6aae891caf3e9c");
+  
+  for (let step = 0; step < 60; step++) {
+    const item = new Thread({
+      posted_by: data.posted_by,
+      users_mnit_id: data.users_mnit_id,
+      title: step,
+      description: data.description,
+      document: data.document,
+      is_verified: true,
+    })
+    const sv = await item.save((res,err)=>{
+        console.log(res);
+    });  
+    console.log("Saved");
+  }
+}  
+copyitem();
 // Local port connection
 // LostItem.deleteMany().then(()=>{
 //     console.log("Deleted all users ");

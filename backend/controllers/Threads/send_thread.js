@@ -2,6 +2,7 @@ const {Thread, User} = require("../../Models")
 
 const fetch_live_threads = async (req,res)=>{
     console.log("came to fetch threads");
+    console.log("Pointer is "+req.body.pointer);
     const user_id = req.body.user_id;
 
     console.log(req.body);

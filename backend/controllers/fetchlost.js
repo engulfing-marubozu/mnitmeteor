@@ -21,7 +21,7 @@ const FetchOnlyFound = async (req, res) => {
     // const ldata = JSON.stringify(data);
     // console.log("data is " + data);
     // console.log(data);
-    if(!data){
+    if(Object.keys(data).length===0){
       data = [];
     }
     res.status(200).send(data);
@@ -38,7 +38,7 @@ const FetchOnlyLost = async (req, res) => {
     const data = await LostItem.find({ is_verified: true, category: "Lost" }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
-    if(!data){
+    if(Object.keys(data).length===0){
       data = [];
     }
     res.status(200).send(data);
@@ -59,6 +59,9 @@ const FetchOnlyLostUser = async (req, res) => {
     const data = await LostItem.find({ is_verified: true, posted_by: req.user._id }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
+    if(Object.keys(data).length===0){
+      data = [];
+    }
     res.status(200).send(data);
   } catch (err) {
     console.log("tyuy");

@@ -70,7 +70,7 @@ const admin_verification = async(req, res, next) => {
                                 await redis.expire(token,blockingTime); //40 seconds 
                                 return res.status(200).send(`You are blocked for ${time_block}.`);
                             }
-                            res.status(200).send(`Hey, this portal is only for admins. Furthur unsuccessful attempts would block the input. You are remaining with ${3-hits} attempts`);    
+                            res.status(200).send(`You are remaining with ${3-hits} attempts`);    
                         }
                         redisHandler(token,res);
                         

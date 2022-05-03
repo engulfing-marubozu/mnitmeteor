@@ -56,7 +56,8 @@ export default function LostFoundCard({
             action={
               <Box>
                 {postedBy === userLoggedIn &&
-                  showDelete(
+
+                  showDelete && (
                     <LostFoundDeleteAlert
                       deleteData={{
                         id: data._id,

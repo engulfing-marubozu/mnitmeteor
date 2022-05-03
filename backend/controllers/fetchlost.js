@@ -2,16 +2,18 @@ const { LostItem } = require("../Models");
 //to create a sin
 const FetchLost = async (req, res) => {
   console.log("Came to fetch lost people and items!");
-  const pointer = req.body.pointer;
-  console.log("pointer is "+pointer);
+  const pointer = req.query.pointer;
+  console.log(pointer);
+  // res.send(pointer);
+  // console.log("pointer is "+pointer);
   if(pointer==null){
     console.error("Pointer is undefined ");
   }
-  //.sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20).then((err)=>{
-  //   console.log(err);
-  // });
+  // //.sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20).then((err)=>{
+  // //   console.log(err);
+  // // });
   try {
-    var data = await LostItem.find({ is_verified: true });
+    var data = await LostItem.find({ is_verified: true }).skip(pointer - 1).limit(20);
     // const data = await LostItem.find({is_verified: })
     console.log("Reached fetched state");
     try {
@@ -25,18 +27,14 @@ const FetchLost = async (req, res) => {
     // console.log(data);
     // const ldata = JSON.stringify(data);
     res.status(200).send(data);
-  } catch (err) {
-    console.log("An error occurred");
-    console.log(err);
-    res.status(200).send(err);
-  }
+   }catch(err){
+     console.error(err);
+   }
 };
 const FetchOnlyFound = async (req, res) => {
-  const pointer = req.body.pointer;
+  const pointer = req.query.pointer;
   try {
-    var data = await LostItem.find({ is_verified: true, category: "Found" },(err)=>{
-      console.log(err);
-    }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
+    var data = await LostItem.find({ is_verified: true, category: "Found" }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
     // console.log("data is " + data);
@@ -46,19 +44,17 @@ const FetchOnlyFound = async (req, res) => {
     }
     res.status(200).send(data);
   } catch (err) {
-    console.log("tyuy");
+    console.log("error ocurred");
     console.log(err);
     res.status(200).send(err);
   }
 };
 // .sort({createdAt: -1}).skip(pointer -1 ).limit(20)
 const FetchOnlyLost = async (req, res) => {
-  const pointer = req.body.pointer;
+  const pointer = req.query.pointer;
   try {
-    const ptr = req.body.pointer;
-    var data = await LostItem.find({ is_verified: true, category: "Lost" }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20).then((err)=>{
-      console.log(err);
-    });
+    // const ptr = req.body.pointer;
+    var data = await LostItem.find({ is_verified: true, category: "Lost" }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
     if(Object.keys(data).length===0){
@@ -74,20 +70,23 @@ const FetchOnlyLost = async (req, res) => {
 
 const FetchOnlyLostUser = async (req, res) => {
   //current user specific products here
-  const pointer = req.body.pointer;
+  // const pointer = req.query.pointer;
   console.log(req.user._id);
   console.log("\n");
 
   try {
-    const ptr = req.body.pointer;
-    var data = await LostItem.find({ is_verified: true, posted_by: req.user._id }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20).then((err)=>{
-      console.log(err);
-    });
+    // const ptr = req.body.pointer;
+    var data = await LostItem.find({ is_verified: true, posted_by: req.user._id }).sort({ 'createdAt': -1 });
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);
-    if(Object.keys(data).length===0){
+    try {
+      if(Object.keys(data).length===0){
+        data = [];
+      }  
+    } catch (error) {
       data = [];
     }
+    
     res.status(200).send(data);
   } catch (err) {
     console.log("tyuy");

@@ -14,7 +14,7 @@ function useGetData(email, pointer, category) {
     let isSubscribed = true;
     const Call = async () => {
       try {
-        const response = await axios.post(`http://localhost:5000/api/fetch`, {
+        const response = await axios.post(`${process.env.REACT_APP_API}/fetch`, {
           category,
           email,
           pointer,

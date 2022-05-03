@@ -160,7 +160,9 @@ const LostCheck = async (req, res) => {
       //person info bhi honi chahiye
     });
     try {
-      const saveLostItem = await newLostItem.save();
+      const saveLostItem = await newLostItem.save((err,response)=>{
+        console.log(response);
+      });
       // await User.findByIdAndUpdate(refID, {
       //   $addToSet: {lf_items_posted: saveLostItem._id },
       // });

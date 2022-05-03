@@ -17,9 +17,10 @@ function useDiscussionData(
     const Call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/fetch_live_threads",
+          `${process.env.REACT_APP_API}/fetch_live_threads`,
           { user_id: userId, pointer: pointer }
         );
+        console.log("hello "+ response);
         if (isSubscribed) {
           console.log("delete");
           setData((prev) => {
@@ -47,7 +48,7 @@ function useDiscussionData(
     const Call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/fetch_live_threads",
+          `${process.env.REACT_APP_API}/fetch_live_threads`,
           { user_id: userId, pointer: pointer }
         );
         if (isSubscribed) {
@@ -68,6 +69,7 @@ function useDiscussionData(
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointer]);
+  return ({loading,data,hasMore})
 }
 
 export default useDiscussionData;

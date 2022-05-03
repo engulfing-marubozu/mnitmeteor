@@ -15,7 +15,7 @@ const http = require("http").createServer(app);
 
 const io = require("socket.io")(http, {
   cors: {
-    origin: [process.env.API,"http://172.18.82.44:3000"],
+    origin: "*",
     methods: ["GET", "POST"],
     allowHeaders: ["content-type"],
   },

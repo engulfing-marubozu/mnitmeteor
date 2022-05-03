@@ -20,10 +20,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ThreadDeleteAlert({
-  index,
+  setThread,
   threadData,
-  setPointer,
-  setThreadDelete,
   flag,
 }) {
   // console.log(setPointer,setThreadDelete)
@@ -59,9 +57,8 @@ export default function ThreadDeleteAlert({
         console.log(response.data);
         Navigate("/discussions");
       } else if (mountedRef.current) {
-        const pageNo=((index/20)*20)+1;
-        setPointer(pageNo);
-        setThreadDelete(true);
+        console.log(response.data);
+        setThread(response.data);
       }
     } catch (err) {
       console.log(err);

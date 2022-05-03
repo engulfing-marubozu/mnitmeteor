@@ -53,6 +53,7 @@ function DiscussionSavedTopics() {
           if (data) {
             return (
               <DiscussionCard
+                deleteShow={false}
                 key={data._id}
                 data={data}
                 setThread={setSavedTopics}

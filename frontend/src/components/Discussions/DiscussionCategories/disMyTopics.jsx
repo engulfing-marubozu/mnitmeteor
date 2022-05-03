@@ -58,6 +58,7 @@ export default function DiscussionMyTopics() {
           if (data) {
             return (
               <DiscussionCard
+                deleteShow={true}
                 key={data._id}
                 data={data}
                 setThread={setMyTopics}

@@ -19,7 +19,12 @@ import { RWebShare } from "react-web-share";
 import LostFoundDeleteAlert from "../lsDeleteAlert.jsx/lsDeleteAlert";
 import ReadMore from "../../_Styling/readmore";
 
-export default function LostFoundCard({ data, flag, setLostFound }) {
+export default function LostFoundCard({
+  data,
+  flag,
+  setLostFound,
+  showDelete,
+}) {
   // console.log(data);
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const userLoggedIn = localUserData?.userData._id;
@@ -50,17 +55,18 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
             avatar={<Avatar sx={{ bgcolor: "black" }} />}
             action={
               <Box>
-                {postedBy === userLoggedIn && (
-                  <LostFoundDeleteAlert
-                    deleteData={{
-                      id: data._id,
-                      name: data.name,
-                      flag: flag,
-                      postedBy: postedBy,
-                    }}
-                    setLostFound={setLostFound}
-                  />
-                )}
+                {postedBy === userLoggedIn &&
+                  showDelete(
+                    <LostFoundDeleteAlert
+                      deleteData={{
+                        id: data._id,
+                        name: data.name,
+                        flag: flag,
+                        postedBy: postedBy,
+                      }}
+                      setLostFound={setLostFound}
+                    />
+                  )}
                 <RWebShare
                   data={{
                     text: "Mnit Market",

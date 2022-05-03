@@ -1,51 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import Container from "@mui/material/Container";
+import useGetData from "../useGetData";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import HomeCard from "../../Cards/HomeCard";
+import Container from "@mui/material/Container";
+import { motion } from "framer-motion";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
+import HomeCard from "../../Cards/HomeCard";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { mainPageEmpty } from "../../_EmptySpaces/EmptySvg";
-import { ModelOutlinedButton } from "../homePageStyling";
-
-function BooksCard() {
-  const [cardData, setCardData] = useState([]);
-  const [pointer, setPointerData] = useState(1);
+function Books() {
+  const [pointer, setPointer] = useState(1);
+  const category = "books";
   const email = useSelector(
     (state) => state.loginlogoutReducer.userData?.email
   );
-  const category = "books";
-  // ==========================================================================================
-  const LoadMoreHandler = () => {
-    setPointerData((prev) => {
-      return prev + 20;
-    });
-  };
-  useEffect(() => {
-    let isSubscribed = true;
-    const Call = async () => {
-      try {
-        const cardDetails = await axios.post(`http://localhost:5000/fetch`, {
-          category,
-          email,
-          pointer,
-        });
-        if (isSubscribed) {
-          setCardData((prev) => {
-            return [...prev, ...cardDetails.data];
-          });
+  const { loading, data, hasMore } = useGetData(email, pointer, category);
+
+  const observer = useRef();
+  const lastCardElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPointer((prev) => prev + 20);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    Call();
-    return () => (isSubscribed = false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pointer]);
+      });
+      if (node) observer.current.observe(node);
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [loading, hasMore]
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -60,46 +48,47 @@ function BooksCard() {
         }}
       >
         <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-          {typeof cardData === "undefined" ? (
-            Array.from(new Array(24)).map((data, index) => {
+          {loading &&
+            Array.from(new Array(12)).map((data, index) => {
               return (
                 <Grid item xs={6} md={4} lg={3} key={index}>
                   <HomeCardSkeleton />
                 </Grid>
               );
-            })
-          ) : cardData.length > 0 ? (
-            cardData?.map((data, index) => {
-              if (data !== null) {
-                return (
-                  <Grid item xs={6} md={4} lg={3} key={data._id}>
-                    <HomeCard cardData={data} index={index} />
-                  </Grid>
-                );
-              } else return null;
-            })
-          ) : (
+            })}
+          {data?.map((cardData, index) => {
+            if (data.length === index + 1) {
+              return (
+                <Grid
+                  ref={lastCardElementRef}
+                  item
+                  xs={6}
+                  md={4}
+                  lg={3}
+                  key={cardData._id}
+                >
+                  <HomeCard cardData={cardData} index={index} />
+                </Grid>
+              );
+            } else {
+              return (
+                <Grid item xs={6} md={4} lg={3} key={cardData._id}>
+                  <HomeCard cardData={cardData} index={index} />
+                </Grid>
+              );
+            }
+          })}
+          {!loading && data.length === 0 && !hasMore && (
             <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-              }}
+              sx={{ display: "flex", justifyContent: "center", width: "100%" }}
             >
               <EmptySpace source={mainPageEmpty.books} />
             </Box>
           )}
         </Grid>
       </Container>
-      {pointer <= cardData?.length && ( 
-        <Box sx={{ display: "flex", justifyContent: "center"}}>
-          <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>
-            Load More
-          </ModelOutlinedButton>
-        </Box>
-      )}
     </motion.div>
   );
 }
 
-export default BooksCard;
+export default Books;

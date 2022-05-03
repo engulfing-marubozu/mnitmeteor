@@ -1,4 +1,4 @@
-import React, { useRef, useEffect,useState} from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -19,10 +19,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
-
+export default function ThreadDeleteAlert({
+  index,
+  threadData,
+  setPointer,
+  setThreadDelete,
+  flag,
+}) {
+  // console.log(setPointer,setThreadDelete)
   const [open, setOpen] = useState(false);
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
   const mountedRef = useRef(true);
   useEffect(() => {
     return () => {
@@ -51,10 +57,11 @@ export default function ThreadDeleteAlert({ threadData, setThread, flag }) {
       );
       if (flag === 4) {
         console.log(response.data);
-          Navigate("/discussions");
+        Navigate("/discussions");
       } else if (mountedRef.current) {
-        console.log(response.data);
-        setThread(response.data);
+        const pageNo=((index/20)*20)+1;
+        setPointer(pageNo);
+        setThreadDelete(true);
       }
     } catch (err) {
       console.log(err);

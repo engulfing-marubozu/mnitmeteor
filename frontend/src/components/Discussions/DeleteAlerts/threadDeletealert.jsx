@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -26,7 +25,6 @@ export default function ThreadDeleteAlert({
 }) {
   // console.log(setPointer,setThreadDelete)
   const [open, setOpen] = useState(false);
-  const Navigate = useNavigate();
   const mountedRef = useRef(true);
   useEffect(() => {
     return () => {
@@ -53,11 +51,7 @@ export default function ThreadDeleteAlert({
           },
         }
       );
-      if (flag === 4) {
-        console.log(response.data);
-        Navigate("/discussions");
-      } else if (mountedRef.current) {
-        console.log(response.data);
+     if (mountedRef.current) {
         setThread(response.data);
       }
     } catch (err) {

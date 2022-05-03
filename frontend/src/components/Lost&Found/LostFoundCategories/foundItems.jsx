@@ -73,9 +73,7 @@
 
 // export default FoundItems;
 
-
-
-import React, { useState, useRef, useCallback} from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Box from "@mui/material/Box";
 import LostFoundSkeleton from "../lostfoundSkeleton";
 import LostFoundCard from "../Lost&FoundCard/L&FCard";
@@ -85,8 +83,8 @@ import useLostFoundData from "../useLnfData";
 
 function FoundCardArray() {
   const [pointer, setPointer] = useState(1);
-  const  category="onlyfound";
-  const { loading, hasMore, data } = useLostFoundData(pointer,category);
+  const category = "onlyfound";
+  const { loading, hasMore, data } = useLostFoundData(pointer, category);
   const observer = useRef();
   const lastCardElementRef = useCallback(
     (node) => {
@@ -109,19 +107,21 @@ function FoundCardArray() {
           return <LostFoundSkeleton key={index} />;
         })}
       {data?.map((cardData, index) => {
-        if (data.length === index + 1) {
-          return (
-            <Box ref={lastCardElementRef} key={cardData._id}>
-              <LostFoundCard data={cardData} flag={3} showDelete={false} />
-            </Box>
-          );
-        } else {
-          return (
-            <Box key={cardData._id}>
-              <LostFoundCard data={cardData} flag={3} showDelete={false} />
-            </Box>
-          );
-        }
+        if (cardData !== null) {
+          if (data.length === index + 1) {
+            return (
+              <Box ref={lastCardElementRef} key={cardData._id}>
+                <LostFoundCard data={cardData} flag={3} showDelete={false} />
+              </Box>
+            );
+          } else {
+            return (
+              <Box key={cardData._id}>
+                <LostFoundCard data={cardData} flag={3} showDelete={false} />
+              </Box>
+            );
+          }
+        } else return null;
       })}
       {!loading && data?.length === 0 && !hasMore && (
         <EmptySpace source={lostFoundEmpty.foundItems} />

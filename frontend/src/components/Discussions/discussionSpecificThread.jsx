@@ -37,7 +37,8 @@ export default function SpecificThread() {
     return () => {
       isSubscribed = false;
     };
-  }, [email, thread_id, Navigate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ thread_id]);
 
   return (
     <>
@@ -45,6 +46,7 @@ export default function SpecificThread() {
         <DiscussionCard
           data={discsnData}
           flag={4}
+          showDelete={false}
         />
       )}
     </>

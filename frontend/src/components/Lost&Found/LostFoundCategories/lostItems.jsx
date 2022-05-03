@@ -112,19 +112,21 @@ function LostCardArray() {
           return <LostFoundSkeleton key={index} />;
         })}
       {data?.map((cardData, index) => {
-        if (data.length === index + 1) {
-          return (
-            <Box ref={lastCardElementRef} key={cardData._id}>
-              <LostFoundCard data={cardData} flag={2} showDelete={false} />
-            </Box>
-          );
-        } else {
-          return (
-            <Box key={cardData._id}>
-              <LostFoundCard data={cardData} flag={2} showDelete={false} />
-            </Box>
-          );
-        }
+        if (cardData != null) {
+          if (data.length === index + 1) {
+            return (
+              <Box ref={lastCardElementRef} key={cardData._id}>
+                <LostFoundCard data={cardData} flag={2} showDelete={false} />
+              </Box>
+            );
+          } else {
+            return (
+              <Box key={cardData._id}>
+                <LostFoundCard data={cardData} flag={2} showDelete={false} />
+              </Box>
+            );
+          }
+        } else return null;
       })}
       {!loading && data?.length === 0 && !hasMore && (
         <EmptySpace source={lostFoundEmpty.lostItems} />

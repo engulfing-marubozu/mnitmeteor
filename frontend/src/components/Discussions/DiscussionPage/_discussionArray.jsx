@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback} from "react";
+import React, { useState, useRef, useCallback } from "react";
 import useDiscussionData from "../useDiscussionData";
 import DiscussionCard from "./discussionCard";
 import Box from "@mui/material/Box";
@@ -32,19 +32,21 @@ function DiscussionCardArray() {
           return <DiscussionSkeleton key={index} />;
         })}
       {data?.map((cardData, index) => {
-        if (data.length === index + 1) {
-          return (
-            <Box ref={lastCardElementRef} key={cardData._id}>
-              <DiscussionCard data={cardData} flag={1} deleteShow={false} />
-            </Box>
-          );
-        } else {
-          return (
-            <Box key={cardData._id}>
-              <DiscussionCard data={cardData} flag={1} deleteShow={false} />
-            </Box>
-          );
-        }
+        if (cardData !== null) {
+          if (data.length === index + 1) {
+            return (
+              <Box ref={lastCardElementRef} key={cardData._id}>
+                <DiscussionCard data={cardData} flag={1} showDelete={false} />
+              </Box>
+            );
+          } else {
+            return (
+              <Box key={cardData._id}>
+                <DiscussionCard data={cardData} flag={1} showDelete={false} />
+              </Box>
+            );
+          }
+        } else return null;
       })}
       {!loading && data?.length === 0 && !hasMore && (
         <EmptySpace source={DiscussionEmpty.explore} />

@@ -40,7 +40,7 @@ import ThreadDeleteAlert from "../DeleteAlerts/threadDeletealert";
 import ReadMore from "../../_Styling/readmore";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // ================================================================================================================================================================================================================================
-function DiscussionCard({ data, flag, deleteShow,setThread }) {
+function DiscussionCard({ data, flag, showDelete,setThread }) {
   // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
@@ -306,7 +306,7 @@ function DiscussionCard({ data, flag, deleteShow,setThread }) {
                   </Tooltip>
                 </IconButton>
 
-                {isLoggedIn && delFlag && deleteShow && (
+                {isLoggedIn && delFlag && showDelete && (
                   <ThreadDeleteAlert
                     threadData={addCommentData}
                     setThread={setThread}

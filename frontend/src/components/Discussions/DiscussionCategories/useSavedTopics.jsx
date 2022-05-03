@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useDiscussionData(userId, pointer) {
+function useSavedTopics(token, pointer) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
@@ -10,15 +10,21 @@ function useDiscussionData(userId, pointer) {
     const Call = async () => {
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_API}/fetch_live_threads`,
-          { user_id: userId, pointer: pointer }
-        );
+            `${process.env.REACT_APP_API}/send_saved_threads`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(response.data);
         if (isSubscribed) {
           setData((prev) => {
-            return [...prev, ...response.data.universal_threads];
+            return [...prev, ...response.data];
           });
           setLoading(false);
-          setHasMore(response.data.universal_threads.length > 0);
+          setHasMore(response.data.length > 0);
         }
       } catch (err) {
         console.log(err);
@@ -31,4 +37,4 @@ function useDiscussionData(userId, pointer) {
   return { loading, data, hasMore };
 }
 
-export default useDiscussionData;
+export default useSavedTopics;

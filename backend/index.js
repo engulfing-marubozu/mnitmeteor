@@ -4,7 +4,7 @@ const fs = require("fs");
 const app = express();
 require("dotenv").config();
 const morgan = require("morgan");
-const {User, Prodcut} = require("./Models")
+const { User, Prodcut } = require("./Models")
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -50,43 +50,43 @@ fs.readdirSync("./routes").map((f) => app.use("/api", require(`./routes/${f}`)))
 
 const users_scoket_id = {};
 io.on("connect", (socket) => {
-    console.log("connected");
+  console.log("connected");
 
-    socket.on("initialise_user", (user_email)=>{
+  socket.on("initialise_user", (user_email) => {
     console.log("bleha");
     users_scoket_id[user_email] = socket.id;
     console.log(users_scoket_id);
-  }) 
+  })
 
 
   socket.on("admin approve event", () => {
-     console.log("rimtik ");
+    console.log("rimtik ");
     socket.broadcast.emit("approve_post_update");
   });
- 
- socket.on("admin decline/approve/interested event", async (user_id) => {
-   console.log("dbvjsbvknskvn");
-   const user = await User.findById(user_id);
-  // console.log(user);
-   console.log(users_scoket_id[user.email]);
-   console.log(users_scoket_id);
-   if(users_scoket_id[user.email])
-   { console.log("mil gaya");
-    io.to(users_scoket_id[user.email]).emit("decline/approve/interesred_post_notification");
-   }
+
+  socket.on("admin decline/approve/interested event", async (user_id) => {
+    console.log("dbvjsbvknskvn");
+    const user = await User.findById(user_id);
+    // console.log(user);
+    console.log(users_scoket_id[user.email]);
+    console.log(users_scoket_id);
+    if (users_scoket_id[user.email]) {
+      console.log("mil gaya");
+      io.to(users_scoket_id[user.email]).emit("decline/approve/interesred_post_notification");
+    }
   });
-  socket.on("log_out_socket",async (user_id) => {
+  socket.on("log_out_socket", async (user_id) => {
     console.log("disconnected");
     delete users_scoket_id[user_id];
-      console.log(users_scoket_id);
+    console.log(users_scoket_id);
   });
-socket.on("disconnect", () => {
+  socket.on("disconnect", () => {
     console.log("disconnected");
     Object.keys(users_scoket_id).forEach(key => {
-      if((users_scoket_id[key] === socket.id))
-           delete users_scoket_id[key];
-        });
-      console.log(users_scoket_id);
+      if ((users_scoket_id[key] === socket.id))
+        delete users_scoket_id[key];
+    });
+    console.log(users_scoket_id);
   });
 });
 
@@ -95,4 +95,4 @@ http.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
 
- module.exports = {users_scoket_id,io}
+module.exports = { users_scoket_id, io }

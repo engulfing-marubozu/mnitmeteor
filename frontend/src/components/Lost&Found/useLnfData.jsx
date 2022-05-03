@@ -1,24 +1,30 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useDiscussionData(userId, pointer) {
+function useLostFoundData(pointer, category) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
+
   useEffect(() => {
-    let isSubscribed = true;
+    setData([]);
+  }, [category]);
+
+  useEffect(() => {
     setLoading(true);
+    let isSubscribed = true;
     const Call = async () => {
       try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API}/fetch_live_threads`,
-          { user_id: userId, pointer: pointer }
-        );
+        const response = await axios.get(`${process.env.REACT_APP_API}/${category}`,{
+          params: {pointer: pointer}
+        });
+
+        console.log(response);
         if (isSubscribed) {
           setData((prev) => {
-            return [...prev, ...response.data.universal_threads];
+            return [...prev, ...response.data];
           });
           setLoading(false);
-          setHasMore(response.data.universal_threads.length > 0);
+          setHasMore(response.data.length > 0);
         }
       } catch (err) {
         console.log(err);
@@ -28,7 +34,7 @@ function useDiscussionData(userId, pointer) {
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointer]);
-  return { loading, data, hasMore };
+  return { loading, hasMore, data };
 }
 
-export default useDiscussionData;
+export default useLostFoundData;

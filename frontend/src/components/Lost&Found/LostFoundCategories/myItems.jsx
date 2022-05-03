@@ -22,7 +22,6 @@ function LostFoundMyItems() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {

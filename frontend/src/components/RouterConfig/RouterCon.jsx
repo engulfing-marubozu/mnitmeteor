@@ -5,7 +5,7 @@ import Home from "../HomePage/Home";
 import Discussions from "../Discussions/discussion";
 import LostFound from "../Lost&Found/lostFound";
 import AproductSellCard from "../SellnowNew/AproductSellCard";
-import ProductCard from "../HomePage/Product";
+// import ProductCard from "../HomePage/Product";
 import BooksCard from "../HomePage/productCategory/books";
 import CycleCard from "../HomePage/productCategory/cycle";
 import ElectronicsCard from "../HomePage/productCategory/electronics";
@@ -28,6 +28,7 @@ import SpecificLostFound from "../Lost&Found/specificLostFound";
 import AdminPortel from "../../AdminPanel/AdminPortel/adminportel";
 import AdminLogin from "../../AdminPanel/AdminPortel/adminLogin";
 import AdminPanel from "../../AdminPanel/adminpanel";
+import ProductNew from "../HomePage/productnew";
 // import DeveloperNotes from "../Links/developerNotes";
 function RouterCon() {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
@@ -40,7 +41,7 @@ function RouterCon() {
     <AnimatePresence>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route index element={<ProductCard />} />
+          <Route index element={<ProductNew />} />
           <Route path="product/books" element={<BooksCard />} />
           <Route path="product/cycle" element={<CycleCard />} />
           <Route path="product/electronics" element={<ElectronicsCard />} />

@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useGetData({ category, pageNumber, email }) {
-  const [loading, setLoading] = useState();
+function useGetData(email, pointer, category) {
+
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
-  const [error, setError] = useState(false);
+  useEffect(() => {
+    setData([]);
+  }, [category]);
 
   useEffect(() => {
     setLoading(true);
-    setError(false);
     let isSubscribed = true;
     const Call = async () => {
       try {
         const response = await axios.post(`http://localhost:5000/fetch`, {
           category,
           email,
-          pageNumber,
+          pointer,
         });
         if (isSubscribed) {
-          console.log(response.data);
+         
           setData((prev) => {
             return [...prev, ...response.data];
           });
@@ -27,14 +29,13 @@ function useGetData({ category, pageNumber, email }) {
         }
       } catch (err) {
         console.log(err);
-        setError(true);
       }
     };
     Call();
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageNumber, category]);
-  return { loading, hasMore, data, error };
+  }, [pointer, category]);
+  return { loading, hasMore, data};
 }
 
 export default useGetData;

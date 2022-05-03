@@ -38,7 +38,7 @@ function FetchLostFound() {
     const DeclineRequestLF = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-           const response = await axios.post("process.env.REACT_APP_API/adminresponse", {
+           const response = await axios.post(`${process.env.REACT_APP_API}/adminresponse`, {
                 to_approve: false,
                 posted_by: cardData.posted_by,
                 _id: cardData._id,

@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 
 const Schema = require("mongoose").Schema;
-
+const counter_schema = new mongoose.Schema({
+  
+    current_counter: {
+      type: Number
+    }
+  
+})
 const lost_item_schema = new mongoose.Schema(
   {
     name: {
@@ -231,4 +237,5 @@ const Product = mongoose.model("Product", products_schema);
 const User = mongoose.model("User", user_schema);
 const Thread = mongoose.model("Thread", thread_schema);
 const LostItem = mongoose.model("LostItem", lost_item_schema);
-module.exports = { User, Product, Thread,LostItem };
+const Counter = mongoose.model("Counter", counter_schema);
+module.exports = { User, Product, Thread,LostItem ,Counter};

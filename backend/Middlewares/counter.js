@@ -1,13 +1,12 @@
 // import { createClient } from 'redis';
 // import  Val from  "./check"
-const red = require('redis');
-const hello = function(a,b){
-    return (a);
-}
+const {Counter} = require("../Models/index");
 // redis.connect();
 
 async function value(){
+
     // return 4;
+    
     const client = red.createClient();
   
     client.on('error', (err) => console.log('Redis Client Error', err));

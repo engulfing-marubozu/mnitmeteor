@@ -105,9 +105,9 @@ export const fetchDataForATF = (likedata) => {
 export const fetchInterestedActions = (interestedData) => {
   return async (dispatch) => {
     try {
-      const { productId, userToken,isInterested } = interestedData;
+      const { productId, userToken, isInterested } = interestedData;
       if (isInterested) {
-      const  response = await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API}/interested_update`,
           { productId, isInterested },
           {
@@ -116,7 +116,6 @@ export const fetchInterestedActions = (interestedData) => {
             },
           }
         );
-        // console.log(response.data);
         if (response.data.status === "success") {
           socket.emit(
             "admin decline/approve/interested event",
@@ -126,13 +125,10 @@ export const fetchInterestedActions = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } 
-        // else {
-        //   console.log("maa ka bhosda");
-        //   // dispatch(addToInterested(response.data.updatedUser));
-        // }
+        }
+        dispatch(addToInterested(response.data.updatedUser));
       } else {
-      const  response = await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API}/un_interested_update`,
           { productId, isInterested },
           {
@@ -141,7 +137,7 @@ export const fetchInterestedActions = (interestedData) => {
             },
           }
         );
-        console.log(response.data);
+        dispatch(addToInterested(response.data.interested_buyers));
       }
     } catch (err) {
       console.log(err);
@@ -172,20 +168,23 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 // ==================================================================
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  const { token, phoneNo } = phoneData;
+  const { token, phoneNo} = phoneData;
   return async (dispatch) => {
     try {
       console.log("trying to change mobile");
-      // console.log(phoneNo);
+  
       const response = await axios.post(
         `${process.env.REACT_APP_API}/mobile_no_update`,
-        { phoneNo : phoneNo},
+        { phoneNo: phoneNo },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      console.log(response.data);
+      console.log("deepak")
+      // notify("successfully Updated");
       const data = {
         isLogin: true,
         token: token,
@@ -195,6 +194,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       dispatch(AuthUser(data));
     } catch (err) {
       console.log(err);
+      //send error on not updated
     }
   };
 };

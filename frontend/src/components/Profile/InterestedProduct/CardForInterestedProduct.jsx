@@ -21,7 +21,7 @@ import {
   CardStyleSecond,
 } from "../../_Styling/cardStyling";
 
-export default function CardForInterestedProduct({ cardData, setDeleted }) {
+export default function CardForInterestedProduct({ cardData}) {
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
@@ -43,10 +43,8 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
-      console.log(response.data);
+      )
       if (response.data.status) {
-        console.log("fetchdata");
         alert(
           `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
         );
@@ -56,7 +54,7 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
             isInterested: false,
           })
         );
-        setDeleted((prev) => prev+1);
+
       } else {
         alert(
           `max attempts done. Please retry after ${response.data.ttl} seconds`

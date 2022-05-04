@@ -10,6 +10,7 @@ export default function RenderDiscriptionCard() {
   const params = useParams();
   const product_id = params.productId;
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
+  console.log(userData);
   const { email, _id: userId } = userData;
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import {
@@ -13,8 +14,10 @@ export default function AdminLogin() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [warning, setWarning] = useState("");
   const inputRef = useRef();
+  const Navigate = useNavigate();
   const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localStorageData?.token;
+
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmit) {
       const run = async () => {
@@ -31,10 +34,19 @@ export default function AdminLogin() {
             }
           );
           console.log(response.data);
-          if(response.status===403){
-          setWarning(response.data);
-          }else if(response.status===200){
-             
+          if (response.data.code === 88) {
+            setWarning(response.data.message);
+          } else if (response.data.code === 403) {
+            setWarning(response.data.message);
+          } else if (response.data.code === 77) {
+            setWarning("");
+            console.log(response.data.message);
+            const cred = {
+              qazwsx: "5u7nJmsU.J5p3rA`c*9-",
+              edcrfv: response.data.token,
+            };
+            window.localStorage.setItem("tgbyhn", JSON.stringify(cred));
+            Navigate("adminpanel");
           }
         } catch (err) {
           console.log(err);

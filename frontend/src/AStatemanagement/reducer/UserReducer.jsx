@@ -27,7 +27,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
       return {
         ...state,
         isLogin: true,
-        userData: action.payload.userData,
+        userData: action.payload.user,
         token: action.payload.token,
       };
 
@@ -88,7 +88,7 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
     case ADD_TO_INTERESTED:
       return {
         ...state,
-        interestedData: action.payload.updatedUser,
+        interestedData: action.payload,
       };
     default:
       return state;

@@ -22,7 +22,7 @@ function Electronics() {
     (node) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
+      observer.current = new IntersectionObserver((entries) => {S
         if (entries[0].isIntersecting && hasMore) {
           setPointer((prev) => prev + 20);
         }

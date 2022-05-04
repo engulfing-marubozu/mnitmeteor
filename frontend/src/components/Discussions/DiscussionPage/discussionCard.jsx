@@ -316,11 +316,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
                 <RWebShare
                   data={{
                     text: "Mnit Market",
-<<<<<<< HEAD
                     url: `${process.env.REACT_APP_API}/Discussions/${cardId}`,
-=======
-                    url: `http://localhost:3000/discussions/${cardId}`,
->>>>>>> 478a90dd6985826457c0a07daff6cfb7fda5b2c0
                     title: `${title}`,
                   }}
                   onClick={() => console.log("shared successfully!")}

@@ -96,7 +96,7 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
               {/* <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
+                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}

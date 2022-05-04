@@ -97,7 +97,7 @@ export default function HomeCard({ cardData, index }) {
             <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `http://localhost:3000/productdescription/${cardData._id}`,
+                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
                 title: `${title}`,
               }}
               onClick={() => console.log("shared successfully!")}

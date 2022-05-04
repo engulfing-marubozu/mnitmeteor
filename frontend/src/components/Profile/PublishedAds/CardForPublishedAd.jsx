@@ -56,7 +56,7 @@ export default function CardForPublishedAds(props) {
             <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `http://localhost:3000/productdescription/${props.cardData._id}`,
+                url: `${process.env.REACT_APP_API}/ProductDiscription/${props.cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}

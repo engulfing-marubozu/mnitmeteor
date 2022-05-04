@@ -126,10 +126,11 @@ export const fetchInterestedActions = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } else {
-          console.log("maa ka bhosda");
-          // dispatch(addToInterested(response.data.updatedUser));
-        }
+        } 
+        // else {
+        //   console.log("maa ka bhosda");
+        //   // dispatch(addToInterested(response.data.updatedUser));
+        // }
       } else {
       const  response = await axios.post(
           `${process.env.REACT_APP_API}/un_interested_update`,
@@ -140,17 +141,7 @@ export const fetchInterestedActions = (interestedData) => {
             },
           }
         );
-        console.log(response);
-        const { status, ttl_seconds, attempts_left } = response.data;
-        if (status) {
-          console.log("deepak");
-          alert(
-            `${attempts_left} attempts left for another ${ttl_seconds} seconds`
-          );
-        } else {
-          console.log(response.data);
-          alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
-        }
+        console.log(response.data);
       }
     } catch (err) {
       console.log(err);

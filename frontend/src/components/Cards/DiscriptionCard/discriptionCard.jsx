@@ -79,25 +79,34 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           userToken: token,
           isInterested: false,
         };
-        // backend not interested vali state 
-        // 
-        const getData = async(token)=>{
-          //status seconds attempts left 
-          console.log("trying to fetch response checkstatus");
-          const response = await axios.post(`${process.env.REACT_APP_API}/checkstatus`,{
-            
-          },{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        // backend not interested vali state
+        //
+        const getData = async (token) => {
+          //status seconds attempts left
+          const response = await axios.post(
+            `${process.env.REACT_APP_API}/checkstatus`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
           );
-          console.log("Response of uninterested ");
           console.log(response.data);
-        }
+          if (response.data.status) {
+            console.log("fetchdata");
+            alert(
+              `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
+            );
+            dispatch(fetchInterestedActions(interestedData));
+            setIsInterested(!isInterested);
+          } else {
+            alert(
+              `max attempts done. Please retry after ${response.data.ttl} seconds`
+            );
+          }
+        };
         getData(token);
-        dispatch(fetchInterestedActions(interestedData));
-        // setIsInterested(!isInterested);
       }
     } else {
       //

@@ -94,9 +94,9 @@ export const forumContainStyle = makeStyles({
     "@media (max-width:600px)": {
       margin: "0rem",
       width: "100%",
-      padding: "0px 0px 40px 0px",
+      padding: "0px 0px 48px 0px",
     },
-  },
+  }, 
   verticalNavBox: {
     display: "flex",
     width: "27%",

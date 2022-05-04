@@ -126,10 +126,11 @@ export const fetchInterestedActions = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } else {
-          console.log("maa ka bhosda");
-          // dispatch(addToInterested(response.data.updatedUser));
-        }
+        } 
+        // else {
+        //   console.log("maa ka bhosda");
+        //   // dispatch(addToInterested(response.data.updatedUser));
+        // }
       } else {
       const  response = await axios.post(
           `${process.env.REACT_APP_API}/un_interested_update`,
@@ -140,19 +141,7 @@ export const fetchInterestedActions = (interestedData) => {
             },
           }
         );
-        console.log(response);
-      //   const { status, ttl_seconds, attempts_left } = response.data;
-      //   if (status) {
-      //     console.log("deepak");
-      //     console.log(response.data);
-      //     alert(
-      //       `${attempts_left} attempts left for another ${ttl_seconds} seconds`
-      //     );
-      //     setIsInterested(!interestedData);
-      //   } else {
-      //     console.log(response.data);
-      //     alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
-      //   }
+        console.log(response.data);
       }
     } catch (err) {
       console.log(err);
@@ -186,9 +175,11 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
   const { token, phoneNo } = phoneData;
   return async (dispatch) => {
     try {
+      console.log("trying to change mobile");
+      // console.log(phoneNo);
       const response = await axios.post(
         `${process.env.REACT_APP_API}/mobile_no_update`,
-        { phoneNo },
+        { phoneNo : phoneNo},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -198,7 +189,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       const data = {
         isLogin: true,
         token: token,
-        user: response.data.user,
+        userData: response.data.user,
       };
       window.localStorage.setItem("auth", JSON.stringify(data));
       dispatch(AuthUser(data));

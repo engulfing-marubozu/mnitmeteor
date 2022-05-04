@@ -24,6 +24,7 @@ import GetPhoneNoNew from "../../ContactDetails/getPhoneDetails";
 import DiscriptionProductDelete from "../../ModelPopUP/DiscriptionDeleteButton";
 import "../discriptionImageStyle.css";
 import ReadMore from "../../_Styling/readmore";
+import axios from "axios";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 function DiscriptionCard({ descrpData, productId, userId }) {
@@ -77,12 +78,38 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           productId: productId,
           userToken: token,
           isInterested: false,
-          setIsInterested: setIsInterested,
         };
-        dispatch(fetchInterestedActions(interestedData));
-        // setIsInterested(!isInterested);
+        // backend not interested vali state
+        //
+        const getData = async (token) => {
+          //status seconds attempts left
+          const response = await axios.post(
+            `${process.env.REACT_APP_API}/checkstatus`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(response.data);
+          if (response.data.status) {
+            console.log("fetchdata");
+            alert(
+              `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
+            );
+            dispatch(fetchInterestedActions(interestedData));
+            setIsInterested(!isInterested);
+          } else {
+            alert(
+              `max attempts done. Please retry after ${response.data.ttl} seconds`
+            );
+          }
+        };
+        getData(token);
       }
     } else {
+      //
       dispatch(modelPopUp(true));
     }
   };

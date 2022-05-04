@@ -28,7 +28,7 @@ import AdminPortel from "../../AdminPanel/AdminPortel/adminportel";
 import AdminLogin from "../../AdminPanel/AdminPortel/adminLogin";
 import AdminPanel from "../../AdminPanel/adminpanel";
 import ProductNew from "../HomePage/productnew";
-// import DeveloperNotes from "../Links/developerNotes";
+import DeveloperNotes from "../Links/developerNotes";
 function RouterCon() {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
@@ -64,6 +64,18 @@ function RouterCon() {
               isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />
             }
           />
+          {/* <Route
+            path="createnewtopic"
+            element={<ProtectedRoute Component={DiscussionForm} />}
+          />
+          <Route
+            path="mytopics"
+            element={<ProtectedRoute Component={DiscussionMyTopics} />}
+          />
+          <Route
+            path="savedtopics"
+            element={<ProtectedRoute Component={DiscussionSavedTopics} />}
+          /> */}
         </Route>
         <Route path="lost&found" element={<LostFound />}>
           <Route index element={<LostFoundCardArray />} />
@@ -84,7 +96,7 @@ function RouterCon() {
           element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}
         />
         <Route
-          path="productdiscription/:productId"
+          path="productdescription/:productId"
           element={<RenderDiscriptionCard />}
         />
         <Route
@@ -95,7 +107,7 @@ function RouterCon() {
           path="favourites"
           element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
         />
-        {/* <Route path="developernotes" element={<DeveloperNotes />} /> */}
+        <Route path="developernotes" element={<DeveloperNotes />} />
         <Route path="adminportel" element={<AdminPortel />}>
           <Route index element={<AdminLogin />} />
           <Route path="adminpanel" element={<AdminPanel />} />

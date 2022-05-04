@@ -151,7 +151,7 @@ export const ProfileBoxStyle = makeStyles({
   },
   cardContainer: {
     backgroundColor: "#b39ddb",
-    minHeight:"474px"
+    minHeight:"480px"
   },
 });
 //   =================================================

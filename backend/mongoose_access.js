@@ -30,7 +30,7 @@ const copyitem = async()=>{
     console.log("Saved");
   }
 }  
-copyitem();
+// copyitem();
 // Local port connection
 // LostItem.deleteMany().then(()=>{
 //     console.log("Deleted all users ");
@@ -40,5 +40,8 @@ copyitem();
 // Thread.deleteMany().then(() => {
 //   console.log("Deleted all users ");
 // }).catch((err) => {
+//   console.log(err);
+// })
+// Product.deleteMany({title:"fsdgsdfg"},(err,res)=>{
 //   console.log(err);
 // })

@@ -32,7 +32,7 @@ function ProfileContentBox() {
     setValue(newValue);
   };
   const classes = ProfileBoxStyle();
-
+console.log(userData);
   // =======================================================================
   return (
     <Box>

@@ -55,7 +55,7 @@ export default function FavouritesCard(props) {
     >
       <Box className={classSec.zMainBox}>
         <Card className={classes.card} elevation={3}>
-          <Link to={`/ProductDiscription/${props.cardData._id}`}>
+          <Link to={`/productdescription/${props.cardData._id}`}>
             <CardMedia
               component="img"
               classes={{ img: classes.image }}
@@ -75,7 +75,7 @@ export default function FavouritesCard(props) {
               <RWebShare
                 data={{
                   text: "Mnit Market",
-                  url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+                  url: `http://localhost:3000/productdescription/${props.cardData._id}`,
                   title: title,
                 }}
                 onClick={() => console.log("shared successfully!")}

@@ -45,7 +45,7 @@ const signUp = async (req, res) => {
       // check();
       value = await lib.value();
       console.log("value is "+value);
-      const loadavatar = `https://freekiimages.herokuapp.com/img_load?value=${value}`;
+      const loadavatar = `https://freekiimages.herokuapp.com/img_load.png?value=${value}`;
       
       // genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
       // genTwoPoke = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/${value}.png`;

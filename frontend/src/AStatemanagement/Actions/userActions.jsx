@@ -177,6 +177,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
     try {
       console.log("trying to change mobile");
       // console.log(phoneNo);
+      //naya mob number
       const response = await axios.post(
         `${process.env.REACT_APP_API}/update_mobile_number`,
         { phoneNo : phoneNo},
@@ -186,6 +187,10 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           },
         }
       );
+      // response will be:
+      // mob!=-1, user if everything went fine in backend 
+      // if mob ==-1 then error occurred backend side
+      // 
       console.log(response.data)
       console.log("changed mobile number");
       const data = {

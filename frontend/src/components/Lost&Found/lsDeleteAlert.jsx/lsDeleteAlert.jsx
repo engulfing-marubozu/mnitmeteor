@@ -49,7 +49,7 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
       .then(function (response) {
         if (flag === 5) {
           Navigate("/lost&found");
-        } else {
+        } else if (flag === 4) {
           setLostFound(response.data);
         }
       })

@@ -36,7 +36,8 @@ export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
   const [expanded, setExpanded] = React.useState(false);
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
-  const title = data?.title.charAt(0).toUpperCase() + data?.title.slice(1);
+  const title =
+    data?.title.trim().charAt(0).toUpperCase() + data?.title?.trim().slice(1);
   const userEmail = data?.users_mnit_id;
   const description = data?.description;
   const document = data?.document;

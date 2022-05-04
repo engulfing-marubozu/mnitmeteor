@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React ,{useEffect, useState}from "react";
 import { motion } from "framer-motion";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -12,9 +12,11 @@ import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
 function InterestedProduct(props) {
   const [cardData, setCardData] = useState();
-  const  [deleted,setDeleted]=useState(1);
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localUserData.token;
+  const interestedList = useSelector(
+    (state) => state.InterestedReducer?.interestedData
+  );
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
@@ -27,18 +29,17 @@ function InterestedProduct(props) {
         }
       );
       if (isSubscribed) {
-        console.log(response.data);
         setCardData(response.data);
       }
     }
-console.log(deleted);
+
     call();
     return () => {
       return (isSubscribed = false);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleted]);
-  // console.log(cardData);
+  }, [interestedList]);
+
   // ====================================================================================================================================
   return (
     <motion.div
@@ -62,7 +63,7 @@ console.log(deleted);
                 if (data !== null) {
                   return (
                     <Grid item xs={6} md={4} key={data._id}>
-                      <CardForInterestedProduct cardData={data} setDeleted={setDeleted} />
+                      <CardForInterestedProduct cardData={data} />
                     </Grid>
                   );
                 } else return null;

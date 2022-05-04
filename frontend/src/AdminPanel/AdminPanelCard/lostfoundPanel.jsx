@@ -33,10 +33,11 @@ export default function LostFoundPanel({
   const [expanded, setExpanded] = React.useState(false);
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
-  const itemName = data?.name.charAt(0).toUpperCase() + data?.name.slice(1);
-  const userEmail = data?.email.slice(0, 11);
+  const itemName =
+    data?.name?.trim().charAt(0).toUpperCase() + data?.name?.trim().slice(1);
+  const userEmail = data?.email?.trim().slice(0,-11);
   const category = data?.category;
-  const description = data.description;
+  const description = data?.description;
   const images =
     data.imgs.length > 0
       ? data.imgs.map((img, index) => {
@@ -45,6 +46,7 @@ export default function LostFoundPanel({
           };
         })
       : false;
+      console.log(itemName);
   // =======================================================================================
   const handleExpandClick = () => {
     setExpanded(!expanded);

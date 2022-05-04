@@ -88,7 +88,7 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
     case ADD_TO_INTERESTED:
       return {
         ...state,
-        interestedData: action.payload.updatedUser,
+        interestedData: action.payload,
       };
     default:
       return state;

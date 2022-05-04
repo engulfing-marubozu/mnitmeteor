@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
 function SellingPanel({ data, ApproveRequest, DeclineRequest }) {
   const [expanded, setExpanded] = React.useState(false);
   const imageThumbnail = data?.images;
-  const title = data.title?.charAt(0).toUpperCase() + data.title?.slice(1);
+  const title = data.title?.trim().charAt(0).toUpperCase() + data.title?.trim().slice(1);
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
   const description = data.description;

@@ -29,7 +29,7 @@ const port = 5000;
 
 database_url = process.env.MONGODB_ATLAS;
 
-console.log(database_url);
+// console.log(database_url);
 // console.log(database_url);
 mongoose
   .connect(database_url)
@@ -60,7 +60,7 @@ io.on("connect", (socket) => {
 
 
   socket.on("admin approve event", () => {
-    console.log("rimtik ");
+    console.log("dprrhgrk ");
     socket.broadcast.emit("approve_post_update");
   });
 

@@ -56,7 +56,7 @@ const HandleAdmin = async (req, res) => {
 const SendLost = async (req, res) => {
   //error handling krni har jagah abhi
   console.log("reached here body \n");
-  console.log(req.body);
+  // console.log(req.body);
   title = req.body.title;
   description = req.body.description;
   category = req.body.categories;

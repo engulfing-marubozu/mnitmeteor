@@ -8,7 +8,7 @@ router.post('/signIn', signIn );
 router.post('/signUp',signUp);
 router.post('/resetPassword', resetPassword );
 router.post('/resendOtp', resendOtp );
-router.post('/mobile_no_update', authorization, update_mobile_no_in_database)
+// router.post('/mobile_update_real', authorization, update_mobile_no_in_database)
 
 
 module.exports= router;

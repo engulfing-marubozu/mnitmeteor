@@ -3,18 +3,12 @@ const { Thread, User } = require("../../Models");
 
 const delete_thread = async (req, res) => {
   console.log(req.body);
-  console.log("thread deleted");
+  console.log("thread deletion starts ");
   try {
     const user_id = req.user._id;
     const thread_id = req.body.thread_id;
     // var respon;
-    await Thread.findByIdAndDelete(thread_id, (err,resp)=>{
-      if(err){
-        console.log(err);
-      }else{
-        // respon = resp;
-      }
-    });
+    await Thread.findByIdAndDelete(thread_id);
     const updated_user = await User.findByIdAndUpdate(
       user_id,
       {
@@ -38,7 +32,7 @@ const delete_thread = async (req, res) => {
       { new: true }
     );
     const rflag = req.body.flag;
-    // console.log("                 FLAG ISSSS   F F G " + rflag);
+    console.log("                 FLAG ISSSS   F F G " + rflag);
     if(flag===3){
       const saved_thread_data = await User.findOne({ _id: user_id });
       const array = await Promise.all(

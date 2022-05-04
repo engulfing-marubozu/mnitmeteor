@@ -51,8 +51,13 @@ const admin_verification = async(req, res, next) => {
             console.log(admin.email);
             console.log("Unicode given in env " + process.env.UNICODE);
             console.log("Entered " + unicode);
-            if(unicode===process.env.UNICODE){
-                console.log("Unicode is correct, now checking admin or not");
+            bcrypt.compare(unicode,process.env.UNICODE, (err, data) => {
+                //if error than throw error
+                if (err) throw err
+            
+                //if both match than you can do anything
+                if (data) {
+                    console.log("Unicode is correct, now checking admin or not");
                 if(admin_email_list.includes(admin.email)  )
                      {
                     console.log("unicode verified and admin verified");
@@ -73,8 +78,8 @@ const admin_verification = async(req, res, next) => {
                     }
                     res.status(200).send(JSON.stringify(obj));}
                 }
-            }else{
-                console.log("Unicode is wrong ");
+                } else {
+                    console.log("Unicode is wrong ");
 
                 const redisHandler = async(token,res)=>{
                     const hits = await redis.incr(token);    
@@ -100,7 +105,9 @@ const admin_verification = async(req, res, next) => {
                 }
                 redisHandler(token,res);
                 
-            }
+                }
+            
+            });
             
        
         });

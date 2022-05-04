@@ -178,7 +178,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       console.log("trying to change mobile");
       // console.log(phoneNo);
       const response = await axios.post(
-        `${process.env.REACT_APP_API}/mobile_no_update`,
+        `${process.env.REACT_APP_API}/update_mobile_number`,
         { phoneNo : phoneNo},
         {
           headers: {
@@ -186,10 +186,12 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           },
         }
       );
+      console.log(response.data)
+      console.log("changed mobile number");
       const data = {
         isLogin: true,
         token: token,
-        userData: response.data.user,
+        user: response.data.user,
       };
       window.localStorage.setItem("auth", JSON.stringify(data));
       dispatch(AuthUser(data));

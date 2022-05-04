@@ -6,12 +6,14 @@ const update_mobile_no = async(req,res)=>{
     console.log(body);
     const pno = body.phoneNo;
     let fresp;
-    const comp_user = req.user;
+    var comp_user = req.user;
     try {
         
     const resp = await User.findByIdAndUpdate(uid,{"Mobile_no":pno});
+     comp_user = await User.findById(uid);
     const to_send = {
         mob: pno,
+        
         user: comp_user
     }
     res.status(200).send(to_send);  

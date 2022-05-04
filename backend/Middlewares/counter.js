@@ -6,7 +6,7 @@ const {Counter} = require("../Models/index");
 async function value(){
 
     // return 4;
-    
+
     const client = red.createClient();
   
     client.on('error', (err) => console.log('Redis Client Error', err));
@@ -27,4 +27,4 @@ async function value(){
 // const counter = (async () => {
 //  //   })();
 //   console.log(number);
-module.exports = {value,hello}
+module.exports = {value}

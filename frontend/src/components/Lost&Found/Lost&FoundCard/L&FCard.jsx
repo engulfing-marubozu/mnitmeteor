@@ -64,7 +64,7 @@ export default function LostFoundCard({ data, flag, setLostFound }) {
                 <RWebShare
                   data={{
                     text: "Mnit Market",
-                    url: `http://localhost:3000/lost&found/${data._id}`,
+                    url: `${process.env.REACT_APP_API}/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}
                   onClick={() => console.log("shared successfully!")}

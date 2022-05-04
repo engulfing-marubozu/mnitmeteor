@@ -120,11 +120,17 @@ const admin_verification = async (req, res, next) => {
         });
     } else {
         //authenticated hi nhi hai, baat khatam
+<<<<<<< HEAD
         const to_send = {
             code: 403,
             message: 'Authorization failed',
         }
         res.status(200).send(to_send);
+=======
+        
+        const to_send = 
+        res.status(200).send("403");
+>>>>>>> dcffe59688a52bb51c02579d42cd15f49fd583e1
     }
 };
 

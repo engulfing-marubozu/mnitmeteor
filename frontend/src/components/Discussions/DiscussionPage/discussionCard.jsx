@@ -40,7 +40,8 @@ import ThreadDeleteAlert from "../DeleteAlerts/threadDeletealert";
 import ReadMore from "../../_Styling/readmore";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // ================================================================================================================================================================================================================================
-function DiscussionCard({ data, setThread, flag }) {
+function DiscussionCard({ data, flag, showDelete,setThread }) {
+  // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
   const [saved, setSaved] = useState(false);
@@ -305,8 +306,7 @@ function DiscussionCard({ data, setThread, flag }) {
                   </Tooltip>
                 </IconButton>
 
-                {isLoggedIn && delFlag && (
-                  // <Tooltip>
+                {isLoggedIn && delFlag && showDelete && (
                   <ThreadDeleteAlert
                     threadData={addCommentData}
                     setThread={setThread}
@@ -331,7 +331,7 @@ function DiscussionCard({ data, setThread, flag }) {
               <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
-                // aria-expanded={expanded}
+                aria-expanded={expanded}
               >
                 <IconButton sx={{ px: 0.5 }}>
                   <Tooltip title="Comments" arrow>

@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 // import Paper from "@mui/material/Paper";
-import image3 from "./Images/image3.png";
+// import image3 from "./Images/image3.png";
 import image4 from "./Images/image4.png";
-import image5 from "./Images/image5.png";
+// import image5 from "./Images/image5.png";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CategorySlider from "./Slider";

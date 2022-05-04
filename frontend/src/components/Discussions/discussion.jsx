@@ -41,6 +41,7 @@ function Discussions() {
     setwindowWidth(window.innerWidth);
   };
   useEffect(() => {
+    window.scrollTo(0,0);
     window.addEventListener("resize", sizeEventHandler);
     return () => {
       window.removeEventListener("resize", sizeEventHandler);

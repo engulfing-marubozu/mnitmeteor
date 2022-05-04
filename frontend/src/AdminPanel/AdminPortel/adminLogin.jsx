@@ -31,6 +31,8 @@ export default function AdminLogin() {
       const run = async ()=>{
         try {
           console.log("toek " + token);
+          //unicode should not be entered wrong more than 5 times 
+          
           const response =
          await axios.post(
            `${process.env.REACT_APP_API}/admin_verification`,

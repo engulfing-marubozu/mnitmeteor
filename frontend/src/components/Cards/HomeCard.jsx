@@ -111,6 +111,6 @@ export default function HomeCard({ cardData, index }) {
           </CardActions>
         </CardContentNoPadding>
       </HoverCard>
-    </motion.div>
+     </motion.div>
   );
 }

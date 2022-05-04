@@ -1,11 +1,19 @@
 const { Thread, User } = require("../../Models");
 // recieves data as thread_id
+
 const delete_thread = async (req, res) => {
   console.log(req.body);
   try {
     const user_id = req.user._id;
     const thread_id = req.body.thread_id;
-    await Thread.findByIdAndDelete(thread_id);
+    // var respon;
+    await Thread.findByIdAndDelete(thread_id, (err,resp)=>{
+      if(err){
+        console.log(err);
+      }else{
+        // respon = resp;
+      }
+    });
     const updated_user = await User.findByIdAndUpdate(
       user_id,
       {
@@ -28,32 +36,20 @@ const delete_thread = async (req, res) => {
       { $pull: { threads_commented_or_replied: { id: thread_id } } },
       { new: true }
     );
-    if (req.body.flag === 1) {
-        console.log("habibi")
-      const all_thread = await Thread.find({});
-      console.log(all_thread);
-      res.status(200).send( all_thread );
-    } else if (req.body.flag === 2) {
-      const saved_thread_data = await User.findOne({ _id: user_id });
-      const array = await Promise.all(
-        saved_thread_data.threads_saved.map(async (object) => {
-          return await Thread.findById(object.id);
-        })
-      );
-      console.log(array);
-      res.status(200).send(array);
-    } else if(flag===3){
+    const rflag = req.body.flag;
+    console.log("                 FLAG ISSSS   F F G " + rflag);
+    if(flag===3){
       const saved_thread_data = await User.findOne({ _id: user_id });
       const array = await Promise.all(
         saved_thread_data.threads_posted.map(async (object) => {
           return await Thread.findById(object);
         })
       );
-      console.log(array);
-      res.status(200).send(array);
+      console.log("Ye delete hua " + array);
+      res.status(200).send("Topic deleted");
     }
     else{
-      res.status(200).send();
+      res.status(200).send("Flag was not 3");
     }
   } catch (err) {
     res.status(200).send(err);

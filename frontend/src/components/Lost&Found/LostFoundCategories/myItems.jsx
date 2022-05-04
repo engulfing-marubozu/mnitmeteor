@@ -62,6 +62,7 @@ function LostFoundMyItems() {
               <LostFoundCard
                 key={data._id}
                 data={data}
+                showDelete={true}
                 setLostFound={setMyItems}
                 flag={4}
               />

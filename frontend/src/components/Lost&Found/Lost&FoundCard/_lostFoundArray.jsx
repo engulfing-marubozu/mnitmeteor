@@ -1,72 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useCallback } from "react";
 import Box from "@mui/material/Box";
-import { ModelOutlinedButton } from "../../HomePage/homePageStyling";
 import LostFoundCard from "./L&FCard";
-import axios from "axios";
 import LostFoundSkeleton from "../lostfoundSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
+import useLostFoundData from "../useLnfData";
 
-function PostsWithAxios() {
-  const [lfData, setlfData] = useState();
-  const [pointer, setPointerData] = useState(1);
-  const LoadMoreHandler = () => {
-    setPointerData((prev) => {
-      return prev + 20;
-    });
-  };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    let isSubscribe = true;
-    const axiosPosts = async () => {
-      try {
-        const response = await axios(`${process.env.REACT_APP_API}/fetchlost`); //get
-        if (isSubscribe) {
-          setlfData(response.data);
+function LostFoundCardArray() {
+  const [pointer, setPointer] = useState(1);
+  const category = "fetchlost";
+  const { loading, hasMore, data } = useLostFoundData(pointer, category);
+  const observer = useRef();
+  const lastCardElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPointer((prev) => prev + 20);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    axiosPosts();
-    return () => (isSubscribe = false);
-  }, []);
+      });
+      if (node) observer.current.observe(node);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [loading, hasMore]
+  );
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {typeof lfData === "undefined" ? (
-        Array.from(new Array(3)).map((data, index) => {
+    <>
+      {loading &&
+        Array.from(new Array(12)).map((data, index) => {
           return <LostFoundSkeleton key={index} />;
-        })
-      ) : lfData.length > 0 ? (
-        lfData.map((data) => {
-          return (
-            <LostFoundCard
-              key={data._id}
-              data={data}
-              setLostFound={setlfData}
-              flag={1}
-            />
-          );
-        })
-      ) : (
+        })}
+      {data?.map((cardData, index) => {
+        if (cardData !== null) {
+          if (data.length === index + 1) {
+            return (
+              <Box ref={lastCardElementRef} key={cardData._id}>
+                <LostFoundCard data={cardData} flag={1} showDelete={false} />
+              </Box>
+            );
+          } else {
+            return (
+              <Box key={cardData._id}>
+                <LostFoundCard data={cardData} flag={1} showDelete={false} />
+              </Box>
+            );
+          }
+        } else return null;
+      })}
+      {!loading && data?.length === 0 && !hasMore && (
         <EmptySpace source={lostFoundEmpty.explore} />
       )}
-      {pointer <= lfData?.length && lfData?.length > 2 && (
-        <Box
-          sx={{ display: "flex", justifyContent: "center", mt: "1.5rem" }}
-        >
-          <ModelOutlinedButton variant="outlined" onClick={LoadMoreHandler}>
-            Load More
-          </ModelOutlinedButton>
-        </Box>
-      )}
-    </motion.div>
+    </>
   );
 }
 
-export default PostsWithAxios;
+export default LostFoundCardArray;

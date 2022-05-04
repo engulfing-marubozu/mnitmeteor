@@ -27,7 +27,10 @@ const un_interested_update = async (req, res) => {
   }
   // const attempts_left =  req.allowed_hits - req.number_of_req
   console.log(buyer);
-  res.status(200).send("helklo");
+  const to_send = {
+    interested_buyers: buyer.interested,
+  }
+  res.status(200).send(to_send);
 
 }
 

@@ -35,7 +35,7 @@ export default function CardForPublishedAds(props) {
       exit={{ opacity: 0 }}
     >
       <Card className={classes.card}>
-        <Link to={`/ProductDiscription/${props.cardData._id}`}>
+        <Link to={`/productdescription/${props.cardData._id}`}>
           <CardMedia
             component="img"
             classes={{ img: classes.image }}
@@ -56,7 +56,7 @@ export default function CardForPublishedAds(props) {
             <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${props.cardData._id}`,
+                url: `${process.env.REACT_APP_API}/ProductDiscription/${props.cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}

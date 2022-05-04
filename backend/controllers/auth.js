@@ -30,7 +30,7 @@ console.log(value);
 const signUp = async (req, res) => {               
   console.log("came to sign up");
   console.log("hellio");
-  console.log(req.body);
+  // console.log(req.body);
   try {
     console.log(req.body.email);
     console.log("yaar2");
@@ -45,14 +45,16 @@ const signUp = async (req, res) => {
       // check();
       value = await lib.value();
       console.log("value is "+value);
-      genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
+      const loadavatar = `https://freekiimages.herokuapp.com/img_load?value=${value}`;
+      
+      // genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
       // genTwoPoke = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/${value}.png`;
 
       bcrypt.hash(password, saltRounds, function (err, hash) {
         const user = new User({
           email: email,
           password: hash,
-          profile_pic: genTwoPoke
+          profile_pic: loadavatar
         });
         user.save(function (err) {
           if (err) {
@@ -92,7 +94,7 @@ const signUp = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

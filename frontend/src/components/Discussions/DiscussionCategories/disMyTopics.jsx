@@ -58,6 +58,7 @@ export default function DiscussionMyTopics() {
           if (data) {
             return (
               <DiscussionCard
+                showDelete={true}
                 key={data._id}
                 data={data}
                 setThread={setMyTopics}
@@ -78,7 +79,7 @@ export default function DiscussionMyTopics() {
           portelId={"portal"}
         >
           <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            what is your name my name is deeepak
+            what is your name my name is dee
           </SuccessfulSubmission>
         </POPUPElement>
       )}

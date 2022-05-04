@@ -2,10 +2,10 @@ import React from "react";
 import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/navbar.js";
 import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
 import Model from "../loginForm/Model";
 import { useSelector, useDispatch } from "react-redux";
 import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
+import { ChildrenBox } from "../_Styling/styling";
 function Wrapper({ children }) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
@@ -15,9 +15,11 @@ function Wrapper({ children }) {
   };
   return (
     <>
-      <Paper sx={{ bgcolor: "#ede7f6", minHeight: "100vh" ,position:"relative" }}>
+      <Paper
+        sx={{ bgcolor: "#ede7f6", minHeight: "100vh", position: "relative" }}
+      >
         <Navbar />
-        <Box sx={{paddingBottom:"122px"}}>{children}</Box>
+        <ChildrenBox>{children}</ChildrenBox>
         <Footer />
         {!isLoggedIn && loginModel && (
           <Model onClose={LoginModelHandler}></Model>

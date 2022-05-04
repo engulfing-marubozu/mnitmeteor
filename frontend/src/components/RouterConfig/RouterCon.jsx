@@ -5,7 +5,6 @@ import Home from "../HomePage/Home";
 import Discussions from "../Discussions/discussion";
 import LostFound from "../Lost&Found/lostFound";
 import AproductSellCard from "../SellnowNew/AproductSellCard";
-import ProductCard from "../HomePage/Product";
 import BooksCard from "../HomePage/productCategory/books";
 import CycleCard from "../HomePage/productCategory/cycle";
 import ElectronicsCard from "../HomePage/productCategory/electronics";
@@ -20,15 +19,16 @@ import LostFoundCardArray from "../Lost&Found/Lost&FoundCard/_lostFoundArray";
 import LostFoundForm from "../Lost&Found/lost&foundForm/l&fForm";
 import DiscussionMyTopics from "../Discussions/DiscussionCategories/disMyTopics";
 import DiscussionSavedTopics from "../Discussions/DiscussionCategories/disSavedTopics";
-import LostItems from "../Lost&Found/LostFoundCategories/lostItems";
-import FoundItems from "../Lost&Found/LostFoundCategories/foundItems";
+import LostCardArray from "../Lost&Found/LostFoundCategories/lostItems";
+import FoundCardArray from "../Lost&Found/LostFoundCategories/foundItems";
 import LostFoundMyItems from "../Lost&Found/LostFoundCategories/myItems";
 import SpecificThread from "../Discussions/discussionSpecificThread";
 import SpecificLostFound from "../Lost&Found/specificLostFound";
 import AdminPortel from "../../AdminPanel/AdminPortel/adminportel";
 import AdminLogin from "../../AdminPanel/AdminPortel/adminLogin";
 import AdminPanel from "../../AdminPanel/adminpanel";
-// import DeveloperNotes from "../Links/developerNotes";
+import ProductNew from "../HomePage/productnew";
+import DeveloperNotes from "../Links/developerNotes";
 function RouterCon() {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
@@ -40,7 +40,7 @@ function RouterCon() {
     <AnimatePresence>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route index element={<ProductCard />} />
+          <Route index element={<ProductNew />} />
           <Route path="product/books" element={<BooksCard />} />
           <Route path="product/cycle" element={<CycleCard />} />
           <Route path="product/electronics" element={<ElectronicsCard />} />
@@ -64,12 +64,24 @@ function RouterCon() {
               isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />
             }
           />
+          {/* <Route
+            path="createnewtopic"
+            element={<ProtectedRoute Component={DiscussionForm} />}
+          />
+          <Route
+            path="mytopics"
+            element={<ProtectedRoute Component={DiscussionMyTopics} />}
+          />
+          <Route
+            path="savedtopics"
+            element={<ProtectedRoute Component={DiscussionSavedTopics} />}
+          /> */}
         </Route>
         <Route path="lost&found" element={<LostFound />}>
           <Route index element={<LostFoundCardArray />} />
           <Route path=":lnfCardId" element={<SpecificLostFound />} />
-          <Route path="lostitems" element={<LostItems />} />
-          <Route path="founditems" element={<FoundItems />} />
+          <Route path="lostitems" element={<LostCardArray />} />
+          <Route path="founditems" element={<FoundCardArray />} />
           <Route
             path="lost&foundform"
             element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />}
@@ -84,7 +96,7 @@ function RouterCon() {
           element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}
         />
         <Route
-          path="productdiscription/:productId"
+          path="productdescription/:productId"
           element={<RenderDiscriptionCard />}
         />
         <Route
@@ -95,7 +107,7 @@ function RouterCon() {
           path="favourites"
           element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
         />
-        {/* <Route path="developernotes" element={<DeveloperNotes />} /> */}
+        <Route path="developernotes" element={<DeveloperNotes />} />
         <Route path="adminportel" element={<AdminPortel />}>
           <Route index element={<AdminLogin />} />
           <Route path="adminpanel" element={<AdminPanel />} />

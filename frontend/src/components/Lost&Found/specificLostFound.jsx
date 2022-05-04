@@ -39,7 +39,7 @@ export default function SpecificLostFound() {
   return (
     <>
       {typeof lnfData !== "undefined" && (
-        <LostFoundCard data={lnfData} flag={5} />
+        <LostFoundCard data={lnfData} flag={5} showDelete={false} />
       )}
     </>
   );

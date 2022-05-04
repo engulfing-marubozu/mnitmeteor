@@ -8,44 +8,38 @@ import {
   CodeValidator,
   UnicodeValidator,
 } from "../PanelStyling/adminAuthStyle";
-import { useSelector } from "react-redux";
-const AuthAdmin = async (data) => {
-  try {
-    const response = await axios.post(`${process.env.REACT_APP_API}/admin_verification`, data);
-    return response.data;
-    // console.log(response);
-  } catch (err) {                            
-    console.log(err);
-  }
-};
 export default function AdminLogin() {
   const [error, setError] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
+  const [warning, setWarning] = useState("");
   const inputRef = useRef();
-  // const userData = useSelector((state) => state.loginlogoutReducer);
-  const localStorageData=JSON.parse(window.localStorage.getItem("auth"))
+  const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
   const token = localStorageData?.token;
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmit) {
-      // const data = { , token: token };
-      const run = async ()=>{
+      const run = async () => {
         try {
           console.log("toek " + token);
-          const response =
-         await axios.post(
-           `${process.env.REACT_APP_API}/admin_verification`,
-           { unicode: inputRef.current.value },
-           {
-             headers: {
-               Authorization: `Bearer ${token}`,
-             },
-           }
-         );
+          //unicode should not be entered wrong more than 5 times
+          const response = await axios.post(
+            `${process.env.REACT_APP_API}/admin_verification`,
+            { unicode: inputRef.current.value },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           console.log(response.data);
-       } catch (err) {
-         console.log(err);
-       }
-      }
+          if(response.status===403){
+          setWarning(response.data);
+          }else if(response.status===200){
+             
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
       run();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -77,7 +71,8 @@ export default function AdminLogin() {
               ref={inputRef}
             />
           </form>
-          <CodeValidator>{error.code}</CodeValidator>
+          {error.code && <CodeValidator>{error.code}</CodeValidator>}
+          {warning && !error.code && <CodeValidator>{warning}</CodeValidator>}
         </Box>
       </Box>
     </>

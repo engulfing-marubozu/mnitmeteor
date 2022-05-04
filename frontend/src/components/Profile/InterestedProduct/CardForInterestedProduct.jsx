@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 // import { RWebShare } from "react-web-share";
 import { motion } from "framer-motion";
 import CardMedia from "@mui/material/CardMedia";
@@ -20,8 +21,7 @@ import {
   CardStyleSecond,
 } from "../../_Styling/cardStyling";
 
-export default function CardForInterestedProduct({ cardData }) {
-  // console.log(cardData);
+export default function CardForInterestedProduct({ cardData, setDeleted }) {
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
@@ -33,14 +33,37 @@ export default function CardForInterestedProduct({ cardData }) {
   const dispatch = useDispatch();
   // =========================================================================================
   const removeInteresetedHandler = () => {
-    // data to send request //
     const interestedData = { productId: cardData?._id, userToken: token };
-    dispatch(
-      fetchInterestedActions({
-        ...interestedData,
-        isInterested: false,
-      })
-    );
+    const getData = async (token) => {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/checkstatus`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data.status) {
+        console.log("fetchdata");
+        alert(
+          `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
+        );
+        dispatch(
+          fetchInterestedActions({
+            ...interestedData,
+            isInterested: false,
+          })
+        );
+        setDeleted((prev) => prev+1);
+      } else {
+        alert(
+          `max attempts done. Please retry after ${response.data.ttl} seconds`
+        );
+      }
+    };
+    getData(token);
   };
 
   const classes = CardStyleFirst();
@@ -53,7 +76,7 @@ export default function CardForInterestedProduct({ cardData }) {
     >
       <Box className={classSec.zMainBox}>
         <Card className={classes.card}>
-          <Link to={`/ProductDiscription/${cardData?._id}`}>
+          <Link to={`/productdescription/${cardData?._id}`}>
             <CardMedia
               component="img"
               classes={{ img: classes.image }}
@@ -73,7 +96,7 @@ export default function CardForInterestedProduct({ cardData }) {
               {/* <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
+                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}

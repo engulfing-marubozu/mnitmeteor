@@ -64,7 +64,7 @@ export default function HomeCard({ cardData, index }) {
       exit={{ opacity: 0 }}
     >
       <HoverCard className={classSec.hoverCard}>
-        <Link to={`/ProductDiscription/${cardData._id}`}>
+        <Link to={`/productdescription/${cardData._id}`}>
           <CardMedia
             component="img"
             classes={{ img: classes.image }}
@@ -97,7 +97,7 @@ export default function HomeCard({ cardData, index }) {
             <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
+                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
                 title: `${title}`,
               }}
               onClick={() => console.log("shared successfully!")}
@@ -111,6 +111,6 @@ export default function HomeCard({ cardData, index }) {
           </CardActions>
         </CardContentNoPadding>
       </HoverCard>
-    </motion.div>
+     </motion.div>
   );
 }

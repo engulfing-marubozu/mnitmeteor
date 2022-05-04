@@ -1,31 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useGetData(email, pointer, category) {
-
+function useDiscussionData(userId, pointer) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
   useEffect(() => {
-    setData([]);
-  }, [category]);
-
-  useEffect(() => {
-    setLoading(true);
     let isSubscribed = true;
+    setLoading(true);
     const Call = async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API}/fetch`, {
-          category,
-          email,
-          pointer,
-        });
+        const response = await axios.post(
+          `${process.env.REACT_APP_API}/fetch_live_threads`,
+          { user_id: userId, pointer: pointer }
+        );
         if (isSubscribed) {
-         
           setData((prev) => {
-            return [...prev, ...response.data];
+            return [...prev, ...response.data.universal_threads];
           });
           setLoading(false);
-          setHasMore(response.data.length > 0);
+          setHasMore(response.data.universal_threads.length > 0);
         }
       } catch (err) {
         console.log(err);
@@ -34,8 +27,8 @@ function useGetData(email, pointer, category) {
     Call();
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pointer, category]);
-  return { loading, hasMore, data};
+  }, [pointer]);
+  return { loading, data, hasMore };
 }
 
-export default useGetData;
+export default useDiscussionData;

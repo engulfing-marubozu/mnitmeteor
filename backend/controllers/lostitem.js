@@ -56,7 +56,7 @@ const HandleAdmin = async (req, res) => {
 const SendLost = async (req, res) => {
   //error handling krni har jagah abhi
   console.log("reached here body \n");
-  console.log(req.body);
+  // console.log(req.body);
   title = req.body.title;
   description = req.body.description;
   category = req.body.categories;
@@ -160,7 +160,9 @@ const LostCheck = async (req, res) => {
       //person info bhi honi chahiye
     });
     try {
-      const saveLostItem = await newLostItem.save();
+      const saveLostItem = await newLostItem.save((err,response)=>{
+        console.log(response);
+      });
       // await User.findByIdAndUpdate(refID, {
       //   $addToSet: {lf_items_posted: saveLostItem._id },
       // });

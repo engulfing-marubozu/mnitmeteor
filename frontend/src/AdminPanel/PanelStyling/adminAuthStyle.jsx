@@ -25,9 +25,10 @@ export const AdminInput = styled("input")({
   },
 });
 export const CodeValidator = styled("label")({
-  color: "white",
+  color: "red",
   fontSize: "14px",
   marginTop: "10px",
+  
 });
 export const AdminloginStyle = makeStyles({
   mainBox: {

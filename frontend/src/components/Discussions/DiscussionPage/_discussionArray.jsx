@@ -1,66 +1,57 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import axios from "axios";
+import React, { useState, useRef, useCallback } from "react";
+import useDiscussionData from "../useDiscussionData";
 import DiscussionCard from "./discussionCard";
+import Box from "@mui/material/Box";
 import DiscussionSkeleton from "../discussionSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 function DiscussionCardArray() {
+  const [pointer, setPointer] = useState(1);
   const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const userID = localUserData?.user?._id;
-  // ====================================================================================================================================
-  const [discussionData, setDiscussionData] = useState();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    let isSubscribed = true;
-    async function call() {
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API}/fetch_live_threads`,
-          { user_id: userID }
-        );
-        if (isSubscribed) {
-          console.log(response.data);
-          setDiscussionData(response.data?.universal_threads);
+  const userId = localUserData?.user?._id;
+  const { loading, hasMore, data } = useDiscussionData(userId, pointer);
+  const observer = useRef();
+  const lastCardElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPointer((prev) => prev + 20);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    call();
-    return () => (isSubscribed = false);
+      });
+      if (node) observer.current.observe(node);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [loading, hasMore]
+  );
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {typeof discussionData === "undefined" ? (
-        Array.from(new Array(4)).map((data, index) => {
+    <>
+      {loading &&
+        Array.from(new Array(12)).map((data, index) => {
           return <DiscussionSkeleton key={index} />;
-        })
-      ) : discussionData.length > 0 ? (
-        discussionData.map((data) => {
-          if (data) {
-            
+        })}
+      {data?.map((cardData, index) => {
+        if (cardData !== null) {
+          if (data.length === index + 1) {
             return (
-              <DiscussionCard
-                key={data._id}
-                data={data}
-                setThread={setDiscussionData}
-                flag={1}
-              />
+              <Box ref={lastCardElementRef} key={cardData._id}>
+                <DiscussionCard data={cardData} flag={1} showDelete={false} />
+              </Box>
             );
           } else {
-            return null;
+            return (
+              <Box key={cardData._id}>
+                <DiscussionCard data={cardData} flag={1} showDelete={false} />
+              </Box>
+            );
           }
-        })
-      ) : (
+        } else return null;
+      })}
+      {!loading && data?.length === 0 && !hasMore && (
         <EmptySpace source={DiscussionEmpty.explore} />
       )}
-    </motion.div>
+    </>
   );
 }
 

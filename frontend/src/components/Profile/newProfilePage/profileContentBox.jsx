@@ -24,7 +24,7 @@ function ProfileContentBox() {
   const notify = (value) => toast(value);
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
   const profilePic = userData?.profile_pic;
-  const userId = userData.email?.slice(0, -11);
+  const userId = userData?.email?.slice(0, -11);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -32,7 +32,7 @@ function ProfileContentBox() {
     setValue(newValue);
   };
   const classes = ProfileBoxStyle();
-
+console.log(userData);
   // =======================================================================
   return (
     <Box>

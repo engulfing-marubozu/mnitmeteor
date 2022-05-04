@@ -186,9 +186,11 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
   const { token, phoneNo } = phoneData;
   return async (dispatch) => {
     try {
+      console.log("trying to change mobile");
+      // console.log(phoneNo);
       const response = await axios.post(
         `${process.env.REACT_APP_API}/mobile_no_update`,
-        { phoneNo },
+        { phoneNo : phoneNo},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -198,7 +200,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       const data = {
         isLogin: true,
         token: token,
-        user: response.data.user,
+        userData: response.data.user,
       };
       window.localStorage.setItem("auth", JSON.stringify(data));
       dispatch(AuthUser(data));

@@ -24,6 +24,7 @@ import GetPhoneNoNew from "../../ContactDetails/getPhoneDetails";
 import DiscriptionProductDelete from "../../ModelPopUP/DiscriptionDeleteButton";
 import "../discriptionImageStyle.css";
 import ReadMore from "../../_Styling/readmore";
+import axios from "axios";
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 function DiscriptionCard({ descrpData, productId, userId }) {
@@ -78,10 +79,28 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           userToken: token,
           isInterested: false,
         };
+        // backend not interested vali state 
+        // 
+        const getData = async(token)=>{
+          //status seconds attempts left 
+          console.log("trying to fetch response checkstatus");
+          const response = await axios.post(`${process.env.REACT_APP_API}/checkstatus`,{
+            
+          },{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+          );
+          console.log("Response of uninterested ");
+          console.log(response.data);
+        }
+        getData(token);
         dispatch(fetchInterestedActions(interestedData));
         // setIsInterested(!isInterested);
       }
     } else {
+      //
       dispatch(modelPopUp(true));
     }
   };

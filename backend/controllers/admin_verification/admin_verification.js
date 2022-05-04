@@ -18,7 +18,7 @@ const timeConvert = (d)=>{
 }
 const admin_verification = async(req, res, next) => {
     
-    const admin_email_list = [ "2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
+    const admin_email_list = [ "2019ume1141@mnit.ac.in","2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
     const authHeader = req.headers.authorization;
     const unicode = req.body.unicode;
     console.log("unicode is " + unicode);
@@ -32,7 +32,12 @@ const admin_verification = async(req, res, next) => {
         if(hs==-1){
             var time_remaining =  await redis.ttl(token); 
             time_remaining = timeConvert(time_remaining);
-            return res.status(200).send(`Hey, due to excessive attempts, you can not access it for ${time_remaining} `);
+            const obj = {
+                message:`Hey, due to excessive attempts, you can not access it for ${time_remaining} `,
+                code: 88
+            }
+            const to_send = JSON.stringify(obj);
+            return res.status(200).send(obj);
         }
         //if key(token) == -1, you already have tried so much, try again after ttl(token) hours 
         jwt.verify(token, process.env.JWT_SECRET,async (err, user) => {
@@ -49,13 +54,24 @@ const admin_verification = async(req, res, next) => {
             if(unicode===process.env.UNICODE){
                 console.log("Unicode is correct, now checking admin or not");
                 if(admin_email_list.includes(admin.email)  )
-                     {console.log("unicode verified and admin verified");
-                     console.log("sfhvhdjs")
-                         res.status(200).send("Hey Admin!");}
+                     {
+                    console.log("unicode verified and admin verified");
+                    const obj = {
+                        message:"Hey Admin!",
+                        token: token,
+                        code: 77
+                    }
+                    const to_send = JSON.stringify(obj);
+                    res.status(200).send(to_send);
+                }
                 else
                 {
                     {console.log("unicode verified but admin is does not have the access");
-                    res.status(200).send("Not an admin. Admins have been reported for misuse of key");}
+                    const obj = {
+                        message:"Not an admin. Admins have been reported for misuse of key",
+                        code: 88
+                    }
+                    res.status(200).send(JSON.stringify(obj));}
                 }
             }else{
                 console.log("Unicode is wrong ");
@@ -68,9 +84,19 @@ const admin_verification = async(req, res, next) => {
                         var time_block = timeConvert(blockingTime);
 
                         await redis.expire(token,blockingTime); //40 seconds 
-                        return res.status(200).send(`You are blocked for ${time_block}.`);
+                        const obj = {
+                            message:`You are blocked for ${time_block}.`,
+                            code: 88
+                        }
+                        const to_send = JSON.stringify(obj);
+                        return res.status(200).send(to_send);
                     }
-                    res.status(200).send(` You are remaining with ${3-hits} attempts`);    
+                    const obj = {
+                        message:` You are remaining with ${3-hits} attempts`,
+                        code: 88
+                    }
+                    const to_send = JSON.stringify(obj);
+                    res.status(200).send(to_send);    
                 }
                 redisHandler(token,res);
                 

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, IconButton } from "@mui/material";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import {
   AdminInput,
-  AdminloginStyle,
+  AdminLoginStyle,
   CodeValidator,
   UnicodeValidator,
 } from "../PanelStyling/adminAuthStyle";
@@ -42,11 +43,11 @@ export default function AdminLogin() {
             setWarning("");
             console.log(response.data.message);
             const cred = {
-              qazwsx: "5u7nJmsU.J5p3rA`c*9-",
-              edcrfv: response.data.token,
+              dabirc: "5u7nJmsU.J5p3rA`c*9-",
+              waox: response.data.token,
             };
-            window.localStorage.setItem("tgbyhn", JSON.stringify(cred));
-            Navigate("adminpanel");
+            window.localStorage.setItem("pliquing", JSON.stringify(cred));
+            Navigate("/adminportel");
           }
         } catch (err) {
           console.log(err);
@@ -63,12 +64,12 @@ export default function AdminLogin() {
     setError(UnicodeValidator(value));
     setIsSubmit(true);
   };
-  const classes = AdminloginStyle();
+  const classes = AdminLoginStyle();
   return (
     <>
       <Box className={classes.mainBox}>
         <Box className={classes.actionBox}>
-          <IconButton>
+          <IconButton onClick={() => Navigate("/")}>
             <CloseIcon className={classes.closeIcon} />
           </IconButton>
         </Box>

@@ -1,15 +1,14 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-function AdminProtected({ Component }) {
+function AdminLoginCheck({ Component }) {
   const credData = JSON.parse(window.localStorage.getItem("pliquing"));
   console.log(credData);
   console.log(credData);
-  if (credData?.dabirc === "5u7nJmsU.J5p3rA`c*9-") {
-    console.log("passed ");
+  if (!credData) {
+    console.log("adminlogin");
     return <Component />;
   } else {
-    return <Navigate to="adminlogin" />;
+    return <Navigate to="/adminportel" />;
   }
 }
-
-export default AdminProtected;
+export default AdminLoginCheck;

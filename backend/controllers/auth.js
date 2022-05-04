@@ -30,7 +30,7 @@ console.log(value);
 const signUp = async (req, res) => {               
   console.log("came to sign up");
   console.log("hellio");
-  console.log(req.body);
+  // console.log(req.body);
   try {
     console.log(req.body.email);
     console.log("yaar2");
@@ -94,7 +94,7 @@ const signUp = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

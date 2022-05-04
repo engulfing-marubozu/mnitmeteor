@@ -30,6 +30,7 @@ import AdminPanel from "../../AdminPanel/adminpanel";
 import ProductNew from "../HomePage/productnew";
 import DeveloperNotes from "../Links/developerNotes";
 import AdminProtected from "./adminProtected";
+import AdminLoginCheck from "./adminRoute/adminloginCheck";
 function RouterCon() {
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
@@ -110,12 +111,11 @@ function RouterCon() {
         />
         <Route path="developernotes" element={<DeveloperNotes />} />
         <Route path="adminportel" element={<AdminPortel />}>
-          <Route index element={<AdminLogin />} />
-          <Route path="adminpanel" element={<AdminPanel />} />
+          <Route index element={<AdminProtected Component={AdminPanel} />} />
           <Route
-            path="adminpanel"
-            element={<AdminProtected Component={AdminPanel} />}
-          /> 
+            path="adminlogin"
+            element={<AdminLoginCheck Component={AdminLogin} />}
+          />
         </Route>
         <Route path="*" element={<div>No Page found </div>} />
       </Routes>

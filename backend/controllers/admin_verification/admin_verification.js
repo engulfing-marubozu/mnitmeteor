@@ -4,6 +4,7 @@ const { User } = require("../../Models")
 const expressjwt = require("express-jwt")
 const Redis = require("redis");
 const redis = Redis.createClient();
+require('dotenv').config()
 redis.connect();
 const timeConvert = (d) => {
     d = Number(d);
@@ -24,8 +25,8 @@ const admin_verification = async (req, res, next) => {
     console.log("unicode is " + unicode);
     //unicode 
     var check = authHeader.split(' ')[1];
-    console.log(typeof(check));
-    if(check=="undefined") check =0;
+    console.log(typeof (check));
+    if (check == "undefined") check = 0;
     if (check) {
         const token = authHeader.split(' ')[1];
         console.log(token);
@@ -57,56 +58,63 @@ const admin_verification = async (req, res, next) => {
             console.log(admin.email);
             console.log("Unicode given in env " + process.env.UNICODE);
             console.log("Entered " + unicode);
-            if (unicode === process.env.UNICODE) {
-                console.log("Unicode is correct, now checking admin or not");
-                if (admin_email_list.includes(admin.email)) {
-                    console.log("unicode verified and admin verified");
-                    const obj = {
-                        message: "Hey Admin!",
-                        token: token,
-                        code: 77
-                    }
-                    const to_send = JSON.stringify(obj);
-                    res.status(200).send(to_send);
-                }
-                else {
-                    {
-                        console.log("unicode verified but admin is does not have the access");
+            bcrypt.compare(unicode, process.env.UNICODE, (err, data) => {
+                //if error than throw error
+                if (err) throw err
+
+                //if both match than you can do anything
+                if (data) {
+                    console.log("Unicode is correct, now checking admin or not");
+                    if (admin_email_list.includes(admin.email)) {
+                        console.log("unicode verified and admin verified");
                         const obj = {
-                            message: "Not an admin. Admins have been reported for misuse of key",
-                            code: 88
+                            message: "Hey Admin!",
+                            token: token,
+                            code: 77
                         }
-                        res.status(200).send(JSON.stringify(obj));
+                        const to_send = JSON.stringify(obj);
+                        res.status(200).send(to_send);
                     }
-                }
-            } else {
-                console.log("Unicode is wrong ");
+                    else {
+                        {
+                            console.log("unicode verified but admin is does not have the access");
+                            const obj = {
+                                message: "Not an admin. Admins have been reported for misuse of key",
+                                code: 88
+                            }
+                            res.status(200).send(JSON.stringify(obj));
+                        }
+                    }
+                } else {
+                    console.log("Unicode is wrong ");
 
-                const redisHandler = async (token, res) => {
-                    const hits = await redis.incr(token);
-                    if (hits > 2) {
-                        await redis.set(token, -1);
-                        const blockingTime = 5;
-                        var time_block = timeConvert(blockingTime);
+                    const redisHandler = async (token, res) => {
+                        const hits = await redis.incr(token);
+                        if (hits > 2) {
+                            await redis.set(token, -1);
+                            const blockingTime = 5;
+                            var time_block = timeConvert(blockingTime);
 
-                        await redis.expire(token, blockingTime); //40 seconds 
+                            await redis.expire(token, blockingTime); //40 seconds 
+                            const obj = {
+                                message: `You are blocked for ${time_block}.`,
+                                code: 88
+                            }
+                            const to_send = JSON.stringify(obj);
+                            return res.status(200).send(to_send);
+                        }
                         const obj = {
-                            message: `You are blocked for ${time_block}.`,
+                            message: ` You are remaining with ${3 - hits} attempts`,
                             code: 88
                         }
                         const to_send = JSON.stringify(obj);
-                        return res.status(200).send(to_send);
+                        res.status(200).send(to_send);
                     }
-                    const obj = {
-                        message: ` You are remaining with ${3 - hits} attempts`,
-                        code: 88
-                    }
-                    const to_send = JSON.stringify(obj);
-                    res.status(200).send(to_send);
-                }
-                redisHandler(token, res);
+                    redisHandler(token, res);
 
-            }
+                }
+
+            });
 
 
         });

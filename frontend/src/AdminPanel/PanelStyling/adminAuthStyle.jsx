@@ -28,9 +28,8 @@ export const CodeValidator = styled("label")({
   color: "red",
   fontSize: "14px",
   marginTop: "10px",
-  
 });
-export const AdminloginStyle = makeStyles({
+export const AdminLoginStyle = makeStyles({
   mainBox: {
     display: "flex",
     alignItems: "center",

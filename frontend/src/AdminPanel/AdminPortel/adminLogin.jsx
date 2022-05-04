@@ -8,18 +8,6 @@ import {
   CodeValidator,
   UnicodeValidator,
 } from "../PanelStyling/adminAuthStyle";
-const AuthAdmin = async (data) => {
-  try {
-    const response = await axios.post(
-      `${process.env.REACT_APP_API}/admin_verification`,
-      data
-    );
-    return response.data;
-    // console.log(response);
-  } catch (err) {
-    console.log(err);
-  }
-};
 export default function AdminLogin() {
   const [error, setError] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
@@ -43,7 +31,11 @@ export default function AdminLogin() {
             }
           );
           console.log(response.data);
+          if(response.status===403){
           setWarning(response.data);
+          }else if(response.status===200){
+             
+          }
         } catch (err) {
           console.log(err);
         }

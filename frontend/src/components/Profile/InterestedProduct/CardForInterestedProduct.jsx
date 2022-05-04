@@ -53,7 +53,7 @@ export default function CardForInterestedProduct({ cardData }) {
     >
       <Box className={classSec.zMainBox}>
         <Card className={classes.card}>
-          <Link to={`/ProductDiscription/${cardData?._id}`}>
+          <Link to={`/productdescription/${cardData?._id}`}>
             <CardMedia
               component="img"
               classes={{ img: classes.image }}

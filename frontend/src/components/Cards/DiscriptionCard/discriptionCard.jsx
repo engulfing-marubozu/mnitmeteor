@@ -77,7 +77,6 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           productId: productId,
           userToken: token,
           isInterested: false,
-          setIsInterested: setIsInterested,
         };
         dispatch(fetchInterestedActions(interestedData));
         // setIsInterested(!isInterested);

@@ -141,18 +141,16 @@ export const fetchInterestedActions = (interestedData) => {
           }
         );
         console.log(response);
-      //   const { status, ttl_seconds, attempts_left } = response.data;
-      //   if (status) {
-      //     console.log("deepak");
-      //     console.log(response.data);
-      //     alert(
-      //       `${attempts_left} attempts left for another ${ttl_seconds} seconds`
-      //     );
-      //     setIsInterested(!interestedData);
-      //   } else {
-      //     console.log(response.data);
-      //     alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
-      //   }
+        const { status, ttl_seconds, attempts_left } = response.data;
+        if (status) {
+          console.log("deepak");
+          alert(
+            `${attempts_left} attempts left for another ${ttl_seconds} seconds`
+          );
+        } else {
+          console.log(response.data);
+          alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
+        }
       }
     } catch (err) {
       console.log(err);

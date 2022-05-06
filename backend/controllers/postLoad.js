@@ -17,7 +17,7 @@ const products = async (req, res) => {
     const user_id = req.user._id;
     // console.log(user_id);
     // console.log(req.user);
-    console.log(image_array);
+    // console.log(image_array);
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
@@ -143,7 +143,7 @@ const fetch_livedata = async (req, res) => {
       //    fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
 
       fetch_post = await Product.find({ is_verified: true }).sort({ createdAt: -1 }).skip(pointer - 1).limit(20);  // **first it will sort in order of date and then apply skip and limit
-      console.log(fetch_post);
+      // console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
 

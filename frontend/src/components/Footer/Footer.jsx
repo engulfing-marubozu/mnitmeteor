@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { FooterStyle } from "./footerStyling";
+import Logo from "./logo.svg";
+import { Avatar } from "@mui/material";
+
 function Footer() {
   const classes = FooterStyle();
   return (
@@ -15,6 +18,13 @@ function Footer() {
           <Link to="/developernotes" className={classes.linkStyle}>
             <Typography >Developer Note's</Typography>
           </Link>
+        </Box>
+        <Box alignItems={"center"}>
+            <Avatar
+            alt="Logo"
+            src={Logo}
+            variant="rounded"
+            />
         </Box>
         <Box>
           {/* <Link > */}

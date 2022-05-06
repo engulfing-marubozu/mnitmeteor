@@ -237,5 +237,5 @@ const Product = mongoose.model("Product", products_schema);
 const User = mongoose.model("User", user_schema);
 const Thread = mongoose.model("Thread", thread_schema);
 const LostItem = mongoose.model("LostItem", lost_item_schema);
-const Counter = mongoose.model("Counter", counter_schema);
-module.exports = { User, Product, Thread,LostItem ,Counter};
+const Avatar = mongoose.model("Avatar", counter_schema);
+module.exports = { User, Product, Thread,LostItem ,Avatar};

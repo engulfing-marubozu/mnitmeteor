@@ -1,5 +1,6 @@
 const { User, Product, LostItem, Thread } = require("./Models");
 const mongoose = require("mongoose");
+// const time = require("time");
 require("dotenv").config();
 database_url = process.env.MONGODB_ATLAS;
 // console.log(database_url);
@@ -24,6 +25,7 @@ const copyitem = async()=>{
       document: data.document,
       is_verified: true,
     })
+    await delay(5000);
     const sv = await item.save((res,err)=>{
         console.log(res);
     });  

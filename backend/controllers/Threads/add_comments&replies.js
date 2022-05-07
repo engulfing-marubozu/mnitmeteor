@@ -45,8 +45,8 @@ const add_comment =async (req,res)=>{
             }}, {new:true}
         ) 
        
-        console.log(updated_Thread);
-         res.status(200).send(updated_Thread)
+        console.log("hello there" + updated_Thread);
+         res.status(200).send({updated_Thread})
         }
         else{
             console.log("hello");
@@ -70,7 +70,7 @@ const add_comment =async (req,res)=>{
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
-         console.log(updated_Thread.discussions[0]);
+         console.log("hello " + updated_Thread.discussions[0]);
            res.status(200).send(updated_Thread.discussions[0]);
         }
        

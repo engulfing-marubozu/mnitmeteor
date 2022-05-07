@@ -32,7 +32,6 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { RWebShare } from "react-web-share";
 import { LikeDislikeChecker } from "./likeDislikeChecker";
@@ -48,10 +47,11 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
   const [expanded, setExpanded] = useState(false);
   // =================================================================================================================================================================================================================================
   const dispatch = useDispatch();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const token = localUserData?.token;
-  const isLoggedIn = localUserData?.isLogin;
-  const userLoggedIn = localUserData?.userData?._id;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const userLoggedIn = userData?.userData?.userId;
   const addCommentData = {
     token: token,
     cardId: data?._id,
@@ -80,7 +80,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
 
   // ==================================================================================================================================
   const likeIncreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -120,7 +120,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
     }
   };
   const likeDecreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -178,7 +178,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
   // =============================================================================================================================
 
   const SavedHandler = async () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       setSaved(!saved);
       try {
         const thread_id = cardId;
@@ -222,7 +222,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
               onClick={likeIncreaseHandler}
             >
               <Tooltip title="Upvote" arrow placement="left">
-                <ArrowUpwardIcon />
+                <ArrowUpwardIcon aria-label="upvote" />
               </Tooltip>
             </IconButton>
             <Stack className={likeButton.likeCardCount}>
@@ -233,7 +233,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
               onClick={likeDecreaseHandler}
             >
               <Tooltip title="Downvote" arrow placement="left">
-                <ArrowDownwardIcon />
+                <ArrowDownwardIcon aria-label="downvote" />
               </Tooltip>
             </IconButton>
           </Box>
@@ -299,14 +299,14 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
                 <IconButton onClick={SavedHandler}>
                   <Tooltip title="Save" arrow>
                     {saved ? (
-                      <BookmarkAddedIcon color="primary" />
+                      <BookmarkAddedIcon color="primary"  aria-label="saved"/>
                     ) : (
-                      <BookmarkAddIcon />
+                      <BookmarkAddIcon aria-label="unsaved" />
                     )}
                   </Tooltip>
                 </IconButton>
 
-                {isLoggedIn && delFlag && showDelete && (
+                {isLogin && delFlag && showDelete && (
                   <ThreadDeleteAlert
                     threadData={addCommentData}
                     setThread={setThread}
@@ -323,7 +323,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
                 >
                   <IconButton>
                     <Tooltip title="Share" arrow>
-                      <ShareIcon color="primary" />
+                      <ShareIcon color="primary" aria-label="share" />
                     </Tooltip>
                   </IconButton>
                 </RWebShare>
@@ -335,7 +335,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
               >
                 <IconButton sx={{ px: 0.5 }}>
                   <Tooltip title="Comments" arrow>
-                    <MessageIcon sx={{ color: "#673ab7" }} />
+                    <MessageIcon sx={{ color: "#673ab7" }} aria-label="comments" />
                   </Tooltip>
                 </IconButton>
               </ExpandMore>

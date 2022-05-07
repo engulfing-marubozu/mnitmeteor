@@ -20,6 +20,8 @@ export const AuthUser = (data = {}) => {
 };
 // ===============================================================
 export const LogoutUser = () => {
+  window.localStorage.removeItem("Zuyq!jef@}#e");
+  window.localStorage.removeItem("mm_user_data");
   return { type: LOGOUT_USER };
 };
 // ===============================================================
@@ -168,7 +170,7 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 // ==================================================================
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  const { token, phoneNo} = phoneData;
+  const { token, phoneNo } = phoneData;
   return async (dispatch) => {
     try {
       console.log("trying to change mobile");
@@ -176,7 +178,7 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       //naya mob number
       const response = await axios.post(
         `${process.env.REACT_APP_API}/update_mobile_number`,
-        { phoneNo : phoneNo},
+        { phoneNo: phoneNo },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -184,10 +186,10 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
         }
       );
       // response will be:
-      // mob!=-1, user if everything went fine in backend 
+      // mob!=-1, user if everything went fine in backend
       // if mob ==-1 then error occurred backend side
-      // 
-      console.log(response.data)
+      //
+      console.log(response.data);
       console.log("changed mobile number");
       const data = {
         isLogin: true,

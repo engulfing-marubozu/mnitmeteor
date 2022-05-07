@@ -12,11 +12,12 @@ import POPUPElement from "../../ModelPopUP/POPUPElement";
 export default function DiscussionMyTopics() {
   const [myTopics, setMyTopics] = useState();
   const dispatch = useDispatch();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   const submitPopUp = useSelector(
     (state) => state.ModelPopUpReducer.forumPopUp
   );
-  const isLoggedIn = localUserData.isLogin;
   const SubmitPopUpHandler = () => {
     dispatch(forumPopUp(false));
   };
@@ -29,7 +30,7 @@ export default function DiscussionMyTopics() {
         `${process.env.REACT_APP_API}/fetch_own_threads`,
         {
           headers: {
-            authorization: `Bearer ${localUserData?.token}`,
+            authorization: `Bearer ${token}`,
           },
         }
       );
@@ -72,7 +73,7 @@ export default function DiscussionMyTopics() {
       ) : (
         <EmptySpace source={DiscussionEmpty.myTopics} />
       )}
-      {submitPopUp && isLoggedIn && (
+      {submitPopUp && isLogin && (
         <POPUPElement
           open={submitPopUp}
           onClose={SubmitPopUpHandler}

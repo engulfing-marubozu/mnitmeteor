@@ -10,18 +10,20 @@ import { useSelector } from "react-redux";
 
 export default function InterestedAlert(props) {
   // ==========================================================GETTING DETAILS FROM STATE-REDUX ================
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const phoneNumber = useSelector(
-    (state) => state.loginlogoutReducer.userData.Mobile_no
+  const isLogin = useSelector((state) => state.loginlogoutReducer.isLogin);
+  // const phoneNo = useSelector(
+  //   (state) => state.loginlogoutReducer.userData.Mobile_no
+  // );
+  const phoneNo = useSelector(
+    (state) => state.loginlogoutReducer.userData.phoneNo
   );
-  // console.log(phoneNumber);
-
+  // console.log(phoneNo);
   // ==============================================AGREE-DISAGREE HANDLER=======================================
   const AgreeHandler = () => {
-    if (!phoneNumber && isLoggedIn) {
+    if (!phoneNo && isLogin) {
       props.onClose(false);
       props.setContactModel(true);
-    } else if (phoneNumber && isLoggedIn) {
+    } else if (phoneNo && isLogin) {
       props.modelInputHandler(true);
       props.onClose(false);
     }

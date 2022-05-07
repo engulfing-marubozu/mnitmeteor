@@ -3,12 +3,10 @@ import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import CssBaseline from "@mui/material/CssBaseline";
 import FrontBanner from "./Banner";
-// import Paper from "@mui/material/Paper";
-
 import CategorySlider from "./Slider";
 
 export default function Home() {
-  console.log("deepak");
+  console.log("home");
   return (
     <motion.div
       initial={{ opacity: 0 }}

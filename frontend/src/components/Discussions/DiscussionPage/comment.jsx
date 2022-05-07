@@ -43,7 +43,7 @@ const ExpandMoreReplies = styled((props) => {
   }),
 }));
 
-// ================================================================================================================================================================================
+// ====================================================================================
 function Comments({
   commentData,
   addCommentData,
@@ -55,17 +55,17 @@ function Comments({
   const [expAddCmnt, setExpAddCmt] = useState(false);
   const [expReplies, setExpReplies] = useState(false);
   const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const isLoggedIn = localUserData.isLogin;
-  const userLoggedIn = localUserData.userData._id;
+  const isLogin = localUserData?.isLogin;
+  const userLoggedIn = localUserData?.userData?.userId;
   // ========================================================================================
   const handleExpandClick = () => {
-    isLoggedIn ? setExpAddCmt(!expAddCmnt) : dispatch(modelPopUp(true));
+    isLogin ? setExpAddCmt(!expAddCmnt) : dispatch(modelPopUp(true));
   };
 
   const handleViewRepliesClick = () => {
     setExpReplies(!expReplies);
   };
-  //   ===========================================================================================================================================================================
+    // ==========================================================================================
 
   const comment = localCommentData.content;
   const commentId = localCommentData._id;
@@ -76,7 +76,7 @@ function Comments({
   const replies = localCommentData?.replies?.slice(0).reverse();
   const replyCount = replies?.length;
   const addReplyData = { ...addCommentData, commentId: commentId };
-  // ===========================================================================================================================================================================
+  // =============================================================================================
   const likes = localCommentData.likes;
   const dislikes = localCommentData.dislikes;
   const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
@@ -89,7 +89,7 @@ function Comments({
   });
 
   const likeIncreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -130,7 +130,7 @@ function Comments({
     }
   };
   const likeDecreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -171,11 +171,11 @@ function Comments({
     }
   };
 
-  // =====================================================================================================================================================================================
+  // ==========================================================================
   const classes = CommentReplyStyle();
   const likeButton = LikeButtonStyle(likeDislike);
 
-  // =======================================================================================================================================================================================================
+  // ===========================================================================
   return (
     <Box>
       <Box
@@ -219,7 +219,7 @@ function Comments({
                 </ExpandMore>
 
                 {
-                  isLoggedIn &&
+                  isLogin &&
                   (actionData.delFlag ||
                     commentedBy === actionData.userLoggedIn) ? (
                     <CommentDeleteAlert

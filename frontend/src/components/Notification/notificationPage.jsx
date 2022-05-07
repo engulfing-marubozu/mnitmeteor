@@ -8,13 +8,12 @@ import axios from "axios";
 import NotificationSkeleton from "./notificationSkeleton";
 import EmptySpace from "../_EmptySpaces/emptySpace";
 import { NotificationPageStyle } from "./notificationStyling";
-import { useSelector } from "react-redux";
 import { notificationEmpty } from "../_EmptySpaces/EmptySvg";
 
 function NotificationPage({ setDrawer }) {
   const [notifications, setNotifications] = useState();
-  const token = useSelector((state) => state.loginlogoutReducer.token);
-
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   useEffect(() => {
     const fetch_notification = async () => {
       const response = await axios.get(
@@ -37,8 +36,8 @@ function NotificationPage({ setDrawer }) {
     <Box className={classes.mainBox}>
       <Box className={classes.headingContainer}>
         <Typography className={classes.heading}>Notifications</Typography>
-        <IconButton onClick={() => setDrawer(false)}>
-          <ArrowForwardIcon />
+        <IconButton onClick={() => setDrawer(false)} aria-label="back">
+          <ArrowForwardIcon  />
         </IconButton>
       </Box>
       <Box>

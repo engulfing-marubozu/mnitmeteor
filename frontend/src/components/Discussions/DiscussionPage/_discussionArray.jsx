@@ -5,11 +5,14 @@ import Box from "@mui/material/Box";
 import DiscussionSkeleton from "../discussionSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
+import { useSelector } from "react-redux";
 function DiscussionCardArray() {
   const [pointer, setPointer] = useState(1);
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const userId = localUserData?.user?._id;
-  const { loading, hasMore, data } = useDiscussionData(userId, pointer);
+  // const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  // const userId = userData?.userId;
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const token = localUserData?.token;
+  const { loading, hasMore, data } = useDiscussionData(token, pointer);
   const observer = useRef();
   const lastCardElementRef = useCallback(
     (node) => {
@@ -17,7 +20,7 @@ function DiscussionCardArray() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPointer((prev) => prev + 20);
+          setPointer((prev) => prev + 5);
         }
       });
       if (node) observer.current.observe(node);

@@ -173,9 +173,9 @@ export const ProfileTab = styled((props) => <Tab disableRipple {...props} />)(
 );
 
 export const ExpandMore = styled(({ expand, ...other }) => {
-  return (
-    <IconButton sx={{ color: "#5e35b1", py: 0.2 }} {...other} size="small">
-      <EditIcon sx={{ fontSize: { xs: "14px", sm: "20px" } }} />
+  return ( 
+    <IconButton sx={{ color: "#5e35b1", py: 0.2 }} {...other} size="small" aria-label="updateDetails">
+      <EditIcon sx={{ fontSize: { xs: "14px", sm: "20px" } }}  />
     </IconButton>
   );
 })(({ theme }) => ({

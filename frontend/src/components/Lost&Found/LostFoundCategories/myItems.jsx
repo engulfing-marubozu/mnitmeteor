@@ -10,13 +10,14 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
 import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
 
-function LostFoundMyItems() {
+function LostFoundMyItems({ userAuthData }) {
   const [myItems, setMyItems] = useState();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
   const dispatch = useDispatch();
   const submitPopUp = useSelector((state) => state.ModelPopUpReducer.lnfPopUp);
-  const isLoggedIn = localUserData.isLogin;
+  // const localUserData = JSON.parse(window.localStorage.getItem("auth"));
+  // const token = localUserData.token;
+  // const isLoggedIn = localUserData.isLogin;
+  const { isLogin, token } = userAuthData;
   const SubmitPopUpHandler = () => {
     dispatch(lnfPopUp(false));
   };
@@ -25,11 +26,14 @@ function LostFoundMyItems() {
     let isSubscribed = true;
     const axiosPosts = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API}/lnfmyitems`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/lnfmyitems`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (isSubscribed) {
           setMyItems(response.data);
         }
@@ -73,7 +77,7 @@ function LostFoundMyItems() {
       ) : (
         <EmptySpace source={lostFoundEmpty.myItems} />
       )}
-      {submitPopUp && isLoggedIn && (
+      {submitPopUp && isLogin && (
         <POPUPElement
           open={submitPopUp}
           onClose={SubmitPopUpHandler}

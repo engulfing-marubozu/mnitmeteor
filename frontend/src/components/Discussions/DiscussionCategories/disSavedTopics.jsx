@@ -81,8 +81,8 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 function DiscussionSavedTopics() {
   const [pointer, setPointer] = useState(1);
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const { loading, hasMore, data } = useSavedTopics(token, pointer);
   const observer = useRef();
   const lastCardElementRef = useCallback(

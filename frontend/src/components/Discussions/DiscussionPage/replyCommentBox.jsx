@@ -8,7 +8,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
     const inputReply = useRef(null);
     const [disabledPost, setDisabledPost] = useState(true);
     const localUserData = useSelector((state) => state.loginlogoutReducer);
-    const token = localUserData.token;
+    const token = localUserData?.token;
     const EnablePost = (event) => {
         const commentValue = event.target.value;
         if (commentValue) {
@@ -19,7 +19,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
     }
 
     const submitHandler = async () => {
-        const email = localUserData.userData.email.slice(0, 11);
+        const email = localUserData?.userData?.email.slice(0, 11);
         const response = await axios.post(
             `${process.env.REACT_APP_API}/add_comment`,
             {

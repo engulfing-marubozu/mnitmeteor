@@ -82,18 +82,21 @@ console.log(userData);
             onChange={handleChange}
             textColor="primary"
             indicatorColor="primary"
+       
           >
             <ProfileTab
               label="Your Ads "
               onClick={() => {
                 setTabSwitch(0);
               }}
+              aria-label="your ads"
             />
             <ProfileTab
               label="Your Orders"
               onClick={() => {
                 setTabSwitch(1);
               }}
+              aria-label="your orders"
             />
           </ProfileTabs>
           <Box className={classes.cardContainer}>

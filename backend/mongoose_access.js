@@ -39,11 +39,11 @@ const copyitem = async()=>{
 // }).catch((err)=>{
 //     console.log(err);
 // })
-// Thread.deleteMany().then(() => {
-//   console.log("Deleted all users ");
-// }).catch((err) => {
-//   console.log(err);
-// })
+Thread.deleteMany().then(() => {
+  console.log("Deleted all threads ");
+}).catch((err) => {
+  console.log(err);
+})
 // Product.deleteMany({title:"fsdgsdfg"},(err,res)=>{
 //   console.log(err);
 // })

@@ -1,4 +1,6 @@
 const { Product, User } = require("../Models");
+const jwt = require ("jsonwebtoken");
+
 const cloudinary = require("cloudinary");
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -132,7 +134,7 @@ const fetch_livedata = async (req, res) => {
   //  console.log("reached to pick up data");
 
   try {
-    const email = req.body.email;
+    const authHeader = req.headers.authorization;
     const category = req.body.category;
     let fetch_post;
     const pointer = req.body.pointer;
@@ -156,8 +158,23 @@ const fetch_livedata = async (req, res) => {
       //  console.log(fetch_post);
       //    res.status(200).send(fetch_post);
     }
-    if (email) {
-      const { favourites } = await User.findOne({ email: email });
+    let token;
+    if(authHeader) token =authHeader.split(' ')[1]; 
+    
+    // let verified = 0;
+    jwt.verify(token, process.env.JWT_SECRET, (err,user)=>{
+      if(err){
+        //dont display hearts 
+        return res.status(200).send(fetch_post); 
+        //token se user kaise extract krna 
+      }
+      //display hearts 
+      // const user = user;
+      console.log(user);
+      const email = user.email;
+      const { favourites } = User.findOne({ email: email },(err,rest)=>{
+        console.log(err);
+      });
       //  console.log(favourites);
 
       fetch_post.forEach((post) => {
@@ -169,7 +186,9 @@ const fetch_livedata = async (req, res) => {
       });
       //     console.log(fetch_post);
       res.status(200).send(fetch_post);
-    } else res.status(200).send(fetch_post);
+    });
+    
+     
   } catch (err) {
     console.log(err);
   }

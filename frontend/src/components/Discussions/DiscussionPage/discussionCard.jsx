@@ -161,7 +161,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   console.log("depak")
   console.log(localCardData);
   // ===================================================================================================================================================================================================================================
-  //  const avatar =localCardData?.profilePic;
+   const avatar =localCardData?.profile_pic;
   const title = localCardData?.title;
   const description = localCardData?.description;
   const date = new Date(localCardData?.createdAt);
@@ -244,7 +244,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
               <CardHeader
                 avatar={
                   <Avatar sx={{ border: "1px solid black" }} 
-                  // src={avatar} 
+                  src={avatar} 
                   />
                 }
                 title={userId}

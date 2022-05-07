@@ -66,7 +66,7 @@ function Comments({
     setExpReplies(!expReplies);
   };
   // ==========================================================================================
-  // const avatar=localCommentData?.profilePic
+  const avatar=localCommentData?.profile_pic
   const comment = localCommentData.content;
   const commentId = localCommentData._id;
   const userId = localCommentData.mnit_id
@@ -185,7 +185,7 @@ function Comments({
           <Stack className={classes.topStack}>
             <Avatar
               className={classes.avatarStyle}
-              // src={avatar}
+              src={avatar}
             />
             <Typography className={classes.usernameStyle}>{userId}</Typography>
           </Stack>

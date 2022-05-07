@@ -29,7 +29,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     isLogin ? setExpanded(!expanded) : dispatch(modelPopUp(true));
   };
   //  ========================================================================================================================================================================
-  const avatar = replyData?.profilePic;
+  const avatar = replyData?.profile_pic;
   const replyId = replyData?._id;
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;

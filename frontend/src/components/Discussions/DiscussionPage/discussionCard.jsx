@@ -243,7 +243,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
             <Box sx={{ width: "94%", borderBottom: "2px  solid #757575" }}>
               <CardHeader
                 avatar={
-                  <Avatar sx={{ border: "1px solid black" }} 
+                  <Avatar 
                   src={avatar} 
                   />
                 }

@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 export const CustomButton = styled("button")({
   padding: "8px 16px",
   background: "#3f4257",
-  borderRadius: "30px",
+  borderRadius: "10px",
   color: "white",
   fontWeight: 300,
   fontSize: "14px",

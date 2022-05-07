@@ -153,7 +153,6 @@ export const CommentReplyStyle = makeStyles({
     width: 28,
     height: 28,
     backgroundColor: "#673ab7",
-    border: "1px solid black",
 
     "@media (max-width: 600px)": {
       width: 24,

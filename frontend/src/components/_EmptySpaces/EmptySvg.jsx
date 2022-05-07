@@ -15,7 +15,7 @@ export const DiscussionEmpty = {
 };
 export const lostFoundEmpty = {
   explore: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808171/Lantern-cuate_oksc2z.svg",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1651952789/Exploring-pana_qlpxkh.svg",
     text: "Lost or found an item? Add an item by using the form.",
   },
 

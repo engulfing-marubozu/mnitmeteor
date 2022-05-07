@@ -31,6 +31,7 @@ import DeveloperNotes from "../Links/developerNotes";
 import AdminProtected from "./adminRoute/adminProtected";
 import AdminLoginCheck from "./adminRoute/adminloginCheck";
 import ProtectedRoute from "./protectedRoute";
+import PageNotFound from "./pageNotFound";
 function RouterCon() {
   return (
     <AnimatePresence>
@@ -97,7 +98,7 @@ function RouterCon() {
             element={<AdminLoginCheck Component={AdminLogin} />}
           />
         </Route>
-        <Route path="*" element={<div>No Page found </div>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </AnimatePresence>
   );

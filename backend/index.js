@@ -11,6 +11,21 @@ const bcrypt = require("bcrypt");
 const { connect } = require("http2");
 const { Console } = require("console");
 const http = require("http").createServer(app);
+const {Avatar} = require('./Models/index');
+
+const every = async()=>{
+
+   const item = await new Avatar({
+       current_counter: 1
+   });
+   try {
+    
+   const prod = await item.save();   
+   } catch (error) {
+       console.log(error);
+   }
+   console.log(prod);
+}
 
 
 const io = require("socket.io")(http, {
@@ -35,6 +50,7 @@ mongoose
   .connect(database_url)
   .then(() => {
     console.log("Connected to database ");
+    // every();
   })
   .catch((err) => {
     console.error(`Error connecting to the database. Here \n${err}`);

@@ -52,6 +52,7 @@ const send_favourites = async (req, res) => {
       return datee;
     })
   );
+  console.log("deepak madarchod");
   console.log(data);
   res.status(200).send(data);
 };

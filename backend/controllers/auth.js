@@ -17,14 +17,14 @@ saltRounds = 8;
 var value;
 async function check(){
  
-      value = await lib.value();
-      
-  // console.log(t);
-
+    value = await lib.value();
+    console.log("Lib value is "+value);
+// console.log(t);
+    
 }
 // console.log(lib.value().then());
-
-console.log(value);
+console.log("Lib value is "+value);
+// console.log(value);
 
 ///    SIGNUP FUNCTION
 const signUp = async (req, res) => {               

@@ -15,7 +15,7 @@ export function LostFoundNavigation() {
   const [value, setValue] = React.useState(0);
   // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.isLogin;
+  const isLogin = userAuthData?.oamp;
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -95,7 +95,7 @@ export function LostFoundVerticalNavigation() {
   const classes = verticalNavigationStyle();
   // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.isLogin;
+  const isLogin = userAuthData?.oamp;
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();

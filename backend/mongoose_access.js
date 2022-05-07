@@ -34,16 +34,16 @@ const copyitem = async()=>{
 }  
 // copyitem();
 // Local port connection
-// LostItem.deleteMany().then(()=>{
-//     console.log("Deleted all users ");
+// LostItem.deleteOne({category: "Found"}).then(()=>{
+//     console.log("Deleted all LNF ");
 // }).catch((err)=>{
 //     console.log(err);
 // })
-Thread.deleteMany().then(() => {
-  console.log("Deleted all threads ");
-}).catch((err) => {
-  console.log(err);
-})
+// Thread.deleteMany().then(() => {
+//   console.log("Deleted all threads ");
+// }).catch((err) => {
+//   console.log(err);
+// })
 // Product.deleteMany({title:"fsdgsdfg"},(err,res)=>{
 //   console.log(err);
 // })

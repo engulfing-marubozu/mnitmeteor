@@ -137,6 +137,9 @@ const thread_schema = new mongoose.Schema(
       type: Object,
       default: null,
     },
+    profile_pic: {
+      type: String,
+    },
     is_verified: {
       type: Boolean,
       default: false,
@@ -178,6 +181,9 @@ const thread_schema = new mongoose.Schema(
             type: String,
             default: "",
           },
+          profile_pic: {
+            type: String,
+          },
           likes: {
             type: [{type :Schema.Types.ObjectId, ref : "User" }],
             default: [],
@@ -218,6 +224,9 @@ const thread_schema = new mongoose.Schema(
                 },
                 createdAt: {
                   type: Date,
+                },
+                profile_pic: {
+                  type: String,
                 },
               },
             ],

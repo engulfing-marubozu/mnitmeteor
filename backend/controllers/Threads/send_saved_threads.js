@@ -7,7 +7,7 @@ const send_saved_threads = async (req, res) => {
     console.log(req.user._id);
     user_id = req.user._id;
     const user = await User.findById(user_id);
-  
+
     const saved_threads = user.threads_saved;
     
     var data = await Promise.all(

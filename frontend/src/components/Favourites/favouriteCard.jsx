@@ -75,11 +75,10 @@ export default function FavouritesCard({ cardData }) {
             <CardActions disableSpacing className={classes.cardActions}>
               <RWebShare
                 data={{
-                  text: "Mnit Market",
-                  url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
+                  text: "Checkout this cool item from mnitmeteor",
+                  url: `${process.env.REACT_APP_API}/productdescription/${cardData._id}`,
                   title: title,
                 }}
-                onClick={() => console.log("shared successfully!")}
               >
                 <IconButton className={classes.iconButton}>
                   <Tooltip title="Share" arrow>

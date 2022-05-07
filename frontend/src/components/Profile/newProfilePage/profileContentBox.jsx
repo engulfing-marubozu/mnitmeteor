@@ -23,7 +23,7 @@ function ProfileContentBox() {
   const [expanded, setExpanded] = useState(false);
   const notify = (value) => toast(value);
   const userData = useSelector((state) => state.loginlogoutReducer.userData);
-  const profilePic = userData?.profile_pic;
+  const profilePic = userData?.profilePic;
   const userId = userData?.email?.slice(0, -11);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -32,7 +32,7 @@ function ProfileContentBox() {
     setValue(newValue);
   };
   const classes = ProfileBoxStyle();
-console.log(userData);
+  console.log(userData);
   // =======================================================================
   return (
     <Box>
@@ -64,7 +64,7 @@ console.log(userData);
               <Box className={classes.flexBox}>
                 <LocalPhoneIcon className={classes.iconStyle} />
                 <Typography className={classes.detailTypo}>
-                  {userData?.Mobile_no}
+                  {userData?.phoneNo}
                 </Typography>
                 <ExpandMore expand={expanded} onClick={handleExpandClick} />
               </Box>
@@ -82,7 +82,6 @@ console.log(userData);
             onChange={handleChange}
             textColor="primary"
             indicatorColor="primary"
-       
           >
             <ProfileTab
               label="Your Ads "

@@ -63,7 +63,7 @@ function Favourites() {
             {typeof cardData === "undefined" ? (
               Array.from(new Array(6)).map((data, index) => {
                 return (
-                  <Grid item xs={6} md={4} key={index}>
+                  <Grid item xs={6} md={4} lg={3} key={index}>
                     <HomeCardSkeleton />
                   </Grid>
                 );

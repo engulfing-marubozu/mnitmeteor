@@ -29,7 +29,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     isLogin ? setExpanded(!expanded) : dispatch(modelPopUp(true));
   };
   //  ========================================================================================================================================================================
-
+  const avatar = replyData?.profilePic;
   const replyId = replyData?._id;
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;
@@ -139,7 +139,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     <Box sx={{ mt: 2 }}>
       <Box className={classes.topBox}>
         <Stack className={classes.topStack}>
-          <Avatar className={classes.avatarStyle} />
+          <Avatar className={classes.avatarStyle} src={avatar} />
           <Typography className={classes.usernameStyle}>{userId}</Typography>
         </Stack>
         <Typography className={classes.dateStyle}>{properDate}</Typography>

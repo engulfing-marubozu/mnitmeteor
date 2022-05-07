@@ -65,11 +65,11 @@ function Comments({
   const handleViewRepliesClick = () => {
     setExpReplies(!expReplies);
   };
-    // ==========================================================================================
-
+  // ==========================================================================================
+  // const avatar=localCommentData?.profilePic
   const comment = localCommentData.content;
   const commentId = localCommentData._id;
-  const userId = localCommentData.mnit_id;
+  const userId = localCommentData.mnit_id
   const commentedBy = localCommentData.commented_by;
   const date = new Date(localCommentData.createdAt);
   const properDate = TimeSince(date);
@@ -139,7 +139,7 @@ function Comments({
             totalCount: prev.totalCount - 1,
           };
         });
-      
+
         const data = { status: "false1", ...addReplyData };
         dispatch(actionForLikeThread(data));
       } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
@@ -183,7 +183,10 @@ function Comments({
       >
         <Box className={classes.topBox}>
           <Stack className={classes.topStack}>
-            <Avatar className={classes.avatarStyle} />
+            <Avatar
+              className={classes.avatarStyle}
+              // src={avatar}
+            />
             <Typography className={classes.usernameStyle}>{userId}</Typography>
           </Stack>
           <Typography className={classes.dateStyle}>{properDate}</Typography>

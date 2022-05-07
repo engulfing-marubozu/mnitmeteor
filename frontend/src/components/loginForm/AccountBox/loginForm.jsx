@@ -46,11 +46,12 @@ export function LoginForm(props) {
         notify("Email is not registered");
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
-        //change the statemanagement data according to backend data -----
-        // dispatch(AuthUser(response.data));
+        //change the statemanagement data according to backend data ----
+        console.log(response.data)
         // ===========================New =============
         const userAuthData = { oamp: true, xezzi: response.data?.token };
         const userData = {
+          profilePic:response.data?.user?.profile_pic,
           email: response.data?.user?.email,
           phoneNo: response.data?.user?.Mobile_no,
           userId: response.data?.user?._id,

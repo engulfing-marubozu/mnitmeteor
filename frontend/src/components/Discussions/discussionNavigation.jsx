@@ -8,12 +8,12 @@ import { NavTabs, NavTab, VerticalNavTab } from "../_Styling/tabStyling";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from "../_Styling/tabStyling";
 import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 export function DiscussionNavigation() {
   const [value, setValue] = React.useState(0);
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.isLogin;
+  const isLogin = userAuthData?.oamp;
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const location = useLocation();
@@ -83,7 +83,7 @@ export function DiscussionNavigation() {
 export function DiscussionVerticalNavigation() {
   const classes = verticalNavigationStyle();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.isLogin;
+  const isLogin = userAuthData?.oamp;
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
   const Navigate = useNavigate();
@@ -150,5 +150,4 @@ export function DiscussionVerticalNavigation() {
       </Paper>
     </Box>
   );
-
 }

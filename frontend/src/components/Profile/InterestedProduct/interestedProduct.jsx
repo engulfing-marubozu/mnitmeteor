@@ -20,19 +20,22 @@ function InterestedProduct(props) {
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/send_interested_products`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_interested_products`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setCardData(response.data);
         }
-      );
-      if (isSubscribed) {
-        setCardData(response.data);
+      }catch (err) {
+        console.log(err);
       }
     }
-
     call();
     return () => {
       return (isSubscribed = false);

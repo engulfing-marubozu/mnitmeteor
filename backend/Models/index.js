@@ -29,7 +29,10 @@ const lost_item_schema = new mongoose.Schema(
     },
     is_verified: {
       type: Boolean,
-    }
+    },
+    profile_pic: {
+      type: String,
+    },
     
   },
   {timestamps : true}

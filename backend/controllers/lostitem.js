@@ -118,13 +118,36 @@ const LostCheck = async (req, res) => {
   title = req.body.title;
   description = req.body.description;
   category = req.body.categories;
+  const authHeader = req.headers.authorization;
+  console.log("Lost ");
+  // console.log(req.headers.authorization);
+  const user = authHeader.split(' ')[1];
+  let prof_pic;
+  console.log("User is ");
+  console.log(user);
+  try {
+    
+    prof_pic = await User.findById(user._id);
+    prof_pic = prof_pic.profile_pic;
+    console.log("1 "+prof_pic);
+  } catch (error) {
+    console.log(error);
+  }
+
   console.log(req.body.title);
   console.log(req.body.description);
   console.log(req.body.categories);
+  console.log()
   email = req.body.email;
   imgs = req.body.imgs;
   refID = req.body.posted_by;
   console.log(email);
+  try {
+    prof_pic = await User.findOne({email: email});
+    prof_pic = prof_pic.profile_pic
+  } catch (error) {
+    console.log(error);
+  }
   image_cloud_links = [];
   console.log("reached cloudinary part portal to db");
   try {
@@ -157,12 +180,14 @@ const LostCheck = async (req, res) => {
       posted_by: refID,
       email: email,
       is_verified: false,
+      profile_pic: prof_pic,
       //person info bhi honi chahiye
     });
     try {
       const saveLostItem = await newLostItem.save((err,response)=>{
         console.log(response);
       });
+      // const saveLostItem = 
       // await User.findByIdAndUpdate(refID, {
       //   $addToSet: {lf_items_posted: saveLostItem._id },
       // });

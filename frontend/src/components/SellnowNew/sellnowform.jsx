@@ -12,7 +12,7 @@ import {
   SelectWrapper,
 } from "../_formData/FormUI/InputElement";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -41,10 +41,11 @@ function SellFormNew() {
   const [imagearray, setimagearray] = useState([]);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const token = localUserData.token;
-  const isLoggedIn = localUserData.isLogin;
-  const phoneNumber = localUserData.userData.Mobile_no;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const phoneNo = userData?.phoneNo;
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
@@ -86,9 +87,9 @@ function SellFormNew() {
             onSubmit={(values) => {
               dispatch(sellPopUp(true));
               setFormValue(values);
-              if (!phoneNumber && isLoggedIn) {
+              if (!phoneNo && isLogin) {
                 setContactModel(true);
-              } else if (phoneNumber && isLoggedIn) {
+              } else if (phoneNo && isLogin) {
                 merge(values);
                 Navigate("/profile");
               }
@@ -128,13 +129,13 @@ function SellFormNew() {
                   Upload Images *
                 </Typography>
                 <UploadImage name="images" onDrop={onDrop} />
-                <ButtonWrapper>Submit Form</ButtonWrapper>
+                <ButtonWrapper >Submit Form</ButtonWrapper>
               </Box>
             </Form>
           </Formik>
         </Paper>
       </Box>
-      {contactModel && isLoggedIn && (
+      {contactModel && isLogin && (
         <POPUPElement
           open={contactModel}
           onClose={setContactModel}

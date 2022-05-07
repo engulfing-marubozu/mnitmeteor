@@ -1,11 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import axios from "axios"
-// require("dotenv").config();
 import RouterCon from "./components/RouterConfig/RouterCon";
 import Wrapper from "./components/RouterConfig/Wrapper";
 import { useDispatch } from "react-redux";
-import { AuthUser } from "./AStatemanagement/Actions/userActions.jsx";
+import { AuthUser, LogoutUser } from "./AStatemanagement/Actions/userActions.jsx";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
@@ -35,36 +33,40 @@ const theme = createTheme({
 function App() {
   //  ==================================================================================================
   const dispatch = useDispatch();
-  const local_storage_data = JSON.parse(window.localStorage.getItem("auth"))
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   console.log("app.js")
   useEffect(() => {
- 
     const call = async () => {
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API}/auth_token`,
           {},
           {
+
             headers: {
-              Authorization: `Bearer ${local_storage_data.token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         console.log(response.data);
         if (response.data === "authorised_user") {
-          dispatch(AuthUser(local_storage_data));
+          const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+          const data = { userData: userData, isLogin: isLogin, token: token };
+          dispatch(AuthUser(data));
         } else {
-          window.localStorage.removeItem("auth");
+          dispatch(LogoutUser());
         }
 
       } catch (err) {
         console.log(err);
       }
     }
-
-    if (local_storage_data) {
+    if (userAuthData) {
       call();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ====================================================================================================

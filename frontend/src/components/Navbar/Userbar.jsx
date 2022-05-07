@@ -16,18 +16,18 @@ import {
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NotificationPage from "../Notification/notificationPage";
 const { io } = require("socket.io-client");
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
-// function Userbar({ updateNotification, setNotificationPending }) {
 
 function Userbar({ updateNotification, setNotificationPending }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const email = userData?.email;
 
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
@@ -114,19 +114,14 @@ function Userbar({ updateNotification, setNotificationPending }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            const userData = JSON.parse(window.localStorage.getItem("auth"));
-            const user_id = userData?.user?.email;
-            socket.emit("log_out_socket", user_id);
+            // const userData = JSON.parse(window.localStorage.getItem("auth"));
+            // const user_id = userData?.user?.email;
+            // socket.emit("log_out_socket", user_id);
+            // window.localStorage.removeItem("auth");
+            email && socket.emit("log_out_socket", email);
             dispatch(LogoutUser());
-            window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
-            if (
-              location.pathname !== "/" &&
-              location.pathname !== "/discussions" &&
-              location.pathname !== "/lost&found"
-            ) {
-              Navigate("/");
-            }
+            Navigate(`/`);
           }}
         >
           <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />

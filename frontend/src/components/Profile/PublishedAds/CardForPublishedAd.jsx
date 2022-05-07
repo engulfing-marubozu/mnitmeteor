@@ -17,12 +17,12 @@ import { Link } from "react-router-dom";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import ProductDeleteAlert from "../../ModelPopUP/deleteAlert";
 
-export default function CardForPublishedAds(props) {
-  const Image = props.cardData?.images[0]?.image;
+export default function CardForPublishedAds({ cardData }) {
+  const Image = cardData?.images[0]?.image;
   const title =
-    props.cardData.title.charAt(0).toUpperCase() +
-    props.cardData.title.slice(1);
-  const date = new Date(props.cardData.createdAt);
+    cardData.title.trim().charAt(0).toUpperCase() +
+    cardData.title.trim().slice(1);
+  const date = new Date(cardData.createdAt);
   const properDate = TimeSince(date);
 
   // ====================================================================
@@ -35,7 +35,7 @@ export default function CardForPublishedAds(props) {
       exit={{ opacity: 0 }}
     >
       <Card className={classes.card}>
-        <Link to={`/productdescription/${props.cardData._id}`}>
+        <Link to={`/productdescription/${cardData._id}`}>
           <CardMedia
             component="img"
             classes={{ img: classes.image }}
@@ -52,18 +52,18 @@ export default function CardForPublishedAds(props) {
             <Typography className={classes.date}>{properDate}</Typography>
           </Box>
           <CardActions disableSpacing className={classes.cardActions}>
-            <ProductDeleteAlert productId={props.cardData._id} />
+            <ProductDeleteAlert productId={cardData._id} />
             <RWebShare
               data={{
                 text: "Mnit Market",
-                url: `${process.env.REACT_APP_API}/ProductDiscription/${props.cardData._id}`,
+                url: `${process.env.REACT_APP_API}/ProductDiscription/${cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}
             >
               <Tooltip title="Share" arrow>
                 <IconButton className={classes.iconButton}>
-                  <ShareIcon className={classes.Icon} />
+                  <ShareIcon className={classes.Icon}  aria-label="share" />
                 </IconButton>
               </Tooltip>
             </RWebShare>

@@ -1,4 +1,4 @@
-import React ,{useEffect, useState}from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -12,8 +12,8 @@ import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
 function InterestedProduct(props) {
   const [cardData, setCardData] = useState();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const interestedList = useSelector(
     (state) => state.InterestedReducer?.interestedData
   );
@@ -37,7 +37,7 @@ function InterestedProduct(props) {
     return () => {
       return (isSubscribed = false);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interestedList]);
 
   // ====================================================================================================================================

@@ -20,23 +20,24 @@ import {
   CardContentNoPadding,
 } from "../_Styling/cardStyling";
 
-export default function FavouritesCard(props) {
-  // console.log(props.cardData);
+export default function FavouritesCard({ cardData }) {
+  // console.log(cardData);
   // =============================================CARD DATA==============================================================================================
-  const Image = props.cardData.images[0].image;
+  const Image = cardData.images[0].image;
   const title =
-    props.cardData.title.charAt(0).toUpperCase() +
-    props.cardData.title.slice(1);
-  const date = new Date(props.cardData.createdAt);
+    cardData.title.trim().charAt(0).toUpperCase() +
+    cardData.title.trim().slice(1);
+  const date = new Date(cardData.createdAt);
   const properDate = TimeSince(date);
   //  ============================================================================================================================================
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   const dispatch = useDispatch();
   // =========================================================================================================================================
   const removeFromFavouritesHandler = () => {
-    if (isLoggedIn) {
-      const likeData = { productId: props.cardData._id, userToken: token };
+    if (isLogin) {
+      const likeData = { productId: cardData._id, userToken: token };
       dispatch(
         fetchDataForATF({
           ...likeData,
@@ -55,7 +56,7 @@ export default function FavouritesCard(props) {
     >
       <Box className={classSec.zMainBox}>
         <Card className={classes.card} elevation={3}>
-          <Link to={`/productdescription/${props.cardData._id}`}>
+          <Link to={`/productdescription/${cardData._id}`}>
             <CardMedia
               component="img"
               classes={{ img: classes.image }}
@@ -75,14 +76,14 @@ export default function FavouritesCard(props) {
               <RWebShare
                 data={{
                   text: "Mnit Market",
-                  url: `${process.env.REACT_APP_API}ProductDiscription/${props.cardData._id}`,
+                  url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
                   title: title,
                 }}
                 onClick={() => console.log("shared successfully!")}
               >
                 <IconButton className={classes.iconButton}>
                   <Tooltip title="Share" arrow>
-                    <ShareIcon className={classes.Icon} />
+                    <ShareIcon className={classes.Icon} aria-label="share" />
                   </Tooltip>
                 </IconButton>
               </RWebShare>
@@ -95,6 +96,7 @@ export default function FavouritesCard(props) {
             onClick={removeFromFavouritesHandler}
             classes={{ root: classSec.crossIconButton }}
             size="small"
+            aria-label="remove"
           >
             <Tooltip title="Remove" placement="right" arrow>
               <CloseIcon className={classSec.crossIcon} />

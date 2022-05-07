@@ -11,7 +11,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
     const dispatch = useDispatch();
     const localUserData = useSelector((state) => state.loginlogoutReducer);
     const token = localUserData?.token;
-    const isLoggedIn = localUserData?.isLogin;
+    const isLogin = localUserData?.isLogin;
     const inputComment = useRef(null);
 
 
@@ -42,7 +42,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
         setDisabledPost(true);
     }
     const submitCheck = () => {
-        if (isLoggedIn) {
+        if (isLogin) {
             submitHandler()
         } else {
             dispatch(modelPopUp(true));

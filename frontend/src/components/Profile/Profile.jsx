@@ -31,11 +31,10 @@ const theme = createTheme({
   },
 });
 
-function Profile() {
+function Profile({ userAuthData }) {
   const dispatch = useDispatch();
   const submitPopUp = useSelector((state) => state.ModelPopUpReducer.sellPopUp);
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const isLoggedIn = localUserData.isLogin;
+  const isLogin = userAuthData?.isLogin;
   const SubmitPopUpHandler = () => {
     dispatch(sellPopUp(false));
   };
@@ -46,12 +45,12 @@ function Profile() {
   return (
     <ThemeProvider theme={theme}>
       <motion.div
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // exit={{ opacity: 0 }}
+      // initial={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
+      // exit={{ opacity: 0 }}
       >
         <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
-        {submitPopUp && isLoggedIn && (
+        {submitPopUp && isLogin && (
           <POPUPElement
             open={submitPopUp}
             onClose={SubmitPopUpHandler}

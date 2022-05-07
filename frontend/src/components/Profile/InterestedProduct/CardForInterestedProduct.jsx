@@ -12,7 +12,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import Card from "@mui/material/Card";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch } from "react-redux";
 import { fetchInterestedActions } from "../../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import {
@@ -21,15 +21,16 @@ import {
   CardStyleSecond,
 } from "../../_Styling/cardStyling";
 
-export default function CardForInterestedProduct({ cardData}) {
+export default function CardForInterestedProduct({ cardData }) {
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
-    cardData.title?.charAt(1).toUpperCase() + cardData?.title.slice(1);
+    cardData.title.trim().charAt(1).toUpperCase() + cardData.title.trim().slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
   //  =========================================================================================
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const dispatch = useDispatch();
   // =========================================================================================
   const removeInteresetedHandler = () => {
@@ -43,7 +44,7 @@ export default function CardForInterestedProduct({ cardData}) {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
+      );
       if (response.data.status) {
         alert(
           `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
@@ -54,7 +55,6 @@ export default function CardForInterestedProduct({ cardData}) {
             isInterested: false,
           })
         );
-
       } else {
         alert(
           `max attempts done. Please retry after ${response.data.ttl} seconds`
@@ -101,7 +101,7 @@ export default function CardForInterestedProduct({ cardData}) {
             > */}
               <IconButton className={classes.iconButton}>
                 <Tooltip title="Share" arrow>
-                  <ShareIcon className={classes.Icon} />
+                  <ShareIcon className={classes.Icon}  aria-label="share"/>
                 </Tooltip>
               </IconButton>
               {/* </RWebShare> */}
@@ -116,7 +116,7 @@ export default function CardForInterestedProduct({ cardData}) {
             size="small"
           >
             <Tooltip title="Remove" placement="right" arrow>
-              <CloseIcon className={classSec.crossIcon} />
+              <CloseIcon className={classSec.crossIcon}  aria-label="remove"/>
             </Tooltip>
           </IconButton>
         </Box>

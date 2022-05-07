@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -11,11 +11,10 @@ import EmptySpace from "../_EmptySpaces/emptySpace";
 import { favouriteEmpty } from "../_EmptySpaces/EmptySvg";
 import axios from "axios";
 
-
 function Favourites() {
   const [cardData, setcardData] = useState();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData?.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const favouritesLength = useSelector(
     (state) => state.FavouritesReducer.favouritesData
   );
@@ -38,7 +37,7 @@ function Favourites() {
     return () => {
       isSubscribed = false;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favouritesLength]);
   // console.log(cardData);
   return (

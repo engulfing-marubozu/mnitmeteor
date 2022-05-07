@@ -8,4 +8,3 @@ export function LikeDislikeChecker(array, userId) {
     }
 
 }
-// export function DislikeChecker({array,userId})

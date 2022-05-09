@@ -56,7 +56,6 @@ export default function HomeCard({ cardData, index }) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
-
   // ===================================================================================================================================
   return (
     <motion.div
@@ -93,22 +92,19 @@ export default function HomeCard({ cardData, index }) {
               aria-label="add to favorites"
             >
               <Tooltip title="Add to Favourites" arrow>
-                <FavoriteIcon
-                  className={classes.Icon}
-                />
+                <FavoriteIcon className={classes.Icon} />
               </Tooltip>
             </IconButton>
             <RWebShare
               data={{
-                text: "Mnit Market",
-                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
+                text: "Checkout this cool item from mnitmeteor",
+                url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
                 title: `${title}`,
               }}
-              onClick={() => console.log("shared successfully!")}
             >
-              <IconButton className={classes.iconButton}  aria-label="share" >
+              <IconButton className={classes.iconButton} aria-label="share">
                 <Tooltip title="Share" arrow>
-                  <ShareIcon className={classes.Icon}/>
+                  <ShareIcon className={classes.Icon} />
                 </Tooltip>
               </IconButton>
             </RWebShare>

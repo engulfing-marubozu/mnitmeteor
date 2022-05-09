@@ -10,7 +10,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { useSelector } from "react-redux";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
-function InterestedProduct(props) {
+function InterestedProduct() {
   const [cardData, setCardData] = useState();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
@@ -20,19 +20,22 @@ function InterestedProduct(props) {
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/send_interested_products`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_interested_products`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setCardData(response.data);
         }
-      );
-      if (isSubscribed) {
-        setCardData(response.data);
+      }catch (err) {
+        console.log(err);
       }
     }
-
     call();
     return () => {
       return (isSubscribed = false);

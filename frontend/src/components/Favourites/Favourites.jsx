@@ -22,16 +22,19 @@ function Favourites() {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/send_favourites`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      isSubscribed && setcardData(response.data);
-      // console.log(response.data);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_favourites`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        isSubscribed && setcardData(response.data);
+      } catch (err) {
+        console.log(err);
+      }
     }
     call();
     return () => {
@@ -63,7 +66,7 @@ function Favourites() {
             {typeof cardData === "undefined" ? (
               Array.from(new Array(6)).map((data, index) => {
                 return (
-                  <Grid item xs={6} md={4} key={index}>
+                  <Grid item xs={6} md={4} lg={3} key={index}>
                     <HomeCardSkeleton />
                   </Grid>
                 );

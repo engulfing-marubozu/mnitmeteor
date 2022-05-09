@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback ,useEffect} from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import useGetData from "../useGetData";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -10,7 +10,6 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { mainPageEmpty } from "../../_EmptySpaces/EmptySvg";
 import { useSelector } from "react-redux";
 function Others() {
-  console.log("others")
   const [pointer, setPointer] = useState(1);
   const category = "others";
   // const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));

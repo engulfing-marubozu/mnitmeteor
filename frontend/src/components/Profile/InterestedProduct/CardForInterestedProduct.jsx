@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-// import { RWebShare } from "react-web-share";
+import { RWebShare } from "react-web-share";
 import { motion } from "framer-motion";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
@@ -91,20 +91,20 @@ export default function CardForInterestedProduct({ cardData }) {
               <Typography className={classes.date}>{properDate}</Typography>
             </Box>
             <CardActions disableSpacing className={classes.cardActions}>
-              {/* <RWebShare
+              <RWebShare
               data={{
-                text: "Mnit Market",
-                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
+                text: "Checkout this cool item from mnitmeteor",
+                url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}
-            > */}
+            >
               <IconButton className={classes.iconButton}>
                 <Tooltip title="Share" arrow>
                   <ShareIcon className={classes.Icon}  aria-label="share"/>
                 </Tooltip>
               </IconButton>
-              {/* </RWebShare> */}
+              </RWebShare>
             </CardActions>
           </CardContentNoPadding>
         </Card>

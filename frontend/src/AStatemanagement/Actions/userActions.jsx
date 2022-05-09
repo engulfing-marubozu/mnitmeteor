@@ -7,7 +7,6 @@ import {
   SELLNOW_CLICKED,
   DELETE_PUBLISHED_ADS,
   PHONE_NUMBER_AUTH,
-  ADMIN_PANEL_MODE,
   LNF_POPUP,
   FORUM_POPUP,
   SELL_POPUP,
@@ -54,15 +53,6 @@ export const addToFavourites = (data) => {
 export const addToInterested = (data) => {
   return {
     type: ADD_TO_INTERESTED,
-    payload: data,
-  };
-};
-
-// ==================================================================
-export const AdminPanelMode = (data) => {
-  // console.log(data);
-  return {
-    type: ADMIN_PANEL_MODE,
     payload: data,
   };
 };
@@ -173,9 +163,6 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
   const { token, phoneNo } = phoneData;
   return async (dispatch) => {
     try {
-      console.log("trying to change mobile");
-      // console.log(phoneNo);
-      //naya mob number
       const response = await axios.post(
         `${process.env.REACT_APP_API}/update_mobile_number`,
         { phoneNo: phoneNo },
@@ -188,16 +175,23 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       // response will be:
       // mob!=-1, user if everything went fine in backend
       // if mob ==-1 then error occurred backend side
-      //
       console.log(response.data);
-      console.log("changed mobile number");
-      const data = {
-        isLogin: true,
-        token: token,
-        user: response.data.user,
+      const userAuthData = { oamp: true, xezzi: response.data?.token };
+      const userData = {
+        profilePic: response.data?.profile_pic,
+        email: response.data?.email,
+        phoneNo: response.data?.phone_No,
+        userId: response.data?.user,
       };
-      window.localStorage.setItem("auth", JSON.stringify(data));
-      dispatch(AuthUser(data));
+      dispatch(
+        AuthUser({
+          isLogin: true,
+          token: userAuthData.xezzi,
+          userData: userData,
+        })
+      );
+      window.localStorage.setItem("Zuyq!jef@}#e", JSON.stringify(userAuthData));
+      window.localStorage.setItem("mm_user_data", JSON.stringify(userData));
     } catch (err) {
       console.log(err);
       //send error on not updated

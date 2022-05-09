@@ -108,7 +108,7 @@ const signIn = (req, res) => {
               foundUser.password="";
              const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
              const to_send = {user : foundUser._id
-              , token : token, email: foundUser.email, phone_No:foundUser.Mobile_no}
+              , token : token, email: foundUser.email, phone_No:foundUser.Mobile_no, profile_pic: foundUser.profile_pic}
               console.log(to_send);
               res.status(200).send(to_send);
             } else {

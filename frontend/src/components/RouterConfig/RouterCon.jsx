@@ -27,10 +27,11 @@ import AdminPortel from "../../AdminPanel/AdminPortel/adminportel";
 import AdminLogin from "../../AdminPanel/AdminPortel/adminLogin";
 import AdminPanel from "../../AdminPanel/adminpanel";
 import ProductNew from "../HomePage/productnew";
-import DeveloperNotes from "../Links/developerNotes";
+import DevelopersNote from "../Links/developersnote";
 import AdminProtected from "./adminRoute/adminProtected";
 import AdminLoginCheck from "./adminRoute/adminloginCheck";
 import ProtectedRoute from "./protectedRoute";
+import PageNotFound from "./pageNotFound";
 function RouterCon() {
   return (
     <AnimatePresence>
@@ -89,7 +90,7 @@ function RouterCon() {
           path="favourites"
           element={<ProtectedRoute Component={Favourites} />}
         />
-        <Route path="developernotes" element={<DeveloperNotes />} />
+        <Route path="developernotes" element={<DevelopersNote />} />
         <Route path="adminportel" element={<AdminPortel />}>
           <Route index element={<AdminProtected Component={AdminPanel} />} />
           <Route
@@ -97,7 +98,7 @@ function RouterCon() {
             element={<AdminLoginCheck Component={AdminLogin} />}
           />
         </Route>
-        <Route path="*" element={<div>No Page found </div>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </AnimatePresence>
   );

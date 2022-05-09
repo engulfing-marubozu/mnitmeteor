@@ -39,7 +39,7 @@ import ThreadDeleteAlert from "../DeleteAlerts/threadDeletealert";
 import ReadMore from "../../_Styling/readmore";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // ================================================================================================================================================================================================================================
-function DiscussionCard({ data, flag, showDelete,setThread }) {
+function DiscussionCard({ data, flag, showDelete, setThread }) {
   // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
@@ -51,7 +51,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
   const token = userAuthData?.xezzi;
   const isLogin = userAuthData?.oamp;
   const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
-  const userLoggedIn = userData?.userData?.userId;
+  const userLoggedIn = userData?.userId;
   const addCommentData = {
     token: token,
     cardId: data?._id,
@@ -158,8 +158,9 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
       dispatch(modelPopUp(true));
     }
   };
-  // ===================================================================================================================================================================================================================================
 
+  // ===================================================================================================================================================================================================================================
+   const avatar =localCardData?.profile_pic;
   const title = localCardData?.title;
   const description = localCardData?.description;
   const date = new Date(localCardData?.createdAt);
@@ -240,7 +241,11 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box sx={{ width: "94%", borderBottom: "2px  solid #757575" }}>
               <CardHeader
-                avatar={<Avatar sx={{ bgcolor: "#673ab7" }} />}
+                avatar={
+                  <Avatar 
+                  src={avatar} 
+                  />
+                }
                 title={userId}
                 subheader={properDate}
                 sx={{ p: 0 }}
@@ -299,7 +304,7 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
                 <IconButton onClick={SavedHandler}>
                   <Tooltip title="Save" arrow>
                     {saved ? (
-                      <BookmarkAddedIcon color="primary"  aria-label="saved"/>
+                      <BookmarkAddedIcon color="primary" aria-label="saved" />
                     ) : (
                       <BookmarkAddIcon aria-label="unsaved" />
                     )}
@@ -315,11 +320,10 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
                 )}
                 <RWebShare
                   data={{
-                    text: "Mnit Market",
-                    url: `${process.env.REACT_APP_API}/Discussions/${cardId}`,
+                    text: "harshit_karde_please",
+                    url: `${process.env.REACT_APP_REDIRECT}/discussions/${cardId}`,
                     title: `${title}`,
                   }}
-                  onClick={() => console.log("shared successfully!")}
                 >
                   <IconButton>
                     <Tooltip title="Share" arrow>
@@ -335,7 +339,10 @@ function DiscussionCard({ data, flag, showDelete,setThread }) {
               >
                 <IconButton sx={{ px: 0.5 }}>
                   <Tooltip title="Comments" arrow>
-                    <MessageIcon sx={{ color: "#673ab7" }} aria-label="comments" />
+                    <MessageIcon
+                      sx={{ color: "#673ab7" }}
+                      aria-label="comments"
+                    />
                   </Tooltip>
                 </IconButton>
               </ExpandMore>

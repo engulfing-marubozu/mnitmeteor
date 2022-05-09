@@ -18,8 +18,8 @@ const timeConvert = (d) => {
     return hDisplay + mDisplay + sDisplay;
 }
 const admin_verification = async (req, res, next) => {
-
-    const admin_email_list = ["2019ume1141@mnit.ac.in", "2019ume1827@mnit.ac.in", "2019ume1843@mnit.ac.in", "2019ume1205@mnit.ac.in"];
+    var admin_emails = process.env.ADMINS;
+    const admin_email_list = admin_emails.split(' ');
     const authHeader = req.headers.authorization;
     const unicode = req.body.unicode;
     console.log("unicode is " + unicode);

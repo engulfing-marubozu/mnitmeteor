@@ -1,9 +1,15 @@
 const sgMail = require("@sendgrid/mail");
+const {send_email} = require('./user_email');
+
 sgMail.setApiKey(
   process.env.SENDGRID_API_KEY
 );
 
-const send_otp = () => {};
+const send_otp = async() => {
+  
+};
+//ye parameters hai 
+//common params 
 
 const send_interested_email = async (
   seller_email,
@@ -17,35 +23,39 @@ const send_interested_email = async (
 
   const draft_seller = {
     to: seller_email, // Change to your recipient
-    from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-    subject: "MNIT Selling Platform",
+    from: "mnitmeteor@gmail.com", // Change to your verified sender
+    subject: "MNIT Meteor",
     text: msg_seller,
     html: msg_seller,
   };
-  await sgMail
-    .send(draft_seller)
-    .then(() => {
-      console.log("Deal initiation Email sent to the seller");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  let suc_text = "Deal initiation Email sent to the seller"
+  // await sgMail
+  //   .send(draft_seller)
+  //   .then(() => {
+  //     console.log(suc_text);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+  await send_email(draft_seller,suc_text);
 
   const draft_buyer = {
     to: buyer_email, // Change to your recipient
-    from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-    subject: "MNIT Selling Platform",
+    from: "mnitmeteor@gmail.com", // Change to your verified sender
+    subject: "MNIT Meteor",
     text: msg_buyer,
     html: msg_buyer,
   };
-  await sgMail
-    .send(draft_buyer)
-    .then(() => {
-      console.log("Deal initiation Email sent to the buyer");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  suc_text = "Deal initiation Email sent to the buyer";
+  // await sgMail
+  //   .send(draft_buyer)
+  //   .then(() => {
+  //     console.log(suc_text);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     });
+  await send_email(draft_buyer,suc_text);
 };
 
 const send_un_interested_email = async (seller_email , seller_mobile_no, product_title)=>{
@@ -53,19 +63,21 @@ const send_un_interested_email = async (seller_email , seller_mobile_no, product
   We wish you successful deals in future :)`
   const draft_seller ={
     to: seller_email, // Change to your recipient
-    from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-    subject: "MNIT Selling Platform",
+    from: "mnitmeteor@gmail.com", // Change to your verified sender
+    subject: "MNIT Meteor",
     text: msg_seller,
     html: msg_seller,
   }
-  await sgMail
-  .send(draft_seller)
-  .then(() => {
-    console.log("Deal cancelation Email sent to the seller");
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  let suc_text = "Deal cancelation Email sent to the seller";
+  // await sgMail
+  // .send(draft_seller)
+  // .then(() => {
+  //   console.log(suc_text);
+  // })
+  // .catch((error) => {
+  //   console.error(error);
+  // });
+  await send_email(draft_seller,suc_text);
 }
 
 const delete_product_email =async (interested_users_array, product_title)=>{
@@ -74,18 +86,20 @@ const delete_product_email =async (interested_users_array, product_title)=>{
    const msg_buyer = `Dear MNITian, The product, ${product_title} you were interested in has been deleted by the seller. We wish you some great deals in future.`
    const draft_seller ={
     to: interested_users_array, // Change to your recipient
-    from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-    subject: "MNIT Selling Platform",
+    from: "mntimeteor@gmail.com", // Change to your verified sender
+    subject: "MNIT Meteor",
     text: msg_buyer,
     html: msg_buyer,
   }
-  await sgMail
-  .send(draft_seller)
-  .then(() => {
-    console.log("Deleted product update Email sent to buyers");
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  let suc_text = "Deleted product update Email sent to buyers";
+  // await sgMail
+  // .send(draft_seller)
+  // .then(() => {
+  //   console.log("Deleted product update Email sent to buyers");
+  // })
+  // .catch((error) => {
+  //   console.error(error);
+  // });
+  await send_email(draft_seller,suc_text);
 }
 module.exports = { send_otp, send_interested_email, send_un_interested_email , delete_product_email};

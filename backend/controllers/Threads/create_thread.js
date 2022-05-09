@@ -30,7 +30,8 @@ const new_thread = async (req, res) => {
       document_upload_response = document_upload_response.secure_url;
     }
 
-    const mnit_id = user.email.slice(0, 11);
+    const mnit_id = user.email.slice(0, -11);
+
     const Thread_save = new Thread({
       posted_by: user_id,
       users_mnit_id: mnit_id,

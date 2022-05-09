@@ -19,7 +19,7 @@ function ReplyCommentBox({ handleExpandClick, addReplyData, setLocalCommentData,
     }
 
     const submitHandler = async () => {
-        const email = localUserData?.userData?.email.slice(0, 11);
+        const email = localUserData?.userData?.email.slice(0, -11);
         const response = await axios.post(
             `${process.env.REACT_APP_API}/add_comment`,
             {

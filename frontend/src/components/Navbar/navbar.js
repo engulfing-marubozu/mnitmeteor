@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { styled } from "@mui/material/styles";
 import axios from 'axios'
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -18,12 +18,12 @@ import Userbar from "./Userbar";
 import MymenuBar from "./Categories/MenuBar";
 import NavbarTabs from "./navbarTabs";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
 import { NavbarStyle } from "./NavabarStyle";
 const { io } = require("socket.io-client");
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
-// =============================================================================================================================================================================================
+// ===============================================================================================================================
 
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(deepPurple[500]),
@@ -44,24 +44,26 @@ export const OutlinedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-// ==========================================================================================================
+// =================================================================================================
 function Navbar() {
+  console.log("navbar");
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const [postsPending, setpostPending] = useState(0);
   const [notificationPending, setNotificationPending] = useState(0);
   const [menuDrawer, setMenuDrawer] = useState(false);
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const dispatch = useDispatch();
-
-  // ===========================================================================================================
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLogin = localUserData?.isLogin;
+  const email = localUserData?.userData?.email;
+  // ================================================================================================
   const handleClick = (event) => {
     setMenuDrawer(true);
   };
   const menuClose = () => {
     setMenuDrawer(false);
   }
-  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT==================================================
+  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT======================================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
   };
@@ -71,19 +73,20 @@ function Navbar() {
       window.removeEventListener("resize", sizeEventHandler);
     };
   }, [windowWidth]);
-  // ========================================================SOCKET-IO==============================================
+  // ========================================================SOCKET-IO================================
 
   React.useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("auth"));
-    userData && socket.emit("initialise_user", userData?.user?.email);
-  }, []);
+    const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+    const email = userData?.email;
+    email && socket.emit("initialise_user", email);
+  }, [email]);
 
 
   React.useEffect(() => {
     const call = async () => {
       try {
-        const userData = JSON.parse(window.localStorage.getItem("auth"));
-        const token = userData?.token
+        const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+        const token = userAuthData?.xezzi;
         const response =
           await axios.post(
             `${process.env.REACT_APP_API}/get_notif_alert_count`,
@@ -100,6 +103,7 @@ function Navbar() {
       };
     }
     call();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPending]);
 
   React.useEffect(() => {
@@ -185,7 +189,7 @@ function Navbar() {
               direction="row"
               display={{ sm: "flex", xs: "none" }}
             >
-              {!isLoggedIn && (
+              {!isLogin && (
                 <OutlinedButton
                   variant="outlined"
                   sx={{
@@ -202,7 +206,7 @@ function Navbar() {
                 </OutlinedButton>
               )}
             </Stack>
-            {isLoggedIn && (
+            {isLogin && (
               <Userbar
                 updateNotification={notificationPending}
                 setNotificationPending={setNotificationPending}
@@ -216,9 +220,9 @@ function Navbar() {
               }}
               variant="contained"
               onClick={() => {
-                !isLoggedIn && dispatch(SellNowclick(true));
-                !isLoggedIn && dispatch(modelPopUp(true));
-                isLoggedIn && Navigate("/sellproduct");
+                !isLogin && dispatch(SellNowclick(true));
+                !isLogin && dispatch(modelPopUp(true));
+                isLogin && Navigate("/sellproduct");
               }}
             >
               Sell Now

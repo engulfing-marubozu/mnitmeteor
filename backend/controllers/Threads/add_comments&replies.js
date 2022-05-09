@@ -5,13 +5,28 @@ const add_comment =async (req,res)=>{
         console.log("aa gaya");
         const date = new Date()
         const user_id = req.user._id;
+        // console.log(req.user);
+
+        console.log("user id is " +user_id);
+        // const prof_pic = req.user.profile_pic;
+        // console.log("backend ppic "+prof_pic );
         const thread_id = req.body.thread_id;
         const commenter_mnit_id = req.body.commentor_mnit_id;
         const comment_id = req.body.comment_id;
         const content = req.body.content;
         const replied_to = req.body.replied_to;
         console.log(replied_to);
-    console.log(user_id)
+        console.log(user_id);
+        let prof_pic;
+        try {
+            prof_pic = await User.findById(user_id);
+            prof_pic = prof_pic.profile_pic;
+            console.log("backend ppic "+prof_pic );
+        } catch (error) {
+            console.log(error);
+            return res.send("Error with profile pic");
+        }
+        
         if(!comment_id)
         {   
             console.log("helli")
@@ -24,12 +39,13 @@ const add_comment =async (req,res)=>{
                    commented_by : user_id,
                    content : content,
                    createdAt :date,
-                   replied_to: replied_to
+                   replied_to: replied_to,
+                   profile_pic: prof_pic,
                }
             }}, {new:true}
         ) 
        
-        
+        console.log("hello there" + updated_Thread);
          res.status(200).send({updated_Thread})
         }
         else{
@@ -48,12 +64,13 @@ const add_comment =async (req,res)=>{
                        mnit_id : commenter_mnit_id,
                        content : content,
                        createdAt : date,
-                       replied_to: replied_to
+                       replied_to: replied_to,
+                       profile_pic: prof_pic,
                    }
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
-         console.log(updated_Thread.discussions[0]);
+         console.log("hello " + updated_Thread.discussions[0]);
            res.status(200).send(updated_Thread.discussions[0]);
         }
        

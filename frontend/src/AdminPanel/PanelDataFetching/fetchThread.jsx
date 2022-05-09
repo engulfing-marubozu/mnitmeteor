@@ -14,7 +14,7 @@ export default function FetchThread() {
     };
   }, []);
 
-  // ====================================================================================
+  // ==============================================================================
   const ApproveRequestThread = async (
     cardData,
     handleClose,
@@ -81,7 +81,7 @@ export default function FetchThread() {
   // lf get code: `${process.env.REACT_APP_API}/sendfalseitems"
   // post code ${process.env.REACT_APP_API}/adminresponse
 
-  // =======================================================================================================
+  // ===================================================================================================
   useEffect(() => {
     let isSubscribed = true;
     const admin_thread_load = async () => {
@@ -99,7 +99,7 @@ export default function FetchThread() {
     admin_thread_load();
   }, [tflag]);
 
-  // ==========================================================================================================
+  // =======================================================================================================
   return (
     <>
       {threadData &&

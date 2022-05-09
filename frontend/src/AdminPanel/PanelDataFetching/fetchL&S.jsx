@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import LostFoundPanel from '../AdminPanelCard/lostfoundPanel';
 import { socket } from '../../components/Navbar/navbar';
-// import { socket } from '../../components/Navbar/navbar';
 import axios from "axios";
 
 function FetchLostFound() {

@@ -13,7 +13,7 @@ function AdminPanel() {
   const Navigate = useNavigate();
   const classes = AdminPanelStyle();
   const AdminLogout = () => {
-    window.localStorage.removeItem("pliquing");
+    window.localStorage.removeItem("Bgp_pejbsv/+/&}s");
     Navigate("/");
   };
   return (

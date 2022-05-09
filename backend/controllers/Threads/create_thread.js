@@ -13,11 +13,14 @@ const new_thread = async (req, res) => {
     console.log("aa gaya");
     console.log(req.body);
     const user_id = req.user._id;
+    
     //  const title = req.body.title;
     //  const description = req.body.description;
 
     const { title, description, document } = req.body;
     const user = await User.findById(req.user._id);
+    const prof_pic = user.profile_pic;
+    console.log("Users pic "+prof_pic);
     if (document === "")
       console.log(title)
    let  document_upload_response = null;
@@ -35,6 +38,7 @@ const new_thread = async (req, res) => {
       description: description,
       document: document_upload_response,
       is_verified: false,
+      profile_pic: prof_pic,
     });
     // console.log(Thread_save);
     try {

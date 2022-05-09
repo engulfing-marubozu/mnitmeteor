@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
 import { Box, Paper, Typography } from "@mui/material";
 import ButtonWrapper from "../../_formData/FormUI/ButtonWrapper";
@@ -37,7 +37,8 @@ function DiscussionForm() {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
 
   // ===================================================================SendData_To_BackEnd========================================================================================================================
 
@@ -63,7 +64,6 @@ function DiscussionForm() {
             onSubmit={(values) => {
               dispatch(forumPopUp(true));
               const call = async (data) => {
-          
                 // const response =
                 await axios.post(
                   `${process.env.REACT_APP_API}/create_thread`,
@@ -82,7 +82,6 @@ function DiscussionForm() {
               if (values.document) {
                 const reader = new FileReader();
                 reader.onload = () => {
-                  
                   const data = { ...values, document: reader.result };
                   call(data);
                 };

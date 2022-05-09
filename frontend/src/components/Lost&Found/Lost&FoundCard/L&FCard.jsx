@@ -14,7 +14,7 @@ import ImageGallery from "react-image-gallery";
 import { LostFoundCardStyle } from "./LostFoundStyling";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import "./l&fImageStyle.css";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { RWebShare } from "react-web-share";
 import LostFoundDeleteAlert from "../lsDeleteAlert.jsx/lsDeleteAlert";
 import ReadMore from "../../_Styling/readmore";
@@ -26,11 +26,14 @@ export default function LostFoundCard({
   showDelete,
 }) {
   // console.log(data);
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const userLoggedIn = localUserData?.userData._id;
+  // const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const userLoggedIn = localUserData?.userData._id;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const userLoggedIn = userData?.userId;
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
-  const itemName = data?.name?.trim()?.charAt(0).toUpperCase() + data?.name?.trim()?.slice(1);
+  const itemName =
+    data?.name?.trim()?.charAt(0).toUpperCase() + data?.name?.trim()?.slice(1);
   const postedBy = data?.posted_by;
   const userEmail = data?.email?.trim().slice(0, -11);
   const category = data?.category;
@@ -55,18 +58,17 @@ export default function LostFoundCard({
             avatar={<Avatar sx={{ bgcolor: "black" }} />}
             action={
               <Box>
-                {postedBy === userLoggedIn &&
-                  showDelete && (
-                    <LostFoundDeleteAlert
-                      deleteData={{
-                        id: data._id,
-                        name: data.name,
-                        flag: flag,
-                        postedBy: postedBy,
-                      }}
-                      setLostFound={setLostFound}
-                    />
-                  )}
+                {postedBy === userLoggedIn && showDelete && (
+                  <LostFoundDeleteAlert
+                    deleteData={{
+                      id: data._id,
+                      name: data.name,
+                      flag: flag,
+                      postedBy: postedBy,
+                    }}
+                    setLostFound={setLostFound}
+                  />
+                )}
                 <RWebShare
                   data={{
                     text: "Mnit Market",

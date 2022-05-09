@@ -112,13 +112,16 @@ const signIn = (req, res) => {
         console.log(err);
       } else {
         if (foundUser) {
+          
           bcrypt.compare(password, foundUser.password, function (err, result) {
             if (result === true) {
               console.log("password matched in server");
               foundUser.password="";
              const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
-              res.status(200).json({user : foundUser
-                , token : token});
+             const to_send = {user : foundUser._id
+              , token : token, email: foundUser.email, phone_No:foundUser.Mobile_no}
+              console.log(to_send);
+              res.status(200).send(to_send);
             } else {
               console.log("password not  matched in server");
               res.status(200).send({ status: "wrong password" });
@@ -225,6 +228,7 @@ const resendOtp = async (req, res)=>{
 }
 
 const auth_token = (req, res)=>{
+  
     res.status(200).send("authorised_user");
 }
 

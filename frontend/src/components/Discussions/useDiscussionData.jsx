@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useDiscussionData(userId, pointer) {
+function useDiscussionData(token, pointer) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
@@ -11,8 +11,11 @@ function useDiscussionData(userId, pointer) {
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API}/fetch_live_threads`,
-          { user_id: userId, pointer: pointer }
+           { 
+            // user_id: userId,
+             pointer: pointer }
         );
+        console.log(response.data);
         if (isSubscribed) {
           setData((prev) => {
             return [...prev, ...response.data.universal_threads];

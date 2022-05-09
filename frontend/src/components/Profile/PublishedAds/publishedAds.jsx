@@ -13,8 +13,8 @@ import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
   const [cardData, setCardData] = useState();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const publishedAdsData = useSelector(
     (state) => state.DeletePublishedAdsReducer?.publishedAdsData
   );

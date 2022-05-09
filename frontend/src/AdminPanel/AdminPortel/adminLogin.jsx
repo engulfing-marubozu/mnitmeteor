@@ -16,8 +16,8 @@ export default function AdminLogin() {
   const [warning, setWarning] = useState("");
   const inputRef = useRef();
   const Navigate = useNavigate();
-  const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localStorageData?.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
 
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmit) {
@@ -46,7 +46,7 @@ export default function AdminLogin() {
               dabirc: "5u7nJmsU.J5p3rA`c*9-",
               waox: response.data.token,
             };
-            window.localStorage.setItem("pliquing", JSON.stringify(cred));
+            window.localStorage.setItem("Bgp_pejbsv/+/&}s", JSON.stringify(cred));
             Navigate("/adminportel");
           }
         } catch (err) {

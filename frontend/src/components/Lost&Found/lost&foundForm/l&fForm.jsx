@@ -41,12 +41,13 @@ const sendLostItem = (data, localUserData) => {
         title: data.adTitle,
         imgs: data.images,
         description: data.description,
-        posted_by: localUserData.userData._id,
-        email: localUserData.userData.email,
+        // posted_by: localUserData.userData._id,
+        posted_by: localUserData?.userData?.userId,
+        email: localUserData?.userData?.email,
       },
       {
         headers: {
-          Authorization: `Bearer ${localUserData.token}`,
+          Authorization: `Bearer ${localUserData?.token}`,
         },
       }
     )

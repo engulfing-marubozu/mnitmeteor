@@ -16,7 +16,7 @@ function Wrapper({ children }) {
   return (
     <>
       <Paper
-        sx={{ bgcolor: "#ede7f6", minHeight: "100vh", position: "relative" }}
+        sx={{  minHeight: "100vh", position: "relative" }}
       >
         <Navbar />
         <ChildrenBox>{children}</ChildrenBox>

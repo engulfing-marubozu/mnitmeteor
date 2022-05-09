@@ -45,6 +45,10 @@ const user_schema = new mongoose.Schema(
     password: {
       type: String,
     },
+    username:{
+      type:String,
+      default:""
+    },
     profile_pic: {
       type: String, //it will never be null 
     },

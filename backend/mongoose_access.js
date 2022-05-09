@@ -32,7 +32,7 @@ const copyitem = async()=>{
     console.log("Saved");
   }
 }  
-// copyitem();
+ copyitem();
 // Local port connection
 // LostItem.deleteOne({category: "Found"}).then(()=>{
 //     console.log("Deleted all LNF ");

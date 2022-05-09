@@ -8,7 +8,6 @@ import HomeCard from "../Cards/HomeCard";
 import { useSelector } from "react-redux";
 
 function ProductNew() {
-  console.log("productNew");
   const [pointer, setPointer] = useState(1);
   const category = "recommendation";
   const localUserData = useSelector((state) => state.loginlogoutReducer);

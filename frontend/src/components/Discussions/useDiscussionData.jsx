@@ -15,7 +15,6 @@ function useDiscussionData(token, pointer) {
             // user_id: userId,
              pointer: pointer }
         );
-        console.log(response.data);
         if (isSubscribed) {
           setData((prev) => {
             return [...prev, ...response.data.universal_threads];

@@ -25,14 +25,12 @@ export default function LostFoundCard({
   setLostFound,
   showDelete,
 }) {
-  console.log(data);
-  // console.log(data);
   // const localUserData = useSelector((state) => state.loginlogoutReducer);
   // const userLoggedIn = localUserData?.userData._id;
   const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
   const userLoggedIn = userData?.userId;
 
-  // const avatar = data?.profilePic;
+  const avatar = data?.profile_pic;
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
   const itemName =
@@ -58,10 +56,7 @@ export default function LostFoundCard({
       <Box className={classes.lfcontainer}>
         <Card className={classes.lfpaperStyle}>
           <CardHeader
-            avatar={
-              <Avatar sx={{ border: "1px solid black" }} />
-              // src={avatar} />
-            }
+            avatar={<Avatar src={avatar} />}
             action={
               <Box>
                 {postedBy === userLoggedIn && showDelete && (

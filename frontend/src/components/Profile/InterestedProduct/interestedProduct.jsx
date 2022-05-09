@@ -10,7 +10,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { useSelector } from "react-redux";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
-function InterestedProduct(props) {
+function InterestedProduct() {
   const [cardData, setCardData] = useState();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;

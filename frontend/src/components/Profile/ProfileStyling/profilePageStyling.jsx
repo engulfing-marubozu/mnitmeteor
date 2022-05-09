@@ -1,11 +1,12 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import IconButton  from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import poster from "../Images/poster1.jpg";
 import EditIcon from "@mui/icons-material/Edit";
+import { Tooltip } from "@mui/material";
 export const ProfileBoxStyle = makeStyles({
   parentBox: {
     width: "100%",
@@ -151,7 +152,7 @@ export const ProfileBoxStyle = makeStyles({
   },
   cardContainer: {
     backgroundColor: "#b39ddb",
-    minHeight:"480px"
+    minHeight: "480px",
   },
 });
 //   =================================================
@@ -173,10 +174,17 @@ export const ProfileTab = styled((props) => <Tab disableRipple {...props} />)(
 );
 
 export const ExpandMore = styled(({ expand, ...other }) => {
-  return ( 
-    <IconButton sx={{ color: "#5e35b1", py: 0.2 }} {...other} size="small" aria-label="updateDetails">
-      <EditIcon sx={{ fontSize: { xs: "14px", sm: "20px" } }}  />
-    </IconButton>
+  return (
+    <Tooltip title="Update" arrow>
+      <IconButton
+        sx={{ color: "#5e35b1", py: 0.2 }}
+        {...other}
+        size="small"
+        aria-label="updateDetails"
+      >
+        <EditIcon sx={{ fontSize: { xs: "14px", sm: "20px" } }} />
+      </IconButton>
+    </Tooltip>
   );
 })(({ theme }) => ({
   marginLeft: "auto",

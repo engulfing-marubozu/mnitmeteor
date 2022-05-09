@@ -178,10 +178,10 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       console.log(response.data);
       const userAuthData = { oamp: true, xezzi: response.data?.token };
       const userData = {
-        profilePic: response.data?.user?.profile_pic,
-        email: response.data?.user?.email,
-        phoneNo: response.data?.user?.Mobile_no,
-        userId: response.data?.user?._id,
+        profilePic: response.data?.profile_pic,
+        email: response.data?.email,
+        phoneNo: response.data?.phone_No,
+        userId: response.data?.user,
       };
       dispatch(
         AuthUser({
@@ -192,7 +192,6 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       );
       window.localStorage.setItem("Zuyq!jef@}#e", JSON.stringify(userAuthData));
       window.localStorage.setItem("mm_user_data", JSON.stringify(userData));
-      console.log("changed mobile number");
     } catch (err) {
       console.log(err);
       //send error on not updated

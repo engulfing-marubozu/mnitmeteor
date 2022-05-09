@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { FooterStyle } from "./footerStyling";
-import meteorLogo from "../_Styling/Images/meteorlogo.svg";
+import mnitmeteor from "../_Styling/Images/mnitmeteor.svg";
 
 function Footer() {
   const classes = FooterStyle();
@@ -21,7 +21,7 @@ function Footer() {
         <Box>
           <img
             alt="Logo"
-            src={meteorLogo}
+            src={mnitmeteor}
             variant="rounded"
             style={{ width: "12rem" }}
           />

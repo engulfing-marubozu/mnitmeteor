@@ -158,8 +158,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
       dispatch(modelPopUp(true));
     }
   };
-  console.log("depak")
-  console.log(localCardData);
+
   // ===================================================================================================================================================================================================================================
    const avatar =localCardData?.profile_pic;
   const title = localCardData?.title;

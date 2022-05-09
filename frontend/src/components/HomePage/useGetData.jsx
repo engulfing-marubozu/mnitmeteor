@@ -5,7 +5,6 @@ function useGetData(token, pointer, category) {
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
   useEffect(() => {
-    console.log("category , emial")
     setData([]);
   }, [category]);
 

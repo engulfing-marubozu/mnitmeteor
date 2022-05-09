@@ -47,14 +47,13 @@ export function LoginForm(props) {
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
         //change the statemanagement data according to backend data ----
-        console.log(response.data)
         // ===========================New =============
         const userAuthData = { oamp: true, xezzi: response.data?.token };
         const userData = {
-          profilePic:response.data?.user?.profile_pic,
-          email: response.data?.user?.email,
-          phoneNo: response.data?.user?.Mobile_no,
-          userId: response.data?.user?._id,
+          profilePic:response.data?.profile_pic,
+          email: response.data?.email,
+          phoneNo: response.data?.phone_No,
+          userId: response.data?.user,
         };
         dispatch(
           AuthUser({ isLogin: true, token: userAuthData.xezzi, userData: userData })

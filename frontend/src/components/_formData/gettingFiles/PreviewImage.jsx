@@ -24,15 +24,7 @@ export const CustomButton = styled("button")({
   border: "none",
   "@media (max-width: 1200px)": {
     padding: "6px 16px",
-    fontSize: "12px",
-  },
-  "@media (max-width: 900px)": {
-    padding: "4px 12px",
-    fontSize: "12px",
-  },
-  "@media (max-width: 600px)": {
-    padding: "6px 16px",
-    fontSize: "12px",
+    fontSize: "14px",
   },
 });
 const CustomDiv = styled("div")({

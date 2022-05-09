@@ -11,7 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ShareIcon from "@mui/icons-material/Share";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchDataForATF } from "../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../TimeElapsed/timecalc";
 import {

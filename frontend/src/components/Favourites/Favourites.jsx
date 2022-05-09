@@ -22,16 +22,19 @@ function Favourites() {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/send_favourites`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      isSubscribed && setcardData(response.data);
-      // console.log(response.data);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_favourites`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        isSubscribed && setcardData(response.data);
+      } catch (err) {
+        console.log(err);
+      }
     }
     call();
     return () => {

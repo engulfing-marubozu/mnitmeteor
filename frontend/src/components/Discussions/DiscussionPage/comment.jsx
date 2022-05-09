@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import Tooltip from "@mui/material/Tooltip";
 import {
   ReplyButton,
   ViewRepliesButton,
@@ -66,10 +67,10 @@ function Comments({
     setExpReplies(!expReplies);
   };
   // ==========================================================================================
-  const avatar=localCommentData?.profile_pic
+  const avatar = localCommentData?.profile_pic;
   const comment = localCommentData.content;
   const commentId = localCommentData._id;
-  const userId = localCommentData.mnit_id
+  const userId = localCommentData.mnit_id;
   const commentedBy = localCommentData.commented_by;
   const date = new Date(localCommentData.createdAt);
   const properDate = TimeSince(date);
@@ -183,10 +184,7 @@ function Comments({
       >
         <Box className={classes.topBox}>
           <Stack className={classes.topStack}>
-            <Avatar
-              className={classes.avatarStyle}
-              src={avatar}
-            />
+            <Avatar className={classes.avatarStyle} src={avatar} />
             <Typography className={classes.usernameStyle}>{userId}</Typography>
           </Stack>
           <Typography className={classes.dateStyle}>{properDate}</Typography>
@@ -197,7 +195,9 @@ function Comments({
               className={likeButton.likeIncButton}
               onClick={likeIncreaseHandler}
             >
-              <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+              <Tooltip title="Upvote" arrow placement="left">
+                <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+              </Tooltip>
             </IconButton>
             <Stack className={likeButton.likeCommentCount}>
               {Math.abs(likeDislike.totalCount)}
@@ -206,7 +206,9 @@ function Comments({
               className={likeButton.likeDecButton}
               onClick={likeDecreaseHandler}
             >
-              <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+              <Tooltip title="Downvote" arrow placement="left">
+                <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+              </Tooltip>
             </IconButton>
           </Box>
           <Box className={classes.mainBox}>

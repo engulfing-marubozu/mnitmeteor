@@ -69,27 +69,48 @@ export const HomePageStyle = makeStyles({
   },
 });
 
-// export const BannerStyle = {
-//   divStyle: (props) => ({
-//     width: "100%",
-//     display: "flex",
-//     height: "320px",
-//     backgroundPosition: "center",
-//     backgroundRepeat: "no-repeat",
-//     backgroundSize: "cover",
-//     position: "relative",
-//     opacity: "0.9",
-//     // backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url(${props.image})`,
-//   }),
 
-//   textDiv: {
-//     height: "110px",
-//     position: "absolute",
-//     color: "white",
-//     fontWeight: "bold",
-//     fontSize: "3rem",
-//     top: "5.25rem",
-//     left: "4.5rem",
-//     overflow: "hidden",
-//   },
-// });
+export const BackgoundBox = styled("span")(({ image }) => ({
+  position: "relative",
+  width: "100%",
+  display: "flex",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  opacity: "0.9",
+  height: "280px",
+  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url(${image})`,
+}));
+
+export const TextContainer = styled("div")({
+  position: "absolute",
+  top: "8rem",
+  left: "4.5rem",
+  paddingRight: "4.5rem",
+  "@media(max-width:1200px)": {
+    left: "2.375rem",
+    paddingRight: "2.375rem",
+  },
+  "@media(max-width:900px)": {
+    left: "1.5rem",
+    paddingRight: "1.5rem",
+  },
+  "@media(max-width:600px)": {
+    left: "1.125rem",
+    paddingRight: "1.125rem",
+  },
+});
+export const MainTextBox = styled("h1")({
+  margin: "0px",
+  color: "white",
+  "@media(max-width:600px)": {
+    fontSize: "24px",
+  },
+});
+export const SmallTextBox = styled("h3")({
+  margin: "0px",
+  color: "white",
+  "@media(max-width:600px)": {
+    fontSize: "16px", 
+  },
+});

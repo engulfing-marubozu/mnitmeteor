@@ -56,8 +56,6 @@ export default function HomeCard({ cardData, index }) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
-  console.log(process.env.REACT_APP_REDIRECT);
-  console.log(process.env.REACT_APP_REDIRECT);
   // ===================================================================================================================================
   return (
     <motion.div

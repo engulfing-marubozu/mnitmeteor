@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
 import { NavbarStyle } from "./NavabarStyle";
-import meteorlogo from "../_Styling/Images/meteorlogo.svg"
+import mnitmeteor from "../_Styling/Images/mnitmeteor.svg"
 const { io } = require("socket.io-client");
 const socket = io(process.env.REACT_APP_API, { reconnection: true });
 // ===============================================================================================================================
@@ -162,7 +162,7 @@ function Navbar() {
             <Box className={classes.siteIcon}>
               <img
                 alt="Logo"
-                src={meteorlogo}
+                src={mnitmeteor}
                 style={{ width: "100%" }}
               />
             </Box>

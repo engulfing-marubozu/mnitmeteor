@@ -12,7 +12,7 @@ import {
   SelectWrapper,
 } from "../_formData/FormUI/InputElement";
 import { useNavigate } from "react-router-dom";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -62,7 +62,7 @@ function SellFormNew() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        }``
       );
     } catch (err) {
       console.log(err);
@@ -129,7 +129,7 @@ function SellFormNew() {
                   Upload Images *
                 </Typography>
                 <UploadImage name="images" onDrop={onDrop} />
-                <ButtonWrapper >Submit Form</ButtonWrapper>
+                <ButtonWrapper>Submit Form</ButtonWrapper>
               </Box>
             </Form>
           </Formik>

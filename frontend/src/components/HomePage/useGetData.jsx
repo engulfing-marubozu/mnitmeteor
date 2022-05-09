@@ -5,7 +5,6 @@ function useGetData(token, pointer, category) {
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
   useEffect(() => {
-    console.log("category , emial")
     setData([]);
   }, [category]);
 
@@ -13,7 +12,6 @@ function useGetData(token, pointer, category) {
     setLoading(true);
     let isSubscribed = true;
     const Call = async () => {
-      console.log("pointer");
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API}/fetch`,

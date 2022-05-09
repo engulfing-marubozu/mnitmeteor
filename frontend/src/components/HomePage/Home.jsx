@@ -6,7 +6,6 @@ import FrontBanner from "./Banner";
 import CategorySlider from "./Slider";
 
 export default function Home() {
-  console.log("home");
   return (
     <motion.div
       initial={{ opacity: 0 }}

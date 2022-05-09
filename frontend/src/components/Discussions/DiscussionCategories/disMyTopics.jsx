@@ -26,16 +26,20 @@ export default function DiscussionMyTopics() {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/fetch_own_threads`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/fetch_own_threads`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setMyTopics(response.data.user_specific_threads);
         }
-      );
-      if (isSubscribed) {
-        setMyTopics(response.data.user_specific_threads);
+      } catch (err) {
+        console.log(err);
       }
     }
     call();

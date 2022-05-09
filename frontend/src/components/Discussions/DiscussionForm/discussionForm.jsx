@@ -64,20 +64,23 @@ function DiscussionForm() {
             onSubmit={(values) => {
               dispatch(forumPopUp(true));
               const call = async (data) => {
-                // const response =
-                await axios.post(
-                  `${process.env.REACT_APP_API}/create_thread`,
-                  {
-                    title: data.adTitle,
-                    description: data.description,
-                    document: data.document,
-                  },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
+                try {
+                  await axios.post(
+                    `${process.env.REACT_APP_API}/create_thread`,
+                    {
+                      title: data.adTitle,
+                      description: data.description,
+                      document: data.document,
                     },
-                  }
-                );
+                    {
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                      },
+                    }
+                  );
+                } catch (err) {
+                  console.log(err);
+                }
               };
               if (values.document) {
                 const reader = new FileReader();

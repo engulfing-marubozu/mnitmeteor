@@ -3,8 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { FooterStyle } from "./footerStyling";
-import Logo from "./meteorlogo.svg";
-import { Avatar } from "@mui/material";
+import mnitmeteor from "../_Styling/Images/mnitmeteor.svg";
 
 function Footer() {
   const classes = FooterStyle();
@@ -13,23 +12,23 @@ function Footer() {
       <Box component="footer" className={classes.itemContainer}>
         <Box>
           <Link to="/adminportel" className={classes.linkStyle}>
-            <Typography >Admin Panel</Typography>
+            <Typography>Admin Panel</Typography>
           </Link>
           <Link to="/developernotes" className={classes.linkStyle}>
-            <Typography >Developer Note's</Typography>
+            <Typography>Developer Note's</Typography>
           </Link>
         </Box>
-        <Box >
-            <img
+        <Box>
+          <img
             alt="Logo"
-            src={Logo}
+            src={mnitmeteor}
             variant="rounded"
-            style={{width:"12rem"}}
-            />
+            style={{ width: "12rem" }}
+          />
         </Box>
         <Box>
           {/* <Link > */}
-          <Typography >Contact us!</Typography>
+          <Typography>Contact us!</Typography>
           {/* </Link> */}
           {/* <Link> */}
           <Typography>Feedback/Issues?</Typography>

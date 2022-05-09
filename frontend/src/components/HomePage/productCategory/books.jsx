@@ -10,7 +10,6 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { mainPageEmpty } from "../../_EmptySpaces/EmptySvg";
 import { useSelector } from "react-redux";
 function Books() {
-  console.log("Books");
   const [pointer, setPointer] = useState(1);
   const category = "books";
   const localUserData = useSelector((state) => state.loginlogoutReducer);
@@ -30,7 +29,6 @@ function Books() {
         }
       });
       if (node) observer.current.observe(node);
-
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [loading, hasMore]

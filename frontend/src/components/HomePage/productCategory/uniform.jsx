@@ -10,7 +10,6 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { mainPageEmpty } from "../../_EmptySpaces/EmptySvg";
 import { useSelector } from "react-redux";
 function Uniform() {
-  console.log("uniform");
   const [pointer, setPointer] = useState(1);
   const category = "uniform";
   // const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));

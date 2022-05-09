@@ -25,11 +25,12 @@ export default function LostFoundCard({
   setLostFound,
   showDelete,
 }) {
-  // console.log(data);
   // const localUserData = useSelector((state) => state.loginlogoutReducer);
   // const userLoggedIn = localUserData?.userData._id;
   const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
   const userLoggedIn = userData?.userId;
+
+  const avatar = data?.profile_pic;
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
   const itemName =
@@ -55,7 +56,7 @@ export default function LostFoundCard({
       <Box className={classes.lfcontainer}>
         <Card className={classes.lfpaperStyle}>
           <CardHeader
-            avatar={<Avatar sx={{ bgcolor: "black" }} />}
+            avatar={<Avatar src={avatar} />}
             action={
               <Box>
                 {postedBy === userLoggedIn && showDelete && (
@@ -71,8 +72,8 @@ export default function LostFoundCard({
                 )}
                 <RWebShare
                   data={{
-                    text: "Mnit Market",
-                    url: `${process.env.REACT_APP_API}/lost&found/${data._id}`,
+                    text: `${category === "Lost" ? "" : "harshit"}`,
+                    url: `${process.env.REACT_APP_REDIRECT}/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}
                   onClick={() => console.log("shared successfully!")}

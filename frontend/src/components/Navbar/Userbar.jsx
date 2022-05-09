@@ -28,7 +28,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
   const dispatch = useDispatch();
   const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
   const email = userData?.email;
-
+  const avatar = userData?.profilePic;
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -74,7 +74,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
               color: "#263238",
               fontWeight: "bold",
             }}
-            // src={}
+            src={avatar}
           />
         </Tooltip>
       </IconButton>

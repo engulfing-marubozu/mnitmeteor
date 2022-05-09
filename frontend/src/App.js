@@ -16,16 +16,8 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      'Cabin',
+      'sans-serif'
     ].join(","),
   },
 });
@@ -36,7 +28,6 @@ function App() {
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
   const isLogin = userAuthData?.oamp;
-  console.log("app.js")
   useEffect(() => {
     const call = async () => {
       try {
@@ -50,7 +41,6 @@ function App() {
             },
           }
         );
-        console.log(response.data);
         if (response.data === "authorised_user") {
           const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
           const data = { userData: userData, isLogin: isLogin, token: token };

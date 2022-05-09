@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Typography, Box, Avatar, Stack, IconButton } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import  Tooltip  from "@mui/material/Tooltip";
 import { ReplyButton } from "../DiscussionStyling/discussionStyling";
 import ReplyCommentBox from "./replyCommentBox";
 import Collapse from "@mui/material/Collapse";
@@ -29,7 +30,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     isLogin ? setExpanded(!expanded) : dispatch(modelPopUp(true));
   };
   //  ========================================================================================================================================================================
-
+  const avatar = replyData?.profile_pic;
   const replyId = replyData?._id;
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;
@@ -139,7 +140,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
     <Box sx={{ mt: 2 }}>
       <Box className={classes.topBox}>
         <Stack className={classes.topStack}>
-          <Avatar className={classes.avatarStyle} />
+          <Avatar className={classes.avatarStyle} src={avatar} />
           <Typography className={classes.usernameStyle}>{userId}</Typography>
         </Stack>
         <Typography className={classes.dateStyle}>{properDate}</Typography>
@@ -150,7 +151,9 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
             className={likeButton.likeIncButton}
             onClick={likeIncreaseHandler}
           >
-            <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+            <Tooltip title="Upvote" arrow placement="left">
+              <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+            </Tooltip>
           </IconButton>
           <Stack className={likeButton.likeCommentCount}>
             {Math.abs(likeDislike.totalCount)}
@@ -159,7 +162,9 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
             className={likeButton.likeDecButton}
             onClick={likeDecreaseHandler}
           >
-            <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+            <Tooltip title="Downvote" arrow placement="left">
+              <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+            </Tooltip>
           </IconButton>
         </Box>
         <Box className={classes.mainBox}>

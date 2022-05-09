@@ -58,7 +58,7 @@ export const useStyles = makeStyles({
     // width: "50%",
     width: "700px",
     height: "auto",
-    borderRadius: "1rem",
+    borderRadius: "0.3rem",
     display: "flex",
     flexDirection: "column",
     "@media (max-width: 1200px)": {
@@ -74,7 +74,7 @@ export const useStyles = makeStyles({
   paperStyleSecond: {
     width: "100%",
     height: "auto",
-    borderRadius: "1rem",
+    borderRadius: "0.3rem",
     display: "flex",
     flexDirection: "column",
   },
@@ -83,8 +83,7 @@ export const useStyles = makeStyles({
   headingBox: {
     backgroundColor: "#7e57c2",
     padding: "1.5rem 3rem",
-    borderRadius: "1rem 1rem 0rem 0rem ",
-    // borderBottom: "1px solid  #e0e0e0",
+    borderRadius: "0.3rem 0.3rem 0rem 0rem ",
     "@media (max-width: 600px)": {
       padding: "1.5rem",
     },
@@ -93,8 +92,7 @@ export const useStyles = makeStyles({
   headingBoxSecond: {
     backgroundColor: "#7e57c2",
     padding: "1.5rem 3rem",
-    borderRadius: "1rem 1rem 0rem 0rem ",
-    // borderBottom: "1px solid  #e0e0e0",
+    borderRadius: "0.3rem 0.3rem 0rem 0rem ",
     "@media (max-width: 700px)": {
       padding: "1.5rem",
     },
@@ -154,7 +152,7 @@ export const useStyles = makeStyles({
     display: "flex",
     padding: "5px 16px",
     background: "#3f4257",
-    borderRadius: "30px",
+    borderRadius: "10px",
     color: "white",
     fontWeight: 400,
     fontSize: "14px",

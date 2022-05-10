@@ -40,6 +40,7 @@ const new_thread = async (req, res) => {
       document: document_upload_response,
       is_verified: false,
       profile_pic: prof_pic,
+      is_saved: false,
     });
     // console.log(Thread_save);
     try {

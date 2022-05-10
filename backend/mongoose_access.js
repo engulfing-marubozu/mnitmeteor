@@ -24,6 +24,7 @@ const copyitem = async()=>{
       description: "hello",
       document: data.document,
       is_verified: true,
+      is_saved
     })
     await delay(5000);
     const sv = await item.save((res,err)=>{
@@ -32,7 +33,21 @@ const copyitem = async()=>{
     console.log("Saved");
   }
 }  
+const addField = async()=>{
+  const allThreads = await Thread.find();
+  if(!allThreads) return;
+  allThreads.forEach(element => {
+    const id = element._id;
+    try {
+      Thread.findByIdAndUpdate(id,{is_saved: false});
+      console.log("Fixed thread "+id);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+}
 // copyitem();
+addField();
 // Local port connection
 // LostItem.deleteOne({category: "Found"}).then(()=>{
 //     console.log("Deleted all LNF ");

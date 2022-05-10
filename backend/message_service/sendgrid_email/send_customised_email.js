@@ -5,9 +5,6 @@ sgMail.setApiKey(
   process.env.SENDGRID_API_KEY
 );
 
-const send_otp = async() => {
-  
-};
 //ye parameters hai 
 //common params 
 
@@ -102,4 +99,4 @@ const delete_product_email =async (interested_users_array, product_title)=>{
   // });
   await send_email(draft_seller,suc_text);
 }
-module.exports = { send_otp, send_interested_email, send_un_interested_email , delete_product_email};
+module.exports = {  send_interested_email, send_un_interested_email , delete_product_email};

@@ -14,7 +14,7 @@ const {like_and_dislike_threads}  = require("../controllers/Threads/like_and_dis
 const router = express.Router();
 
 router.post('/create_thread', authorization, new_thread); //saves with is_verified false
-router.post('/fetch_live_threads',  fetch_live_threads);
+router.post('/fetch_live_threads',  fetch_live_threads); 
 router.post('/send_specific_thread',  specific_thread);
 router.get('/fetch_own_threads', authorization, fetch_own_threads)
 router.get('/fetch_false_threads',fetch_false_threads);

@@ -115,14 +115,15 @@ const fetch_own_threads = async (req, res) => {
   console.log("came to fetch own threads");
   try {
     const user_id = req.user._id;
+    console.log(user_id);
     const user = await User.findById(user_id);
     const user_specific_threads = await Thread.find({ posted_by: user_id, is_verified: true }).sort({ date: -1 });
-    
+    console.log(user_specific_threads);
     const saved_threads = user.threads_saved;
     let saved_threads_arr = [];
     try {
       saved_threads.forEach((thread)=>{
-        thread.is_saved = true;
+        // thread.is_saved = true;
         console.log("trued "+thread.id);
         saved_threads_arr.push(thread.id);
       })
@@ -132,6 +133,7 @@ const fetch_own_threads = async (req, res) => {
       console.log(error);
     }
     try {
+      console.log(user_specific_threads);
       user_specific_threads.forEach((thread)=>{
         if(saved_threads_arr.indexOf(thread.id)!==-1){
           thread.is_saved = true;
@@ -141,7 +143,7 @@ const fetch_own_threads = async (req, res) => {
       // console.log({user_specific_threads});
       return res.status(200).send({user_specific_threads});
     } catch (error) {
-      
+      console.log(error);
     }
     return res.status(200).send({ user_specific_threads });
   }

@@ -7,6 +7,8 @@ const delete_thread = async (req, res) => {
   try {
     const user_id = req.user._id;
     const thread_id = req.body.thread_id;
+    // const flag = req.body.flag;
+
     // var respon;
     await Thread.findByIdAndDelete(thread_id);
     // 
@@ -34,15 +36,25 @@ const delete_thread = async (req, res) => {
     );
     const rflag = req.body.flag;
     console.log("                 FLAG ISSSS   F F G " + rflag);
-    if(flag===3){
+    if(rflag===3){
       const saved_thread_data = await User.findOne({ _id: user_id });
       const array = await Promise.all(
         saved_thread_data.threads_posted.map(async (object) => {
           return await Thread.findById(object);
         })
       );
+
       console.log("Ye delete hua " + array);
-      res.status(200).send("Topic deleted");
+      console.log(array);
+      let e = [];
+      try {
+        if(!array[0]){
+          return res.status(200).send(e);
+        }
+      } catch (error) {
+        return res.status(200).send(e);
+      }
+      res.status(200).send(array);
     }
     else{
       res.status(200).send("Flag was not 3");

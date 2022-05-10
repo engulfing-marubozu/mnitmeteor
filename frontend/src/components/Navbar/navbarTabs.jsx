@@ -61,13 +61,13 @@ export default function NavbarTabs(props) {
         }}
       />
       <AntTab
-        label="Discussions"
+        label="Community"
         onClick={() => {
           Navigate("discussions");
         }}
       />
       <AntTab
-        label="Lost&Found"
+        label="Lost & Found"
         onClick={() => {
           Navigate("lost&found");
         }}

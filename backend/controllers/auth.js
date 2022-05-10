@@ -41,6 +41,7 @@ const signUp = async (req, res) => {
       // check();
       value = await lib.value();
       console.log("value is "+value);
+      const username = email.split("@")[0];
       const loadavatar = `https://freekiimages.herokuapp.com/img_load.png?value=${value}`;
       
       // genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
@@ -50,6 +51,7 @@ const signUp = async (req, res) => {
         const user = new User({
           email: email,
           password: hash,
+          username: username,
           profile_pic: loadavatar
         });
         user.save(function (err) {

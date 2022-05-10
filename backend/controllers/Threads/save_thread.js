@@ -38,7 +38,6 @@ const save_threads = async (req,res)=>{
         var to_send_data = await Promise.all(
           to_send.map(async (thread) => {
               console.log(thread.id);
-              if()
               const datee = await Thread.findById(thread.id);
               datee.is_saved = true;
               return datee;

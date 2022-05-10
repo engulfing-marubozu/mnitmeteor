@@ -30,7 +30,7 @@ function NotificationPage({ setDrawer }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // ===========================================================================================
-
+console.log(notifications)
   const classes = NotificationPageStyle();
   return (
     <Box className={classes.mainBox}>

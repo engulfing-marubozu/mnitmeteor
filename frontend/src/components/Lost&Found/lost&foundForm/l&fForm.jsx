@@ -57,10 +57,8 @@ const sendLostItem = (data, localUserData, dispatch, Navigate) => {
       }
     )
     .then(function (response) {
-      console.log("das;lkfjas;d");
       dispatch(lnfPopUp(true));
       Navigate("/lost&found/myitems");
-      console.log(response);
     })
     .catch(function (error) {
       console.log(error);

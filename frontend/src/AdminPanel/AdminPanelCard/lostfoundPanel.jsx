@@ -46,7 +46,6 @@ export default function LostFoundPanel({
           };
         })
       : false;
-      console.log(itemName);
   // =======================================================================================
   const handleExpandClick = () => {
     setExpanded(!expanded);

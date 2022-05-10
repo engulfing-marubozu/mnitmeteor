@@ -1,5 +1,21 @@
 import { makeStyles } from "@mui/styles";
-
+import { styled } from "@mui/system";
+export const DevButton = styled("button")({
+  maxWidth: "160px",
+  padding: "10px 18px",
+  color: "#fff",
+  fontSize: "20px",
+  fontWeight: 600,
+  border: "none",
+  borderRadius: "10px 10px 10px 10px",
+  cursor: "pointer",
+  transition: "all, 240ms ease-in-out",
+  background:
+    "linear-gradient(90deg,rgba(2, 0, 36, 1) 0%, rgba(91, 45, 163, 1) 0%, rgba(101, 60, 165, 0.8802871490393032) 97%)",
+  "&:hover": {
+    filter: "brightness(1.08)",
+  },
+});
 export const LinkStyle = makeStyles({
   mainBox: {
     padding: "14px 120px",
@@ -28,18 +44,77 @@ export const LinkStyle = makeStyles({
   container: {
     display: "flex",
     flexDirection: "row",
+    "@media(max-width:900px)": {
+      flexDirection: "column",
+      alignItems: "center",
+    },
   },
-  contentContainer: {
+  reverseContainer: {
+    display: "flex",
+    flexDirection: "row",
+    "@media(max-width:900px)": {
+      flexDirection: "column-reverse",
+      alignItems: "center",
+    },
+  },
+  startCntContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
     width: "50%",
-    margin: "2rem 0rem",
+    "@media(max-width:900px)": {
+      width: "480px",
+    },
+    "@media(max-width:520px)": {
+      width: "95%",
+    },
+  },
+  endCntContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    width: "50%",
+    "@media(max-width:900px)": {
+      width: "480px",
+    },
+    "@media(max-width:520px)": {
+      width: "95%",
+    },
   },
   contentBox: {
+    width: "94%",
     fontWeight: "bold",
-    fontSize: "18px",
+    fontSize: "17px",
     color: "#000000",
+    margin: "1rem 0rem ",
+    "@media(max-width:900px)": {
+      margin: "1rem 0rem ",
+    },
   },
   imageBox: {
+    display: "flex",
     width: "50%",
-    height:"420px"
+    height: "380px",
+    "@media(max-width:900px)": {
+      height: "360px",
+      width: "480px",
+      margin: "0rem 0rem",
+    },
+    "@media(max-width:520px)": {
+      width: "95%",
+    },
+  },
+  image: {
+    width: "100%",
+    height: "380px",
+    objectFit: "contain",
+    "@media(max-width:900px)": {
+      height: "360px",
+    },
+  },
+  buttonBox: {
+    width: "94%",
   },
 });

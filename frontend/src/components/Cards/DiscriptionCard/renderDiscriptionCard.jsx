@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import DiscriptionCard from "./discriptionCard";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 export default function RenderDiscriptionCard() {
   console.log('description')
   const [descrpData, setDescrpData] = useState();

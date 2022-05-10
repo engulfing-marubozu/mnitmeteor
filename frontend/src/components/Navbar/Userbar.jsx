@@ -62,8 +62,6 @@ function Userbar({ updateNotification, setNotificationPending }) {
         <NotificationPage setDrawer={setDrawer} />
       </Drawer>
 
-      {/* {drawer&&NotificationBox} */}
-
       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
         <Tooltip title="Profile" arrow>
           <Avatar

@@ -53,7 +53,6 @@ function SellFormNew() {
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
-      console.log("sent to save in database");
       // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,

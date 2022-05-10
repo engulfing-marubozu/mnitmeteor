@@ -12,8 +12,6 @@ import { TimeSince } from "../TimeElapsed/timecalc";
 // import { useSelector } from "react-redux";
 
 function NotificationCard({ data, index, setNotifications }) {
-  // const localUserData = useSelector((state) => state.loginlogoutReducer);
-  // const token = localUserData.token;
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
   const DeleteHandler = async () => {

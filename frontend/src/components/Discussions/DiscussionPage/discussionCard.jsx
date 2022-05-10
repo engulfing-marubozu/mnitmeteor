@@ -43,7 +43,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(data?.is_saved);
   const [expanded, setExpanded] = useState(false);
   // =================================================================================================================================================================================================================================
   const dispatch = useDispatch();
@@ -160,7 +160,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   };
 
   // ===================================================================================================================================================================================================================================
-   const avatar =localCardData?.profile_pic;
+  const avatar = localCardData?.profile_pic;
   const title = localCardData?.title;
   const description = localCardData?.description;
   const date = new Date(localCardData?.createdAt);
@@ -241,11 +241,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box sx={{ width: "94%", borderBottom: "2px  solid #757575" }}>
               <CardHeader
-                avatar={
-                  <Avatar 
-                  src={avatar} 
-                  />
-                }
+                avatar={<Avatar src={avatar} />}
                 title={userId}
                 subheader={properDate}
                 sx={{ p: 0 }}

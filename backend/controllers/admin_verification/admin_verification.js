@@ -92,7 +92,7 @@ const admin_verification = async (req, res, next) => {
                         const hits = await redis.incr(token);
                         if (hits > 2) {
                             await redis.set(token, -1);
-                            const blockingTime = 5;
+                            const blockingTime = 60*24*60;
                             var time_block = timeConvert(blockingTime);
 
                             await redis.expire(token, blockingTime); //40 seconds 

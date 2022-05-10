@@ -14,6 +14,7 @@ const send_saved_threads = async (req, res) => {
       saved_threads.map(async (thread) => {
           console.log(thread.id);
         const datee = await Thread.findById(thread.id);
+        datee.is_saved = true;
         return datee;
       })
     );

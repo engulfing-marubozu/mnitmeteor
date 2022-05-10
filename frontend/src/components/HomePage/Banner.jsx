@@ -53,10 +53,9 @@ export default function FrontBanner() {
         <div className="keen-slider__slide number-slide1">
           <BackgoundBox image={image3}>
             <TextContainer>
-              <MainTextBox>Sell product </MainTextBox>
+              <MainTextBox>Buy & Sell </MainTextBox>
               <SmallTextBox>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum, officia.
+                Save money and efforts by directly buying and selling in the campus.
               </SmallTextBox>
             </TextContainer>
           </BackgoundBox>
@@ -64,10 +63,9 @@ export default function FrontBanner() {
         <div className="keen-slider__slide number-slide2">
           <BackgoundBox image={image4}>
             <TextContainer>
-              <MainTextBox>Discuss projects </MainTextBox>
+              <MainTextBox>Community </MainTextBox>
               <SmallTextBox>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum, officia.
+              Undertake projects, find teammates, ask queries. Whole new community experience at meteor.
               </SmallTextBox>
             </TextContainer>
           </BackgoundBox>
@@ -75,10 +73,9 @@ export default function FrontBanner() {
         <div className="keen-slider__slide number-slide3">
           <BackgoundBox image={image5}>
             <TextContainer>
-              <MainTextBox>Find lost items</MainTextBox>
+              <MainTextBox>Find what's lost</MainTextBox>
               <SmallTextBox>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum, officia.
+                Finding lost item is quicker than ever with the seamless lost & found section. 
               </SmallTextBox>
             </TextContainer>
           </BackgoundBox>

@@ -9,6 +9,7 @@ const delete_thread = async (req, res) => {
     const thread_id = req.body.thread_id;
     // var respon;
     await Thread.findByIdAndDelete(thread_id);
+    // 
     const updated_user = await User.findByIdAndUpdate(
       user_id,
       {

@@ -143,7 +143,7 @@ const LostCheck = async (req, res) => {
   console.log(req.body.title);
   console.log(req.body.description);
   console.log(req.body.categories);
-  console.log()
+  // console.log()
   email = req.body.email;
   imgs = req.body.imgs;
   refID = req.body.posted_by;
@@ -193,6 +193,7 @@ const LostCheck = async (req, res) => {
       const saveLostItem = await newLostItem.save((err,response)=>{
         console.log(response);
       });
+      return res.status(200).send("saved");
       // const saveLostItem = 
       // await User.findByIdAndUpdate(refID, {
       //   $addToSet: {lf_items_posted: saveLostItem._id },

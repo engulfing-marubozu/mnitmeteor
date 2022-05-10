@@ -12,8 +12,8 @@ const status_checker = async(req,res)=>{
     var ttl = await redis.ttl(token);
     if(ttl==-1){
         //key exist krti pr expiry set nhi 
-        await redis.expire(token,40);
-        ttl = 40;
+        await redis.expire(token,60*60*24);
+        ttl = 60*60*24;
     }
     if(number_of_req > 3){
         const to_send = {

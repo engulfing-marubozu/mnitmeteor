@@ -20,13 +20,27 @@ export const FooterStyle = makeStyles({
     display: "flex",
     paddingBottom: "12px",
     justifyContent: "space-between",
-    "@media(max-width:500px)": {
-      flexDirection:"column",
-      justifyContent:"flex-start",
+    "@media(max-width:560px)": {
+      flexDirection: "column",
+      justifyContent: "flex-start",
       // alignItems: "flex-start",
     },
   },
   linkStyle: {
     textDecoration: "none",
+  },
+  logolargeSrn: {
+    display: "inline-block",
+    "@media(max-width:560px)": {
+      display: "none",
+      // alignItems: "flex-start",
+    },
+  },
+  logoSmallSrn: {
+    display: "none",
+    "@media(max-width:560px)": {
+      display: "inline-block",
+      // alignItems: "flex-start",
+    },
   },
 });

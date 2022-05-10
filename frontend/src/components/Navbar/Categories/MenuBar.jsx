@@ -1,6 +1,5 @@
 import React from "react";
 import MenuItem from "@mui/material/MenuItem";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
 import CategoryIcon from "@mui/icons-material/Category";
 import ForumIcon from "@mui/icons-material/Forum";
 import SellIcon from "@mui/icons-material/Sell";
@@ -13,11 +12,11 @@ import MenuBarCategory from "./MenuBarCategories";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Collapse from "@mui/material/Collapse";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import mnitmeteor from "../../_Styling/Images/mnitmeteor.svg";
 import {
   LogoutUser,
   modelPopUp,
@@ -64,22 +63,9 @@ export default function MymenuBar({ menuClose }) {
         sx={{ width: "260px", p: "1rem", borderBottom: "2px solid  #bdbdbd" }}
       >
         <Stack alignItems={"center"} direction="row" sx={{ ml: "1rem" }}>
-          <AcUnitIcon sx={{ color: "#673ab7" }} />
-          <Typography
-            variant="h5"
-            color="inherit"
-            noWrap
-            sx={{
-              fontWeight: "bold",
-              fontSize: "18px",
-              ml: "6px",
-            }}
-            onClick={() => {
-              Navigate("/adminpanel");
-            }}
-          >
-            MNIT Market
-          </Typography>
+          <Box>
+            <img alt="Logo" src={mnitmeteor} style={{ width: "100%" }} />
+          </Box>
         </Stack>
       </Box>
       <Box sx={{ m: "1rem" }}>

@@ -27,6 +27,13 @@ const FORM_VALIDATION = Yup.object().shape({
       } else {
         return true;
       }
+    })
+    .test("fileType", "Incorrect file type", (file) => {
+      if (file) {
+        return ["application/pdf"].includes(file.type);
+      } else {
+        return true;
+      }
     }),
 });
 
@@ -65,6 +72,7 @@ function DiscussionForm() {
               dispatch(forumPopUp(true));
               const call = async (data) => {
                 try {
+                  console.log(data);
                   await axios.post(
                     `${process.env.REACT_APP_API}/create_thread`,
                     {

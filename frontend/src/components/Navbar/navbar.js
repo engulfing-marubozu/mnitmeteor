@@ -125,7 +125,6 @@ function Navbar() {
 
 
   const classes = NavbarStyle();
-
   // ================================================================================================================
   return (
     <>
@@ -159,7 +158,8 @@ function Navbar() {
               ml: { xs: 0, md: 1.5, lg: 6 },
             }}
           >
-            <Box className={classes.siteIcon}>
+            <Box className={classes.siteIcon}
+              onClick={() => { Navigate("/") }}>
               <img
                 alt="Logo"
                 src={mnitmeteor}

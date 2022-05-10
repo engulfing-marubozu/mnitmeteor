@@ -91,7 +91,10 @@ function RouterCon() {
           element={<ProtectedRoute Component={Favourites} />}
         />
         <Route path="developernotes" element={<DevelopersNote />} />
-        <Route path="adminportel" element={<AdminPortel />}>
+        <Route
+          path="adminportel"
+          element={<ProtectedRoute Component={AdminPortel} />}
+        >
           <Route index element={<AdminProtected Component={AdminPanel} />} />
           <Route
             path="adminlogin"

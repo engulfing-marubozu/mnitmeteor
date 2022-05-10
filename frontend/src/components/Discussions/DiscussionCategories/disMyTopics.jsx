@@ -84,7 +84,7 @@ export default function DiscussionMyTopics() {
           portelId={"portal"}
         >
           <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            what is your name my name is dee
+            We have received your submission. It will be shown in the feed post admin approval. 
           </SuccessfulSubmission>
         </POPUPElement>
       )}

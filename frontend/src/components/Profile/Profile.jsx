@@ -46,7 +46,7 @@ function Profile({ userAuthData }) {
             portelId={"portal"}
           >
             <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-              what is your name my name is deeepak
+            We have received your submission. It will be shown in the feed post admin approval. 
             </SuccessfulSubmission>
           </POPUPElement>
         )}

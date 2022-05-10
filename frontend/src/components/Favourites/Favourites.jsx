@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -9,6 +10,7 @@ import FavouritesCard from "./favouriteCard";
 import HomeCardSkeleton from "../Cards/HomeCardSkeleton";
 import EmptySpace from "../_EmptySpaces/emptySpace";
 import { favouriteEmpty } from "../_EmptySpaces/EmptySvg";
+import { LogoutUser } from "../../AStatemanagement/Actions/userActions";
 import axios from "axios";
 
 function Favourites() {
@@ -18,6 +20,8 @@ function Favourites() {
   const favouritesLength = useSelector(
     (state) => state.FavouritesReducer.favouritesData
   );
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
     let isSubscribed = true;
@@ -34,6 +38,10 @@ function Favourites() {
         isSubscribed && setcardData(response.data);
       } catch (err) {
         console.log(err);
+        if (err.response.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
     call();

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import LostFoundSkeleton from "../lostfoundSkeleton";
 import LostFoundCard from "../Lost&FoundCard/L&FCard";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
-import SuccessfulSubmission from "../../ModelPopUP/onFormSubmission";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
 import { useSelector, useDispatch } from "react-redux";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
@@ -83,9 +83,9 @@ function LostFoundMyItems({ userAuthData }) {
           onClose={SubmitPopUpHandler}
           portelId={"portal"}
         >
-          <SuccessfulSubmission onClose={SubmitPopUpHandler}>
+          <FormSubmission onClose={SubmitPopUpHandler}>
             what is your name my name is deeepak
-          </SuccessfulSubmission>
+          </FormSubmission>
         </POPUPElement>
       )}
     </motion.div>

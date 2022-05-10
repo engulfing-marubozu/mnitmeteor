@@ -16,7 +16,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import UploadImage from "../../_formData/gettingFiles/uploadImage";
 import { lostFoundCategories } from "../../_formData/formData";
-import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
+import {
+  lnfPopUp,
+  LogoutUser,
+} from "../../../AStatemanagement/Actions/userActions";
+import POPUPElement from "../../ModelPopUP/POPUPElement";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = {
@@ -32,7 +37,7 @@ const FORM_VALIDATION = Yup.object().shape({
   images: Yup.array().notRequired(),
 });
 
-const sendLostItem = (data, localUserData) => {
+const sendLostItem = (data, localUserData, dispatch, Navigate) => {
   axios
     .post(
       `${process.env.REACT_APP_API}/sendlftoadmin`,
@@ -52,10 +57,16 @@ const sendLostItem = (data, localUserData) => {
       }
     )
     .then(function (response) {
-      // console.log(response);
+      console.log("das;lkfjas;d");
+      dispatch(lnfPopUp(true));
+      Navigate("/lost&found/myitems");
     })
     .catch(function (error) {
       console.log(error);
+      if (error?.response?.status === 403) {
+        dispatch(LogoutUser());
+        Navigate(`/`);
+      }
     });
 };
 
@@ -65,6 +76,7 @@ function LostFoundForm() {
   const Navigate = useNavigate();
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const [, setimagearray] = useState([]);
+  const [isOffline, setIsOffline] = useState(false);
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
@@ -88,9 +100,13 @@ function LostFoundForm() {
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
-              dispatch(lnfPopUp(true));
-              sendLostItem(values, localUserData);
-              Navigate("/lost&found/myitems");
+              // dispatch(lnfPopUp(true));
+              if (navigator.onLine) {
+                sendLostItem(values, localUserData, dispatch, Navigate);
+              } else {
+                setIsOffline(true);
+              }
+              // Navigate("/lost&found/myitems");
             }}
           >
             <Form>
@@ -131,8 +147,18 @@ function LostFoundForm() {
           </Formik>
         </Paper>
       </Box>
+      {isOffline && (
+        <POPUPElement
+          open={isOffline}
+          onClose={setIsOffline}
+          portelId={"portal"}
+        >
+          <FormSubmission onClose={setIsOffline}>
+            No Internet Connection try after sometime
+          </FormSubmission>
+        </POPUPElement>
+      )}
     </motion.div>
   );
 }
-
 export default LostFoundForm;

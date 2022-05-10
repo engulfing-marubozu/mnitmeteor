@@ -52,7 +52,7 @@ export default function GetPhoneDetails(props) {
         console.log(props.formData.formValue);
         props.formData.merge(props.formData.formValue);
         props.onClose(false);
-        Navigate("/Profile");
+        // Navigate("/Profile");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

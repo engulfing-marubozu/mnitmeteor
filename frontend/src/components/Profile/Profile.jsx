@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import ProfileContentBox from "./newProfilePage/profileContentBox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SuccessfulSubmission from "../ModelPopUP/onFormSubmission";
+import FormSubmission from "../ModelPopUP/onFormSubmission";
 import POPUPElement from "../ModelPopUP/POPUPElement";
 import { sellPopUp } from "../../AStatemanagement/Actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -45,9 +45,9 @@ function Profile({ userAuthData }) {
             onClose={SubmitPopUpHandler}
             portelId={"portal"}
           >
-            <SuccessfulSubmission onClose={SubmitPopUpHandler}>
+            <FormSubmission onClose={SubmitPopUpHandler}>
               what is your name my name is deeepak
-            </SuccessfulSubmission>
+            </FormSubmission>
           </POPUPElement>
         )}
       </motion.div>

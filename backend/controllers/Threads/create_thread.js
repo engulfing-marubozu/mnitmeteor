@@ -49,7 +49,9 @@ const new_thread = async (req, res) => {
       console.log(saved_thread.posted_by);
       console.log(saved_thread._id);
       console.log("Saved unverified thread");
+      return res.status(200).send("saved");
     } catch (err) {
+      return res.status(404).send("not saved");
       console.log(err);
     }
   } catch (err) {

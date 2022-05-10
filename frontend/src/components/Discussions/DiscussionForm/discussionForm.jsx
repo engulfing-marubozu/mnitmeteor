@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { useStyles } from "../../_formData/FormUI/stylingComponent";
@@ -10,8 +10,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import UploadDoc from "../../_formData/gettingFiles/uploadDoc";
 import { useNavigate } from "react-router-dom";
-import { forumPopUp } from "../../../AStatemanagement/Actions/userActions";
-
+import {
+  forumPopUp,
+  LogoutUser,
+} from "../../../AStatemanagement/Actions/userActions";
+import POPUPElement from "../../ModelPopUP/POPUPElement";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = { adTitle: "", description: "", document: "" };
@@ -39,6 +43,7 @@ const FORM_VALIDATION = Yup.object().shape({
 
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
+  const [isOffline, setIsOffline] = useState(false);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -47,6 +52,32 @@ function DiscussionForm() {
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
 
+  const sendData = async (data) => {
+    try {
+      // const response = 
+      await axios.post(
+        `${process.env.REACT_APP_API}/create_thread`,
+        {
+          title: data.adTitle,
+          description: data.description,
+          document: data.document,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(forumPopUp(true));
+      Navigate("/discussions/mytopics");
+    } catch (err) {
+      console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+        Navigate(`/`);
+      }
+    }
+  };
   // ===================================================================SendData_To_BackEnd========================================================================================================================
 
   // =======================================================================================================================================================================================================
@@ -69,39 +100,20 @@ function DiscussionForm() {
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
-              dispatch(forumPopUp(true));
-              const call = async (data) => {
-                try {
-                  console.log(data);
-                  await axios.post(
-                    `${process.env.REACT_APP_API}/create_thread`,
-                    {
-                      title: data.adTitle,
-                      description: data.description,
-                      document: data.document,
-                    },
-                    {
-                      headers: {
-                        Authorization: `Bearer ${token}`,
-                      },
-                    }
-                  );
-                } catch (err) {
-                  console.log(err);
+              if (navigator.onLine) {
+                if (values.document) {
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    const data = { ...values, document: reader.result };
+                    sendData(data);
+                  };
+                  reader.readAsDataURL(values.document);
+                } else {
+                  sendData(values);
                 }
-              };
-              if (values.document) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                  const data = { ...values, document: reader.result };
-                  call(data);
-                };
-                reader.readAsDataURL(values.document);
               } else {
-                call(values);
+                setIsOffline(true);
               }
-
-              Navigate("/discussions/mytopics");
             }}
           >
             <Form>
@@ -119,7 +131,7 @@ function DiscussionForm() {
                 </Typography>
                 <TextfieldWrapper
                   name="description"
-                  helperText="Describe about the topic"
+                  helperText="Describe the topic"
                   multiline={true}
                   rows={4}
                 />
@@ -133,6 +145,17 @@ function DiscussionForm() {
           </Formik>
         </Paper>
       </Box>
+      {isOffline && (
+        <POPUPElement
+          open={isOffline}
+          onClose={setIsOffline}
+          portelId={"portal"}
+        >
+          <FormSubmission onClose={setIsOffline}>
+            No Internet Connection try after sometime
+          </FormSubmission>
+        </POPUPElement>
+      )}
     </motion.div>
   );
 }

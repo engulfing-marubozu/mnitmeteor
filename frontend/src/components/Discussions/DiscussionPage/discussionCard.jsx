@@ -183,16 +183,18 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
       setSaved(!saved);
       try {
         const thread_id = cardId;
-        // const response =
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API}/save_threads`,
-          { thread_id },
+          { thread_id, flag },
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+        if (flag === 2) {
+          setThread(response.data);
+        }
       } catch (err) {
         console.log(err);
       }

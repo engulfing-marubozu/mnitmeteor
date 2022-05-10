@@ -7,7 +7,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 import { useSelector, useDispatch } from "react-redux";
 import { forumPopUp } from "../../../AStatemanagement/Actions/userActions";
-import SuccessfulSubmission from "../../ModelPopUP/onFormSubmission";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
 export default function DiscussionMyTopics() {
   const [myTopics, setMyTopics] = useState();
@@ -83,9 +83,9 @@ export default function DiscussionMyTopics() {
           onClose={SubmitPopUpHandler}
           portelId={"portal"}
         >
-          <SuccessfulSubmission onClose={SubmitPopUpHandler}>
+          <FormSubmission onClose={SubmitPopUpHandler}>
             what is your name my name is dee
-          </SuccessfulSubmission>
+          </FormSubmission>
         </POPUPElement>
       )}
     </motion.div>

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 // ========================================================MAIN FUNCTION=======================================
 
-export default function SuccessfulSubmission({ onClose, children }) {
+export default function FormSubmission({ onClose, children }) {
   // ==========================================================GETTING DETAILS FROM STATE-REDUX ================
 
   return (

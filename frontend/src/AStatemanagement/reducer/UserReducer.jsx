@@ -109,7 +109,6 @@ export const DeletePublishedAdsReducer = (
   }
 };
 
-
 // ============================================================================================
 const likeThreadInitialState = {};
 export const likeThread = (state = likeThreadInitialState, action) => {
@@ -137,4 +136,3 @@ export const PhoneAuthReducer = (state = phoneAuth, action) => {
       return state;
   }
 };
-

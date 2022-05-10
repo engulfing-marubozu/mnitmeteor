@@ -18,7 +18,12 @@ import * as Yup from "yup";
 import axios from "axios";
 import UploadImage from "../_formData/gettingFiles/uploadImage";
 import { sellCategories } from "../_formData/formData";
-import { sellPopUp } from "../../AStatemanagement/Actions/userActions";
+import FormSubmission from "../ModelPopUP/onFormSubmission";
+import {
+  sellPopUp,
+  LogoutUser,
+} from "../../AStatemanagement/Actions/userActions";
+
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = {
@@ -39,6 +44,7 @@ function SellFormNew() {
   const [formValue, setFormValue] = useState({});
   const [contactModel, setContactModel] = useState(false);
   const [imagearray, setimagearray] = useState([]);
+  const [isOffline, setIsOffline] = useState(false);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
@@ -53,7 +59,7 @@ function SellFormNew() {
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
-      // const response =
+      // const response = 
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,
         { images: imagearray, details: values },
@@ -61,10 +67,16 @@ function SellFormNew() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }``
+        }
       );
+      dispatch(sellPopUp(true));
+      Navigate("/profile");
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+        Navigate(`/`);
+      }
     }
   };
   // =======================================================================================================================================================================================================
@@ -84,13 +96,15 @@ function SellFormNew() {
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
-              dispatch(sellPopUp(true));
-              setFormValue(values);
-              if (!phoneNo && isLogin) {
-                setContactModel(true);
-              } else if (phoneNo && isLogin) {
-                merge(values);
-                Navigate("/profile");
+              if (navigator.onLine) {
+                setFormValue(values);
+                if (!phoneNo && isLogin) {
+                  setContactModel(true);
+                } else if (phoneNo && isLogin) {
+                  merge(values);
+                }
+              } else {
+                setIsOffline(true);
               }
             }}
           >
@@ -148,6 +162,17 @@ function SellFormNew() {
             Oops! We don’t have your phone number ☹️. Your phone number will
             only be shared with prospective buyers.
           </GetPhoneDetails>
+        </POPUPElement>
+      )}
+      {isOffline && isLogin && (
+        <POPUPElement
+          open={isOffline}
+          onClose={setIsOffline}
+          portelId={"portal"}
+        >
+          <FormSubmission onClose={setIsOffline}>
+            No Internet Connection try after sometime
+          </FormSubmission>
         </POPUPElement>
       )}
     </motion.div>

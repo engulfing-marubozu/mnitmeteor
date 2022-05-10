@@ -24,11 +24,6 @@ const fetch_live_threads = async (req, res) => {
 
   try {
     if (!authHeader) {
-      //   const user_id = req.user._id;
-      // const universal_threads = await Thread.find({ is_verified: true }).sort({ 'createdAt': -1 }).skip(ptr - 1).limit(5);
-      //   const user_specific_threads = await Thread.find({posted_by:user_id});
-      // console.log(ptr);
-      // console.log(universal_threads);
       return res.status(200).send({ universal_threads });
     }
     else {
@@ -46,10 +41,6 @@ const fetch_live_threads = async (req, res) => {
       let threads_saved;
       // console.log(user);
         let udata =  await User.findById(uid);
-        // const ut = User.find({email: email}, (err,dt)=>{
-        //   if(err){
-        //     return res.status(200).send({universal_threads});
-        //   }
         
         if(!udata){
           udata = await User.findById(uid); 
@@ -71,15 +62,8 @@ const fetch_live_threads = async (req, res) => {
           console.log(error);
         }
 
-        // console.log(saved_threads);
-        // console.log("callabck");
-        // console.log("threads saved are ");
-        
         
         try {
-          //if no threads saved then return 
-          // console.log(universal_threads);
-          // console.log(ptr);
           universal_threads.forEach((thread)=>{
             //to check if the array contains this thread
             if( saved_threads.indexOf(thread.id)!==-1){
@@ -133,9 +117,20 @@ const fetch_own_threads = async (req, res) => {
     const user_id = req.user._id;
     const user = await User.findById(user_id);
     const user_specific_threads = await Thread.find({ posted_by: user_id, is_verified: true }).sort({ date: -1 });
+    
     const saved_threads = user.threads_saved;
-    console.log(saved_threads)
-    res.status(200).send({ user_specific_threads, saved_threads })
+    // let saved_threads_arr = [];
+    try {
+      saved_threads.forEach((thread)=>{
+        thread.is_saved = true;
+        console.log("trued "+thread.id);
+        
+      })
+      return res.status(200).send({ user_specific_threads });
+    } catch (error) {
+      console.log(error);
+    }
+    return res.status(200).send({ user_specific_threads });
   }
 
   catch (err) {

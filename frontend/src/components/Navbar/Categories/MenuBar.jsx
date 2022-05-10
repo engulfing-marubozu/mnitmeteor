@@ -83,7 +83,7 @@ export default function MymenuBar({ menuClose }) {
           }}
         >
           <ForumIcon sx={{ mr: 1 }} />
-          Discussions
+          Community
         </MenuItem>
         <MenuItem
           onClick={() => {

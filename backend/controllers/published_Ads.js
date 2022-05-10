@@ -1,7 +1,7 @@
 const { Product, User } = require("../Models");
 const {
   delete_product_email,
-} = require("../Message_service/Sendgrid_Email/send_customised_email");
+} = require("../message_service/sendgrid_email/send_customised_email");
 
 const send_published_Ads = async (req, res) => {
   console.log("deepak ");

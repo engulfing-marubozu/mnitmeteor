@@ -1,15 +1,11 @@
 const { User } = require("../Models");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const sgMail = require("@sendgrid/mail");
 // const { parse } = require("path/posix");
 const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
 const lib = require("../Middlewares/counter.js");
-
-sgMail.setApiKey(
- process.env.SENDGRID_API_KEY
-);
+const {send_email} = require('../message_service/sendgrid_email/user_email');
 
 saltRounds = 8;
 // var number;
@@ -45,6 +41,7 @@ const signUp = async (req, res) => {
       // check();
       value = await lib.value();
       console.log("value is "+value);
+      const username = email.split("@")[0];
       const loadavatar = `https://freekiimages.herokuapp.com/img_load.png?value=${value}`;
       
       // genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
@@ -54,6 +51,7 @@ const signUp = async (req, res) => {
         const user = new User({
           email: email,
           password: hash,
+          username: username,
           profile_pic: loadavatar
         });
         user.save(function (err) {
@@ -75,20 +73,13 @@ const signUp = async (req, res) => {
       const sendH = "Your OTP is " + otp;
       const msg = {
         to: email, // Change to your recipient
-        from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-        subject: "MNIT Selling Platform",
+        from: "mnitmeteor@gmail.com", // Change to your verified sender
+        subject: "MNIT Meteor - OTP Service",
         text: "Your OTP is " + otp,
         html: sendH,
       };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
+      await send_email(msg,"email sent");
+      //to delete this: 
       res.status(200).send({
         otp: otp,
       });

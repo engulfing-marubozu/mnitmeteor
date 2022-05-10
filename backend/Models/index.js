@@ -45,6 +45,10 @@ const user_schema = new mongoose.Schema(
     password: {
       type: String,
     },
+    username:{
+      type:String,
+      default:""
+    },
     profile_pic: {
       type: String, //it will never be null 
     },
@@ -157,6 +161,9 @@ const thread_schema = new mongoose.Schema(
     },
     users_mnit_id: {
       type: String,
+    },
+    is_saved: {
+      type: Boolean,
     },
     title: {
       type: String,

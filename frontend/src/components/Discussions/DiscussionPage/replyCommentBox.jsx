@@ -23,25 +23,25 @@ function ReplyCommentBox({
     }
   };
 
-  const submitHandler = async () => {
-    const email = localUserData?.userData?.email.slice(0, 11);
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API}/add_comment`,
-        {
-          thread_id: addReplyData.cardId,
-          comment_id: addReplyData.commentId,
-          commentor_mnit_id: email,
-          content: inputReply.current.value,
-          replied_to: addReplyData?.repliedTo,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      let updatedComment = response.data;
+    const submitHandler = async () => {
+        const email = localUserData?.userData?.email.slice(0, -11);
+        try{
+        const response = await axios.post(
+            `${process.env.REACT_APP_API}/add_comment`,
+            {
+                thread_id: addReplyData.cardId,
+                comment_id: addReplyData.commentId,
+                commentor_mnit_id: email,
+                content: inputReply.current.value,
+                replied_to: addReplyData?.repliedTo
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        let updatedComment = response.data;
 
       setLocalCommentData(updatedComment);
       inputReply.current.value = "";

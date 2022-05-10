@@ -20,7 +20,7 @@ function DiscussionCardArray() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPointer((prev) => prev + 5);
+          setPointer((prev) => prev + 20);
         }
       });
       if (node) observer.current.observe(node);

@@ -13,8 +13,10 @@ function useDiscussionData(token, pointer) {
           `${process.env.REACT_APP_API}/fetch_live_threads`,
            { 
             // user_id: userId,
+             token: `Bearer ${token}`,
              pointer: pointer }
         );
+        console.log(response.data.universal_threads)
         if (isSubscribed) {
           setData((prev) => {
             return [...prev, ...response.data.universal_threads];

@@ -1,5 +1,5 @@
 const { Product, User } = require("../../Models");
-const { send_un_interested_email, } = require("../../Message_service/Sendgrid_Email/send_customised_email");
+const { send_un_interested_email, } = require("../../message_service/sendgrid_email/send_customised_email");
 
 
 

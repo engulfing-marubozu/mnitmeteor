@@ -16,13 +16,25 @@ const delete_thread = async (req, res) => {
       { new: true }
     );
 
+    console.log(updated_user);
+    const updated_user_two = await User.findByIdAndUpdate(
+      user_id,
+      {
+        $pull: {
+          threads_posted: {state: null},
+        },
+      },
+      { new: true }
+    );
+    console.log(updated_user_two);
     const x = await User.updateMany(
       { threads_saved: { $in: { id: thread_id } } },
       { $pull: { threads_saved: { id: thread_id } } },
       { new: true }
     );
     console.log(x);
-
+    //trying to pull thread from threads_posted array of user 
+    // const q = await User.findByIdAndUpdate(user_id,{$pull: {}})
     const y = await User.updateMany(
       { threads_commented_or_replied: { $in: { id: thread_id } } },
       { $pull: { threads_commented_or_replied: { id: thread_id } } },
@@ -55,6 +67,7 @@ const delete_thread = async (req, res) => {
         })
       );
       console.log(array);
+
       res.status(200).send(array);
     }
     else{

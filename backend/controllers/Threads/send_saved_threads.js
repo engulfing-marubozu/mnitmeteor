@@ -17,7 +17,7 @@ const send_saved_threads = async (req, res) => {
       return res.status(200).send(y);
     }
     
-    var data;
+    var data=[];
     try {
       data = await Promise.all(
         saved_threads.map(async (thread) => {
@@ -26,7 +26,8 @@ const send_saved_threads = async (req, res) => {
           datee.is_saved = true;
           return datee;
         })
-      );  
+      );
+        
     } catch (error) {
       let e = [];
       return res.status(200).send(e);
@@ -43,7 +44,7 @@ const send_saved_threads = async (req, res) => {
       console.log(error);
       return res.status(200).send(data);
     }
-    
+    return res.status(200).send(data);
   };
   module.exports = { send_saved_threads };
   

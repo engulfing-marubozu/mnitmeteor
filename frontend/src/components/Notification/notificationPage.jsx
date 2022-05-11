@@ -30,14 +30,14 @@ function NotificationPage({ setDrawer }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // ===========================================================================================
-console.log(notifications)
+  console.log(notifications);
   const classes = NotificationPageStyle();
   return (
     <Box className={classes.mainBox}>
       <Box className={classes.headingContainer}>
         <Typography className={classes.heading}>Notifications</Typography>
         <IconButton onClick={() => setDrawer(false)} aria-label="back">
-          <ArrowForwardIcon  />
+          <ArrowForwardIcon />
         </IconButton>
       </Box>
       <Box>
@@ -51,7 +51,7 @@ console.log(notifications)
               return (
                 <NotificationCard
                   data={data}
-                  key={index}
+                  key={data?.createdAt}
                   index={index}
                   setNotifications={setNotifications}
                 />

@@ -28,10 +28,9 @@ export default function DiscriptionProductDelete(props) {
   };
   // =======================================================================================================================================
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
       <Box
         sx={{
-          width: { sm: 600, xs: 320 },
+          width: { sm: 0, xs: 320 },
           backgroundColor: "white ",
           borderRadius: "7px",
         }}
@@ -66,6 +65,5 @@ export default function DiscriptionProductDelete(props) {
           </Stack>
         </Box>
       </Box>
-    </div>
   );
 }

@@ -58,3 +58,44 @@ export const PopUpElementStyle = makeStyles({
     zIndex: 2000,
   },
 });
+
+export const UploadStyle = makeStyles({
+  topBox: {
+    width: "560px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "white ",
+    borderRadius: "7px",
+    "@media(max-width:900px)": {
+      width: "480px",
+    },
+    "@media(max-width:600px)": {
+      width: "320px",
+    },
+  },
+  iconBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  closeIcon: {
+    padding: "4px",
+    margin: "4px 4px 0 0",
+  },
+  imageBox: {
+    width: "100%",
+    height: "240px",
+  },
+  image: {
+    width: "100%",
+    objectFit: "contain",
+    height: "240px",
+  },
+  typoBox: {
+    padding: "0rem 1.5rem 1.5rem",
+  },
+  typo: {
+    textAlign: "center",
+  },
+});

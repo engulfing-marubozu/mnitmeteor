@@ -19,6 +19,7 @@ import axios from "axios";
 import UploadImage from "../_formData/gettingFiles/uploadImage";
 import { sellCategories } from "../_formData/formData";
 import FormSubmission from "../ModelPopUP/onFormSubmission";
+import DataUploadingPopup from "../ModelPopUP/uploadingData";
 import {
   sellPopUp,
   LogoutUser,
@@ -45,6 +46,7 @@ function SellFormNew() {
   const [contactModel, setContactModel] = useState(false);
   const [imagearray, setimagearray] = useState([]);
   const [isOffline, setIsOffline] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
@@ -59,7 +61,7 @@ function SellFormNew() {
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
-      // const response = 
+      // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,
         { images: imagearray, details: values },
@@ -67,8 +69,16 @@ function SellFormNew() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+        },
+        {
+          onUploadProgress: (progressEvent) => {
+            let percentComplete = progressEvent.loaded / progressEvent.total;
+            percentComplete = parseInt(percentComplete * 100);
+            console.log(percentComplete);
+          },
         }
       );
+      setIsUpload(false);
       dispatch(sellPopUp(true));
       Navigate("/profile");
     } catch (err) {
@@ -97,6 +107,7 @@ function SellFormNew() {
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
               if (navigator.onLine) {
+                setIsUpload(true);
                 setFormValue(values);
                 if (!phoneNo && isLogin) {
                   setContactModel(true);
@@ -175,6 +186,7 @@ function SellFormNew() {
           </FormSubmission>
         </POPUPElement>
       )}
+      {isUpload && isLogin && <DataUploadingPopup open={isUpload} />}
     </motion.div>
   );
 }

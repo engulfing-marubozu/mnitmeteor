@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { LinkStyle } from "./linkStyle";
@@ -6,6 +6,9 @@ import { DevButton } from "./linkStyle";
 import { useNavigate } from "react-router-dom";
 function DevelopersNote() {
   const Navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
   const classes = LinkStyle();
   return (
     <Box className={classes.mainBox}>

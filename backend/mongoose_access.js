@@ -47,7 +47,7 @@ const addField = async()=>{
   });
 }
 // copyitem();
-addField();
+// addField();
 // Local port connection
 // LostItem.deleteOne({category: "Found"}).then(()=>{
 //     console.log("Deleted all LNF ");
@@ -62,3 +62,27 @@ addField();
 // Product.deleteMany({title:"fsdgsdfg"},(err,res)=>{
 //   console.log(err);
 // })
+const deleteCompleteDatabase = ()=>{
+  Thread.deleteMany().then(() => {
+  console.log("Deleted all threads ");
+}).catch((err) => {
+  console.log(err);
+})
+User.deleteMany().then(() => {
+  console.log("Deleted all users ");
+}).catch((err) => {
+  console.log(err);
+})
+Product.deleteMany().then(() => {
+  console.log("Deleted all products ");
+}).catch((err) => {
+  console.log(err);
+})
+LostItem.deleteMany().then(() => {
+  console.log("Deleted all lostitems ");
+}).catch((err) => {
+  console.log(err);
+})
+
+};
+deleteCompleteDatabase();

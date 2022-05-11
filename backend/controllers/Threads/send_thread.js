@@ -116,10 +116,20 @@ const fetch_own_threads = async (req, res) => {
   try {
     const user_id = req.user._id;
     console.log(user_id);
+
     const user = await User.findById(user_id);
+
     const user_specific_threads = await Thread.find({ posted_by: user_id, is_verified: true }).sort({ date: -1 });
     console.log(user_specific_threads);
-    const saved_threads = user.threads_saved;
+    let saved_threads;
+    try {
+      saved_threads = user.threads_saved;  
+    } catch (error) {
+      console.log("NO user, no saved threads ");
+      let i = [];
+      return res.status(200).send(i);
+    }
+    
     let saved_threads_arr = [];
     try {
       saved_threads.forEach((thread)=>{

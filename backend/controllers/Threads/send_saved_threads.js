@@ -6,9 +6,17 @@ const {User, Thread}  = require("../../Models")
 const send_saved_threads = async (req, res) => {
     console.log(req.user._id);
     user_id = req.user._id;
-    const user = await User.findById(user_id);
 
-    const saved_threads = user.threads_saved;
+    const user = await User.findById(user_id);
+    let saved_threads;
+
+    try {
+      saved_threads = user.threads_saved;  
+    } catch (error) {
+      let y=[];
+      return res.status(200).send(y);
+    }
+    
     var data;
     try {
       data = await Promise.all(
@@ -33,8 +41,9 @@ const send_saved_threads = async (req, res) => {
     } catch (error) {
       data = [];
       console.log(error);
+      return res.status(200).send(data);
     }
-    res.status(200).send(data);
+    
   };
   module.exports = { send_saved_threads };
   

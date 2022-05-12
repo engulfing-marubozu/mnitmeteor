@@ -23,7 +23,7 @@ export default function FormSubmission({ onClose, children }) {
         <img
           className={classes.image}
           src={
-            "https://res.cloudinary.com/mnitmarket/image/upload/v1652268922/Video_upload-pana_oesia1.svg"
+            ""
           }
           alt="uploadIcon"
         />

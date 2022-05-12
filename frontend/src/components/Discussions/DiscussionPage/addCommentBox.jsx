@@ -25,7 +25,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
   };
   // =============================================================================================================================================================
   const submitHandler = async () => {
-    const email = localUserData?.userData?.email.slice(0, 11);
+    const email = localUserData?.userData?.email?.split("@")[0];
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API}/add_comment`,

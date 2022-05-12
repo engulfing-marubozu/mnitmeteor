@@ -107,11 +107,11 @@ function SellFormNew() {
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
               if (navigator.onLine) {
-                setIsUpload(true);
                 setFormValue(values);
                 if (!phoneNo && isLogin) {
                   setContactModel(true);
                 } else if (phoneNo && isLogin) {
+                  setIsUpload(true);
                   merge(values);
                 }
               } else {
@@ -159,7 +159,7 @@ function SellFormNew() {
           </Formik>
         </Paper>
       </Box>
-      {contactModel && isLogin && (
+      {isLogin && contactModel && (
         <POPUPElement
           open={contactModel}
           onClose={setContactModel}
@@ -168,6 +168,7 @@ function SellFormNew() {
           <GetPhoneDetails
             flag={false}
             formData={{ merge, formValue }}
+            setIsUpload={setIsUpload}
             onClose={setContactModel}
           >
             Oops! We don’t have your phone number ☹️. Your phone number will
@@ -175,7 +176,7 @@ function SellFormNew() {
           </GetPhoneDetails>
         </POPUPElement>
       )}
-      {isOffline && isLogin && (
+      {isLogin && isOffline && (
         <POPUPElement
           open={isOffline}
           onClose={setIsOffline}
@@ -186,7 +187,7 @@ function SellFormNew() {
           </FormSubmission>
         </POPUPElement>
       )}
-      {isUpload && isLogin && <DataUploadingPopup open={isUpload} />}
+      {isLogin && isUpload && <DataUploadingPopup open={isUpload} />}
     </motion.div>
   );
 }

@@ -28,7 +28,7 @@ const admin_verification = async (req, res, next) => {
     console.log(typeof (check));
     if (check == "undefined") check = 0;
     if (check) {
-        const token = authHeader.split(' ')[1];
+        const token = authHeader?.split(' ')[1];
         console.log(token);
         const hs = await redis.get(token);
         console.log(hs);

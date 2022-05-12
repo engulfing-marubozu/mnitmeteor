@@ -12,7 +12,6 @@ function useDiscussionData(token, pointer) {
         const response = await axios.post(
           `${process.env.REACT_APP_API}/fetch_live_threads`,
            { 
-            // user_id: userId,
              token: `Bearer ${token}`,
              pointer: pointer }
         );

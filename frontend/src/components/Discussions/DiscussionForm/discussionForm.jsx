@@ -16,6 +16,7 @@ import {
 } from "../../../AStatemanagement/Actions/userActions";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
 import FormSubmission from "../../ModelPopUP/onFormSubmission";
+import DataUploadingPopup from "../../ModelPopUP/uploadingData";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = { adTitle: "", description: "", document: "" };
@@ -44,6 +45,7 @@ const FORM_VALIDATION = Yup.object().shape({
 // ======================================================================================================================================================================================================
 function DiscussionForm() {
   const [isOffline, setIsOffline] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,7 +56,7 @@ function DiscussionForm() {
 
   const sendData = async (data) => {
     try {
-      // const response = 
+      // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/create_thread`,
         {
@@ -68,6 +70,7 @@ function DiscussionForm() {
           },
         }
       );
+      setIsUpload(false);
       dispatch(forumPopUp(true));
       Navigate("/discussions/mytopics");
     } catch (err) {
@@ -105,10 +108,12 @@ function DiscussionForm() {
                   const reader = new FileReader();
                   reader.onload = () => {
                     const data = { ...values, document: reader.result };
+                    setIsUpload(true);
                     sendData(data);
                   };
                   reader.readAsDataURL(values.document);
                 } else {
+                  setIsUpload(true);
                   sendData(values);
                 }
               } else {
@@ -156,6 +161,7 @@ function DiscussionForm() {
           </FormSubmission>
         </POPUPElement>
       )}
+      {isUpload && <DataUploadingPopup open={isUpload} />}
     </motion.div>
   );
 }

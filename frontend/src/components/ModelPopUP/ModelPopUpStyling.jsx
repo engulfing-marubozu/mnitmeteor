@@ -75,8 +75,8 @@ export const UploadStyle = makeStyles({
     },
   },
   iconBox: {
+    width: "100%",
     display: "flex",
-    flexDirection: "row",
     justifyContent: "flex-end",
   },
   closeIcon: {
@@ -93,7 +93,7 @@ export const UploadStyle = makeStyles({
     height: "240px",
   },
   typoBox: {
-    padding: "0rem 1.5rem 1.5rem",
+    padding: "0rem 1rem 1rem",
   },
   typo: {
     textAlign: "center",

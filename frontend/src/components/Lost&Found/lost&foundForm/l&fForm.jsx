@@ -22,6 +22,7 @@ import {
 } from "../../../AStatemanagement/Actions/userActions";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
 import FormSubmission from "../../ModelPopUP/onFormSubmission";
+import DataUploadingPopup from "../../ModelPopUP/uploadingData";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = {
@@ -37,47 +38,48 @@ const FORM_VALIDATION = Yup.object().shape({
   images: Yup.array().notRequired(),
 });
 
-const sendLostItem = (data, localUserData, dispatch, Navigate) => {
-  axios
-    .post(
-      `${process.env.REACT_APP_API}/sendlftoadmin`,
-      {
-        categories: data.categories,
-        title: data.adTitle,
-        imgs: data.images,
-        description: data.description,
-        // posted_by: localUserData.userData._id,
-        posted_by: localUserData?.userData?.userId,
-        email: localUserData?.userData?.email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localUserData?.token}`,
-        },
-      }
-    )
-    .then(function (response) {
-      dispatch(lnfPopUp(true));
-      Navigate("/lost&found/myitems");
-    })
-    .catch(function (error) {
-      console.log(error);
-      if (error?.response?.status === 403) {
-        dispatch(LogoutUser());
-        Navigate(`/`);
-      }
-    });
-};
-
 // ======================================================================================================================================================================================================
 function LostFoundForm() {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
   const [, setimagearray] = useState([]);
   const [isOffline, setIsOffline] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
   const onDrop = (pictures) => {
     setimagearray(pictures);
+  };
+
+  const sendLostItem = (data) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/sendlftoadmin`,
+        {
+          categories: data.categories,
+          title: data.adTitle,
+          imgs: data.images,
+          description: data.description,
+          posted_by: localUserData?.userData?.userId,
+          email: localUserData?.userData?.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localUserData?.token}`,
+          },
+        }
+      )
+      .then(function (response) {
+        setIsUpload(false);
+        dispatch(lnfPopUp(true));
+        Navigate("/lost&found/myitems");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (error?.response?.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
+      });
   };
 
   // =======================================================================================================================================================================================================
@@ -99,13 +101,12 @@ function LostFoundForm() {
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
-              // dispatch(lnfPopUp(true));
               if (navigator.onLine) {
+                setIsUpload(true);
                 sendLostItem(values, localUserData, dispatch, Navigate);
               } else {
                 setIsOffline(true);
               }
-              // Navigate("/lost&found/myitems");
             }}
           >
             <Form>
@@ -157,6 +158,7 @@ function LostFoundForm() {
           </FormSubmission>
         </POPUPElement>
       )}
+      {isUpload && <DataUploadingPopup open={isUpload} />}
     </motion.div>
   );
 }

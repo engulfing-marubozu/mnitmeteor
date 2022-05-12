@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import Stack from "@mui/material/Stack";
@@ -22,7 +22,7 @@ export default function GetPhoneDetails(props) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginlogoutReducer.token);
   // ==================================================================================
-  const Navigate = useNavigate();
+  // const Navigate = useNavigate();
   const phoneNoRef = useRef();
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -49,10 +49,9 @@ export default function GetPhoneDetails(props) {
       // =========================================for sellnow page===================
 
       if (!props.flag) {
-        console.log(props.formData.formValue);
         props.formData.merge(props.formData.formValue);
         props.onClose(false);
-        // Navigate("/Profile");
+        props.setIsUpload(true);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

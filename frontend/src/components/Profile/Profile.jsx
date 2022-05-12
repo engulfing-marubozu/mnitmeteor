@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
 import ProfileContentBox from "./newProfilePage/profileContentBox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FormSubmission from "../ModelPopUP/onFormSubmission";
@@ -33,11 +32,6 @@ function Profile({ userAuthData }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <motion.div
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // exit={{ opacity: 0 }}
-      >
         <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
         {submitPopUp && isLogin && (
           <POPUPElement
@@ -50,7 +44,6 @@ function Profile({ userAuthData }) {
             </FormSubmission>
           </POPUPElement>
         )}
-      </motion.div>
     </ThemeProvider>
   );
 }

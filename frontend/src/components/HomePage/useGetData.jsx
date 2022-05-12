@@ -19,8 +19,13 @@ function useGetData(token, pointer, category) {
             category,
             token,
             pointer,
+          },{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
           }
         );
+        console.log(response.data);
         if (isSubscribed) {
           console.log(response.data);
           setData((prev) => [...prev, ...response.data]);

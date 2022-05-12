@@ -135,10 +135,14 @@ const fetch_livedata = async (req, res) => {
 
   try {
     const authHeader = req.headers.authorization;
+    console.log("home page ");
+    console.log("139 " + authHeader);
+    // console.log(authHeader.split(' ')[1]);
+
     const category = req.body.category;
     let fetch_post;
+
     const pointer = req.body.pointer;
-    //   console.log(category);
 
     if (category === "recommendation") {
 
@@ -159,33 +163,38 @@ const fetch_livedata = async (req, res) => {
       //    res.status(200).send(fetch_post);
     }
     let token;
-    if (authHeader) token = authHeader.split(' ')[1];
 
+    if (authHeader) token = authHeader.split(' ')[1];
+    else return res.status(200).send(fetch_post);
     // let verified = 0;
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
       if (err) {
         //dont display hearts 
         return res.status(200).send(fetch_post);
         //token se user kaise extract krna 
       }
-      //display hearts 
-      // const user = user;
+
       console.log(user);
-      const email = user.email;
-      const { favourites } = User.findOne({ email: email }, (err, rest) => {
-        console.log(err);
-      });
-      //  console.log(favourites);
+      const id = user._id;
+
+      let favourites;
+      const userd = await User.findById(id);
+      favourites = userd.favourites;
+      console.log("182 " + favourites);
+      console.log("184 " + fetch_post);
 
       fetch_post.forEach((post) => {
-        //   console.log(post._id);
+
+        console.log("187 " + post);
         if (favourites.indexOf(post._id) !== -1) {
+          console.log("Blued ");
           post.blue_heart = true;
+
         }
         //  console.log(post);
       });
       //     console.log(fetch_post);
-      res.status(200).send(fetch_post);
+      return res.status(200).send(fetch_post);
     });
 
 

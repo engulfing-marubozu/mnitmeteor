@@ -72,7 +72,7 @@ export default function LostFoundCard({
                 )}
                 <RWebShare
                   data={{
-                    text: `${category === "Lost" ? "" : "harshit"}`,
+                    text: `${category === "Lost" ? "Checkout this lost item!" : "Checkout this found item!"}`,
                     url: `${process.env.REACT_APP_REDIRECT}/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}

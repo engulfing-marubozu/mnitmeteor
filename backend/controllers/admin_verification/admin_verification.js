@@ -15,6 +15,19 @@ const timeConvert = (d) => {
     var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
     var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    let ss;
+    if(h){
+        if(h==23){
+            return "24 hours.";
+        }
+        return (h==1)?"an hour ":(h+ " hours.");
+    }
+    if(m){
+        return (m + "minutes.");
+    }
+    if(s){
+        return (s + " seconds." );
+    }
     return hDisplay + mDisplay + sDisplay;
 }
 const admin_verification = async (req, res, next) => {

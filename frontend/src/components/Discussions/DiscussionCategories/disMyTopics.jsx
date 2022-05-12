@@ -7,7 +7,7 @@ import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 import { useSelector, useDispatch } from "react-redux";
 import { forumPopUp } from "../../../AStatemanagement/Actions/userActions";
-import SuccessfulSubmission from "../../ModelPopUP/onFormSubmission";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
 export default function DiscussionMyTopics() {
   const [myTopics, setMyTopics] = useState();
@@ -46,7 +46,6 @@ export default function DiscussionMyTopics() {
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   // ====================================================================================
   return (
     <motion.div
@@ -83,9 +82,9 @@ export default function DiscussionMyTopics() {
           onClose={SubmitPopUpHandler}
           portelId={"portal"}
         >
-          <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            We have received your submission. It will be shown in the feed post admin approval. 
-          </SuccessfulSubmission>
+          <FormSubmission onClose={SubmitPopUpHandler}>
+            what is your name my name is dee
+          </FormSubmission>
         </POPUPElement>
       )}
     </motion.div>

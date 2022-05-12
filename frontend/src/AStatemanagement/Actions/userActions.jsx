@@ -21,6 +21,7 @@ export const AuthUser = (data = {}) => {
 export const LogoutUser = () => {
   window.localStorage.removeItem("Zuyq!jef@}#e");
   window.localStorage.removeItem("mm_user_data");
+  window.localStorage.removeItem("Bgp_pejbsv/+/&}s")
   return { type: LOGOUT_USER };
 };
 // ===============================================================
@@ -160,7 +161,7 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 // ==================================================================
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  const { token, phoneNo } = phoneData;
+  const { token, phoneNo, flag, notify } = phoneData;
   return async (dispatch) => {
     try {
       const response = await axios.post(
@@ -172,10 +173,9 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
           },
         }
       );
-      // response will be:
-      // mob!=-1, user if everything went fine in backend
-      // if mob ==-1 then error occurred backend side
-      console.log(response.data);
+      if (flag === "update") {
+        notify("Successfully Updated");
+      }
       const userAuthData = { oamp: true, xezzi: response.data?.token };
       const userData = {
         profilePic: response.data?.profile_pic,

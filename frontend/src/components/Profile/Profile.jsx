@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
 import ProfileContentBox from "./newProfilePage/profileContentBox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SuccessfulSubmission from "../ModelPopUP/onFormSubmission";
+import FormSubmission from "../ModelPopUP/onFormSubmission";
 import POPUPElement from "../ModelPopUP/POPUPElement";
 import { sellPopUp } from "../../AStatemanagement/Actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,11 +32,6 @@ function Profile({ userAuthData }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <motion.div
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // exit={{ opacity: 0 }}
-      >
         <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
         {submitPopUp && isLogin && (
           <POPUPElement
@@ -45,12 +39,11 @@ function Profile({ userAuthData }) {
             onClose={SubmitPopUpHandler}
             portelId={"portal"}
           >
-            <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            We have received your submission. It will be shown in the feed post admin approval. 
-            </SuccessfulSubmission>
+            <FormSubmission onClose={SubmitPopUpHandler}>
+              what is your name my name is deeepak
+            </FormSubmission>
           </POPUPElement>
         )}
-      </motion.div>
     </ThemeProvider>
   );
 }

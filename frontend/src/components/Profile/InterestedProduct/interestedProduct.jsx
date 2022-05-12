@@ -7,11 +7,15 @@ import axios from "axios";
 import CardForInterestedProduct from "./CardForInterestedProduct";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
 function InterestedProduct() {
   const [cardData, setCardData] = useState();
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
   const interestedList = useSelector(
@@ -32,8 +36,12 @@ function InterestedProduct() {
         if (isSubscribed) {
           setCardData(response.data);
         }
-      }catch (err) {
+      } catch (err) {
         console.log(err);
+        if (err.response.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
     call();

@@ -17,7 +17,7 @@ function useGetData(token, pointer, category) {
           `${process.env.REACT_APP_API}/fetch`,
           {
             category,
-            // email,
+            token,
             pointer,
           },{
             headers: {
@@ -27,6 +27,7 @@ function useGetData(token, pointer, category) {
         );
         console.log(response.data);
         if (isSubscribed) {
+          console.log(response.data);
           setData((prev) => [...prev, ...response.data]);
           setLoading(false);
           setHasMore(response.data.length > 0);

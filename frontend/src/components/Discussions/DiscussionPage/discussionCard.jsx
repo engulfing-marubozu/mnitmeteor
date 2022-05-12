@@ -183,8 +183,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
       setSaved(!saved);
       try {
         const thread_id = cardId;
-        // const response =
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API}/save_threads`,
           { thread_id ,flag},
           {
@@ -193,6 +192,9 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
             },
           }
         );
+        if (flag === 2) {
+          setThread(response.data);
+        }
       } catch (err) {
         console.log(err);
       }

@@ -15,7 +15,7 @@ const HandleAdmin = async (req, res) => {
   id = req.body._id;
   refID = req.body.posted_by;
   const name = req.body.name;
-  const category = reg.body.category;
+  const category = req.body.category;
   const date = new Date();
   if (approval) {
     console.log("approve ho gaya ");
@@ -113,10 +113,11 @@ const SendLost = async (req, res) => {
       return res.status(200).send("saved");
       // console.log(saveLostItem);
     } catch (error) {
+      return res.status(404).send("Error saving");
       console.log(error);
     }
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
 };
 const LostCheck = async (req, res) => {

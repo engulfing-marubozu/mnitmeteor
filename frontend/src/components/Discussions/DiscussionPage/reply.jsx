@@ -34,6 +34,7 @@ function Reply({ replyData, addReplyData, actionData, setLocalCommentData }) {
   const replyId = replyData?._id;
   const reply = replyData?.content;
   const userId = replyData?.mnit_id;
+  
   const repliedBy = replyData?.replied_by; ///replied by id
   const repliedTo = replyData?.replied_to;
   const date = new Date(replyData?.createdAt);

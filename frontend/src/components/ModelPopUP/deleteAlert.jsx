@@ -52,14 +52,14 @@ export default function ProductDeleteAlert(props) {
         <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this product 
+            Are you sure you want to delete this product
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ px: "1.5rem" }}>
-          <ModelOutlinedButton variant="outlined" onClick={handleClose}>
-            Disagree
+          <ModelOutlinedButton variant="outlined" onClick={AgreeHandler}>
+            Delete
           </ModelOutlinedButton>
-          <ModelColorButton onClick={AgreeHandler}>Agree</ModelColorButton>
+          <ModelColorButton onClick={handleClose}>Cancel</ModelColorButton>
         </DialogActions>
       </Dialog>
     </div>

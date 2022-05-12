@@ -23,7 +23,6 @@ export default function AdminLogin() {
     if (Object.keys(error).length === 0 && isSubmit) {
       const run = async () => {
         try {
-          console.log("toek " + token);
           //unicode should not be entered wrong more than 5 times
           const response = await axios.post(
             `${process.env.REACT_APP_API}/admin_verification`,
@@ -34,14 +33,12 @@ export default function AdminLogin() {
               },
             }
           );
-          console.log(response.data);
           if (response.data.code === 88) {
             setWarning(response.data.message);
           } else if (response.data.code === 403) {
             setWarning(response.data.message);
           } else if (response.data.code === 77) {
             setWarning("");
-            console.log(response.data.message);
             const cred = {
               dabirc: "5u7nJmsU.J5p3rA`c*9-",
               waox: response.data.token,

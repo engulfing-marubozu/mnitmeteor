@@ -71,11 +71,12 @@ const FetchOnlyLost = async (req, res) => {
 const FetchOnlyLostUser = async (req, res) => {
   //current user specific products here
   // const pointer = req.query.pointer;
-  console.log(req.user._id);
+  
   console.log("\n");
 
   try {
     // const ptr = req.body.pointer;
+    console.log(req.user._id);
     var data = await LostItem.find({ is_verified: true, posted_by: req.user._id }).sort({ 'createdAt': -1 });
     console.log("Reached fetched state");
     // const ldata = JSON.stringify(data);

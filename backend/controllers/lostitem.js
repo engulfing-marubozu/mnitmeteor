@@ -8,6 +8,7 @@ cloudinary.config({
 });
 //postman url to test 
 const HandleAdmin = async (req, res) => {
+  
   console.log("Admin bhai approve kro ");
   console.log(req.body);
 

@@ -86,9 +86,16 @@ const admin_response = async (req, res) => {
   console.log("reached api");
   const { id, response } = req.body;
   const data = await Product.findOne({ _id: id });
-  const user_id = await User.findById(data.posted_by);
-  const product_title = data.title;
+  let user_id; let product_title;
+  try {
+    user_id = await User.findById(data.posted_by);  
+    product_title = data.title;
 
+  } catch (error) {
+    return res.status(403).send("Please refresh the page, and try logging again.");
+  }
+  // user_id = await User.findById(data.posted_by);
+  
   try {
     if (response) {
       console.log("came to save in database");

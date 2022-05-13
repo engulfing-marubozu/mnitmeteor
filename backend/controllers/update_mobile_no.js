@@ -2,12 +2,18 @@ const {User} = require("../Models/index");
 //naya mobile no function
 const update_mobile_no = async(req,res)=>{
     const body = req.body;
-    const uid = (req.user._id);
+    let uid;
+
+    try{
+        uid = (req.user._id);
+    }catch{
+        return res.status(403).send("Issue with user login. ");
+    }
     console.log("UID is " + uid);
     console.log(body);
     const pno = body.phoneNo;
     const authHeader = req.headers.authorization;
-    if(!authHeader) console.log("Opps authheader hi nhi");
+   
     const token = authHeader.split(' ')[1];
     var comp_user = req.user;
     console.log("comp_user " + comp_user);

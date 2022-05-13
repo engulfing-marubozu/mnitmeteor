@@ -4,11 +4,17 @@ const { Product, User } = require("../Models");
 // this function will take jwt token and product _id and will update the user in product and product in user  after he/she likes any post(many to many in mongoose)
 const favourites_update= async (req, res)=>
 {  
+       
+       
+       
+       if(!(req.user) ){
+         return res.status(403).send("Issure with user authorization or product id");
+       }
        console.log(req.user._id);
        console.log(req.body.productId);
-       const user_id = req.user._id;
-       const product_id = req.body.productId;
-       const is_liked = req.body.isLiked;
+       let user_id = req.user._id;
+       let product_id = req.body.productId;
+       let is_liked = req.body.isLiked;
        let updated_user ;
        if(is_liked)
               {try{

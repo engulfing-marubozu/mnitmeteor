@@ -6,13 +6,15 @@ import LostFoundCard from "../Lost&FoundCard/L&FCard";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
 import FormSubmission from "../../ModelPopUP/onFormSubmission";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { lostFoundEmpty } from "../../_EmptySpaces/EmptySvg";
 import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
-
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 function LostFoundMyItems({ userAuthData }) {
   const [myItems, setMyItems] = useState();
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const submitPopUp = useSelector((state) => state.ModelPopUpReducer.lnfPopUp);
   // const localUserData = JSON.parse(window.localStorage.getItem("auth"));
   // const token = localUserData.token;
@@ -37,8 +39,12 @@ function LostFoundMyItems({ userAuthData }) {
         if (isSubscribed) {
           setMyItems(response.data);
         }
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
+        if (error?.response?.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     };
     axiosPosts();
@@ -83,8 +89,14 @@ function LostFoundMyItems({ userAuthData }) {
           onClose={SubmitPopUpHandler}
           portelId={"portal"}
         >
-          <FormSubmission onClose={SubmitPopUpHandler}>
-            what is your name my name is deeepak
+          <FormSubmission
+            onClose={SubmitPopUpHandler}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652280474/toadmin_ehiskp.svg"
+            }
+          >
+            Thank you for submitting lost and found item details. It will be
+            visible to community post admin's approval.
           </FormSubmission>
         </POPUPElement>
       )}

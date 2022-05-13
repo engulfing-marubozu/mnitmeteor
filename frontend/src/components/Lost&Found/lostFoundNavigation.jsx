@@ -8,14 +8,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { NavTabs, NavTab, VerticalNavTab } from "../_Styling/tabStyling";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from "../_Styling/tabStyling";
-import {useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
 
 export function LostFoundNavigation() {
   const [value, setValue] = React.useState(0);
-  // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.oamp;
+  const isLogin = useSelector((state) => state.loginlogoutReducer.isLogin);
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const isLogin = userAuthData?.oamp;
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -93,9 +93,9 @@ export function LostFoundNavigation() {
 export function LostFoundVerticalNavigation() {
   const [value, setValue] = React.useState(0);
   const classes = verticalNavigationStyle();
-  // const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.oamp;
+  const isLogin = useSelector((state) => state.loginlogoutReducer.isLogin);
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const isLogin = userAuthData?.oamp;
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();

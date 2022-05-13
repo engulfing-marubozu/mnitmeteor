@@ -40,6 +40,7 @@ function PublishedAds() {
       } catch (err) {
         console.log(err.response);
         if (err.response.status === 403) {
+          console.log("dkf");
           dispatch(LogoutUser());
           Navigate(`/`);
         }

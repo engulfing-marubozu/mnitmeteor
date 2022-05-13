@@ -169,7 +169,9 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   const comments = localCardData?.discussions.slice(0).reverse();
   const cardId = localCardData?._id;
   const commentCount = localCardData?.discussions.length;
-  const document = localCardData?.document;
+  const document = localCardData?.document?.link;
+  const documentName=localCardData?.document?.name
+
   // ============================================================================================================================
   const classes = DiscussionCardStyle();
   const likeButton = LikeButtonStyle(likeDislike);
@@ -262,7 +264,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
                   >
                     <PictureAsPdfIcon color="error" fontSize="small" />
                     <Typography noWrap className={classes.fileName}>
-                      mypdfdocument
+                      {documentName}
                     </Typography>
                   </Link>
                 </Box>

@@ -32,18 +32,24 @@ function Profile({ userAuthData }) {
 
   return (
     <ThemeProvider theme={theme}>
-        <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
-        {submitPopUp && isLogin && (
-          <POPUPElement
-            open={submitPopUp}
+      <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
+      {submitPopUp && isLogin && (
+        <POPUPElement
+          open={submitPopUp}
+          onClose={SubmitPopUpHandler}
+          portelId={"portal"}
+        >
+          <FormSubmission
             onClose={SubmitPopUpHandler}
-            portelId={"portal"}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652280474/toadmin_ehiskp.svg"
+            }
           >
-            <FormSubmission onClose={SubmitPopUpHandler}>
-              what is your name my name is deeepak
-            </FormSubmission>
-          </POPUPElement>
-        )}
+            We have received your product details. It will be shown in your
+            profile as well as feed post admin's approval.
+          </FormSubmission>
+        </POPUPElement>
+      )}
     </ThemeProvider>
   );
 }

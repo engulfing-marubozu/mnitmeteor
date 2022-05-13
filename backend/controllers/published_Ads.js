@@ -10,6 +10,7 @@ const send_published_Ads = async (req, res) => {
   user_id = req.user._id;
   const user = await User.findById(user_id);
   console.log(user);
+  if(!user) return res.status(200).send();
   const posted_products_id = user.products_posted;
   console.log(posted_products_id);
   const data = await Promise.all(

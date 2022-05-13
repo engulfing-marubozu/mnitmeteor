@@ -18,12 +18,10 @@ export const FooterStyle = makeStyles({
   },
   itemContainer: {
     display: "flex",
-    paddingBottom: "12px",
     justifyContent: "space-between",
     "@media(max-width:560px)": {
       flexDirection: "column",
       justifyContent: "flex-start",
-      // alignItems: "flex-start",
     },
   },
   linkStyle: {
@@ -33,14 +31,12 @@ export const FooterStyle = makeStyles({
     display: "inline-block",
     "@media(max-width:560px)": {
       display: "none",
-      // alignItems: "flex-start",
     },
   },
   logoSmallSrn: {
     display: "none",
     "@media(max-width:560px)": {
       display: "inline-block",
-      // alignItems: "flex-start",
     },
   },
 });

@@ -79,7 +79,7 @@ export const BackgoundBox = styled("span")(({ image }) => ({
   backgroundSize: "cover",
   opacity: "0.9",
   height: "280px",
-  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url(${image})`,
+  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url(${image})`,
 }));
 
 export const TextContainer = styled("div")({

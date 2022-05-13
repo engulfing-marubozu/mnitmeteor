@@ -94,6 +94,9 @@ export default function FetchThread() {
       }
     };
     admin_thread_load();
+    return () => {
+      isSubscribed = false;
+    };
   }, [tflag]);
 
   // =======================================================================================================

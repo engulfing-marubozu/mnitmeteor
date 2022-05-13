@@ -13,8 +13,8 @@ function Footer() {
       <Box component="footer" className={classes.itemContainer}>
         <Box>
           <a
-            href="https://forms.gle/L36CFErsQokwyjAn8"
-            rel="noreferrer" 
+            href="mailto:mnitmeteor@gmail.com"
+            rel="noreferrer"
             target="_blank"
             className={classes.linkStyle}
           >

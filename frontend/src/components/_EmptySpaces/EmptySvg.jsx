@@ -9,7 +9,7 @@ export const DiscussionEmpty = {
   },
 
   myTopics: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650877961/Hand_holding_pen-rafiki_rfel5v.svg",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652368885/blankmytopic_cd3m5g.svg",
     text: "Create  by clicking the Create Topic button.",
   },
 };
@@ -35,7 +35,7 @@ export const lostFoundEmpty = {
 };
 export const profileEmpty = {
   myAds: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650879269/product-presentation-animate_nzfkcr.svg",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652281869/product_tukyng.svg",
     text: "The ads you publish will appear here.",
   },
 
@@ -53,8 +53,8 @@ export const favouriteEmpty = {
 
 export const mainPageEmpty = {
   recommendation: {
-    svg:" ",
-    text:" ",
+    svg: " ",
+    text: " ",
   },
   books: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808352/Audiobook-pana_ytqtxn.svg",

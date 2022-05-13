@@ -5,9 +5,13 @@ import DiscussionSkeleton from "../discussionSkeleton";
 import DiscussionCard from "../DiscussionPage/discussionCard";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
-
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 function DiscussionSavedTopics() {
   const [savedTopics, setSavedTopics] = useState();
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
   useEffect(() => {
@@ -28,6 +32,10 @@ function DiscussionSavedTopics() {
         }
       } catch (err) {
         console.log(err);
+        if (err?.response?.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     };
 

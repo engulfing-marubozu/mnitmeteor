@@ -21,7 +21,7 @@ export const AuthUser = (data = {}) => {
 export const LogoutUser = () => {
   window.localStorage.removeItem("Zuyq!jef@}#e");
   window.localStorage.removeItem("mm_user_data");
-  window.localStorage.removeItem("Bgp_pejbsv/+/&}s")
+  window.localStorage.removeItem("Bgp_pejbsv/+/&}s");
   return { type: LOGOUT_USER };
 };
 // ===============================================================

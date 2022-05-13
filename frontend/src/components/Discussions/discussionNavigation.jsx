@@ -8,12 +8,14 @@ import { NavTabs, NavTab, VerticalNavTab } from "../_Styling/tabStyling";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from "../_Styling/tabStyling";
 import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export function DiscussionNavigation() {
   const [value, setValue] = React.useState(0);
-  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.oamp;
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const isLogin = userAuthData?.oamp;
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLogin = localUserData?.isLogin;
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const location = useLocation();
@@ -82,8 +84,10 @@ export function DiscussionNavigation() {
 
 export function DiscussionVerticalNavigation() {
   const classes = verticalNavigationStyle();
-  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
-  const isLogin = userAuthData?.oamp;
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const isLogin = userAuthData?.oamp;
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLogin = localUserData?.isLogin;
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
   const Navigate = useNavigate();

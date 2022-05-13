@@ -182,8 +182,14 @@ function SellFormNew() {
           onClose={setIsOffline}
           portelId={"portal"}
         >
-          <FormSubmission onClose={setIsOffline}>
-            No Internet Connection try after sometime
+          <FormSubmission
+            onClose={setIsOffline}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652281961/No_connection-amico_w156bz.svg"
+            }
+          >
+            Couldn't connect to debbie, our database. Please check all
+            connections and try again.
           </FormSubmission>
         </POPUPElement>
       )}

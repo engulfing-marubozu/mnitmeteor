@@ -40,7 +40,7 @@ const io = require("socket.io")(http, {
 // variables
 const port = 5000;
 
-// Database connection
+// Database connection..
 
 database_url = process.env.MONGODB_ATLAS;
 

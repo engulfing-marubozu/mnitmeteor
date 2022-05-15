@@ -94,7 +94,7 @@ function LostFoundForm() {
         <Paper className={classes.paperStyleSecond}>
           <Box className={classes.headingBoxSecond}>
             <Typography className={classes.headingTextSecond}>
-              Lost&Found Form
+              Add an item
             </Typography>
           </Box>
           <Formik

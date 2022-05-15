@@ -61,7 +61,7 @@ export const mainPageEmpty = {
     text: "Be the first to share wisdom. Go ahead and click the sell now button.",
   },
   cycle: {
-    text: "Ever felt you don’t need your cycle anymore? Sell It now!",
+    text: "Sell your cycle by clicking the Sell Now button!",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650809045/Couple_bicycle-pana_xjlgr5.svg",
   },
 

@@ -62,7 +62,7 @@ const sgemail = async (to_send,suc_text)=>{
 // /home/harshit/mm/backend/.env
 const send_email = async (to_send,suc_text)=>{
     remain =  await get_credits();
-    if(remain>=5){
+    if(remain<=5){
         sibemail(to_send,suc_text);
     }else{
         sgemail(to_send,suc_text);

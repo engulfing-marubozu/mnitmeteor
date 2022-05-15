@@ -49,21 +49,21 @@ export function DiscussionNavigation() {
       <NavTabs value={value} variant="scrollable" scrollButtons={false}>
         <NavTab
           icon={<ExploreIcon />}
-          label="Explore Topics"
+          label="Explore Thread"
           onClick={() => {
             TabClickHandler("");
           }}
         />
         <NavTab
           icon={<CreateIcon />}
-          label="Create New Topic"
+          label="Create Thread"
           onClick={() => {
             ResTabClickHandler("createnewtopic");
           }}
         />
-        <NavTab
+        <NavTab 
           icon={<BookmarkAddedIcon />}
-          label="Saved Topics"
+          label="Saved THREAD"
           onClick={() => {
             ResTabClickHandler("savedtopics");
           }}
@@ -124,28 +124,28 @@ export function DiscussionVerticalNavigation() {
         <NavTabs value={value} orientation="vertical">
           <VerticalNavTab
             icon={<ExploreIcon />}
-            label="Explore Topics"
+            label="Explore Threads"
             onClick={() => {
               TabClickHandler("");
             }}
           />
           <VerticalNavTab
             icon={<CreateIcon />}
-            label="Create New Topic"
+            label="Create Thread"
             onClick={() => {
               ResTabClickHandler("createnewtopic");
             }}
           />
           <VerticalNavTab
             icon={<BookmarkAddedIcon />}
-            label="Saved Topics"
+            label="Saved Threads"
             onClick={() => {
               ResTabClickHandler("savedtopics");
             }}
           />
           <VerticalNavTab
             icon={<QuestionMarkIcon />}
-            label="My Topics"
+            label="My Threads"
             onClick={() => {
               ResTabClickHandler("mytopics");
             }}

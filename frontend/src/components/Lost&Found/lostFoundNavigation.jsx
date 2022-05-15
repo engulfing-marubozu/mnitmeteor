@@ -71,13 +71,14 @@ export function LostFoundNavigation() {
         />
         <NavTab
           icon={<CreateIcon />}
-          label="Lost&Found Form"
+          label="Add an item."
           onClick={() => {
             ResTabClickHandler("lost&foundform");
           }}
         />
         <NavTab
           icon={<SearchIcon />}
+          
           label="My Items"
           onClick={() => {
             ResTabClickHandler("myitems");
@@ -152,7 +153,7 @@ export function LostFoundVerticalNavigation() {
           />
           <VerticalNavTab
             icon={<CreateIcon />}
-            label="Lost&Found Form"
+            label="Add an item"
             onClick={() => {
               ResTabClickHandler("lost&foundform");
             }}

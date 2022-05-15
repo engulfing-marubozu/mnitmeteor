@@ -132,19 +132,19 @@ function DiscussionForm() {
             <Form>
               <Box className={classes.ContentBoxSecond}>
                 <Typography className={classes.boldTextSecond}>
-                  Topic *
+                  Title *
                 </Typography>
                 <TextfieldWrapper
                   name="adTitle"
                   size="small"
-                  helperText="Mention the topic name or project name "
+                  helperText="Mention your topic or project name."
                 />
                 <Typography className={classes.boldTextSecond}>
                   Description *
                 </Typography>
                 <TextfieldWrapper
                   name="description"
-                  helperText="Describe the topic"
+                  helperText="Give a proper description."
                   multiline={true}
                   rows={4}
                 />

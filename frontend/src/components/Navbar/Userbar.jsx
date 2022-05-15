@@ -16,18 +16,19 @@ import {
   modelPopUp,
 } from "../../AStatemanagement/Actions/userActions";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NotificationPage from "../Notification/notificationPage";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
 
 function Userbar({ updateNotification, setNotificationPending }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const Navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
-
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const email = userData?.email;
+  const avatar = userData?.profilePic;
   // ======================================================= lOGIN ICON =====================================================================================
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -61,8 +62,6 @@ function Userbar({ updateNotification, setNotificationPending }) {
         <NotificationPage setDrawer={setDrawer} />
       </Drawer>
 
-      {/* {drawer&&NotificationBox} */}
-
       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
         <Tooltip title="Profile" arrow>
           <Avatar
@@ -73,7 +72,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
               color: "#263238",
               fontWeight: "bold",
             }}
-            // src={}
+            src={avatar}
           />
         </Tooltip>
       </IconButton>
@@ -113,19 +112,14 @@ function Userbar({ updateNotification, setNotificationPending }) {
         </MenuItem>
         <MenuItem
           onClick={() => {
-            const userData = JSON.parse(window.localStorage.getItem("auth"));
-            const user_id = userData?.user?.email;
-            socket.emit("log_out_socket", user_id);
+            // const userData = JSON.parse(window.localStorage.getItem("auth"));
+            // const user_id = userData?.user?.email;
+            // socket.emit("log_out_socket", user_id);
+            // window.localStorage.removeItem("auth");
+            email && socket.emit("log_out_socket", email);
             dispatch(LogoutUser());
-            window.localStorage.removeItem("auth");
             dispatch(modelPopUp(false));
-            if (
-              location.pathname !== "/" &&
-              location.pathname !== "/discussions" &&
-              location.pathname !== "/lost&found"
-            ) {
-              Navigate("/");
-            }
+            Navigate(`/`);
           }}
         >
           <LogoutIcon sx={{ fontsize: 3, mr: 1 }} />

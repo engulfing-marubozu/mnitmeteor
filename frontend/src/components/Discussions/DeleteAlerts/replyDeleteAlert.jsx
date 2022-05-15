@@ -33,7 +33,7 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
         handleClose();
         try {
             const response = await axios.post(
-                "http://localhost:5000/delete_reply",
+                `${process.env.REACT_APP_API}/delete_reply`,
                 { thread_id: replyData.cardId, comment_id: replyData.commentId, reply_id: replyData.replyId },
                 {
                     headers: {
@@ -44,7 +44,6 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
             if (mountedRef.current) {
                 setLocalCommentData(response.data);
                 // console.log(response.data);
-
             }
 
         } catch (err) {

@@ -1,82 +1,65 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Link } from "react-router-dom";
 import { FooterStyle } from "./footerStyling";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="#" sx={{ textDecoration: "none" }}>
-        Mnit Market
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import mnitmeteor from "../_Styling/Images/mnitmeteor.svg";
+import { useNavigate } from "react-router-dom";
 function Footer() {
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
   const classes = FooterStyle();
   return (
     <Box className={classes.mainBox}>
       <Box component="footer" className={classes.itemContainer}>
-        <Box className={classes.linkWrapper}>
-          <Box className={classes.linkFixer}>
-            <Typography className={classes.headingTypo}>Support</Typography>
-            <Link className={classes.linkStyle} href="#">
-              <Typography className={classes.linkTypo}>Contact us!</Typography>
-            </Link>
-            <Link className={classes.linkStyle} href="#">
-              <Typography className={classes.linkTypo}>
-                Feedback/Issues?
-              </Typography>
-            </Link>
-          </Box>
-          <Box className={classes.linkFixer}>
-            <Typography className={classes.headingTypo}>Links</Typography>
-            <Link
-              className={classes.linkStyle}
-              onClick={() => {
-                Navigate("/adminportel");
-              }}
-            >
-              <Typography className={classes.linkTypo}>Admin Panel</Typography>
-            </Link>
-            <Link className={classes.linkStyle} href="#">
-              <Typography className={classes.linkTypo}>
-                Developer Note's
-              </Typography>
-            </Link>
-          </Box>
+        <Box>
+          <a
+            href="mailto:mnitmeteor@gmail.com"
+            rel="noreferrer"
+            target="_blank"
+            className={classes.linkStyle}
+          >
+            <Typography>Feedback</Typography>
+          </a>
+          {/* <Link > */}
+          <Typography>Terms of use</Typography>
+          {/* </Link> */}
         </Box>
-        <Box className={classes.iconBox}>
-          <Box>
-            <IconButton className={classes.iconButton}>
-              <FacebookIcon className={classes.Icon} />
-            </IconButton>
-            <IconButton className={classes.iconButton}>
-              <InstagramIcon className={classes.Icon} />
-            </IconButton>
-          </Box>
-          <Box>
-            <IconButton className={classes.iconButton}>
-              <TwitterIcon className={classes.Icon} />
-            </IconButton>
-            <IconButton className={classes.iconButton}>
-              <LinkedInIcon className={classes.Icon} />
-            </IconButton>
-          </Box>
+
+        <Box
+          className={classes.logolargeSrn}
+          onClick={() => {
+            Navigate("/");
+          }}
+        >
+          <img
+            alt="Logo"
+            src={mnitmeteor}
+            variant="rounded"
+            style={{ width: "12rem" }}
+          />
+        </Box>
+        <Box>
+          <Link to="/adminportel" className={classes.linkStyle}>
+            <Typography>Admin Panel</Typography>
+          </Link>
+          <Link to="/developernotes" className={classes.linkStyle}>
+            <Typography>Developer's Note</Typography>
+          </Link>
+        </Box>
+        <Box
+          className={classes.logoSmallSrn}
+          onClick={() => {
+            Navigate("/");
+          }}
+        >
+          <img
+            alt="Logo"
+            src={mnitmeteor}
+            variant="rounded"
+            style={{ width: "12rem" }}
+          />
         </Box>
       </Box>
-      <Copyright />
     </Box>
   );
 }

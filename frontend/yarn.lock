@@ -4560,6 +4560,11 @@
   "resolved" "https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-5.1.0.tgz"
   "version" "5.1.0"
 
+"dotenv@^16.0.0":
+  "integrity" "sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-16.0.0.tgz"
+  "version" "16.0.0"
+
 "dotenv@8.2.0":
   "integrity" "sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw=="
   "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-8.2.0.tgz"
@@ -7302,6 +7307,11 @@
   dependencies:
     "array-includes" "^3.1.1"
     "object.assign" "^4.1.1"
+
+"keen-slider@^6.6.13":
+  "integrity" "sha512-kTPIhazE/6EhG7Z0d5OzweF1x7oRGS4HIoX0PdZB1kgYXuROW8vJPb0//BHIffZtQ1SzGqSWtxsWe3TgN9RtIA=="
+  "resolved" "https://registry.npmjs.org/keen-slider/-/keen-slider-6.6.13.tgz"
+  "version" "6.6.13"
 
 "killable@^1.0.1":
   "integrity" "sha512-LzqtLKlUwirEUyl/nicirVmNiPvYs7l5n8wOPP7fyJVpUPkvCnW/vuiXGpylGUlnPDnB7311rARzAt3Mhswpjg=="

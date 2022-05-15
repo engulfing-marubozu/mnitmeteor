@@ -33,12 +33,17 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
+  console.log(data);
   const [expanded, setExpanded] = React.useState(false);
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
-  const title = data?.title.charAt(0).toUpperCase() + data?.title.slice(1);
+  const title =
+    data?.title.trim().charAt(0).toUpperCase() + data?.title?.trim().slice(1);
   const userEmail = data?.users_mnit_id;
   const description = data?.description;
+  const profilePic = data?.profile_pic;
+  // const document = data?.document?.link;
+  // const documentName = data?.document?.name;
   const document = data?.document;
   // =======================================================================================
   const handleExpandClick = () => {
@@ -51,7 +56,7 @@ export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
     <Box className={classes.container}>
       <Card sx={{ width: { xs: "100%", sm: "600px" } }}>
         <CardHeader
-          avatar={<Avatar sx={{ bgcolor: "black" }} />}
+          avatar={<Avatar src={profilePic} />}
           title={userEmail}
           subheader={properDate}
         />
@@ -70,7 +75,7 @@ export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
               >
                 <PictureAsPdfIcon color="error" fontSize="small" />
                 <Typography noWrap className={classes.fileName}>
-                  mypdfdocument
+                documentName
                 </Typography>
               </Link>
             </Box>

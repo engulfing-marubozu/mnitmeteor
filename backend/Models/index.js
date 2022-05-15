@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 
 const Schema = require("mongoose").Schema;
-
+const counter_schema = new mongoose.Schema({
+  
+    current_counter: {
+      type: Number
+    }
+  
+})
 const lost_item_schema = new mongoose.Schema(
   {
     name: {
@@ -23,7 +29,10 @@ const lost_item_schema = new mongoose.Schema(
     },
     is_verified: {
       type: Boolean,
-    }
+    },
+    profile_pic: {
+      type: String,
+    },
     
   },
   {timestamps : true}
@@ -35,6 +44,10 @@ const user_schema = new mongoose.Schema(
     },
     password: {
       type: String,
+    },
+    username:{
+      type:String,
+      default:""
     },
     profile_pic: {
       type: String, //it will never be null 
@@ -131,6 +144,9 @@ const thread_schema = new mongoose.Schema(
       type: Object,
       default: null,
     },
+    profile_pic: {
+      type: String,
+    },
     is_verified: {
       type: Boolean,
       default: false,
@@ -146,6 +162,9 @@ const thread_schema = new mongoose.Schema(
     users_mnit_id: {
       type: String,
     },
+    is_saved: {
+      type: Boolean,
+    },
     title: {
       type: String,
       default: "",
@@ -155,7 +174,7 @@ const thread_schema = new mongoose.Schema(
       default: "",
     },
     document : {
-           type :String,
+           type : {},
            default : null,
     },
     discussions: {
@@ -171,6 +190,9 @@ const thread_schema = new mongoose.Schema(
           content: {
             type: String,
             default: "",
+          },
+          profile_pic: {
+            type: String,
           },
           likes: {
             type: [{type :Schema.Types.ObjectId, ref : "User" }],
@@ -213,6 +235,9 @@ const thread_schema = new mongoose.Schema(
                 createdAt: {
                   type: Date,
                 },
+                profile_pic: {
+                  type: String,
+                },
               },
             ],
             default: [],
@@ -231,4 +256,5 @@ const Product = mongoose.model("Product", products_schema);
 const User = mongoose.model("User", user_schema);
 const Thread = mongoose.model("Thread", thread_schema);
 const LostItem = mongoose.model("LostItem", lost_item_schema);
-module.exports = { User, Product, Thread,LostItem };
+const Avatar = mongoose.model("Avatar", counter_schema);
+module.exports = { User, Product, Thread,LostItem ,Avatar};

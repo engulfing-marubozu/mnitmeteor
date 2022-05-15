@@ -25,11 +25,13 @@ export const AdminInput = styled("input")({
   },
 });
 export const CodeValidator = styled("label")({
-  color: "white",
+  textAlign: "center",  
+  padding:" 0rem 1rem",
+  color: "red",
   fontSize: "14px",
   marginTop: "10px",
 });
-export const AdminloginStyle = makeStyles({
+export const AdminLoginStyle = makeStyles({
   mainBox: {
     display: "flex",
     alignItems: "center",

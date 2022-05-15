@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -8,39 +7,50 @@ import axios from "axios";
 import CardForInterestedProduct from "./CardForInterestedProduct";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
-function InterestedProduct(props) {
+function InterestedProduct() {
   const [cardData, setCardData] = useState();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const interestedList = useSelector(
     (state) => state.InterestedReducer?.interestedData
   );
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        "http://localhost:5000/send_interested_products",
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_interested_products`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setCardData(response.data);
         }
-      );
-      if (isSubscribed) {
-        setCardData(response.data);
+      } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
-
     call();
     return () => {
       return (isSubscribed = false);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interestedList]);
-  // console.log(cardData);
+
   // ====================================================================================================================================
   return (
     <motion.div

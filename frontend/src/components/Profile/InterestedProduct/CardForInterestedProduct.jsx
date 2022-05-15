@@ -1,5 +1,6 @@
 import * as React from "react";
-// import { RWebShare } from "react-web-share";
+import axios from "axios";
+import { RWebShare } from "react-web-share";
 import { motion } from "framer-motion";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
@@ -11,7 +12,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import Card from "@mui/material/Card";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch } from "react-redux";
 import { fetchInterestedActions } from "../../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import {
@@ -21,26 +22,46 @@ import {
 } from "../../_Styling/cardStyling";
 
 export default function CardForInterestedProduct({ cardData }) {
-  // console.log(cardData);
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
-    cardData.title?.charAt(1).toUpperCase() + cardData?.title.slice(1);
+    cardData.title.trim().charAt(1).toUpperCase() + cardData.title.trim().slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
   //  =========================================================================================
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const dispatch = useDispatch();
   // =========================================================================================
   const removeInteresetedHandler = () => {
-    // data to send request //
     const interestedData = { productId: cardData?._id, userToken: token };
-    dispatch(
-      fetchInterestedActions({
-        ...interestedData,
-        isInterested: false,
-      })
-    );
+    const getData = async (token) => {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/checkstatus`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data.status) {
+        alert(
+          `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
+        );
+        dispatch(
+          fetchInterestedActions({
+            ...interestedData,
+            isInterested: false,
+          })
+        );
+      } else {
+        alert(
+          `max attempts done. Please retry after ${response.data.ttl} seconds`
+        );
+      }
+    };
+    getData(token);
   };
 
   const classes = CardStyleFirst();
@@ -53,7 +74,7 @@ export default function CardForInterestedProduct({ cardData }) {
     >
       <Box className={classSec.zMainBox}>
         <Card className={classes.card}>
-          <Link to={`/ProductDiscription/${cardData?._id}`}>
+          <Link to={`/productdescription/${cardData?._id}`}>
             <CardMedia
               component="img"
               classes={{ img: classes.image }}
@@ -70,20 +91,20 @@ export default function CardForInterestedProduct({ cardData }) {
               <Typography className={classes.date}>{properDate}</Typography>
             </Box>
             <CardActions disableSpacing className={classes.cardActions}>
-              {/* <RWebShare
+              <RWebShare
               data={{
-                text: "Mnit Market",
-                url: `http://localhost:3000/ProductDiscription/${cardData._id}`,
+                text: "Checkout this cool item from mnitmeteor",
+                url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}
-            > */}
+            >
               <IconButton className={classes.iconButton}>
                 <Tooltip title="Share" arrow>
-                  <ShareIcon className={classes.Icon} />
+                  <ShareIcon className={classes.Icon}  aria-label="share"/>
                 </Tooltip>
               </IconButton>
-              {/* </RWebShare> */}
+              </RWebShare>
             </CardActions>
           </CardContentNoPadding>
         </Card>
@@ -95,7 +116,7 @@ export default function CardForInterestedProduct({ cardData }) {
             size="small"
           >
             <Tooltip title="Remove" placement="right" arrow>
-              <CloseIcon className={classSec.crossIcon} />
+              <CloseIcon className={classSec.crossIcon}  aria-label="remove"/>
             </Tooltip>
           </IconButton>
         </Box>

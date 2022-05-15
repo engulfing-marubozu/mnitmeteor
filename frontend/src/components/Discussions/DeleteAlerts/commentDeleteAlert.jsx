@@ -33,7 +33,7 @@ export default function CommentDeleteAlert({ commentData, setLocalCardData }) {
         handleClose();
         try {
             const response = await axios.post(
-                "http://localhost:5000/delete_comment",
+                `${process.env.REACT_APP_API}/delete_comment`,
                 { thread_id: commentData.cardId, comment_id: commentData.commentId },
                 {
                     headers: {

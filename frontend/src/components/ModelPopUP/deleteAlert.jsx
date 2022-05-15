@@ -19,6 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ProductDeleteAlert(props) {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.loginlogoutReducer.token);
   // ======================================================ALERT OPEN CLOSE HANDLERS ==========
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -28,7 +29,6 @@ export default function ProductDeleteAlert(props) {
     setOpen(false);
   };
   // ================================================= PUBLISHED ADS DELETE ==============--=========
-  const token = useSelector((state) => state.loginlogoutReducer.token);
   const AgreeHandler = () => {
     const productData = { token: token, productId: props.productId };
     dispatch(fetchDataForDeletingPublishedAds(productData));
@@ -52,14 +52,14 @@ export default function ProductDeleteAlert(props) {
         <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this product 
+            Are you sure you want to delete this product
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ px: "1.5rem" }}>
-          <ModelOutlinedButton variant="outlined" onClick={handleClose}>
-            Disagree
+          <ModelOutlinedButton variant="outlined" onClick={AgreeHandler}>
+            Delete
           </ModelOutlinedButton>
-          <ModelColorButton onClick={AgreeHandler}>Agree</ModelColorButton>
+          <ModelColorButton onClick={handleClose}>Cancel</ModelColorButton>
         </DialogActions>
       </Dialog>
     </div>

@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import axios from "axios"
 import RouterCon from "./components/RouterConfig/RouterCon";
 import Wrapper from "./components/RouterConfig/Wrapper";
 import { useDispatch } from "react-redux";
-import { AuthUser } from "./AStatemanagement/Actions/userActions.jsx";
+import { AuthUser, LogoutUser } from "./AStatemanagement/Actions/userActions.jsx";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
@@ -17,16 +16,8 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      'Cabin',
+      'sans-serif'
     ].join(","),
   },
 });
@@ -34,36 +25,38 @@ const theme = createTheme({
 function App() {
   //  ==================================================================================================
   const dispatch = useDispatch();
-  const local_storage_data = JSON.parse(window.localStorage.getItem("auth"))
-  console.log("app.js")
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   useEffect(() => {
- 
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/auth_token",
+          `${process.env.REACT_APP_API}/auth_token`,
           {},
           {
+
             headers: {
-              Authorization: `Bearer ${local_storage_data.token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        console.log(response.data);
         if (response.data === "authorised_user") {
-          dispatch(AuthUser(local_storage_data));
+          const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+          const data = { userData: userData, isLogin: isLogin, token: token };
+          dispatch(AuthUser(data));
         } else {
-          window.localStorage.removeItem("auth");
+          dispatch(LogoutUser());
         }
 
       } catch (err) {
         console.log(err);
       }
     }
-
-    if (local_storage_data) {
+    if (userAuthData) {
       call();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ====================================================================================================

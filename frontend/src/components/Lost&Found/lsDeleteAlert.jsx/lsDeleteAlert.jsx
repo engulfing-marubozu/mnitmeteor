@@ -40,7 +40,7 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
   const AgreeHandler = ({ id, name, flag, postedBy }) => {
     handleClose();
     axios
-      .post("http://localhost:5000/deleteLnfItem", {
+      .post(`${process.env.REACT_APP_API}/deleteLnfItem`, {
         objID: id,
         name: name,
         flag: flag,
@@ -49,7 +49,7 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
       .then(function (response) {
         if (flag === 5) {
           Navigate("/lost&found");
-        } else {
+        } else if (flag === 4) {
           setLostFound(response.data);
         }
       })

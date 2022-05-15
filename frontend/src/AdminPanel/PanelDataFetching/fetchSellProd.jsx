@@ -16,10 +16,11 @@ function FetchSellProd() {
     const ApproveRequest = async (cardData, handleClose, handleExpandClick) => {
         handleClose();
         try {
-            const response = await axios.post("http://localhost:5000/admin_response", {
+            const response = await axios.post(`${process.env.REACT_APP_API}/admin_response`, {
                 id: cardData._id,
                 response: true,
             });
+            
             if (response.data === "product approved") {
                 socket.emit("admin approve event");
                 socket.emit("admin decline/approve/interested event", cardData.posted_by);
@@ -38,11 +39,10 @@ function FetchSellProd() {
         handleClose();
         const user_id = cardData.posted_by;
         try {
-            const response = await axios.post("http://localhost:5000/admin_response", {
+            const response = await axios.post(`${process.env.REACT_APP_API}/admin_response`, {
                 id: cardData._id,
                 response: false,
             });
-            console.log(response);
             if (response.data === "product Ad request declined") {
                 socket.emit("admin decline/approve/interested event", user_id);
             }
@@ -61,7 +61,7 @@ function FetchSellProd() {
         const admin_post_load = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:5000/admin_postLoad"
+                    `${process.env.REACT_APP_API}/admin_postLoad`
                 );
                 if (isSubscribed) {
                     setSellData(response.data.data);

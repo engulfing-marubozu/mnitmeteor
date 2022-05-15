@@ -2,22 +2,40 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const app = express();
+require("dotenv").config();
 const morgan = require("morgan");
-const {User, Prodcut} = require("./Models")
+const { User, Prodcut } = require("./Models");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { connect } = require("http2");
-const http = require("http").createServer(app);
+const { Console } = require("console");
+var options = process.env.server=="http" ? {} : {
+  key  : fs.readFileSync( '/etc/letsencrypt/live/www.mnitmeteor.com/privkey.pem', 'utf8'),
+  cert : fs.readFileSync('/etc/letsencrypt/live/www.mnitmeteor.com/cert.pem', 'utf8')
+};;
+const http = require(process.env.server).createServer(options,app);
+const { Avatar } = require("./Models/index");
+
+const every = async () => {
+  const item = await new Avatar({
+    current_counter: 1,
+  });
+  try {
+    const prod = await item.save();
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(prod);
+};
 
 const io = require("socket.io")(http, {
   cors: {
-    origin: ["http://localhost:3000","http://172.18.82.44:3000"],
+    origin: "*",
     methods: ["GET", "POST"],
     allowHeaders: ["content-type"],
   },
 });
-require("dotenv").config();
 
 // variables
 const port = 5000;
@@ -25,12 +43,12 @@ const port = 5000;
 // Database connection
 
 database_url = process.env.MONGODB_ATLAS;
-console.log(database_url);
-// console.log(database_url);
+
 mongoose
   .connect(database_url)
   .then(() => {
     console.log("Connected to database ");
+    // every();
   })
   .catch((err) => {
     console.error(`Error connecting to the database. Here \n${err}`);
@@ -40,55 +58,58 @@ mongoose
 app.use(cors());
 app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyparser.json({ limit: "50mb" }));
-fs.readdirSync("./routes").map((f) => app.use("/", require(`./routes/${f}`)));
+fs.readdirSync("./routes").map((f) =>
+  app.use("/api", require(`./routes/${f}`))
+);
 
 // socket io route and connects each time you run the server
 
 const users_scoket_id = {};
 io.on("connect", (socket) => {
-    console.log("connected");
+  console.log("connected");
 
-    socket.on("initialise_user", (user_email)=>{
+  socket.on("initialise_user", (user_email) => {
     console.log("bleha");
     users_scoket_id[user_email] = socket.id;
     console.log(users_scoket_id);
-  }) 
-
+  });
 
   socket.on("admin approve event", () => {
-     console.log("rimtik ");
+    console.log("dprrhgrk ");
     socket.broadcast.emit("approve_post_update");
   });
- 
- socket.on("admin decline/approve/interested event", async (user_id) => {
-   console.log("dbvjsbvknskvn");
-   const user = await User.findById(user_id);
-  // console.log(user);
-   console.log(users_scoket_id[user.email]);
-   console.log(users_scoket_id);
-   if(users_scoket_id[user.email])
-   { console.log("mil gaya");
-    io.to(users_scoket_id[user.email]).emit("decline/approve/interesred_post_notification");
-   }
+
+  socket.on("admin decline/approve/interested event", async (user_id) => {
+    console.log("dbvjsbvknskvn");
+    const user = await User.findById(user_id);
+    // console.log(user);
+    console.log(users_scoket_id[user.email]);
+    console.log(users_scoket_id);
+    if (users_scoket_id[user.email]) {
+      console.log("mil gaya");
+      io.to(users_scoket_id[user.email]).emit(
+        "decline/approve/interesred_post_notification"
+      );
+    }
   });
-  socket.on("log_out_socket",async (user_id) => {
+  socket.on("log_out_socket", async (user_id) => {
     console.log("disconnected");
     delete users_scoket_id[user_id];
-      console.log(users_scoket_id);
+    console.log(users_scoket_id);
   });
-socket.on("disconnect", () => {
+  socket.on("disconnect", () => {
     console.log("disconnected");
-    Object.keys(users_scoket_id).forEach(key => {
-      if((users_scoket_id[key] === socket.id))
-           delete users_scoket_id[key];
-        });
-      console.log(users_scoket_id);
+    Object.keys(users_scoket_id).forEach((key) => {
+      if (users_scoket_id[key] === socket.id) delete users_scoket_id[key];
+    });
+    console.log(users_scoket_id);
   });
 });
 
 // Local port connection
+
 http.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
 
- //module.exports = {users_scoket_id,io}
+module.exports = { users_scoket_id, io };

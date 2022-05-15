@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
-import  Stack from "@mui/material/Stack";
+import Stack from "@mui/material/Stack";
 import {
   FormContainer,
   Input,
@@ -32,10 +32,11 @@ export default function UpdatePhoneNo(props) {
       const data = {
         token: token,
         phoneNo: phoneNoRef.current.value,
+        notify: props.notify,
+        flag: "update",
       };
       dispatch(fetchDataForPhoneNoAuth(data));
       props.closeUpdate();
-      props.notify("Successfully Updated");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);

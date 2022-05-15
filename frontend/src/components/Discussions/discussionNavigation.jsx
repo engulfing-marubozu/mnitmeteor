@@ -12,7 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 export function DiscussionNavigation() {
   const [value, setValue] = React.useState(0);
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const isLogin = userAuthData?.oamp;
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLogin = localUserData?.isLogin;
   const dispatch = useDispatch();
   const Navigate = useNavigate();
   const location = useLocation();
@@ -31,7 +34,7 @@ export function DiscussionNavigation() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
   function ResTabClickHandler(address) {
-    if (isLoggedIn) {
+    if (isLogin) {
       Navigate(address);
     } else {
       dispatch(modelPopUp(true));
@@ -81,7 +84,10 @@ export function DiscussionNavigation() {
 
 export function DiscussionVerticalNavigation() {
   const classes = verticalNavigationStyle();
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const isLogin = userAuthData?.oamp;
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLogin = localUserData?.isLogin;
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
   const Navigate = useNavigate();
@@ -102,7 +108,7 @@ export function DiscussionVerticalNavigation() {
   }, [location.pathname]);
 
   function ResTabClickHandler(address) {
-    if (isLoggedIn) {
+    if (isLogin) {
       Navigate(address);
     } else {
       dispatch(modelPopUp(true));
@@ -148,5 +154,4 @@ export function DiscussionVerticalNavigation() {
       </Paper>
     </Box>
   );
-  // className={classes.paperStyle}
 }

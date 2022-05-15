@@ -8,36 +8,49 @@ import axios from "axios";
 import CardForPublishedAds from "./CardForPublishedAd";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
   const [cardData, setCardData] = useState();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const publishedAdsData = useSelector(
     (state) => state.DeletePublishedAdsReducer?.publishedAdsData
   );
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        "http://localhost:5000/send_published_Ads",
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_published_Ads`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setCardData(response.data);
         }
-      );
-      if (isSubscribed) {
-        setCardData(response.data);
+      } catch (err) {
+        console.log(err.response);
+        if (err.response.status === 403) {
+          console.log("dkf");
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
     call();
     return () => {
       isSubscribed = false;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publishedAdsData]);
   console.log(cardData);
   // ===================================================================================================================================================================

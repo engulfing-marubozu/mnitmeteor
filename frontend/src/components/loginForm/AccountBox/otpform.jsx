@@ -24,7 +24,7 @@ export function Otpform(props) {
     setIsActive(true);
     try {
       const email = props.signUpDetails.email;
-      const response = await axios.post("http://localhost:5000/resendOtp", {
+      const response = await axios.post(`${process.env.REACT_APP_API}/resendOtp`, {
         email
       });
       const otp = response.data.otp;
@@ -46,7 +46,7 @@ export function Otpform(props) {
   }
   function verifyOtpHandler(event) {
     event.preventDefault();
-    console.log(otpValue);
+    // console.log(otpValue);
     setFormErrors(
       OtpValidator({ inputOtp: otpValue, realOtp: realOtp })
     );

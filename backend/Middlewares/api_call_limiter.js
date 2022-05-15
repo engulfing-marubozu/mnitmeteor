@@ -9,7 +9,7 @@ redis.connect();
 
 
 const api_call_limiter = async (req, res, next) => {
-
+//here next is the function next to middleware 
   const allowed_time_in_seconds = 100;
   req.allowed_hits = 3;
   const authHeader = req.headers.authorization;

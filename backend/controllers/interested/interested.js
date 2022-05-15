@@ -1,5 +1,5 @@
 const { Product, User } = require("../../Models");
-const { send_interested_email,} = require("../../Message_service/Sendgrid_Email/send_customised_email");
+const { send_interested_email,} = require("../../message_service/sendgrid_email/send_customised_email");
 
 // this function will take jwt token and product _id and will update the user in product and product in user  after he/she has clicked interested any post
 const interested_update= async (req, res)=>

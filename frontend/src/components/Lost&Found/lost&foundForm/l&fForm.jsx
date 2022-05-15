@@ -16,7 +16,13 @@ import * as Yup from "yup";
 import axios from "axios";
 import UploadImage from "../../_formData/gettingFiles/uploadImage";
 import { lostFoundCategories } from "../../_formData/formData";
-import { lnfPopUp } from "../../../AStatemanagement/Actions/userActions";
+import {
+  lnfPopUp,
+  LogoutUser,
+} from "../../../AStatemanagement/Actions/userActions";
+import POPUPElement from "../../ModelPopUP/POPUPElement";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
+import DataUploadingPopup from "../../ModelPopUP/uploadingData";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = {
@@ -32,40 +38,48 @@ const FORM_VALIDATION = Yup.object().shape({
   images: Yup.array().notRequired(),
 });
 
-const sendLostItem = (data, localUserData) => {
-  axios
-    .post(
-      "http://localhost:5000/sendlftoadmin",
-      {
-        categories: data.categories,
-        title: data.adTitle,
-        imgs: data.images,
-        description: data.description,
-        posted_by: localUserData.userData._id,
-        email: localUserData.userData.email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localUserData.token}`,
-        },
-      }
-    )
-    .then(function (response) {
-      // console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
-
 // ======================================================================================================================================================================================================
 function LostFoundForm() {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
   const [, setimagearray] = useState([]);
+  const [isOffline, setIsOffline] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
   const onDrop = (pictures) => {
     setimagearray(pictures);
+  };
+
+  const sendLostItem = (data) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/sendlftoadmin`,
+        {
+          categories: data.categories,
+          title: data.adTitle,
+          imgs: data.images,
+          description: data.description,
+          posted_by: localUserData?.userData?.userId,
+          email: localUserData?.userData?.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localUserData?.token}`,
+          },
+        }
+      )
+      .then(function (response) {
+        setIsUpload(false);
+        dispatch(lnfPopUp(true));
+        Navigate("/lost&found/myitems");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (error?.response?.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
+      });
   };
 
   // =======================================================================================================================================================================================================
@@ -87,9 +101,12 @@ function LostFoundForm() {
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
-              dispatch(lnfPopUp(true));
-              sendLostItem(values, localUserData);
-              Navigate("/lost&found/myitems");
+              if (navigator.onLine) {
+                setIsUpload(true);
+                sendLostItem(values, localUserData, dispatch, Navigate);
+              } else {
+                setIsOffline(true);
+              }
             }}
           >
             <Form>
@@ -130,8 +147,25 @@ function LostFoundForm() {
           </Formik>
         </Paper>
       </Box>
+      {isOffline && (
+        <POPUPElement
+          open={isOffline}
+          onClose={setIsOffline}
+          portelId={"portal"}
+        >
+          <FormSubmission
+            onClose={setIsOffline}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652281961/No_connection-amico_w156bz.svg"
+            }
+          >
+            Couldn't connect to debbie, our database. Please check all
+            connections and try again.
+          </FormSubmission>
+        </POPUPElement>
+      )}
+      {isUpload && <DataUploadingPopup open={isUpload} />}
     </motion.div>
   );
 }
-
 export default LostFoundForm;

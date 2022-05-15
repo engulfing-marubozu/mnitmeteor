@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import Tooltip from "@mui/material/Tooltip";
 import {
   ReplyButton,
   ViewRepliesButton,
@@ -43,7 +44,7 @@ const ExpandMoreReplies = styled((props) => {
   }),
 }));
 
-// ================================================================================================================================================================================
+// ====================================================================================
 function Comments({
   commentData,
   addCommentData,
@@ -55,18 +56,18 @@ function Comments({
   const [expAddCmnt, setExpAddCmt] = useState(false);
   const [expReplies, setExpReplies] = useState(false);
   const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const isLoggedIn = localUserData.isLogin;
-  const userLoggedIn = localUserData.userData._id;
+  const isLogin = localUserData?.isLogin;
+  const userLoggedIn = localUserData?.userData?.userId;
   // ========================================================================================
   const handleExpandClick = () => {
-    isLoggedIn ? setExpAddCmt(!expAddCmnt) : dispatch(modelPopUp(true));
+    isLogin ? setExpAddCmt(!expAddCmnt) : dispatch(modelPopUp(true));
   };
 
   const handleViewRepliesClick = () => {
     setExpReplies(!expReplies);
   };
-  //   ===========================================================================================================================================================================
-
+  // ==========================================================================================
+  const avatar = localCommentData?.profile_pic;
   const comment = localCommentData.content;
   const commentId = localCommentData._id;
   const userId = localCommentData.mnit_id;
@@ -76,7 +77,7 @@ function Comments({
   const replies = localCommentData?.replies?.slice(0).reverse();
   const replyCount = replies?.length;
   const addReplyData = { ...addCommentData, commentId: commentId };
-  // ===========================================================================================================================================================================
+  // =============================================================================================
   const likes = localCommentData.likes;
   const dislikes = localCommentData.dislikes;
   const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
@@ -89,7 +90,7 @@ function Comments({
   });
 
   const likeIncreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -130,7 +131,7 @@ function Comments({
     }
   };
   const likeDecreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -139,7 +140,7 @@ function Comments({
             totalCount: prev.totalCount - 1,
           };
         });
-      
+
         const data = { status: "false1", ...addReplyData };
         dispatch(actionForLikeThread(data));
       } else if (likeDislike.likeStatus && !likeDislike.dislikeStatus) {
@@ -171,11 +172,11 @@ function Comments({
     }
   };
 
-  // =====================================================================================================================================================================================
+  // ==========================================================================
   const classes = CommentReplyStyle();
   const likeButton = LikeButtonStyle(likeDislike);
 
-  // =======================================================================================================================================================================================================
+  // ===========================================================================
   return (
     <Box>
       <Box
@@ -183,7 +184,7 @@ function Comments({
       >
         <Box className={classes.topBox}>
           <Stack className={classes.topStack}>
-            <Avatar className={classes.avatarStyle} />
+            <Avatar className={classes.avatarStyle} src={avatar} />
             <Typography className={classes.usernameStyle}>{userId}</Typography>
           </Stack>
           <Typography className={classes.dateStyle}>{properDate}</Typography>
@@ -194,7 +195,9 @@ function Comments({
               className={likeButton.likeIncButton}
               onClick={likeIncreaseHandler}
             >
-              <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+              <Tooltip title="Upvote" arrow placement="left">
+                <ArrowUpwardIcon sx={{ fontSize: 15 }} />
+              </Tooltip>
             </IconButton>
             <Stack className={likeButton.likeCommentCount}>
               {Math.abs(likeDislike.totalCount)}
@@ -203,7 +206,9 @@ function Comments({
               className={likeButton.likeDecButton}
               onClick={likeDecreaseHandler}
             >
-              <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+              <Tooltip title="Downvote" arrow placement="left">
+                <ArrowDownwardIcon sx={{ fontSize: 15 }} />
+              </Tooltip>
             </IconButton>
           </Box>
           <Box className={classes.mainBox}>
@@ -219,7 +224,7 @@ function Comments({
                 </ExpandMore>
 
                 {
-                  isLoggedIn &&
+                  isLogin &&
                   (actionData.delFlag ||
                     commentedBy === actionData.userLoggedIn) ? (
                     <CommentDeleteAlert

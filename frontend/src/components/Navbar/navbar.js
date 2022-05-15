@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { styled } from "@mui/material/styles";
 import axios from 'axios'
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -6,27 +6,27 @@ import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import Stack from "@mui/material/Stack";
 import deepPurple from "@mui/material/colors/deepPurple";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
 import MenuIcon from "@mui/icons-material/Menu";
 import Userbar from "./Userbar";
 import MymenuBar from "./Categories/MenuBar";
 import NavbarTabs from "./navbarTabs";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userActions";
 import { NavbarStyle } from "./NavabarStyle";
+import mnitmeteor from "../_Styling/Images/mnitmeteor.svg"
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
-// =============================================================================================================================================================================================
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
+// ===============================================================================================================================
 
 export const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(deepPurple[500]),
+  padding: "4px 12px",
   backgroundColor: deepPurple[500],
   "&:hover": {
     backgroundColor: deepPurple[700],
@@ -36,6 +36,7 @@ export const ColorButton = styled(Button)(({ theme }) => ({
 export const OutlinedButton = styled(Button)(({ theme }) => ({
   borderColor: deepPurple[500],
   color: "inherit",
+  padding: "4px 12px",
   "&:hover": {
     backgroundColor: deepPurple[700],
     borderColor: deepPurple[700],
@@ -44,24 +45,27 @@ export const OutlinedButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-// ==========================================================================================================
+// =================================================================================================
 function Navbar() {
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
   const [postsPending, setpostPending] = useState(0);
   const [notificationPending, setNotificationPending] = useState(0);
   const [menuDrawer, setMenuDrawer] = useState(false);
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const dispatch = useDispatch();
 
-  // ===========================================================================================================
+
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const isLogin = localUserData?.isLogin;
+  const email = localUserData?.userData?.email;
+  // ================================================================================================
   const handleClick = (event) => {
     setMenuDrawer(true);
   };
   const menuClose = () => {
     setMenuDrawer(false);
   }
-  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT==================================================
+  // WINDOW SIZE DISPLAYING=======================NOT IMPORTANT======================================
   const sizeEventHandler = () => {
     setwindowWidth(window.innerWidth);
   };
@@ -71,22 +75,23 @@ function Navbar() {
       window.removeEventListener("resize", sizeEventHandler);
     };
   }, [windowWidth]);
-  // ========================================================SOCKET-IO==============================================
+  // ========================================================SOCKET-IO================================
 
   React.useEffect(() => {
-    const userData = JSON.parse(window.localStorage.getItem("auth"));
-    userData && socket.emit("initialise_user", userData?.user?.email);
-  }, []);
+    const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+    const email = userData?.email;
+    email && socket.emit("initialise_user", email);
+  }, [email]);
 
 
   React.useEffect(() => {
     const call = async () => {
       try {
-        const userData = JSON.parse(window.localStorage.getItem("auth"));
-        const token = userData?.token
+        const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+        const token = userAuthData?.xezzi;
         const response =
           await axios.post(
-            "http://localhost:5000/get_notif_alert_count",
+            `${process.env.REACT_APP_API}/get_notif_alert_count`,
             {},
             {
               headers: {
@@ -100,6 +105,7 @@ function Navbar() {
       };
     }
     call();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPending]);
 
   React.useEffect(() => {
@@ -119,7 +125,6 @@ function Navbar() {
 
 
   const classes = NavbarStyle();
-
   // ================================================================================================================
   return (
     <>
@@ -134,7 +139,7 @@ function Navbar() {
       >
         <Toolbar>
           <Box className={classes.menuIcon}>
-            <IconButton sx={{ p: 0 }} size="large" onClick={handleClick} color="inherit">
+            <IconButton sx={{ p: 0, mr: 0.5 }} size="large" onClick={handleClick} color="inherit">
               <MenuIcon />
             </IconButton>
             <Drawer
@@ -142,33 +147,25 @@ function Navbar() {
               open={menuDrawer}
               onClose={menuClose}
             >
-
               <MymenuBar menuClose={menuClose} />
             </Drawer>
 
           </Box>
           <Stack
-            alignItems={"center"}
             direction="row"
             sx={{
               flexGrow: 1,
               ml: { xs: 0, md: 1.5, lg: 6 },
             }}
           >
-            <AcUnitIcon className={classes.siteIcon} />
-            <Typography variant="h5" color="inherit" noWrap
-              sx={{
-                fontWeight: 700,
-                fontSize: { xs: "18px", md: "24px" },
-                display: { xs: "flex" },
-              }}
-              onClick={() => {
-                Navigate("/adminpanel");
-              }}
-            >
-              {windowWidth}
-              {/* MNIT Market */}
-            </Typography>
+            <Box className={classes.siteIcon}
+              onClick={() => { Navigate("/") }}>
+              <img
+                alt="Logo"
+                src={mnitmeteor}
+                style={{ width: "100%" }}
+              />
+            </Box>
           </Stack>
           {windowWidth > 600 && (
             <Stack display={{ sm: "flex" }}>
@@ -185,7 +182,7 @@ function Navbar() {
               direction="row"
               display={{ sm: "flex", xs: "none" }}
             >
-              {!isLoggedIn && (
+              {!isLogin && (
                 <OutlinedButton
                   variant="outlined"
                   sx={{
@@ -202,7 +199,7 @@ function Navbar() {
                 </OutlinedButton>
               )}
             </Stack>
-            {isLoggedIn && (
+            {isLogin && (
               <Userbar
                 updateNotification={notificationPending}
                 setNotificationPending={setNotificationPending}
@@ -216,9 +213,9 @@ function Navbar() {
               }}
               variant="contained"
               onClick={() => {
-                !isLoggedIn && dispatch(SellNowclick(true));
-                !isLoggedIn && dispatch(modelPopUp(true));
-                isLoggedIn && Navigate("/sellproduct");
+                !isLogin && dispatch(SellNowclick(true));
+                !isLogin && dispatch(modelPopUp(true));
+                isLogin && Navigate("/sellproduct");
               }}
             >
               Sell Now

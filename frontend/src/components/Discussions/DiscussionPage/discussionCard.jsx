@@ -32,7 +32,6 @@ import {
 import MessageIcon from "@mui/icons-material/Message";
 import { ExpandMore } from "./_expandMore";
 import { ViewMoreButton } from "../DiscussionStyling/discussionStyling";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { RWebShare } from "react-web-share";
 import { LikeDislikeChecker } from "./likeDislikeChecker";
@@ -40,17 +39,19 @@ import ThreadDeleteAlert from "../DeleteAlerts/threadDeletealert";
 import ReadMore from "../../_Styling/readmore";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // ================================================================================================================================================================================================================================
-function DiscussionCard({ data, setThread, flag }) {
+function DiscussionCard({ data, flag, showDelete, setThread }) {
+  // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(data?.is_saved);
   const [expanded, setExpanded] = useState(false);
   // =================================================================================================================================================================================================================================
   const dispatch = useDispatch();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const token = localUserData?.token;
-  const isLoggedIn = localUserData?.isLogin;
-  const userLoggedIn = localUserData?.userData?._id;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const userLoggedIn = userData?.userId;
   const addCommentData = {
     token: token,
     cardId: data?._id,
@@ -79,7 +80,7 @@ function DiscussionCard({ data, setThread, flag }) {
 
   // ==================================================================================================================================
   const likeIncreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -119,7 +120,7 @@ function DiscussionCard({ data, setThread, flag }) {
     }
   };
   const likeDecreaseHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!likeDislike.likeStatus && !likeDislike.dislikeStatus) {
         setLikeDislike((prev) => {
           return {
@@ -157,8 +158,9 @@ function DiscussionCard({ data, setThread, flag }) {
       dispatch(modelPopUp(true));
     }
   };
-  // ===================================================================================================================================================================================================================================
 
+  // ===================================================================================================================================================================================================================================
+  const avatar = localCardData?.profile_pic;
   const title = localCardData?.title;
   const description = localCardData?.description;
   const date = new Date(localCardData?.createdAt);
@@ -167,7 +169,9 @@ function DiscussionCard({ data, setThread, flag }) {
   const comments = localCardData?.discussions.slice(0).reverse();
   const cardId = localCardData?._id;
   const commentCount = localCardData?.discussions.length;
-  const document = localCardData?.document;
+  const document = localCardData?.document?.link;
+  const documentName=localCardData?.document?.name
+
   // ============================================================================================================================
   const classes = DiscussionCardStyle();
   const likeButton = LikeButtonStyle(likeDislike);
@@ -177,20 +181,22 @@ function DiscussionCard({ data, setThread, flag }) {
   // =============================================================================================================================
 
   const SavedHandler = async () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       setSaved(!saved);
       try {
         const thread_id = cardId;
-        // const response =
-        await axios.post(
-          "http://localhost:5000/save_threads",
-          { thread_id },
+        const response = await axios.post(
+          `${process.env.REACT_APP_API}/save_threads`,
+          { thread_id ,flag},
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+        if (flag === 2) {
+          setThread(response.data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -221,7 +227,7 @@ function DiscussionCard({ data, setThread, flag }) {
               onClick={likeIncreaseHandler}
             >
               <Tooltip title="Upvote" arrow placement="left">
-                <ArrowUpwardIcon />
+                <ArrowUpwardIcon aria-label="upvote" />
               </Tooltip>
             </IconButton>
             <Stack className={likeButton.likeCardCount}>
@@ -232,14 +238,14 @@ function DiscussionCard({ data, setThread, flag }) {
               onClick={likeDecreaseHandler}
             >
               <Tooltip title="Downvote" arrow placement="left">
-                <ArrowDownwardIcon />
+                <ArrowDownwardIcon aria-label="downvote" />
               </Tooltip>
             </IconButton>
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
             <Box sx={{ width: "94%", borderBottom: "2px  solid #757575" }}>
               <CardHeader
-                avatar={<Avatar sx={{ bgcolor: "#673ab7" }} />}
+                avatar={<Avatar src={avatar} />}
                 title={userId}
                 subheader={properDate}
                 sx={{ p: 0 }}
@@ -258,7 +264,7 @@ function DiscussionCard({ data, setThread, flag }) {
                   >
                     <PictureAsPdfIcon color="error" fontSize="small" />
                     <Typography noWrap className={classes.fileName}>
-                      mypdfdocument
+                      {documentName}
                     </Typography>
                   </Link>
                 </Box>
@@ -298,15 +304,14 @@ function DiscussionCard({ data, setThread, flag }) {
                 <IconButton onClick={SavedHandler}>
                   <Tooltip title="Save" arrow>
                     {saved ? (
-                      <BookmarkAddedIcon color="primary" />
+                      <BookmarkAddedIcon color="primary" aria-label="saved" />
                     ) : (
-                      <BookmarkAddIcon />
+                      <BookmarkAddIcon aria-label="unsaved" />
                     )}
                   </Tooltip>
                 </IconButton>
 
-                {isLoggedIn && delFlag && (
-                  // <Tooltip>
+                {isLogin && delFlag && showDelete && (
                   <ThreadDeleteAlert
                     threadData={addCommentData}
                     setThread={setThread}
@@ -315,15 +320,14 @@ function DiscussionCard({ data, setThread, flag }) {
                 )}
                 <RWebShare
                   data={{
-                    text: "Mnit Market",
-                    url: `http://localhost:3000/Discussions/${cardId}`,
+                    text: "harshit_karde_please",
+                    url: `${process.env.REACT_APP_REDIRECT}/discussions/${cardId}`,
                     title: `${title}`,
                   }}
-                  onClick={() => console.log("shared successfully!")}
                 >
                   <IconButton>
                     <Tooltip title="Share" arrow>
-                      <ShareIcon color="primary" />
+                      <ShareIcon color="primary" aria-label="share" />
                     </Tooltip>
                   </IconButton>
                 </RWebShare>
@@ -331,11 +335,14 @@ function DiscussionCard({ data, setThread, flag }) {
               <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
-                // aria-expanded={expanded}
+                aria-expanded={expanded}
               >
                 <IconButton sx={{ px: 0.5 }}>
                   <Tooltip title="Comments" arrow>
-                    <MessageIcon sx={{ color: "#673ab7" }} />
+                    <MessageIcon
+                      sx={{ color: "#673ab7" }}
+                      aria-label="comments"
+                    />
                   </Tooltip>
                 </IconButton>
               </ExpandMore>

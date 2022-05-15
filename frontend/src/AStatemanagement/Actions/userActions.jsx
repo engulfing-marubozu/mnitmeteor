@@ -7,20 +7,21 @@ import {
   SELLNOW_CLICKED,
   DELETE_PUBLISHED_ADS,
   PHONE_NUMBER_AUTH,
-  ADMIN_PANEL_MODE,
   LNF_POPUP,
   FORUM_POPUP,
   SELL_POPUP,
 } from "./types";
 import axios from "axios";
 const { io } = require("socket.io-client");
-const socket = io("http://localhost:5000", { reconnection: true });
-
+const socket = io(process.env.REACT_APP_API, { reconnection: true });
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };
 // ===============================================================
 export const LogoutUser = () => {
+  window.localStorage.removeItem("Zuyq!jef@}#e");
+  window.localStorage.removeItem("mm_user_data");
+  window.localStorage.removeItem("Bgp_pejbsv/+/&}s");
   return { type: LOGOUT_USER };
 };
 // ===============================================================
@@ -58,15 +59,6 @@ export const addToInterested = (data) => {
 };
 
 // ==================================================================
-export const AdminPanelMode = (data) => {
-  // console.log(data);
-  return {
-    type: ADMIN_PANEL_MODE,
-    payload: data,
-  };
-};
-
-// ==================================================================
 
 export const deletePublishedProduct = (data) => {
   return {
@@ -87,7 +79,7 @@ export const fetchDataForATF = (likedata) => {
     try {
       const { productId, userToken, isLiked } = likedata;
       const response = await axios.post(
-        "http://localhost:5000/favourites_update",
+        `${process.env.REACT_APP_API}/favourites_update`,
         { productId, isLiked },
         {
           headers: {
@@ -106,10 +98,10 @@ export const fetchDataForATF = (likedata) => {
 export const fetchInterestedActions = (interestedData) => {
   return async (dispatch) => {
     try {
-      const { productId, userToken,isInterested } = interestedData;
+      const { productId, userToken, isInterested } = interestedData;
       if (isInterested) {
         const response = await axios.post(
-          "http://localhost:5000/interested_update",
+          `${process.env.REACT_APP_API}/interested_update`,
           { productId, isInterested },
           {
             headers: {
@@ -117,7 +109,6 @@ export const fetchInterestedActions = (interestedData) => {
             },
           }
         );
-        // console.log(response.data);
         if (response.data.status === "success") {
           socket.emit(
             "admin decline/approve/interested event",
@@ -127,13 +118,11 @@ export const fetchInterestedActions = (interestedData) => {
             "admin decline/approve/interested event",
             response.data.buyer_id
           );
-        } else {
-          console.log("maa ka bhosda");
-          // dispatch(addToInterested(response.data.updatedUser));
         }
+        dispatch(addToInterested(response.data.updatedUser));
       } else {
         const response = await axios.post(
-          "http://localhost:5000/un_interested_update",
+          `${process.env.REACT_APP_API}/un_interested_update`,
           { productId, isInterested },
           {
             headers: {
@@ -141,19 +130,7 @@ export const fetchInterestedActions = (interestedData) => {
             },
           }
         );
-        console.log(response);
-      //   const { status, ttl_seconds, attempts_left } = response.data;
-      //   if (status) {
-      //     console.log("deepak");
-      //     console.log(response.data);
-      //     alert(
-      //       `${attempts_left} attempts left for another ${ttl_seconds} seconds`
-      //     );
-      //     setIsInterested(!interestedData);
-      //   } else {
-      //     console.log(response.data);
-      //     alert(`max attempts done. Please retry after ${ttl_seconds} seconds`);
-      //   }
+        dispatch(addToInterested(response.data.interested_buyers));
       }
     } catch (err) {
       console.log(err);
@@ -167,7 +144,7 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/delete_published_Ads",
+        `${process.env.REACT_APP_API}/delete_published_Ads`,
         { productId },
         {
           headers: {
@@ -184,27 +161,40 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
 // ==================================================================
 
 export const fetchDataForPhoneNoAuth = (phoneData) => {
-  const { token, phoneNo } = phoneData;
+  const { token, phoneNo, flag, notify } = phoneData;
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/mobile_no_update",
-        { phoneNo },
+        `${process.env.REACT_APP_API}/update_mobile_number`,
+        { phoneNo: phoneNo },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      const data = {
-        isLogin: true,
-        token: token,
-        user: response.data.user,
+      if (flag === "update") {
+        notify("Successfully Updated");
+      }
+      const userAuthData = { oamp: true, xezzi: response.data?.token };
+      const userData = {
+        profilePic: response.data?.profile_pic,
+        email: response.data?.email,
+        phoneNo: response.data?.phone_No,
+        userId: response.data?.user,
       };
-      window.localStorage.setItem("auth", JSON.stringify(data));
-      dispatch(AuthUser(data));
+      dispatch(
+        AuthUser({
+          isLogin: true,
+          token: userAuthData.xezzi,
+          userData: userData,
+        })
+      );
+      window.localStorage.setItem("Zuyq!jef@}#e", JSON.stringify(userAuthData));
+      window.localStorage.setItem("mm_user_data", JSON.stringify(userData));
     } catch (err) {
       console.log(err);
+      //send error on not updated
     }
   };
 };
@@ -214,7 +204,7 @@ export const actionForLikeThread = (likeData) => {
   return async (dispatch) => {
     try {
       await axios.post(
-        "http://localhost:5000/like_and_dislike_threads",
+        `${process.env.REACT_APP_API}/like_and_dislike_threads`,
         {
           status: likeData.status,
           comment_id: likeData.commentId,

@@ -19,18 +19,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
+    fontFamily: ["Cabin", "sans-serif"].join(","),
   },
 });
 function LostFound() {
@@ -39,6 +28,7 @@ function LostFound() {
     setwindowWidth(window.innerWidth);
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     window.addEventListener("resize", sizeEventHandler);
     return () => {
       window.removeEventListener("resize", sizeEventHandler);

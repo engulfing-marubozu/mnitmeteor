@@ -21,7 +21,7 @@ export function CreatePassword(props) {
     const { email, password } = details;
     try {
       // const response =
-       await axios.post("http://localhost:5000/signUp", { email, password });
+       await axios.post(`${process.env.REACT_APP_API}/signUp`, { email, password });
     }
     catch (err) {
       console.log(err);
@@ -32,7 +32,7 @@ export function CreatePassword(props) {
     const { email, password } = details;
     try {
       // const response = 
-      await axios.post("http://localhost:5000/resetPassword", { email, password });
+      await axios.post(`${process.env.REACT_APP_API}/resetPassword`, { email, password });
     }
     catch (err) {
       console.log(err);

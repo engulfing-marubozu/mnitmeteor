@@ -9,15 +9,15 @@ import ClearIcon from "@mui/icons-material/Clear";
 import NotificationReadMore from "./notificationReadMore";
 import { NotificationCardStyle } from "./notificationStyling";
 import { TimeSince } from "../TimeElapsed/timecalc";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 function NotificationCard({ data, index, setNotifications }) {
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const token = localUserData.token;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const DeleteHandler = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/delete_notification",
+        `${process.env.REACT_APP_API}/delete_notification`,
         { index: index },
         {
           headers: {
@@ -26,7 +26,7 @@ function NotificationCard({ data, index, setNotifications }) {
         }
       );
       setNotifications(response.data);
-      // console.log(response.data);/
+
     } catch (err) {
       console.log(err);
     }

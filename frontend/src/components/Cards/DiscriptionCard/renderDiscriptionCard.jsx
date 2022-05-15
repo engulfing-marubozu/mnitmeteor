@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import DiscriptionCard from "./discriptionCard";
-
+// import { useSelector } from "react-redux";
 export default function RenderDiscriptionCard() {
+  console.log('description')
   const [descrpData, setDescrpData] = useState();
   const Navigate = useNavigate();
   const params = useParams();
   const product_id = params.productId;
-  const userData = useSelector((state) => state.loginlogoutReducer.userData);
-  const { email, _id: userId } = userData;
+  // const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const userId = localUserData.userData?.userId;
+  // const email = localUserData.userData?.email;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const userId = userData?.userId;
+  const  email =userData?.email
   useEffect(() => {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     const call = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5000/send_specific_product",
+          `${process.env.REACT_APP_API}/send_specific_product`,
           { email, product_id }
         );
         if (isSubscribed) {

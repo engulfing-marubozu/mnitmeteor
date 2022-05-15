@@ -26,7 +26,9 @@ const new_thread = async (req, res) => {
    let  document_upload_response = null;
     if (document !== "") {
       console.log("jfgvejf")
-      document_upload_response = await cloudinary.v2.uploader.upload(document);
+      document_upload_response = await cloudinary.v2.uploader.upload(document,{ use_filename: true});
+      
+      console.log(document_upload_response);
       document_upload_response = document_upload_response.secure_url;
     }
 

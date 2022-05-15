@@ -6,7 +6,7 @@ const {Avatar} = require("../Models/index");
 async function value(){
 
     // return 4;
-    var uid = "627eaa65b9710c2f3f7f1576";
+    var uid = "62817ca403e3e34eddd1abae";
     var id;
     try {    
 

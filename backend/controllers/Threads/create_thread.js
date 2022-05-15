@@ -85,11 +85,7 @@ const handle_admin_thread = async (req, res) => {
         $addToSet: {
           notification: {
             status: 1,
-<<<<<<< HEAD
-            content: `Dear user, your thread has been approved.`,
-=======
             content: `Dear user, your thread "${title}" has been approved. We wish you find a great team.`,
->>>>>>> a161d3adf9c6a583dcaa14627241d33001e853b3
             createdAt: date,
           },
         },

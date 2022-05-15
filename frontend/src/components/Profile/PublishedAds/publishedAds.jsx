@@ -8,8 +8,10 @@ import axios from "axios";
 import CardForPublishedAds from "./CardForPublishedAd";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
   const [cardData, setCardData] = useState();
@@ -18,6 +20,8 @@ function PublishedAds() {
   const publishedAdsData = useSelector(
     (state) => state.DeletePublishedAdsReducer?.publishedAdsData
   );
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
@@ -34,7 +38,12 @@ function PublishedAds() {
           setCardData(response.data);
         }
       } catch (err) {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 403) {
+          console.log("dkf");
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
     call();

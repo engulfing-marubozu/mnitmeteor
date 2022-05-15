@@ -25,6 +25,8 @@ export const AdminInput = styled("input")({
   },
 });
 export const CodeValidator = styled("label")({
+  textAlign: "center",  
+  padding:" 0rem 1rem",
   color: "red",
   fontSize: "14px",
   marginTop: "10px",

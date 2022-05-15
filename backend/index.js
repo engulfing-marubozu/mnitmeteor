@@ -10,7 +10,11 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { connect } = require("http2");
 const { Console } = require("console");
-const http = require("http").createServer(app);
+var options = process.env.server=="http" ? {} : {
+  key  : fs.readFileSync( '/etc/letsencrypt/live/www.mnitmeteor.com/privkey.pem', 'utf8'),
+  cert : fs.readFileSync('/etc/letsencrypt/live/www.mnitmeteor.com/cert.pem', 'utf8')
+};;
+const http = require(process.env.server).createServer(options,app);
 const { Avatar } = require("./Models/index");
 
 const every = async () => {
@@ -103,6 +107,7 @@ io.on("connect", (socket) => {
 });
 
 // Local port connection
+
 http.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });

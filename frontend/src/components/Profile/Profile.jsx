@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
 import ProfileContentBox from "./newProfilePage/profileContentBox";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SuccessfulSubmission from "../ModelPopUP/onFormSubmission";
+import FormSubmission from "../ModelPopUP/onFormSubmission";
 import POPUPElement from "../ModelPopUP/POPUPElement";
 import { sellPopUp } from "../../AStatemanagement/Actions/userActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,24 +32,24 @@ function Profile({ userAuthData }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <motion.div
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // exit={{ opacity: 0 }}
-      >
-        <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
-        {submitPopUp && isLogin && (
-          <POPUPElement
-            open={submitPopUp}
+      <ProfileContentBox setSuccessPop={SubmitPopUpHandler} />
+      {submitPopUp && isLogin && (
+        <POPUPElement
+          open={submitPopUp}
+          onClose={SubmitPopUpHandler}
+          portelId={"portal"}
+        >
+          <FormSubmission
             onClose={SubmitPopUpHandler}
-            portelId={"portal"}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652280474/toadmin_ehiskp.svg"
+            }
           >
-            <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            We have received your submission. It will be shown in the feed post admin approval. 
-            </SuccessfulSubmission>
-          </POPUPElement>
-        )}
-      </motion.div>
+            We have received your product details. It will be shown in your
+            profile as well as feed post admin's approval.
+          </FormSubmission>
+        </POPUPElement>
+      )}
     </ThemeProvider>
   );
 }

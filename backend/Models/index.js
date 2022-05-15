@@ -174,7 +174,7 @@ const thread_schema = new mongoose.Schema(
       default: "",
     },
     document : {
-           type :String,
+           type : {},
            default : null,
     },
     discussions: {

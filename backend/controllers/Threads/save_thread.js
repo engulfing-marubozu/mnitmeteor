@@ -28,7 +28,7 @@ const save_threads = async (req,res)=>{
     
    } else
    {  
-      
+     
       console.log("Unsaved Thread");
       try {
         to_send =  await User.updateOne({_id : user_id}, { $pull: {threads_saved: {id : thread_id}}});  
@@ -38,16 +38,15 @@ const save_threads = async (req,res)=>{
         var to_send_data = await Promise.all(
           to_send.map(async (thread) => {
               console.log(thread.id);
-            const datee = await Thread.findById(thread.id);
-            datee.is_saved = true;
-            return datee;
+              const datee = await Thread.findById(thread.id);
+              datee.is_saved = true;
+              return datee;
           })
         );
 
         // let to_send_data = await Promise
         if(flag===2){
           console.log("flag is 2");
-
           console.log(to_send_data);
           return res.status(200).send(to_send_data);
         }

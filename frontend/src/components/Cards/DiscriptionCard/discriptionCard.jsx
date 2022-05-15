@@ -84,6 +84,30 @@ function DiscriptionCard({ descrpData, productId, userId }) {
         };
         // backend not interested vali state
         //
+        const timeConvert = (d) => {
+          d = Number(d);
+          var h = Math.floor(d / 3600);
+          var m = Math.floor(d % 3600 / 60);
+          var s = Math.floor(d % 3600 % 60);
+      
+          var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+          var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+          var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+          let ss;
+          if(h){
+              if(h==23){
+                  return "24 hours.";
+              }
+              return (h==1)?"an hour ":(h+ " hours.");
+          }
+          if(m){
+              return (m + "minutes.");
+          }
+          if(s){
+              return (s + " seconds." );
+          }
+          return hDisplay + mDisplay + sDisplay;
+      }
         const getData = async (token) => {
           //status seconds attempts left
           const response = await axios.post(
@@ -98,8 +122,9 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           console.log(response.data);
           if (response.data.status) {
             console.log("fetchdata");
+            const t = timeConvert(response.data.ttl);
             alert(
-              `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
+              `${response.data.attempts} attempts left for another ${t}`
             );
             dispatch(fetchInterestedActions(interestedData));
             setIsInterested(!isInterested);

@@ -35,9 +35,10 @@ export default function LostFoundPanel({
   const properDate = TimeSince(date);
   const itemName =
     data?.name?.trim().charAt(0).toUpperCase() + data?.name?.trim().slice(1);
-  const userEmail = data?.email?.trim().slice(0,-11);
+  const userEmail = data?.email?.trim().slice(0, -11);
   const category = data?.category;
   const description = data?.description;
+  const profilePic = data?.profile_pic;
   const images =
     data.imgs.length > 0
       ? data.imgs.map((img, index) => {
@@ -46,7 +47,6 @@ export default function LostFoundPanel({
           };
         })
       : false;
-      console.log(itemName);
   // =======================================================================================
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -58,7 +58,7 @@ export default function LostFoundPanel({
     <Box className={classes.container}>
       <Card sx={{ width: { xs: "100%", sm: "600px" } }}>
         <CardHeader
-          avatar={<Avatar sx={{ bgcolor: "black" }} />}
+          avatar={<Avatar src={profilePic} />}
           title={userEmail}
           subheader={properDate}
         />

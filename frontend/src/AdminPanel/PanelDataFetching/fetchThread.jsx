@@ -32,7 +32,6 @@ export default function FetchThread() {
       );
 
       if (response.data === "product approved") {
-        console.log("bleh");
         socket.emit("admin approve event");
         socket.emit(
           "admin decline/approve/interested event",
@@ -62,8 +61,6 @@ export default function FetchThread() {
           _id: cardData._id,
         }
       );
-      // console.log(response)
-      console.log(response);
       if (response.data === "product Ad request declined") {
         socket.emit(
           "admin decline/approve/interested event",
@@ -97,6 +94,9 @@ export default function FetchThread() {
       }
     };
     admin_thread_load();
+    return () => {
+      isSubscribed = false;
+    };
   }, [tflag]);
 
   // =======================================================================================================

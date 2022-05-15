@@ -12,13 +12,19 @@ function Footer() {
     <Box className={classes.mainBox}>
       <Box component="footer" className={classes.itemContainer}>
         <Box>
-          <Link to="/adminportel" className={classes.linkStyle}>
-            <Typography>Admin Panel</Typography>
-          </Link>
-          <Link to="/developernotes" className={classes.linkStyle}>
-            <Typography>Developer Note's</Typography>
-          </Link>
+          <a
+            href="mailto:mnitmeteor@gmail.com"
+            rel="noreferrer"
+            target="_blank"
+            className={classes.linkStyle}
+          >
+            <Typography>Feedback</Typography>
+          </a>
+          {/* <Link > */}
+          <Typography>Terms of use</Typography>
+          {/* </Link> */}
         </Box>
+
         <Box
           className={classes.logolargeSrn}
           onClick={() => {
@@ -33,12 +39,12 @@ function Footer() {
           />
         </Box>
         <Box>
-          {/* <Link> */}
-          <Typography>Feedback/Issues?</Typography>
-          {/* </Link> */}
-          {/* <Link > */}
-          <Typography>Privacy Policy</Typography>
-          {/* </Link> */}
+          <Link to="/adminportel" className={classes.linkStyle}>
+            <Typography>Admin Panel</Typography>
+          </Link>
+          <Link to="/developernotes" className={classes.linkStyle}>
+            <Typography>Developer's Note</Typography>
+          </Link>
         </Box>
         <Box
           className={classes.logoSmallSrn}

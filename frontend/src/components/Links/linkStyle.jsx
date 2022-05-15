@@ -44,6 +44,7 @@ export const LinkStyle = makeStyles({
   container: {
     display: "flex",
     flexDirection: "row",
+    margin: "5rem 0rem",
     "@media(max-width:900px)": {
       flexDirection: "column",
       alignItems: "center",
@@ -52,6 +53,7 @@ export const LinkStyle = makeStyles({
   reverseContainer: {
     display: "flex",
     flexDirection: "row",
+    margin: "5rem 0rem",
     "@media(max-width:900px)": {
       flexDirection: "column-reverse",
       alignItems: "center",
@@ -64,6 +66,7 @@ export const LinkStyle = makeStyles({
     alignItems: "flex-start",
     width: "50%",
     "@media(max-width:900px)": {
+      alignItems: "center",
       width: "480px",
     },
     "@media(max-width:520px)": {
@@ -77,6 +80,7 @@ export const LinkStyle = makeStyles({
     alignItems: "flex-end",
     width: "50%",
     "@media(max-width:900px)": {
+      alignItems: "center",
       width: "480px",
     },
     "@media(max-width:520px)": {
@@ -84,21 +88,22 @@ export const LinkStyle = makeStyles({
     },
   },
   contentBox: {
-    width: "94%",
+    width: "92%",
     fontWeight: "bold",
     fontSize: "17px",
     color: "#000000",
     margin: "1rem 0rem ",
     "@media(max-width:900px)": {
-      margin: "1rem 0rem ",
+      margin: "0.5rem 0rem ",
+      width: "96%",
     },
   },
   imageBox: {
     display: "flex",
+    justifyContent: "center",
     width: "50%",
-    height: "380px",
+    height: "360px",
     "@media(max-width:900px)": {
-      height: "360px",
       width: "480px",
       margin: "0rem 0rem",
     },
@@ -108,13 +113,14 @@ export const LinkStyle = makeStyles({
   },
   image: {
     width: "100%",
-    height: "380px",
+    height: "360px",
     objectFit: "contain",
-    "@media(max-width:900px)": {
-      height: "360px",
-    },
   },
   buttonBox: {
-    width: "94%",
+    width: "92%",
+    "@media(max-width:900px)": {
+      margin: "1rem 0rem ",
+      width: "96%",
+    },
   },
 });

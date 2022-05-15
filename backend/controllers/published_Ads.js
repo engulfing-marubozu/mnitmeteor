@@ -5,10 +5,12 @@ const {
 
 const send_published_Ads = async (req, res) => {
   console.log("deepak ");
-  console.log(req.user._id);
+  try {
+    console.log(req.user._id);
   user_id = req.user._id;
   const user = await User.findById(user_id);
   console.log(user);
+  if(!user) return res.status(200).send();
   const posted_products_id = user.products_posted;
   console.log(posted_products_id);
   const data = await Promise.all(
@@ -18,7 +20,12 @@ const send_published_Ads = async (req, res) => {
     })
   );
   console.log(data);
-  res.status(200).send(data);
+  res.status(200).send(data);  
+  } catch (error) {
+    let e = [];
+    res.status(403).send(e);
+  }
+  
 };
 
 // if any user want to delete his Ads/posted products

@@ -7,7 +7,7 @@ const status_checker = async(req,res)=>{
     let token;
     console.log("Route hit hua !");
     if(authHeader) token = authHeader.split(" ")[1];
-    else res.status(200).send("Not authenticated");
+    else return res.status(200).send("Not authenticated");
     const number_of_req = await redis.incr(token);
     var ttl = await redis.ttl(token);
     if(ttl==-1){

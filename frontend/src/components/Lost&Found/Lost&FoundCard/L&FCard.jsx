@@ -36,7 +36,7 @@ export default function LostFoundCard({
   const itemName =
     data?.name?.trim()?.charAt(0).toUpperCase() + data?.name?.trim()?.slice(1);
   const postedBy = data?.posted_by;
-  const userEmail = data?.email?.trim().slice(0, -11);
+  const userEmail = data?.email?.split("@")[0];
   const category = data?.category;
   const description = data?.description;
   const images = data?.imgs.map((img, index) => {
@@ -72,11 +72,10 @@ export default function LostFoundCard({
                 )}
                 <RWebShare
                   data={{
-                    text: `${category === "Lost" ? "" : "harshit"}`,
+                    text: `${category === "Lost" ? "Checkout this lost item!" : "Checkout this found item!"}`,
                     url: `${process.env.REACT_APP_REDIRECT}/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}
-                  onClick={() => console.log("shared successfully!")}
                 >
                   <IconButton>
                     <Tooltip title="Share" arrow placement="right">

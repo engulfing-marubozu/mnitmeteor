@@ -18,11 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ThreadDeleteAlert({
-  setThread,
-  threadData,
-  flag,
-}) {
+export default function ThreadDeleteAlert({ setThread, threadData, flag }) {
   // console.log(setPointer,setThreadDelete)
   const [open, setOpen] = useState(false);
   const mountedRef = useRef(true);
@@ -51,8 +47,8 @@ export default function ThreadDeleteAlert({
           },
         }
       );
-     if (mountedRef.current) {
-        setThread(response.data);
+      if (mountedRef.current) {
+        if (flag === 3) setThread(response.data);
       }
     } catch (err) {
       console.log(err);

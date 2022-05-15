@@ -17,8 +17,13 @@ function useGetData(token, pointer, category) {
           `${process.env.REACT_APP_API}/fetch`,
           {
             category,
-            // email,
+            token,
             pointer,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         if (isSubscribed) {

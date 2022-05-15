@@ -15,15 +15,16 @@ import UpdatePhoneNo from "./updateProfilenew";
 import { ToastContainer, toast } from "react-toastify";
 import PublishedAds from "../PublishedAds/publishedAds";
 import InterestedProduct from "../InterestedProduct/interestedProduct";
+import { useSelector } from "react-redux";
 
 function ProfileContentBox() {
   const [value, setValue] = useState(0);
   const [tabSwitch, setTabSwitch] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const notify = (value) => toast(value);
-  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const userData = useSelector((state) => state.loginlogoutReducer.userData);
   const profilePic = userData?.profilePic;
-  const userId = userData?.email?.slice(0, -11);
+  const userId = userData?.email?.split("@")[0];
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };

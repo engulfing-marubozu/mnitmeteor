@@ -12,10 +12,11 @@ import { useSelector } from "react-redux";
 function Books() {
   const [pointer, setPointer] = useState(1);
   const category = "books";
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const token = localUserData?.token;
-  // const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
-  // const email = userData?.email;
+  // const token = userAuthData?.xezzi;
+  // const token = localUserData?.token;
+  const token = userAuthData ? userAuthData?.xezzi : localUserData?.token;
   const { loading, data, hasMore } = useGetData(token, pointer, category);
 
   const observer = useRef();

@@ -6,17 +6,21 @@ import DiscussionCard from "../DiscussionPage/discussionCard";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { forumPopUp } from "../../../AStatemanagement/Actions/userActions";
-import SuccessfulSubmission from "../../ModelPopUP/onFormSubmission";
+import FormSubmission from "../../ModelPopUP/onFormSubmission";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 export default function DiscussionMyTopics() {
   const [myTopics, setMyTopics] = useState();
   const dispatch = useDispatch();
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
+  const Navigate = useNavigate();
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   const submitPopUp = useSelector(
     (state) => state.ModelPopUpReducer.forumPopUp
   );
-  const isLoggedIn = localUserData.isLogin;
   const SubmitPopUpHandler = () => {
     dispatch(forumPopUp(false));
   };
@@ -25,23 +29,30 @@ export default function DiscussionMyTopics() {
     window.scrollTo(0, 0);
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/fetch_own_threads`,
-        {
-          headers: {
-            authorization: `Bearer ${localUserData?.token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/fetch_own_threads`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setMyTopics(response.data.user_specific_threads);
         }
-      );
-      if (isSubscribed) {
-        setMyTopics(response.data.user_specific_threads);
+      } catch (err) {
+        console.log(err);
+        if (err?.response?.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
     call();
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   // ====================================================================================
   return (
     <motion.div
@@ -72,15 +83,22 @@ export default function DiscussionMyTopics() {
       ) : (
         <EmptySpace source={DiscussionEmpty.myTopics} />
       )}
-      {submitPopUp && isLoggedIn && (
+      {submitPopUp && isLogin && (
         <POPUPElement
           open={submitPopUp}
           onClose={SubmitPopUpHandler}
           portelId={"portal"}
         >
-          <SuccessfulSubmission onClose={SubmitPopUpHandler}>
-            what is your name my name is dee
-          </SuccessfulSubmission>
+          <FormSubmission
+            onClose={SubmitPopUpHandler}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652280474/toadmin_ehiskp.svg"
+            }
+          >
+            Hola! Thanks for creating new topic! To ensure that our community
+            remains a safe place, it will be verified before showing it to
+            community.
+          </FormSubmission>
         </POPUPElement>
       )}
     </motion.div>

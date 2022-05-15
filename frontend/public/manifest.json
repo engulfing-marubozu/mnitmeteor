@@ -1,25 +1,27 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "mnitmeteor",
+  "name": "mnitmeteor",
+  "description": "The only community portal of MNIT.",
   "icons": [
     {
-      "src": "Fevicon_cir.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "./favicon/logo144.svg",
+      "sizes": "144x144",
+      "type": "image/svg",
+      "purpose": "any"
     },
     {
-      "src": "Fevicon_cir.png",
-      "type": "image/png",
+      "src": "./favicon/logo192.svg",
+      "type": "image/svg",
       "sizes": "192x192"
     },
     {
-      "src": "Fevicon_cir.png",
-      "type": "image/png",
+      "src": "./favicon/logo512.svg",
+      "type": "image/svg",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#000000"
 }

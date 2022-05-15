@@ -1,5 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import useGetData from "../useGetData";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -9,13 +8,16 @@ import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import HomeCard from "../../Cards/HomeCard";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { mainPageEmpty } from "../../_EmptySpaces/EmptySvg";
+import { useSelector } from "react-redux";
 function Electronics() {
   const [pointer, setPointer] = useState(1);
   const category = "electronics";
-  const email = useSelector(
-    (state) => state.loginlogoutReducer.userData?.email
-  );
-  const { loading, data, hasMore } = useGetData(email, pointer, category);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const token = userAuthData?.xezzi;
+  // const token = localUserData?.token;
+  const token = userAuthData ? userAuthData?.xezzi : localUserData?.token;
+  const { loading, data, hasMore } = useGetData(token, pointer, category);
 
   const observer = useRef();
   const lastCardElementRef = useCallback(
@@ -33,7 +35,9 @@ function Electronics() {
     },
     [loading, hasMore]
   );
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}

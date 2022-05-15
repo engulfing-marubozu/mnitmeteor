@@ -5,11 +5,15 @@ import Box from "@mui/material/Box";
 import DiscussionSkeleton from "../discussionSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { DiscussionEmpty } from "../../_EmptySpaces/EmptySvg";
+import { useSelector } from "react-redux";
 function DiscussionCardArray() {
   const [pointer, setPointer] = useState(1);
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const userId = localUserData?.user?._id;
-  const { loading, hasMore, data } = useDiscussionData(userId, pointer);
+  // const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  // const userId = userData?.userId;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const token = userAuthData ? userAuthData?.xezzi : localUserData?.token;
+  const { loading, hasMore, data } = useDiscussionData(token, pointer);
   const observer = useRef();
   const lastCardElementRef = useCallback(
     (node) => {

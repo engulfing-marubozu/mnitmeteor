@@ -1,21 +1,21 @@
 export const DiscussionEmpty = {
   explore: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808171/Lantern-cuate_oksc2z.svg",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652273577/Exploring-pana_1_t4jdxu.svg",
     text: "Get the conversation started by clicking the create topic button.",
   },
   savedTopics: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650805862/Bookmarks-pana_ndlfbq.svg",
-    text: "Go ahead and save a topic now by clicking the heart button. ",
+    text: "Go ahead and save a topic now by clicking the  button. ",
   },
 
   myTopics: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650877961/Hand_holding_pen-rafiki_rfel5v.svg",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652368885/blankmytopic_cd3m5g.svg",
     text: "Create  by clicking the Create Topic button.",
   },
 };
 export const lostFoundEmpty = {
   explore: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808171/Lantern-cuate_oksc2z.svg",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652273577/Exploring-pana_1_t4jdxu.svg",
     text: "Lost or found an item? Add an item by using the form.",
   },
 
@@ -35,8 +35,8 @@ export const lostFoundEmpty = {
 };
 export const profileEmpty = {
   myAds: {
-    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650879269/product-presentation-animate_nzfkcr.svg",
-    text: "The ads you publish will appear here. Go ahead and publish some ads by clicking the sell now button. ",
+    svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652281869/product_tukyng.svg",
+    text: "The ads you publish will appear here.",
   },
 
   myOrders: {
@@ -47,21 +47,21 @@ export const profileEmpty = {
 export const favouriteEmpty = {
   favourite: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650804693/Followers-cuate_1_jrjmid.svg",
-    text: "No favorites yet, keep track of the things you like by clicking [heart] on home page.",
+    text: "No favorites yet, keep track of the things you like by clicking 💜 on home page.",
   },
 };
 
 export const mainPageEmpty = {
   recommendation: {
-    svg:" ",
-    text:" ",
+    svg: " ",
+    text: " ",
   },
   books: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808352/Audiobook-pana_ytqtxn.svg",
-    text: "Books can be our best friends, for all the right reasons. Help others by selling a book now by clicking the Sell Now button.",
+    text: "Be the first to share wisdom. Go ahead and click the sell now button.",
   },
   cycle: {
-    text: "Ever felt you don’t need your cycle anymore? Sell It now!",
+    text: "Sell your cycle by clicking the Sell Now button!",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650809045/Couple_bicycle-pana_xjlgr5.svg",
   },
 
@@ -75,7 +75,7 @@ export const mainPageEmpty = {
   },
 
   others: {
-    text: "others",
+    text: "Got an unconventional item to sell? Be the first!",
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650808780/Otters_swimming-amico_yuysm1.svg",
   },
 };
@@ -83,6 +83,6 @@ export const mainPageEmpty = {
 export const notificationEmpty = {
   notification: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650807515/Push_notifications-rafiki_cbzwaa.svg",
-    text: "notification ",
+    text: "Notification regarding your product's interest and admin approvals are shown here.",
   },
 };

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-function useGetData(email, pointer, category) {
-
+function useGetData(token, pointer, category) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
@@ -14,16 +13,21 @@ function useGetData(email, pointer, category) {
     let isSubscribed = true;
     const Call = async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API}/fetch`, {
-          category,
-          email,
-          pointer,
-        });
+        const response = await axios.post(
+          `${process.env.REACT_APP_API}/fetch`,
+          {
+            category,
+            token,
+            pointer,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (isSubscribed) {
-         
-          setData((prev) => {
-            return [...prev, ...response.data];
-          });
+          setData((prev) => [...prev, ...response.data]);
           setLoading(false);
           setHasMore(response.data.length > 0);
         }
@@ -34,8 +38,8 @@ function useGetData(email, pointer, category) {
     Call();
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pointer, category]);
-  return { loading, hasMore, data};
+  }, [pointer]);
+  return { loading, hasMore, data };
 }
 
 export default useGetData;

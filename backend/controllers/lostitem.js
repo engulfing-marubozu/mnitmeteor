@@ -6,12 +6,17 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
+//postman url to test 
 const HandleAdmin = async (req, res) => {
+  
   console.log("Admin bhai approve kro ");
   console.log(req.body);
+
   approval = req.body.to_approve;
   id = req.body._id;
   refID = req.body.posted_by;
+  const name = req.body.name;
+  const category = req.body.category;
   const date = new Date();
   if (approval) {
     console.log("approve ho gaya ");
@@ -29,7 +34,7 @@ const HandleAdmin = async (req, res) => {
       $addToSet: {
         notification: {
           status: 1,
-          content: `Dear user, your lost/found item has been approved.`,
+          content: `Dear User, we have approved your ${category} item "${name}". May you find it soon`,
           createdAt :date,
         },
       },
@@ -45,7 +50,7 @@ const HandleAdmin = async (req, res) => {
       $addToSet: {
         notification: {
           status: -1,
-          content: `Dear user, your lost/found item has been deleted as it did not meet our policy.`,
+          content: `Hey, unfortunately, we couldn't approve your ${category} item "${name}" due to our policy.`,
           createdAt :date,
         },
       },
@@ -106,25 +111,50 @@ const SendLost = async (req, res) => {
         $addToSet: { lf_items_posted: saveLostItem._id },
       });
       console.log("Updated user database");
+      return res.status(200).send("saved");
       // console.log(saveLostItem);
     } catch (error) {
+      return res.status(404).send("Error saving");
       console.log(error);
     }
   } catch (err) {
-    console.log(err);
+    return console.log(err);
   }
 };
 const LostCheck = async (req, res) => {
   title = req.body.title;
   description = req.body.description;
   category = req.body.categories;
+  const authHeader = req.headers.authorization;
+  console.log("Lost ");
+  // console.log(req.headers.authorization);
+  const user = authHeader.split(' ')[1];
+  let prof_pic;
+  console.log("User is ");
+  console.log(user);
+  try {
+    
+    prof_pic = await User.findById(user._id);
+    prof_pic = prof_pic.profile_pic;
+    console.log("1 "+prof_pic);
+  } catch (error) {
+    console.log(error);
+  }
+
   console.log(req.body.title);
   console.log(req.body.description);
   console.log(req.body.categories);
+  // console.log()
   email = req.body.email;
   imgs = req.body.imgs;
   refID = req.body.posted_by;
   console.log(email);
+  try {
+    prof_pic = await User.findOne({email: email});
+    prof_pic = prof_pic.profile_pic
+  } catch (error) {
+    console.log(error);
+  }
   image_cloud_links = [];
   console.log("reached cloudinary part portal to db");
   try {
@@ -157,12 +187,15 @@ const LostCheck = async (req, res) => {
       posted_by: refID,
       email: email,
       is_verified: false,
+      profile_pic: prof_pic,
       //person info bhi honi chahiye
     });
     try {
       const saveLostItem = await newLostItem.save((err,response)=>{
         console.log(response);
       });
+      return res.status(200).send("saved");
+      // const saveLostItem = 
       // await User.findByIdAndUpdate(refID, {
       //   $addToSet: {lf_items_posted: saveLostItem._id },
       // });

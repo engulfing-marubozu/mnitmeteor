@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDataForATF,
   fetchInterestedActions,
   modelPopUp,
 } from "../../../AStatemanagement/Actions/userActions";
-import { useSelector } from "react-redux";
 import ImageGallery from "react-image-gallery";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -33,14 +32,18 @@ function DiscriptionCard({ descrpData, productId, userId }) {
   const [deletePopUp, setDeletePopUp] = useState(false);
   const [isInterested, setIsInterested] = useState(descrpData?.show_interested);
   const [isAddedToFav, setIsAddedToFav] = useState(descrpData?.blue_heart);
-  // ==========================================================================================================
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  // ========================================================================================================
+  // const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  // const token = userAuthData?.xezzi;
+  // const isLogin = userAuthData?.oamp;
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  const token = localUserData?.token;
+  const isLogin = localUserData?.isLogin;
   const dispatch = useDispatch();
 
   // ========================================================LIKESTATUS=======================================
   const favouriteClickHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       setIsAddedToFav(!isAddedToFav);
       const likeData = { productId: productId, userToken: token };
       !isAddedToFav &&
@@ -69,7 +72,7 @@ function DiscriptionCard({ descrpData, productId, userId }) {
 
   // =====================================================INTERESTED================================================
   const interesetedClickHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       if (!isInterested) {
         setModelPopup(true);
       } else if (isInterested) {
@@ -81,6 +84,30 @@ function DiscriptionCard({ descrpData, productId, userId }) {
         };
         // backend not interested vali state
         //
+        const timeConvert = (d) => {
+          d = Number(d);
+          var h = Math.floor(d / 3600);
+          var m = Math.floor(d % 3600 / 60);
+          var s = Math.floor(d % 3600 % 60);
+      
+          var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+          var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+          var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+          let ss;
+          if(h){
+              if(h==23){
+                  return "24 hours.";
+              }
+              return (h==1)?"an hour ":(h+ " hours.");
+          }
+          if(m){
+              return (m + "minutes.");
+          }
+          if(s){
+              return (s + " seconds." );
+          }
+          return hDisplay + mDisplay + sDisplay;
+      }
         const getData = async (token) => {
           //status seconds attempts left
           const response = await axios.post(
@@ -95,8 +122,9 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           console.log(response.data);
           if (response.data.status) {
             console.log("fetchdata");
+            const t = timeConvert(response.data.ttl);
             alert(
-              `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
+              `${response.data.attempts} attempts left for another ${t}`
             );
             dispatch(fetchInterestedActions(interestedData));
             setIsInterested(!isInterested);
@@ -164,8 +192,9 @@ function DiscriptionCard({ descrpData, productId, userId }) {
             </Typography>
             <Stack className={classes.buttonContainer}>
               {/* =========================================INTERESTED UNINTERESTED BUTTON================================ */}
-              {isLoggedIn && userId !== postedbyId && (
+              {isLogin && userId !== postedbyId && (
                 <OutlinedButton
+                aria-label="interested/un-interested"
                   variant="outlined"
                   className={classes.buttonStyle}
                   onClick={interesetedClickHandler}
@@ -175,8 +204,9 @@ function DiscriptionCard({ descrpData, productId, userId }) {
                 </OutlinedButton>
               )}
               {/* =============================================INTERESTED BUTTON FOR NON LOGED IN USER ===================== */}
-              {!isLoggedIn && (
+              {!isLogin && (
                 <OutlinedButton
+                  aria-label="interested/un-interested"
                   variant="outlined"
                   className={classes.buttonStyle}
                   onClick={interesetedClickHandler}
@@ -187,8 +217,9 @@ function DiscriptionCard({ descrpData, productId, userId }) {
               )}
 
               {/* ========================================DELETE BUTTON FOR USER WHO POSTED THIS PRODUCT===================  */}
-              {isLoggedIn && userId === postedbyId && (
+              {isLogin && userId === postedbyId && (
                 <OutlinedButton
+                  aria-label="delete"
                   variant="outlined"
                   className={classes.buttonStyle}
                   onClick={() => {
@@ -221,7 +252,7 @@ function DiscriptionCard({ descrpData, productId, userId }) {
         </Wrapper>
       </motion.div>
       {/* ===================================================================ALERTS ===================================================== */}
-      {modelPopup && isLoggedIn && (
+      {modelPopup && isLogin && (
         <POPUPElement
           open={modelPopup}
           onClose={setModelPopup}
@@ -234,7 +265,7 @@ function DiscriptionCard({ descrpData, productId, userId }) {
           />
         </POPUPElement>
       )}
-      {contactModel && isLoggedIn && (
+      {contactModel && isLogin && (
         <POPUPElement
           open={contactModel}
           onClose={setContactModel}
@@ -251,7 +282,7 @@ function DiscriptionCard({ descrpData, productId, userId }) {
         </POPUPElement>
       )}
 
-      {deletePopUp && isLoggedIn && (
+      {deletePopUp && isLogin && (
         <POPUPElement
           open={deletePopUp}
           onClose={setDeletePopUp}

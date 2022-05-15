@@ -46,7 +46,7 @@ export function Otpform(props) {
   }
   function verifyOtpHandler(event) {
     event.preventDefault();
-    console.log(otpValue);
+    // console.log(otpValue);
     setFormErrors(
       OtpValidator({ inputOtp: otpValue, realOtp: realOtp })
     );

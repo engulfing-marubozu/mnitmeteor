@@ -14,7 +14,7 @@ export default function FetchThread() {
     };
   }, []);
 
-  // ====================================================================================
+  // ==============================================================================
   const ApproveRequestThread = async (
     cardData,
     handleClose,
@@ -32,7 +32,6 @@ export default function FetchThread() {
       );
 
       if (response.data === "product approved") {
-        console.log("bleh");
         socket.emit("admin approve event");
         socket.emit(
           "admin decline/approve/interested event",
@@ -62,8 +61,6 @@ export default function FetchThread() {
           _id: cardData._id,
         }
       );
-      // console.log(response)
-      console.log(response);
       if (response.data === "product Ad request declined") {
         socket.emit(
           "admin decline/approve/interested event",
@@ -81,7 +78,7 @@ export default function FetchThread() {
   // lf get code: `${process.env.REACT_APP_API}/sendfalseitems"
   // post code ${process.env.REACT_APP_API}/adminresponse
 
-  // =======================================================================================================
+  // ===================================================================================================
   useEffect(() => {
     let isSubscribed = true;
     const admin_thread_load = async () => {
@@ -97,9 +94,12 @@ export default function FetchThread() {
       }
     };
     admin_thread_load();
+    return () => {
+      isSubscribed = false;
+    };
   }, [tflag]);
 
-  // ==========================================================================================================
+  // =======================================================================================================
   return (
     <>
       {threadData &&

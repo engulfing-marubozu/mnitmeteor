@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -7,38 +7,50 @@ import axios from "axios";
 import CardForInterestedProduct from "./CardForInterestedProduct";
 import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 
-function InterestedProduct(props) {
+function InterestedProduct() {
   const [cardData, setCardData] = useState();
-  const  [deleted,setDeleted]=useState(1);
-  const localUserData = JSON.parse(window.localStorage.getItem("auth"));
-  const token = localUserData.token;
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const interestedList = useSelector(
+    (state) => state.InterestedReducer?.interestedData
+  );
   useEffect(() => {
     let isSubscribed = true;
     async function call() {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/send_interested_products`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/send_interested_products`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (isSubscribed) {
+          setCardData(response.data);
         }
-      );
-      if (isSubscribed) {
-        console.log(response.data);
-        setCardData(response.data);
+      } catch (err) {
+        console.log(err);
+        if (err.response.status === 403) {
+          dispatch(LogoutUser());
+          Navigate(`/`);
+        }
       }
     }
-console.log(deleted);
     call();
     return () => {
       return (isSubscribed = false);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleted]);
-  // console.log(cardData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [interestedList]);
+
   // ====================================================================================================================================
   return (
     <motion.div
@@ -62,7 +74,7 @@ console.log(deleted);
                 if (data !== null) {
                   return (
                     <Grid item xs={6} md={4} key={data._id}>
-                      <CardForInterestedProduct cardData={data} setDeleted={setDeleted} />
+                      <CardForInterestedProduct cardData={data} />
                     </Grid>
                   );
                 } else return null;

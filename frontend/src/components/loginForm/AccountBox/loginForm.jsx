@@ -46,11 +46,30 @@ export function LoginForm(props) {
         notify("Email is not registered");
       } else {
         //    OPEN NEW PAGE WITH USER INFO ==============================
-        dispatch(AuthUser(response.data));
-        const localStorageData = { ...response.data, isLogin: true };
-        window.localStorage.setItem("auth", JSON.stringify(localStorageData));
-        const userData = await JSON.parse(window.localStorage.getItem("auth"));
-        userData && socket.emit("initialise_user", userData.user.email);
+        //change the statemanagement data according to backend data ----
+        // ===========================New =============
+        const userAuthData = { oamp: true, xezzi: response.data?.token };
+        const userData = {
+          profilePic:response.data?.profile_pic,
+          email: response.data?.email,
+          phoneNo: response.data?.phone_No,
+          userId: response.data?.user,
+        };
+        dispatch(
+          AuthUser({ isLogin: true, token: userAuthData.xezzi, userData: userData })
+        );
+
+        window.localStorage.setItem(
+          "Zuyq!jef@}#e",
+          JSON.stringify(userAuthData)
+        );
+        window.localStorage.setItem("mm_user_data", JSON.stringify(userData));
+        // =======================================================================
+        // const localStorageData = { ...response.data, isLogin: true };
+        // window.localStorage.setItem("auth", JSON.stringify(localStorageData));
+        // const userData = await JSON.parse(window.localStorage.getItem("auth"));
+        // userData && socket.emit("initialise_user", userData.user.email);
+        userData && socket.emit("initialise_user", userData?.email);
         isSellNowClicked && Navigate("sellproduct");
       }
     } catch (err) {
@@ -78,7 +97,7 @@ export function LoginForm(props) {
 
   return (
     <BoxContainer>
-      <FormContainer onSubmit={submitHandler} >
+      <FormContainer onSubmit={submitHandler}>
         <Input
           autoFocus={true}
           type="email"
@@ -107,9 +126,7 @@ export function LoginForm(props) {
           Forget your password ?
         </MutedLink>
         <Marginer direction="vertical" margin="0.8rem" />
-        <SubmitButton type="submit">
-          Signin
-        </SubmitButton>
+        <SubmitButton type="submit">Signin</SubmitButton>
       </FormContainer>
       <Marginer direction="vertical" margin="0.5rem" />
       <MutedText style={{ fontSize: "11px" }}>

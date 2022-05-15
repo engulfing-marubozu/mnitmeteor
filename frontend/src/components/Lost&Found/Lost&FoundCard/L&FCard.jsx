@@ -14,7 +14,7 @@ import ImageGallery from "react-image-gallery";
 import { LostFoundCardStyle } from "./LostFoundStyling";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import "./l&fImageStyle.css";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { RWebShare } from "react-web-share";
 import LostFoundDeleteAlert from "../lsDeleteAlert.jsx/lsDeleteAlert";
 import ReadMore from "../../_Styling/readmore";
@@ -25,14 +25,18 @@ export default function LostFoundCard({
   setLostFound,
   showDelete,
 }) {
-  // console.log(data);
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const userLoggedIn = localUserData?.userData._id;
+  // const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const userLoggedIn = localUserData?.userData._id;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const userLoggedIn = userData?.userId;
+
+  const avatar = data?.profile_pic;
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
-  const itemName = data?.name?.charAt(0).toUpperCase() + data?.name?.slice(1);
+  const itemName =
+    data?.name?.trim()?.charAt(0).toUpperCase() + data?.name?.trim()?.slice(1);
   const postedBy = data?.posted_by;
-  const userEmail = data?.email?.slice(0, 11);
+  const userEmail = data?.email?.split("@")[0];
   const category = data?.category;
   const description = data?.description;
   const images = data?.imgs.map((img, index) => {
@@ -52,28 +56,26 @@ export default function LostFoundCard({
       <Box className={classes.lfcontainer}>
         <Card className={classes.lfpaperStyle}>
           <CardHeader
-            avatar={<Avatar sx={{ bgcolor: "black" }} />}
+            avatar={<Avatar src={avatar} />}
             action={
               <Box>
-                {postedBy === userLoggedIn &&
-                  showDelete && (
-                    <LostFoundDeleteAlert
-                      deleteData={{
-                        id: data._id,
-                        name: data.name,
-                        flag: flag,
-                        postedBy: postedBy,
-                      }}
-                      setLostFound={setLostFound}
-                    />
-                  )}
+                {postedBy === userLoggedIn && showDelete && (
+                  <LostFoundDeleteAlert
+                    deleteData={{
+                      id: data._id,
+                      name: data.name,
+                      flag: flag,
+                      postedBy: postedBy,
+                    }}
+                    setLostFound={setLostFound}
+                  />
+                )}
                 <RWebShare
                   data={{
-                    text: "Mnit Market",
-                    url: `${process.env.REACT_APP_API}/lost&found/${data._id}`,
+                    text: `${category === "Lost" ? "Checkout this lost item!" : "Checkout this found item!"}`,
+                    url: `${process.env.REACT_APP_REDIRECT}/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}
-                  onClick={() => console.log("shared successfully!")}
                 >
                   <IconButton>
                     <Tooltip title="Share" arrow placement="right">

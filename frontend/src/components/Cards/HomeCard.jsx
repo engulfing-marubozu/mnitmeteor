@@ -11,7 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   modelPopUp,
   fetchDataForATF,
@@ -32,8 +32,9 @@ export default function HomeCard({ cardData, index }) {
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
   //  ============================================================================================
-  const isLoggedIn = useSelector((state) => state.loginlogoutReducer.isLogin);
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   const dispatch = useDispatch();
   // ==============================================================================================
 
@@ -43,7 +44,7 @@ export default function HomeCard({ cardData, index }) {
   }, [cardData.blue_heart]);
 
   const LikeButtonHandler = () => {
-    if (isLoggedIn) {
+    if (isLogin) {
       // console.log(token);
       setLikeButton(!likeButton);
       const likeData = { productId: cardData._id, userToken: token };
@@ -55,7 +56,6 @@ export default function HomeCard({ cardData, index }) {
   };
   const classes = CardStyleFirst();
   const classSec = CardStyleSecond();
-
   // ===================================================================================================================================
   return (
     <motion.div
@@ -87,8 +87,9 @@ export default function HomeCard({ cardData, index }) {
               onClick={LikeButtonHandler}
               sx={{
                 p: "0.25rem",
-                color: likeButton && isLoggedIn ? "#512da8" : "text.disabled",
+                color: likeButton && isLogin ? "#512da8" : "text.disabled",
               }}
+              aria-label="add to favorites"
             >
               <Tooltip title="Add to Favourites" arrow>
                 <FavoriteIcon className={classes.Icon} />
@@ -96,13 +97,12 @@ export default function HomeCard({ cardData, index }) {
             </IconButton>
             <RWebShare
               data={{
-                text: "Mnit Market",
-                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
+                text: "Checkout this cool item from mnitmeteor",
+                url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
                 title: `${title}`,
               }}
-              onClick={() => console.log("shared successfully!")}
             >
-              <IconButton className={classes.iconButton}>
+              <IconButton className={classes.iconButton} aria-label="share">
                 <Tooltip title="Share" arrow>
                   <ShareIcon className={classes.Icon} />
                 </Tooltip>
@@ -111,6 +111,6 @@ export default function HomeCard({ cardData, index }) {
           </CardActions>
         </CardContentNoPadding>
       </HoverCard>
-     </motion.div>
+    </motion.div>
   );
 }

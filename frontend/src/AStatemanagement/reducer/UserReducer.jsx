@@ -7,9 +7,7 @@ import {
   MODEL_POPUP,
   PHONE_NUMBER_AUTH,
   SELLNOW_CLICKED,
-  DELETE_LF_ITEMS,
   LIKE_THREAD,
-  ADMIN_PANEL_MODE,
   FORUM_POPUP,
   LNF_POPUP,
   SELL_POPUP,
@@ -27,7 +25,7 @@ export const loginlogoutReducer = (state = InitialState, action) => {
       return {
         ...state,
         isLogin: true,
-        userData: action.payload.user,
+        userData: action.payload.userData,
         token: action.payload.token,
       };
 
@@ -88,7 +86,7 @@ export const InterestedReducer = (state = interestedInitialValue, action) => {
     case ADD_TO_INTERESTED:
       return {
         ...state,
-        interestedData: action.payload.updatedUser,
+        interestedData: action.payload,
       };
     default:
       return state;
@@ -110,20 +108,7 @@ export const DeletePublishedAdsReducer = (
       return state;
   }
 };
-// ============================================================================================
-const lfInitialState = {};
-export const lfDeleteReducer = (state = lfInitialState, action) => {
-  switch (action.type) {
-    case DELETE_LF_ITEMS:
-      return {
-        ...state,
-        lfItemPosted: action.payload,
-      };
-    default: {
-      return state;
-    }
-  }
-};
+
 // ============================================================================================
 const likeThreadInitialState = {};
 export const likeThread = (state = likeThreadInitialState, action) => {
@@ -145,21 +130,7 @@ export const PhoneAuthReducer = (state = phoneAuth, action) => {
     case PHONE_NUMBER_AUTH:
       return {
         ...state,
-
         phoneAuthentication: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-// =================================================================================================
-const intialState = { mode: false };
-export const AdminPanelReducer = (state = intialState, action) => {
-  switch (action.type) {
-    case ADMIN_PANEL_MODE:
-      return {
-        ...state,
-        mode: action.payload,
       };
     default:
       return state;

@@ -18,15 +18,25 @@ export const FooterStyle = makeStyles({
   },
   itemContainer: {
     display: "flex",
-    paddingBottom: "12px",
     justifyContent: "space-between",
-    "@media(max-width:500px)": {
-      flexDirection:"column",
-      justifyContent:"flex-start",
-      // alignItems: "flex-start",
+    "@media(max-width:560px)": {
+      flexDirection: "column",
+      justifyContent: "flex-start",
     },
   },
   linkStyle: {
     textDecoration: "none",
+  },
+  logolargeSrn: {
+    display: "inline-block",
+    "@media(max-width:560px)": {
+      display: "none",
+    },
+  },
+  logoSmallSrn: {
+    display: "none",
+    "@media(max-width:560px)": {
+      display: "inline-block",
+    },
   },
 });

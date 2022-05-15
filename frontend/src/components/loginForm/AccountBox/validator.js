@@ -1,9 +1,10 @@
 function Validatorfunc(values) {
   const errors = {};
   const regex = new RegExp("[a-z0-9]+@mnit.ac.in");
+  const regexSec = new RegExp("[a-z0-9]+@iiitkota.ac.in")
   if (typeof values.email !== "undefined" && !values.email) {
     errors.email = "Email is required";
-  } else if (!regex.test(values.email)) {
+  } else if (!regex.test(values.email) && !regexSec.test(values.email)) {
     errors.email = "This is not a valid email";
   }
 

@@ -1,4 +1,6 @@
 const { Product, User } = require("../Models");
+const jwt = require("jsonwebtoken");
+
 const cloudinary = require("cloudinary");
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -17,7 +19,7 @@ const products = async (req, res) => {
     const user_id = req.user._id;
     // console.log(user_id);
     // console.log(req.user);
-    console.log(image_array);
+    // console.log(image_array);
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
@@ -75,7 +77,7 @@ const admin_postLoad = async (req, res) => {
   } catch (err) {
     console.log("tyuy");
     console.log(err);
-    res.status(200).send(err);
+    res.status(404).send(err);
   }
 };
 
@@ -84,9 +86,16 @@ const admin_response = async (req, res) => {
   console.log("reached api");
   const { id, response } = req.body;
   const data = await Product.findOne({ _id: id });
-  const user_id = await User.findById(data.posted_by);
-  const product_title = data.title;
+  let user_id; let product_title;
+  try {
+    user_id = await User.findById(data.posted_by);  
+    product_title = data.title;
 
+  } catch (error) {
+    return res.status(403).send("Please refresh the page, and try logging again.");
+  }
+  // user_id = await User.findById(data.posted_by);
+  
   try {
     if (response) {
       console.log("came to save in database");
@@ -132,18 +141,22 @@ const fetch_livedata = async (req, res) => {
   //  console.log("reached to pick up data");
 
   try {
-    const email = req.body.email;
+    const authHeader = req.headers.authorization;
+    console.log("home page ");
+    console.log("139 " + authHeader);
+    // console.log(authHeader.split(' ')[1]);
+
     const category = req.body.category;
     let fetch_post;
+
     const pointer = req.body.pointer;
-    //   console.log(category);
 
     if (category === "recommendation") {
 
       //    fetch_post = await Product.where("is_verified").equals(true).sort({createdAt:-1});
 
       fetch_post = await Product.find({ is_verified: true }).sort({ createdAt: -1 }).skip(pointer - 1).limit(20);  // **first it will sort in order of date and then apply skip and limit
-      console.log(fetch_post);
+      // console.log(fetch_post);
       //  res.status(200).send(fetch_post);
     } else {
 
@@ -156,20 +169,42 @@ const fetch_livedata = async (req, res) => {
       //  console.log(fetch_post);
       //    res.status(200).send(fetch_post);
     }
-    if (email) {
-      const { favourites } = await User.findOne({ email: email });
-      //  console.log(favourites);
+    let token;
+
+    if (authHeader) token = authHeader.split(' ')[1];
+    else return res.status(200).send(fetch_post);
+    // let verified = 0;
+    jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
+      if (err) {
+        //dont display hearts 
+        return res.status(200).send(fetch_post);
+        //token se user kaise extract krna 
+      }
+
+      console.log(user);
+      const id = user._id;
+
+      let favourites;
+      const userd = await User.findById(id);
+      favourites = userd.favourites;
+      console.log("182 " + favourites);
+      console.log("184 " + fetch_post);
 
       fetch_post.forEach((post) => {
-        //   console.log(post._id);
+
+        console.log("187 " + post);
         if (favourites.indexOf(post._id) !== -1) {
+          console.log("Blued ");
           post.blue_heart = true;
+
         }
         //  console.log(post);
       });
       //     console.log(fetch_post);
-      res.status(200).send(fetch_post);
-    } else res.status(200).send(fetch_post);
+      return res.status(200).send(fetch_post);
+    });
+
+
   } catch (err) {
     console.log(err);
   }

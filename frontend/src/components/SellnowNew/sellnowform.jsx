@@ -12,13 +12,19 @@ import {
   SelectWrapper,
 } from "../_formData/FormUI/InputElement";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import UploadImage from "../_formData/gettingFiles/uploadImage";
 import { sellCategories } from "../_formData/formData";
-import { sellPopUp } from "../../AStatemanagement/Actions/userActions";
+import FormSubmission from "../ModelPopUP/onFormSubmission";
+import DataUploadingPopup from "../ModelPopUP/uploadingData";
+import {
+  sellPopUp,
+  LogoutUser,
+} from "../../AStatemanagement/Actions/userActions";
+
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = {
@@ -39,12 +45,15 @@ function SellFormNew() {
   const [formValue, setFormValue] = useState({});
   const [contactModel, setContactModel] = useState(false);
   const [imagearray, setimagearray] = useState([]);
+  const [isOffline, setIsOffline] = useState(false);
+  const [isUpload, setIsUpload] = useState(false);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const token = localUserData.token;
-  const isLoggedIn = localUserData.isLogin;
-  const phoneNumber = localUserData.userData.Mobile_no;
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
+  const userData = JSON.parse(window.localStorage.getItem("mm_user_data"));
+  const phoneNo = userData?.phoneNo;
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
@@ -52,7 +61,6 @@ function SellFormNew() {
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
-      console.log("sent to save in database");
       // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,
@@ -61,10 +69,24 @@ function SellFormNew() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+        },
+        {
+          onUploadProgress: (progressEvent) => {
+            let percentComplete = progressEvent.loaded / progressEvent.total;
+            percentComplete = parseInt(percentComplete * 100);
+            console.log(percentComplete);
+          },
         }
       );
+      setIsUpload(false);
+      dispatch(sellPopUp(true));
+      Navigate("/profile");
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+        Navigate(`/`);
+      }
     }
   };
   // =======================================================================================================================================================================================================
@@ -84,13 +106,16 @@ function SellFormNew() {
             initialValues={{ ...INITIAL_FORM_STATE }}
             validationSchema={FORM_VALIDATION}
             onSubmit={(values) => {
-              dispatch(sellPopUp(true));
-              setFormValue(values);
-              if (!phoneNumber && isLoggedIn) {
-                setContactModel(true);
-              } else if (phoneNumber && isLoggedIn) {
-                merge(values);
-                Navigate("/profile");
+              if (navigator.onLine) {
+                setFormValue(values);
+                if (!phoneNo && isLogin) {
+                  setContactModel(true);
+                } else if (phoneNo && isLogin) {
+                  setIsUpload(true);
+                  merge(values);
+                }
+              } else {
+                setIsOffline(true);
               }
             }}
           >
@@ -134,7 +159,7 @@ function SellFormNew() {
           </Formik>
         </Paper>
       </Box>
-      {contactModel && isLoggedIn && (
+      {isLogin && contactModel && (
         <POPUPElement
           open={contactModel}
           onClose={setContactModel}
@@ -143,6 +168,7 @@ function SellFormNew() {
           <GetPhoneDetails
             flag={false}
             formData={{ merge, formValue }}
+            setIsUpload={setIsUpload}
             onClose={setContactModel}
           >
             Oops! We don’t have your phone number ☹️. Your phone number will
@@ -150,6 +176,24 @@ function SellFormNew() {
           </GetPhoneDetails>
         </POPUPElement>
       )}
+      {isLogin && isOffline && (
+        <POPUPElement
+          open={isOffline}
+          onClose={setIsOffline}
+          portelId={"portal"}
+        >
+          <FormSubmission
+            onClose={setIsOffline}
+            source={
+              "https://res.cloudinary.com/mnitmarket/image/upload/v1652281961/No_connection-amico_w156bz.svg"
+            }
+          >
+            Couldn't connect to debbie, our database. Please check all
+            connections and try again.
+          </FormSubmission>
+        </POPUPElement>
+      )}
+      {isLogin && isUpload && <DataUploadingPopup open={isUpload} />}
     </motion.div>
   );
 }

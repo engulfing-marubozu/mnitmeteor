@@ -1,5 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Home from "../HomePage/Home";
 import Discussions from "../Discussions/discussion";
@@ -28,14 +27,12 @@ import AdminPortel from "../../AdminPanel/AdminPortel/adminportel";
 import AdminLogin from "../../AdminPanel/AdminPortel/adminLogin";
 import AdminPanel from "../../AdminPanel/adminpanel";
 import ProductNew from "../HomePage/productnew";
-import DeveloperNotes from "../Links/developerNotes";
+import DevelopersNote from "../Links/developersnote";
+import AdminProtected from "./adminRoute/adminProtected";
+import AdminLoginCheck from "./adminRoute/adminloginCheck";
+import ProtectedRoute from "./protectedRoute";
+import PageNotFound from "./pageNotFound";
 function RouterCon() {
-  const localUserData = useSelector((state) => state.loginlogoutReducer);
-  const localStorageData = JSON.parse(window.localStorage.getItem("auth"));
-  const isLoggedIn = localStorageData
-    ? localStorageData.isLogin
-    : localUserData.isLogin;
-
   return (
     <AnimatePresence>
       <Routes>
@@ -52,20 +49,6 @@ function RouterCon() {
           <Route path=":threadId" element={<SpecificThread />} />
           <Route
             path="createnewtopic"
-            element={isLoggedIn ? <DiscussionForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="mytopics"
-            element={isLoggedIn ? <DiscussionMyTopics /> : <Navigate to="/" />}
-          />
-          <Route
-            path="savedtopics"
-            element={
-              isLoggedIn ? <DiscussionSavedTopics /> : <Navigate to="/" />
-            }
-          />
-          {/* <Route
-            path="createnewtopic"
             element={<ProtectedRoute Component={DiscussionForm} />}
           />
           <Route
@@ -75,7 +58,7 @@ function RouterCon() {
           <Route
             path="savedtopics"
             element={<ProtectedRoute Component={DiscussionSavedTopics} />}
-          /> */}
+          />
         </Route>
         <Route path="lost&found" element={<LostFound />}>
           <Route index element={<LostFoundCardArray />} />
@@ -84,16 +67,16 @@ function RouterCon() {
           <Route path="founditems" element={<FoundCardArray />} />
           <Route
             path="lost&foundform"
-            element={isLoggedIn ? <LostFoundForm /> : <Navigate to="/" />}
+            element={<ProtectedRoute Component={LostFoundForm} />}
           />
           <Route
             path="myitems"
-            element={isLoggedIn ? <LostFoundMyItems /> : <Navigate to="/" />}
+            element={<ProtectedRoute Component={LostFoundMyItems} />}
           />
         </Route>
         <Route
           path="sellproduct"
-          element={isLoggedIn ? <AproductSellCard /> : <Navigate to="/" />}
+          element={<ProtectedRoute Component={AproductSellCard} />}
         />
         <Route
           path="productdescription/:productId"
@@ -101,18 +84,24 @@ function RouterCon() {
         />
         <Route
           path="profile"
-          element={isLoggedIn ? <Profile /> : <Navigate to="/" />}
+          element={<ProtectedRoute Component={Profile} />}
         />
         <Route
           path="favourites"
-          element={isLoggedIn ? <Favourites /> : <Navigate to="/" />}
+          element={<ProtectedRoute Component={Favourites} />}
         />
-        <Route path="developernotes" element={<DeveloperNotes />} />
-        <Route path="adminportel" element={<AdminPortel />}>
-          <Route index element={<AdminLogin />} />
-          <Route path="adminpanel" element={<AdminPanel />} />
+        <Route path="developernotes" element={<DevelopersNote />} />
+        <Route
+          path="adminportel"
+          element={<ProtectedRoute Component={AdminPortel} />}
+        >
+          <Route index element={<AdminProtected Component={AdminPanel} />} />
+          <Route
+            path="adminlogin"
+            element={<AdminLoginCheck Component={AdminLogin} />}
+          />
         </Route>
-        <Route path="*" element={<div>No Page found </div>} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </AnimatePresence>
   );

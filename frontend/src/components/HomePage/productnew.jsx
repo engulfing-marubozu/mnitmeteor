@@ -1,21 +1,26 @@
-import React, { useState, useRef, useCallback } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import useGetData from "./useGetData";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import { motion } from "framer-motion";
 import HomeCardSkeleton from "../Cards/HomeCardSkeleton";
 import HomeCard from "../Cards/HomeCard";
+import { useSelector } from "react-redux";
 
 function ProductNew() {
   const [pointer, setPointer] = useState(1);
   const category = "recommendation";
-  const email = useSelector(
-    (state) => state.loginlogoutReducer.userData?.email
-  );
-  const { loading, data, hasMore } = useGetData(email, pointer, category);
-
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const localUserData = useSelector((state) => state.loginlogoutReducer);
+  // const token = userAuthData?.xezzi;
+  // const token = localUserData?.token;
+  const token = userAuthData ? userAuthData?.xezzi : localUserData?.token;
+  const { loading, data, hasMore } = useGetData(token, pointer, category);
   const observer = useRef();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const lastCardElementRef = useCallback(
     (node) => {
       if (loading) return;

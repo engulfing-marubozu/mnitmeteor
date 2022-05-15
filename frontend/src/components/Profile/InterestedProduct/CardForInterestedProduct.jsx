@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-// import { RWebShare } from "react-web-share";
+import { RWebShare } from "react-web-share";
 import { motion } from "framer-motion";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
@@ -12,7 +12,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import Card from "@mui/material/Card";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import {useDispatch } from "react-redux";
 import { fetchInterestedActions } from "../../../AStatemanagement/Actions/userActions";
 import { TimeSince } from "../../TimeElapsed/timecalc";
 import {
@@ -21,15 +21,16 @@ import {
   CardStyleSecond,
 } from "../../_Styling/cardStyling";
 
-export default function CardForInterestedProduct({ cardData, setDeleted }) {
+export default function CardForInterestedProduct({ cardData }) {
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
-    cardData.title?.charAt(1).toUpperCase() + cardData?.title.slice(1);
+    cardData.title.trim().charAt(1).toUpperCase() + cardData.title.trim().slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
   //  =========================================================================================
-  const token = useSelector((state) => state.loginlogoutReducer.token);
+  const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
+  const token = userAuthData?.xezzi;
   const dispatch = useDispatch();
   // =========================================================================================
   const removeInteresetedHandler = () => {
@@ -44,9 +45,7 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
           },
         }
       );
-      console.log(response.data);
       if (response.data.status) {
-        console.log("fetchdata");
         alert(
           `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
         );
@@ -56,7 +55,6 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
             isInterested: false,
           })
         );
-        setDeleted((prev) => prev+1);
       } else {
         alert(
           `max attempts done. Please retry after ${response.data.ttl} seconds`
@@ -93,20 +91,20 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
               <Typography className={classes.date}>{properDate}</Typography>
             </Box>
             <CardActions disableSpacing className={classes.cardActions}>
-              {/* <RWebShare
+              <RWebShare
               data={{
-                text: "Mnit Market",
-                url: `${process.env.REACT_APP_API}ProductDiscription/${cardData._id}`,
+                text: "Checkout this cool item from mnitmeteor",
+                url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
                 title: title,
               }}
               onClick={() => console.log("shared successfully!")}
-            > */}
+            >
               <IconButton className={classes.iconButton}>
                 <Tooltip title="Share" arrow>
-                  <ShareIcon className={classes.Icon} />
+                  <ShareIcon className={classes.Icon}  aria-label="share"/>
                 </Tooltip>
               </IconButton>
-              {/* </RWebShare> */}
+              </RWebShare>
             </CardActions>
           </CardContentNoPadding>
         </Card>
@@ -118,7 +116,7 @@ export default function CardForInterestedProduct({ cardData, setDeleted }) {
             size="small"
           >
             <Tooltip title="Remove" placement="right" arrow>
-              <CloseIcon className={classSec.crossIcon} />
+              <CloseIcon className={classSec.crossIcon}  aria-label="remove"/>
             </Tooltip>
           </IconButton>
         </Box>

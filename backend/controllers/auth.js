@@ -1,15 +1,11 @@
 const { User } = require("../Models");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const sgMail = require("@sendgrid/mail");
 // const { parse } = require("path/posix");
 const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
 const lib = require("../Middlewares/counter.js");
-
-sgMail.setApiKey(
- process.env.SENDGRID_API_KEY
-);
+const {send_email} = require('../message_service/sendgrid_email/user_email');
 
 saltRounds = 8;
 // var number;
@@ -17,14 +13,14 @@ saltRounds = 8;
 var value;
 async function check(){
  
-      value = await lib.value();
-      
-  // console.log(t);
-
+    value = await lib.value();
+    console.log("Lib value is "+value);
+// console.log(t);
+    
 }
 // console.log(lib.value().then());
-
-console.log(value);
+console.log("Lib value is "+value);
+// console.log(value);
 
 ///    SIGNUP FUNCTION
 const signUp = async (req, res) => {               
@@ -45,7 +41,8 @@ const signUp = async (req, res) => {
       // check();
       value = await lib.value();
       console.log("value is "+value);
-      const loadavatar = `https://freekiimages.herokuapp.com/img_load?value=${value}`;
+      const username = email.split("@")[0];
+      const loadavatar = `https://freekiimages.herokuapp.com/img_load.png?value=${value}`;
       
       // genTwoPoke = `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${value}.svg`
       // genTwoPoke = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/${value}.png`;
@@ -54,6 +51,7 @@ const signUp = async (req, res) => {
         const user = new User({
           email: email,
           password: hash,
+          username: username,
           profile_pic: loadavatar
         });
         user.save(function (err) {
@@ -75,20 +73,13 @@ const signUp = async (req, res) => {
       const sendH = "Your OTP is " + otp;
       const msg = {
         to: email, // Change to your recipient
-        from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-        subject: "MNIT Selling Platform",
+        from: "mnitmeteor@gmail.com", // Change to your verified sender
+        subject: "MNIT Meteor - OTP Service",
         text: "Your OTP is " + otp,
         html: sendH,
       };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
+      await send_email(msg,"email sent");
+      //to delete this: 
       res.status(200).send({
         otp: otp,
       });
@@ -112,13 +103,16 @@ const signIn = (req, res) => {
         console.log(err);
       } else {
         if (foundUser) {
+          
           bcrypt.compare(password, foundUser.password, function (err, result) {
             if (result === true) {
               console.log("password matched in server");
               foundUser.password="";
              const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
-              res.status(200).json({user : foundUser
-                , token : token});
+             const to_send = {user : foundUser._id
+              , token : token, email: foundUser.email, phone_No:foundUser.Mobile_no, profile_pic: foundUser.profile_pic}
+              console.log(to_send);
+              res.status(200).send(to_send);
             } else {
               console.log("password not  matched in server");
               res.status(200).send({ status: "wrong password" });
@@ -225,6 +219,7 @@ const resendOtp = async (req, res)=>{
 }
 
 const auth_token = (req, res)=>{
+  
     res.status(200).send("authorised_user");
 }
 

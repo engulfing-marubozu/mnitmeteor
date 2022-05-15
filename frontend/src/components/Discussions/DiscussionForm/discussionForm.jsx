@@ -137,7 +137,7 @@ function DiscussionForm() {
                 <TextfieldWrapper
                   name="adTitle"
                   size="small"
-                  helperText=""
+                  helperText="Mention your topic or project name."
                 />
                 <Typography className={classes.boldTextSecond}>
                   Description *

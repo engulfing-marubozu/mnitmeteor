@@ -71,6 +71,7 @@ const handle_admin_thread = async (req, res) => {
   approval = req.body.to_approve;
   id = req.body._id;
   refID = req.body.posted_by;
+  const {title} =await  Thread.findById(id);
   if (approval) {
     //set verified to true
     Thread.findOneAndUpdate({ _id: id }, { is_verified: true }, async function (err) {
@@ -84,7 +85,11 @@ const handle_admin_thread = async (req, res) => {
         $addToSet: {
           notification: {
             status: 1,
+<<<<<<< HEAD
             content: `Dear user, your thread has been approved.`,
+=======
+            content: `Dear user, your thread "${title}" has been approved. We wish you find a great team.`,
+>>>>>>> a161d3adf9c6a583dcaa14627241d33001e853b3
             createdAt: date,
           },
         },
@@ -107,7 +112,7 @@ const handle_admin_thread = async (req, res) => {
       $addToSet: {
         notification: {
           status: -1,
-          content: `Dear user, your thread request has been declined as it did not meet our policy.`,
+          content: `Dear user, your thread "${title}" has been declined as it did not meet our policy. PLease look over it and try again`,
           createdAt: date,
         },
       },

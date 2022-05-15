@@ -4,29 +4,30 @@ const fs = require("fs");
 const app = express();
 require("dotenv").config();
 const morgan = require("morgan");
-const { User, Prodcut } = require("./Models")
+const { User, Prodcut } = require("./Models");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { connect } = require("http2");
 const { Console } = require("console");
-const http = require("http").createServer(app);
-const {Avatar} = require('./Models/index');
+var options = process.env.server=="http" ? {} : {
+  key  : fs.readFileSync( '/etc/letsencrypt/live/www.mnitmeteor.com/privkey.pem', 'utf8'),
+  cert : fs.readFileSync('/etc/letsencrypt/live/www.mnitmeteor.com/cert.pem', 'utf8')
+};;
+const http = require(process.env.server).createServer(options,app);
+const { Avatar } = require("./Models/index");
 
-const every = async()=>{
-
-   const item = await new Avatar({
-       current_counter: 1
-   });
-   try {
-    
-   const prod = await item.save();   
-   } catch (error) {
-       console.log(error);
-   }
-   console.log(prod);
-}
-
+const every = async () => {
+  const item = await new Avatar({
+    current_counter: 1,
+  });
+  try {
+    const prod = await item.save();
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(prod);
+};
 
 const io = require("socket.io")(http, {
   cors: {
@@ -36,7 +37,6 @@ const io = require("socket.io")(http, {
   },
 });
 
-
 // variables
 const port = 5000;
 
@@ -44,8 +44,6 @@ const port = 5000;
 
 database_url = process.env.MONGODB_ATLAS;
 
-// console.log(database_url);
-// console.log(database_url);
 mongoose
   .connect(database_url)
   .then(() => {
@@ -60,7 +58,9 @@ mongoose
 app.use(cors());
 app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyparser.json({ limit: "50mb" }));
-fs.readdirSync("./routes").map((f) => app.use("/api", require(`./routes/${f}`)));
+fs.readdirSync("./routes").map((f) =>
+  app.use("/api", require(`./routes/${f}`))
+);
 
 // socket io route and connects each time you run the server
 
@@ -72,8 +72,7 @@ io.on("connect", (socket) => {
     console.log("bleha");
     users_scoket_id[user_email] = socket.id;
     console.log(users_scoket_id);
-  })
-
+  });
 
   socket.on("admin approve event", () => {
     console.log("dprrhgrk ");
@@ -88,7 +87,9 @@ io.on("connect", (socket) => {
     console.log(users_scoket_id);
     if (users_scoket_id[user.email]) {
       console.log("mil gaya");
-      io.to(users_scoket_id[user.email]).emit("decline/approve/interesred_post_notification");
+      io.to(users_scoket_id[user.email]).emit(
+        "decline/approve/interesred_post_notification"
+      );
     }
   });
   socket.on("log_out_socket", async (user_id) => {
@@ -98,17 +99,17 @@ io.on("connect", (socket) => {
   });
   socket.on("disconnect", () => {
     console.log("disconnected");
-    Object.keys(users_scoket_id).forEach(key => {
-      if ((users_scoket_id[key] === socket.id))
-        delete users_scoket_id[key];
+    Object.keys(users_scoket_id).forEach((key) => {
+      if (users_scoket_id[key] === socket.id) delete users_scoket_id[key];
     });
     console.log(users_scoket_id);
   });
 });
 
 // Local port connection
+
 http.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
 
-module.exports = { users_scoket_id, io }
+module.exports = { users_scoket_id, io };

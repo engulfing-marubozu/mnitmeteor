@@ -11,12 +11,13 @@ const HandleAdmin = async (req, res) => {
   
   console.log("Admin bhai approve kro ");
   console.log(req.body);
-
+try{
   approval = req.body.to_approve;
   id = req.body._id;
   refID = req.body.posted_by;
-  const name = req.body.name;
-  const category = req.body.category;
+
+  const item = await LostItem.findById(id);
+  const name = item.name;
   const date = new Date();
   if (approval) {
     console.log("approve ho gaya ");
@@ -34,7 +35,7 @@ const HandleAdmin = async (req, res) => {
       $addToSet: {
         notification: {
           status: 1,
-          content: `Dear User, we have approved your ${category} item "${name}". May you find it soon`,
+          content: `Dear User, we have approved your item "${name}". May you find it soon`,
           createdAt :date,
         },
       },
@@ -50,12 +51,15 @@ const HandleAdmin = async (req, res) => {
       $addToSet: {
         notification: {
           status: -1,
-          content: `Hey, unfortunately, we couldn't approve your ${category} item "${name}" due to our policy.`,
+          content: `Hey, unfortunately we couldn't approve your item "${name}" due to our policy.`,
           createdAt :date,
         },
       },
     });
     res.send("product Ad request declined");
+  }}
+  catch(err){
+    console.log(err);
   }
 };
 const SendLost = async (req, res) => {

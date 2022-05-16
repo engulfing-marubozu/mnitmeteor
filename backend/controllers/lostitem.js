@@ -51,7 +51,7 @@ try{
       $addToSet: {
         notification: {
           status: -1,
-          content: `Hey, unfortunately we couldn't approve your item "${name}" due to our policy.`,
+          content: `Hey, unfortunately we couldn't approve your item "${name}" as it did not meet our policy.`,
           createdAt :date,
         },
       },

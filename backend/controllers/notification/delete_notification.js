@@ -16,7 +16,7 @@ const delete_notification = async(req,res)=>{
     
     console.log("tycyuct");
     console.log(y);
-    res.status(200).send(updated_array);
+    res.status(200).send(updated_array.reverse());
    }
    catch(err)
    {

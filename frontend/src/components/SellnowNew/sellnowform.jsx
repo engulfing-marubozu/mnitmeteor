@@ -57,14 +57,14 @@ function SellFormNew() {
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
-
+//images: imagearray,
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
       // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,
-        { images: imagearray, details: values },
+        {  details: values },
         {
           headers: {
             Authorization: `Bearer ${token}`,

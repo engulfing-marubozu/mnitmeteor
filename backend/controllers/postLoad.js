@@ -11,8 +11,10 @@ cloudinary.config({
 //saves products into database that is uploaded by the user with a default verified value to false
 const products = async (req, res) => {
   try {
+
     console.log("came to save to database");
-    const image_array = req.body.images;
+    
+    const image_array = req.body.details.images;
     const title = req.body.details.adTitle;
     const description = req.body.details.description;
     const category = req.body.details.categories;
@@ -23,13 +25,15 @@ const products = async (req, res) => {
     const image_cloud_link = await Promise.all(
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
-          image.data_url
+          image.data_url,
+          {quality: 10}
         );
         const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url, {
           width: 250, height: 150,
-          crop: "thumb"
-        }
+          crop: "thumb",
+          quality: "auto"
+       }
         )
         return { image: image_upload_response.url, thumbnail: thumbnail_upload_response.url };
       })

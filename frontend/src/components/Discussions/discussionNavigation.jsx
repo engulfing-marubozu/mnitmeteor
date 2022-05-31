@@ -124,7 +124,7 @@ export function DiscussionVerticalNavigation() {
         <NavTabs value={value} orientation="vertical">
           <VerticalNavTab
             icon={<ExploreIcon />}
-            label="Explore Threads"
+            // label="Explore Threads"
             onClick={() => {
               TabClickHandler("");
             }}

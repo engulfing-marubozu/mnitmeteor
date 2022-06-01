@@ -26,7 +26,8 @@ const products = async (req, res) => {
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url,
-          {quality: 10}
+          {quality: 10,
+          fetch_format : "webp"}
         );
         const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url, {

@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 export const Wrapper = styled("div")({
   width: "100 %",
   height: "100 %",
@@ -19,6 +19,9 @@ export const Wrapper = styled("div")({
     alignItems: "center",
     marginTop: "30px",
     marginBottom: "30px",
+  },
+  "@media (max-width: 480px)": {
+    marginTop: "0px",
   },
 });
 export const BoxContainer = styled("div")({

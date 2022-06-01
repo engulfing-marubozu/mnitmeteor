@@ -17,12 +17,12 @@ const ReadMore = ({ children, words, classname }) => {
       {textLength > words && (
         <span
           onClick={toggleReadMore}
-          style={{ color: "#673ab7", fontWeight: "bold", fontSize: "14px" }}
+          style={{ color: "#673ab7", fontWeight: "bold", fontSize: "14px",cursor:"pointer" }}
         >
           {isReadMore ? "  ...read more" : "  show less"}
         </span>
       )}
     </Typography>
-  );  
+  );
 };
 export default ReadMore;

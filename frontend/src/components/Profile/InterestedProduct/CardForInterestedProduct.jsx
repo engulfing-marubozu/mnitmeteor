@@ -12,9 +12,9 @@ import ShareIcon from "@mui/icons-material/Share";
 import Card from "@mui/material/Card";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchInterestedActions } from "../../../AStatemanagement/Actions/userActions";
-import { TimeSince } from "../../TimeElapsed/timecalc";
+import { TimeSince, TimeCalc } from "../../TimeElapsed/timecalc";
 import {
   CardStyleFirst,
   CardContentNoPadding,
@@ -25,7 +25,8 @@ export default function CardForInterestedProduct({ cardData }) {
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
-    cardData.title.trim().charAt(1).toUpperCase() + cardData.title.trim().slice(1);
+    cardData.title.trim().charAt(1).toUpperCase() +
+    cardData.title.trim().slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);
   //  =========================================================================================
@@ -45,10 +46,9 @@ export default function CardForInterestedProduct({ cardData }) {
           },
         }
       );
+      const time = TimeCalc(response.data.ttl);
       if (response.data.status) {
-        alert(
-          `${response.data.attempts} attempts left for another ${response.data.ttl} seconds`
-        );
+        alert(`${response.data.attempts} attempts left for another ${time}`);
         dispatch(
           fetchInterestedActions({
             ...interestedData,
@@ -56,9 +56,7 @@ export default function CardForInterestedProduct({ cardData }) {
           })
         );
       } else {
-        alert(
-          `max attempts done. Please retry after ${response.data.ttl} seconds`
-        );
+        alert(`max attempts done. Please retry after ${time}`);
       }
     };
     getData(token);
@@ -92,18 +90,18 @@ export default function CardForInterestedProduct({ cardData }) {
             </Box>
             <CardActions disableSpacing className={classes.cardActions}>
               <RWebShare
-              data={{
-                text: "Checkout this cool item from mnitmeteor",
-                url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
-                title: title,
-              }}
-              onClick={() => console.log("shared successfully!")}
-            >
-              <IconButton className={classes.iconButton}>
-                <Tooltip title="Share" arrow>
-                  <ShareIcon className={classes.Icon}  aria-label="share"/>
-                </Tooltip>
-              </IconButton>
+                data={{
+                  text: "Checkout this cool item from mnitmeteor",
+                  url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
+                  title: title,
+                }}
+                onClick={() => console.log("shared successfully!")}
+              >
+                <IconButton className={classes.iconButton}>
+                  <Tooltip title="Share" arrow>
+                    <ShareIcon className={classes.Icon} aria-label="share" />
+                  </Tooltip>
+                </IconButton>
               </RWebShare>
             </CardActions>
           </CardContentNoPadding>
@@ -116,7 +114,7 @@ export default function CardForInterestedProduct({ cardData }) {
             size="small"
           >
             <Tooltip title="Remove" placement="right" arrow>
-              <CloseIcon className={classSec.crossIcon}  aria-label="remove"/>
+              <CloseIcon className={classSec.crossIcon} aria-label="remove" />
             </Tooltip>
           </IconButton>
         </Box>

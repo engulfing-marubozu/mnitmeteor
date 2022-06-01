@@ -26,6 +26,18 @@ export const FooterStyle = makeStyles({
   },
   linkStyle: {
     textDecoration: "none",
+    color:"black",
+    "&:visited": {
+      color: "black",
+    },
+
+    "&:hover": {
+      color: "#673ab7",
+    },
+
+    "&:active": {
+      color: "black",
+    },
   },
   logolargeSrn: {
     display: "inline-block",

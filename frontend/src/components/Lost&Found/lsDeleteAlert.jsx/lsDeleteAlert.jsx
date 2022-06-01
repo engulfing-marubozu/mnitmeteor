@@ -75,7 +75,7 @@ export default function LostFoundDeleteAlert({ deleteData, setLostFound }) {
         <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this Item
+            Are you sure you want to delete this Item.
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ px: "1.5rem" }}>

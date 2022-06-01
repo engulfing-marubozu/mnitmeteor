@@ -4,6 +4,7 @@ const { User } = require("../../Models")
 const expressjwt = require("express-jwt")
 const Redis = require("redis");
 const redis = Redis.createClient();
+
 require('dotenv').config()
 redis.connect();
 const timeConvert = (d) => {
@@ -31,6 +32,11 @@ const timeConvert = (d) => {
     return hDisplay + mDisplay + sDisplay;
 }
 const admin_verification = async (req, res, next) => {
+    try {
+        await redis.connect();
+    } catch (error) {
+        console.log("Cannot connect to client");
+    }
     var admin_emails = process.env.ADMINS;
     const admin_email_list = admin_emails.split(' ');
     const authHeader = req.headers.authorization;
@@ -43,9 +49,9 @@ const admin_verification = async (req, res, next) => {
     if (check) {
         const token = authHeader?.split(' ')[1];
         console.log(token);
-        const hs = await redis.get(token);
+        const hs = await redis.ttl(token);
         console.log(hs);
-        if (hs == -1) {
+        if (hs > 0 ) {
             var time_remaining = await redis.ttl(token);
             time_remaining = timeConvert(time_remaining);
             const obj = {
@@ -73,8 +79,8 @@ const admin_verification = async (req, res, next) => {
             console.log("Entered " + unicode);
             bcrypt.compare(unicode, process.env.UNICODE, (err, data) => {
                 //if error than throw error
-                if (err) throw err
-
+                // if (err) throw err
+                
                 //if both match than you can do anything
                 if (data) {
                     console.log("Unicode is correct, now checking admin or not");

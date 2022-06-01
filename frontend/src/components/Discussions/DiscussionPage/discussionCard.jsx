@@ -320,7 +320,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
                 )}
                 <RWebShare
                   data={{
-                    text: "harshit_karde_please",
+                    text: "Check this out!",
                     url: `${process.env.REACT_APP_REDIRECT}/discussions/${cardId}`,
                     title: `${title}`,
                   }}

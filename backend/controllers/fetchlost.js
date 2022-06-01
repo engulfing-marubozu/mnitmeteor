@@ -2,6 +2,7 @@ const { LostItem } = require("../Models");
 //to create a sin
 const FetchLost = async (req, res) => {
   console.log("Came to fetch lost people and items!");
+  //queryasparam
   const pointer = req.query.pointer;
   console.log(pointer);
   // res.send(pointer);
@@ -32,6 +33,7 @@ const FetchLost = async (req, res) => {
    }
 };
 const FetchOnlyFound = async (req, res) => {
+  // queryasparam
   const pointer = req.query.pointer;
   try {
     var data = await LostItem.find({ is_verified: true, category: "Found" }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
@@ -51,6 +53,7 @@ const FetchOnlyFound = async (req, res) => {
 };
 // .sort({createdAt: -1}).skip(pointer -1 ).limit(20)
 const FetchOnlyLost = async (req, res) => {
+  // queryasparam
   const pointer = req.query.pointer;
   try {
     // const ptr = req.body.pointer;

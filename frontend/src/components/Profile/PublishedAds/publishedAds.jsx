@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import CardForPublishedAds from "./CardForPublishedAd";
-import HomeCardSkeleton from "../../Cards/HomeCardSkeleton";
 import EmptySpace from "../../_EmptySpaces/emptySpace";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +13,7 @@ import { profileEmpty } from "../../_EmptySpaces/EmptySvg";
 import { LogoutUser } from "../../../AStatemanagement/Actions/userActions";
 function PublishedAds() {
   // ================================================================== DATA FETCHING==============================
-  const [cardData, setCardData] = useState();
+  const [cardData, setCardData] = useState([]);
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
   const publishedAdsData = useSelector(
@@ -63,25 +62,7 @@ function PublishedAds() {
       <Box sx={{ py: "2rem" }}>
         <Container sx={{ width: { xs: "100%", md: "97%", lg: "90%" } }}>
           <Grid container spacing={{ xs: 2, sm: 3, lg: 4 }}>
-            {typeof cardData === "undefined" ? (
-              Array.from(new Array(3)).map((data, index) => {
-                return (
-                  <Grid item xs={6} md={4} key={index}>
-                    <HomeCardSkeleton />
-                  </Grid>
-                );
-              })
-            ) : cardData.length > 0 ? (
-              cardData.map((data) => {
-                if (data !== null) {
-                  return (
-                    <Grid item xs={6} md={4} key={data._id}>
-                      <CardForPublishedAds cardData={data} />
-                    </Grid>
-                  );
-                } else return null;
-              })
-            ) : (
+            {cardData.length === 0 ? (
               <Box
                 sx={{
                   display: "flex",
@@ -91,6 +72,16 @@ function PublishedAds() {
               >
                 <EmptySpace source={profileEmpty.myAds} />
               </Box>
+            ) : (
+              cardData.map((data) => {
+                if (data !== null) {
+                  return (
+                    <Grid item xs={6} md={4} key={data._id}>
+                      <CardForPublishedAds cardData={data} />
+                    </Grid>
+                  );
+                } else return null;
+              })
             )}
           </Grid>
         </Container>

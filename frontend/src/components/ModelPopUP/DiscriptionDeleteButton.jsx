@@ -50,7 +50,7 @@ export default function DiscriptionProductDelete(props) {
           Delete
         </Typography>
         <Typography variant="body1">
-          Are you sure you want to delete this item from the database?
+          Are you sure you want to delete this product.
         </Typography>
         <Stack
           direction="row"

@@ -63,7 +63,6 @@ export const DiscussionCardStyle = makeStyles({
 // ====================================================================================================================================================================================
 export const DiscussionCommonStyle = makeStyles({
   dProfileIcon: {
-    backgroundColor: "#673ab7",
     height: 30,
     width: 30,
     "@media (max-width: 600px)": {

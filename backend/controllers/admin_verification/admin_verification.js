@@ -18,26 +18,31 @@ const timeConvert = (d) => {
     var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
     let ss;
-    if(h){
-        if(h==23){
-            return "24 hours.";
-        }
-        return (h==1)?"an hour ":(h+ " hours.");
-    }
-    if(m){
-        return (m + "minutes.");
-    }
-    if(s){
-        return (s + " seconds." );
-    }
+    // if(h){
+    //     if(h==23){
+    //         return "24 hours.";
+    //     }
+    //     return (h==1)?"an hour ":(h+ " hours.");
+    // }
+    // if(m){
+    //     return (m + "minutes.");
+    // }
+    // if(s){
+    //     return (s + " seconds." );
+    // }
     return hDisplay + mDisplay + sDisplay;
 }
-const admin_verification = async(req,res)=>{
+const admin_verification_r = async(req,res)=>{
     try {
-        await redis.connect();
+        abc = redis.get("eifng");
     } catch (error) {
-        return res.status(402).send("Cannot connect to client");
+        try {
+            await redis.connect();   
+        } catch (error) {
+            console.log("patanhi bc ");
+        }
     }
+    
     var admin_emails = process.env.ADMINS;
     const admin_email_list = admin_emails.split(' ');
     const authHeader = req.headers.authorization;
@@ -82,14 +87,19 @@ const admin_verification = async(req,res)=>{
             //check this guy's unicode
             var admin;
             try {
-             admin = await User.findById(req.user._id);
+                admin = await User.findById(req.user._id);
+                console.log(admin);
             } catch (error) {
+                return res.status(200).send(common_response);
+            }
+            if(!admin){
                 return res.status(200).send(common_response);
             }
             bcrypt.compare(unicode, process.env.UNICODE, (err,data)=>{
                 if(data){
                     console.log("data admin "+data);
                     console.log("Correct unicode, checking authenticity of admin");
+                    
                     if(admin_email_list.includes(admin.email)){
                         const obj = {
                             message: "Hey Admin!",
@@ -116,7 +126,7 @@ const admin_verification = async(req,res)=>{
                     hits = await redis.incr(token);
                     if(hits>2){
                         await redis.set(token, -1);
-                        const blockingTime = 48;
+                        const blockingTime = 60*60*12;
                         var time_block = timeConvert(blockingTime);
 
                         await redis.expire(token, blockingTime); //40 seconds 
@@ -127,7 +137,7 @@ const admin_verification = async(req,res)=>{
                         const to_send = JSON.stringify(obj);
                         return res.status(200).send(to_send);   
                     }
-                    obj = {
+                    var obj = {
                         message: `You are remaining with ${3- hits} attempts`,
                         code: 88
                     }
@@ -135,7 +145,8 @@ const admin_verification = async(req,res)=>{
                     return res.status(200).send(to_send);
                 }
                 redisHandler(token,res);
-                return res.status(200).send(JSON.stringify(obj));
+
+                // return res.status(200).send(JSON.stringify(obj));
                 
             })
         })
@@ -149,7 +160,7 @@ const admin_verification = async(req,res)=>{
 
     
 }
-const admin_verification_s = async (req, res, next) => {
+const admin_verification = async (req, res, next) => {
     try {
         await redis.connect();
     } catch (error) {
@@ -233,7 +244,7 @@ const admin_verification_s = async (req, res, next) => {
                         const hits = await redis.incr(token);
                         if (hits > 2) {
                             await redis.set(token, -1);
-                            const blockingTime = 60*24*60;
+                            const blockingTime = 60*60*12;
                             var time_block = timeConvert(blockingTime);
 
                             await redis.expire(token, blockingTime); //40 seconds 

@@ -74,7 +74,7 @@ const signUp = async (req, res) => {
       const msg = {
         to: email, // Change to your recipient
         from: "mnitmeteor@gmail.com", // Change to your verified sender
-        subject: "MNIT Meteor - OTP Service",
+        subject: "OTP Service",
         text: "Your OTP is " + otp,
         html: sendH,
       };

@@ -4,6 +4,10 @@ const FetchLost = async (req, res) => {
   console.log("Came to fetch lost people and items!");
   //queryasparam
   const pointer = req.query.pointer;
+  // console.log(req.query);
+  // console.log(req.params);
+  
+  console.log("lost items pointer "+pointer);
   console.log(pointer);
   // res.send(pointer);
   // console.log("pointer is "+pointer);

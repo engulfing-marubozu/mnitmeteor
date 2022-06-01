@@ -14,7 +14,15 @@ function useLostFoundData(pointer, category) {
     let isSubscribed = true;
     const Call = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API}/${category}?pointer=${pointer}`,);
+        // const response = await axios
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/${category}`,{
+            params: {
+              pointer: pointer
+            }
+          }
+          );
+        
         if (isSubscribed) {
           setData((prev) => {
             return [...prev, ...response.data];

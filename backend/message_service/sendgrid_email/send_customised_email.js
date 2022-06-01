@@ -21,7 +21,7 @@ const send_interested_email = async (
   const draft_seller = {
     to: seller_email, // Change to your recipient
     from: "mnitmeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "buyer details",
     text: msg_seller,
     html: msg_seller,
   };
@@ -39,7 +39,7 @@ const send_interested_email = async (
   const draft_buyer = {
     to: buyer_email, // Change to your recipient
     from: "mnitmeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "seller details",
     text: msg_buyer,
     html: msg_buyer,
   };
@@ -61,7 +61,7 @@ const send_un_interested_email = async (seller_email , seller_mobile_no, product
   const draft_seller ={
     to: seller_email, // Change to your recipient
     from: "mnitmeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "deal cancellation",
     text: msg_seller,
     html: msg_seller,
   }
@@ -84,7 +84,7 @@ const delete_product_email =async (interested_users_array, product_title)=>{
    const draft_seller ={
     to: interested_users_array, // Change to your recipient
     from: "mntimeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "update regarding your order",
     text: msg_buyer,
     html: msg_buyer,
   }

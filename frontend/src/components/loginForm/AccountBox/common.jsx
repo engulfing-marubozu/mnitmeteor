@@ -31,7 +31,7 @@ export const MutedText = styled("p")({
   textDecoration: "none",
 });
 export const ColoredEmail = styled("p")({
-  fontSize: "12px",
+  fontSize: "14px",
   color: "#5b2da3",
   fontWeight: 500,
   textDecoration: "none",

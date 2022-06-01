@@ -6,6 +6,7 @@ import {
   ColoredEmail,
   FormContainer,
   Input,
+  MutedLink,
   MutedText,
   SubmitButton,
   Validationlabel,
@@ -15,7 +16,6 @@ import { AccountContext } from "../../../_ContextFolder/webContext";
 import { OtpValidator } from "./validator";
 
 export function Otpform(props) {
-
   const [timer, setTimer] = useState(30);
   const [isActive, setIsActive] = useState(true);
 
@@ -24,9 +24,12 @@ export function Otpform(props) {
     setIsActive(true);
     try {
       const email = props.signUpDetails.email;
-      const response = await axios.post(`${process.env.REACT_APP_API}/resendOtp`, {
-        email
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/resendOtp`,
+        {
+          email,
+        }
+      );
       const otp = response.data.otp;
       // PROCEED WITH OTP DEPAK
       setRealOtp(otp);
@@ -47,9 +50,7 @@ export function Otpform(props) {
   function verifyOtpHandler(event) {
     event.preventDefault();
     // console.log(otpValue);
-    setFormErrors(
-      OtpValidator({ inputOtp: otpValue, realOtp: realOtp })
-    );
+    setFormErrors(OtpValidator({ inputOtp: otpValue, realOtp: realOtp }));
     setIsSubmit(true);
   }
 
@@ -63,11 +64,13 @@ export function Otpform(props) {
         } else {
           setTimer((prevtime) => prevtime - 1);
         }
-
-      }, 1000)
+      }, 1000);
     }
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      Switch({ email: props.signUpDetails.email, active: props.signUpDetails.flag });
+      Switch({
+        email: props.signUpDetails.email,
+        active: props.signUpDetails.flag,
+      });
     }
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +82,6 @@ export function Otpform(props) {
         We have sent code to your email<br></br>
       </MutedText>
       <ColoredEmail>{props.signUpDetails.email}</ColoredEmail>
-
       <FormContainer onSubmit={verifyOtpHandler}>
         <Input
           autoFocus={true}
@@ -88,24 +90,29 @@ export function Otpform(props) {
           value={otpValue}
           onChange={otpInputHandler}
         />
+        <MutedLink>
+          Do check your spam folder if it doesn't arrive in your inbox<br></br>
+        </MutedLink>
         <Validationlabel>{formErrors.otp}</Validationlabel>
         <Marginer direction="vertical" margin={10} />
-        <SubmitButton type="submit">
-
-          Verify Account
-        </SubmitButton>
+        <SubmitButton type="submit">Verify Account</SubmitButton>
       </FormContainer>
       <Marginer direction="vertical" margin="1em" />
-      {!isActive &&
+      {!isActive && (
         <MutedText style={{ fontSize: "12px" }}>
-          Didn't receive code ?
-          <BoldLink onClick={resendOtp}>Resend</BoldLink>
-        </MutedText>}
-      {isActive &&
-        <MutedText style={{ fontSize: "12px" }}>
-          Resend OTP in  {<span style={{ color: " #5b2da3" }}>00:{timer >= 10 ? timer : `0${timer}`}</span>}
+          Didn't receive code ?<BoldLink onClick={resendOtp}>Resend</BoldLink>
         </MutedText>
-      }
+      )}
+      {isActive && (
+        <MutedText style={{ fontSize: "12px" }}>
+          Resend OTP in{" "}
+          {
+            <span style={{ color: " #5b2da3" }}>
+              00:{timer >= 10 ? timer : `0${timer}`}
+            </span>
+          }
+        </MutedText>
+      )}
     </BoxContainer>
   );
 }

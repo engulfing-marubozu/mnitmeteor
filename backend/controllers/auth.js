@@ -149,7 +149,7 @@ const resetPassword = async (req, res) => {
             const msg = {
               to: email, // Change to your recipient
               from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-              subject: "MNIT Selling Platform",
+              subject: "reset password",
               text: "Your OTP is " + otp,
               html: sendH,
             };
@@ -200,7 +200,7 @@ const resendOtp = async (req, res)=>{
    const msg = {
      to: email, // Change to your recipient
      from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-     subject: "MNIT Selling Platform",
+     subject: "otp service",
      text: "Your OTP is " + otp,
      html: sendH,
    };

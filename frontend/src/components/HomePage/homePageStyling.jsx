@@ -53,19 +53,11 @@ export const HomePageStyle = makeStyles({
   avatar: {
     width: "3rem",
     height: "3rem",
-    "media(max-width:600px)": {
-      width: "3rem",
-      height: "3rem",
-    },
   },
   otheravta: {
     width: "3rem",
     height: "3rem",
     backgroundColor: "transparent",
-    "media(max-width:600px)": {
-      width: "3rem",
-      height: "3rem",
-    },
   },
 });
 

@@ -37,9 +37,7 @@ function PublishedAds() {
           setCardData(response.data);
         }
       } catch (err) {
-        console.log(err.response);
         if (err.response.status === 403) {
-          console.log("dkf");
           dispatch(LogoutUser());
           Navigate(`/`);
         }
@@ -51,7 +49,6 @@ function PublishedAds() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publishedAdsData]);
-  console.log(cardData);
   // ===================================================================================================================================================================
   return (
     <motion.div

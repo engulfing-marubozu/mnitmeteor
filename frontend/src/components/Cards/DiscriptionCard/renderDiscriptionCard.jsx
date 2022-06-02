@@ -4,7 +4,6 @@ import axios from "axios";
 import DiscriptionCard from "./discriptionCard";
 // import { useSelector } from "react-redux";
 export default function RenderDiscriptionCard() {
-  console.log('description')
   const [descrpData, setDescrpData] = useState();
   const Navigate = useNavigate();
   const params = useParams();

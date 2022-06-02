@@ -44,7 +44,7 @@ const FORM_VALIDATION = Yup.object().shape({
 function SellFormNew() {
   const [formValue, setFormValue] = useState({});
   const [contactModel, setContactModel] = useState(false);
-  const [imagearray, setimagearray] = useState([]);
+  const [, setimagearray] = useState([]);
   const [isOffline, setIsOffline] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const Navigate = useNavigate();
@@ -70,13 +70,6 @@ function SellFormNew() {
             Authorization: `Bearer ${token}`,
           },
         },
-        {
-          onUploadProgress: (progressEvent) => {
-            let percentComplete = progressEvent.loaded / progressEvent.total;
-            percentComplete = parseInt(percentComplete * 100);
-            console.log(percentComplete);
-          },
-        }
       );
       setIsUpload(false);
       dispatch(sellPopUp(true));

@@ -95,7 +95,6 @@ export default function CardForInterestedProduct({ cardData }) {
                   url: `${process.env.REACT_APP_REDIRECT}/productdescription/${cardData._id}`,
                   title: title,
                 }}
-                onClick={() => console.log("shared successfully!")}
               >
                 <IconButton className={classes.iconButton}>
                   <Tooltip title="Share" arrow>

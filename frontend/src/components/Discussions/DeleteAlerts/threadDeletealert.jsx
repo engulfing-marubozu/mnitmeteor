@@ -19,7 +19,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ThreadDeleteAlert({ setThread, threadData, flag }) {
-  // console.log(setPointer,setThreadDelete)
   const [open, setOpen] = useState(false);
   const mountedRef = useRef(true);
   useEffect(() => {

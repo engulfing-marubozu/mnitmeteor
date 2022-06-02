@@ -44,7 +44,6 @@ function DiscussionSavedTopics() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(savedTopics);
   return (
     <motion.div
       initial={{ opacity: 0 }}

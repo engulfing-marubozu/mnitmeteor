@@ -90,6 +90,9 @@ export const fetchDataForATF = (likedata) => {
       dispatch(addToFavourites(response.data));
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+      }
     }
   };
 };
@@ -134,6 +137,9 @@ export const fetchInterestedActions = (interestedData) => {
       }
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+      }
     }
   };
 };
@@ -155,6 +161,9 @@ export const fetchDataForDeletingPublishedAds = (deletingData) => {
       dispatch(deletePublishedProduct(response.data));
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+      }
     }
   };
 };
@@ -194,6 +203,9 @@ export const fetchDataForPhoneNoAuth = (phoneData) => {
       window.localStorage.setItem("mm_user_data", JSON.stringify(userData));
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+      }
       //send error on not updated
     }
   };
@@ -219,6 +231,9 @@ export const actionForLikeThread = (likeData) => {
       );
     } catch (err) {
       console.log(err);
+      if (err?.response?.status === 403) {
+        dispatch(LogoutUser());
+      }
     }
   };
 };

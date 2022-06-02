@@ -20,16 +20,13 @@ export function EmailForResetPassword(props) {
   //    backend -----------------------------------------------------------------------------------------------
   const verifyResetPasswordEmail = async () => {
     try {
-      // console.log(signupEmail);
       const { email } = signupEmail;
       const response = await axios.post(`${process.env.REACT_APP_API}/resetPassword`, {
         email,
       });
       if (response.data === "Use different e-mail") {
-        // console.log("Use different e-mail");
         notify("Email is not registered");
       } else {
-        console.log(response.data.otp);
         const otpgen = response.data.otp;
         Switch({
           ...signupEmail,

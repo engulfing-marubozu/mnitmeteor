@@ -6,10 +6,10 @@ import {
   ColoredEmail,
   FormContainer,
   Input,
-  MutedLink,
   MutedText,
   SubmitButton,
   Validationlabel,
+  SpamText,
 } from "./common";
 import { Marginer } from "../marginer";
 import { AccountContext } from "../../../_ContextFolder/webContext";
@@ -49,7 +49,6 @@ export function Otpform(props) {
   }
   function verifyOtpHandler(event) {
     event.preventDefault();
-    // console.log(otpValue);
     setFormErrors(OtpValidator({ inputOtp: otpValue, realOtp: realOtp }));
     setIsSubmit(true);
   }
@@ -90,14 +89,16 @@ export function Otpform(props) {
           value={otpValue}
           onChange={otpInputHandler}
         />
-        <MutedLink>
-          Do check your spam folder if it doesn't arrive in your inbox<br></br>
-        </MutedLink>
-        <Validationlabel>{formErrors.otp}</Validationlabel>
+        {!formErrors.otp && (
+          <SpamText>
+            Do check your spam box if it doesn't arrive in your inbox
+          </SpamText>
+        )}
+        {formErrors.otp && <Validationlabel>{formErrors.otp}</Validationlabel>}
         <Marginer direction="vertical" margin={10} />
         <SubmitButton type="submit">Verify Account</SubmitButton>
       </FormContainer>
-      <Marginer direction="vertical" margin="1em" />
+      <Marginer direction="vertical" margin="0.3em" />
       {!isActive && (
         <MutedText style={{ fontSize: "12px" }}>
           Didn't receive code ?<BoldLink onClick={resendOtp}>Resend</BoldLink>

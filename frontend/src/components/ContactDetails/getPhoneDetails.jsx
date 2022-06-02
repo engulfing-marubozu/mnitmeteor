@@ -17,8 +17,6 @@ import { fetchDataForPhoneNoAuth } from "../../AStatemanagement/Actions/userActi
 
 // ================================================================Main FUNCTION ==============================================
 export default function GetPhoneDetails(props) {
-  console.log(props.flag);
-  console.log(props);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.loginlogoutReducer.token);
   // ==================================================================================

@@ -21,7 +21,6 @@ export default function SpecificLostFound() {
           if (response.data === 404) {
             Navigate("/*");
           } else {
-            console.log(response.data);
             setLnfData(response.data);
           }
         }

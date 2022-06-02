@@ -26,7 +26,8 @@ const products = async (req, res) => {
       image_array.map(async (image) => {
         const image_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url,
-          {quality: 10}
+          {quality: 10,
+          fetch_format : "webp"}
         );
         const thumbnail_upload_response = await cloudinary.v2.uploader.upload(
           image.data_url, {
@@ -148,6 +149,7 @@ const fetch_livedata = async (req, res) => {
     const authHeader = req.headers.authorization;
     console.log("home page ");
     console.log("139 " + authHeader);
+    // console.log(process.env.CLOUDINARY_SECRET);
     // console.log(authHeader.split(' ')[1]);
 
     const category = req.body.category;
@@ -177,17 +179,21 @@ const fetch_livedata = async (req, res) => {
 
     if (authHeader) token = authHeader.split(' ')[1];
     else return res.status(200).send(fetch_post);
+    console.log("step 1");
     // let verified = 0;
     jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
       if (err) {
         //dont display hearts 
+
+      console.log("user inactive and posts "+fetch_post);
         return res.status(200).send(fetch_post);
         //token se user kaise extract krna 
       }
 
    //   console.log(user);
       const id = user._id;
-
+      // console.log()
+      console.log("step 2");
       let favourites;
       const userd = await User.findById(id);
       favourites = userd.favourites;
@@ -205,6 +211,7 @@ const fetch_livedata = async (req, res) => {
         //  console.log(post);
       });
       //     console.log(fetch_post);
+      console.log("user active and posts "+fetch_post);
       return res.status(200).send(fetch_post);
     });
 

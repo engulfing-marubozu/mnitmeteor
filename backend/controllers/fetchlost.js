@@ -2,7 +2,12 @@ const { LostItem } = require("../Models");
 //to create a sin
 const FetchLost = async (req, res) => {
   console.log("Came to fetch lost people and items!");
+  //queryasparam
   const pointer = req.query.pointer;
+  // console.log(req.query);
+  // console.log(req.params);
+  
+  console.log("lost items pointer "+pointer);
   console.log(pointer);
   // res.send(pointer);
   // console.log("pointer is "+pointer);
@@ -12,7 +17,7 @@ const FetchLost = async (req, res) => {
   // //.sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20).then((err)=>{
   // //   console.log(err);
   // // });
-  try {
+  try { 
     var data = await LostItem.find({ is_verified: true }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
     // const data = await LostItem.find({is_verified: })
     console.log("Reached fetched state");
@@ -32,6 +37,7 @@ const FetchLost = async (req, res) => {
    }
 };
 const FetchOnlyFound = async (req, res) => {
+  // queryasparam
   const pointer = req.query.pointer;
   try {
     var data = await LostItem.find({ is_verified: true, category: "Found" }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
@@ -51,6 +57,7 @@ const FetchOnlyFound = async (req, res) => {
 };
 // .sort({createdAt: -1}).skip(pointer -1 ).limit(20)
 const FetchOnlyLost = async (req, res) => {
+  // queryasparam
   const pointer = req.query.pointer;
   try {
     // const ptr = req.body.pointer;

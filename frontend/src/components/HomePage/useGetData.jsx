@@ -13,7 +13,6 @@ function useGetData(token, pointer, category) {
     let isSubscribed = true;
     const Call = async () => {
       try {
-        console.log(category);
         const response = await axios.post(
           `${process.env.REACT_APP_API}/fetch`,
           {
@@ -27,7 +26,6 @@ function useGetData(token, pointer, category) {
             },
           }
         );
-        console.log("response "+response);
 
         if (isSubscribed) {
           setData((prev) => [...prev, ...response.data]);

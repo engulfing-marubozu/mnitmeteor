@@ -17,7 +17,7 @@ const FetchLost = async (req, res) => {
   // //.sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20).then((err)=>{
   // //   console.log(err);
   // // });
-  try {
+  try { 
     var data = await LostItem.find({ is_verified: true }).sort({ 'createdAt': -1 }).skip(pointer - 1).limit(20);
     // const data = await LostItem.find({is_verified: })
     console.log("Reached fetched state");

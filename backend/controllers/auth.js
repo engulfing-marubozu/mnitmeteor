@@ -6,7 +6,12 @@ const {authorisation} = require("../index")
 const jwt = require("jsonwebtoken");
 const lib = require("../Middlewares/counter.js");
 const {send_email} = require('../message_service/sendgrid_email/user_email');
+const sgMail = require("@sendgrid/mail");
 
+
+sgMail.setApiKey(
+  process.env.SENDGRID_API_KEY
+);
 saltRounds = 8;
 // var number;
 // console.log(value);
@@ -14,12 +19,12 @@ var value;
 async function check(){
  
     value = await lib.value();
-    console.log("Lib value is "+value);
+   // console.log("Lib value is "+value);
 // console.log(t);
     
 }
 // console.log(lib.value().then());
-console.log("Lib value is "+value);
+//console.log("Lib value is "+value);
 // console.log(value);
 
 ///    SIGNUP FUNCTION
@@ -29,7 +34,7 @@ const signUp = async (req, res) => {
   // console.log(req.body);
   try {
     console.log(req.body.email);
-    console.log("yaar2");
+
     console.log(Object.keys(req.body).length);
     let email = req.body.email.toLowerCase();
     if (Object.keys(req.body).length !== 1) {
@@ -74,7 +79,7 @@ const signUp = async (req, res) => {
       const msg = {
         to: email, // Change to your recipient
         from: "mnitmeteor@gmail.com", // Change to your verified sender
-        subject: "MNIT Meteor - OTP Service",
+        subject: "OTP Service",
         text: "Your OTP is " + otp,
         html: sendH,
       };
@@ -96,8 +101,8 @@ const signIn = (req, res) => {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
     console.log("reached to match password");
-    console.log(email);
-    console.log(password);
+  //  console.log(email);
+
     User.findOne({ email: email }, function (err, foundUser) {
       if (err) {
         console.log(err);
@@ -111,7 +116,7 @@ const signIn = (req, res) => {
              const token =  jwt.sign({_id : foundUser._id}, process.env.JWT_SECRET, {expiresIn: '30d'})
              const to_send = {user : foundUser._id
               , token : token, email: foundUser.email, phone_No:foundUser.Mobile_no, profile_pic: foundUser.profile_pic}
-              console.log(to_send);
+           //   console.log(to_send);
               res.status(200).send(to_send);
             } else {
               console.log("password not  matched in server");
@@ -148,8 +153,8 @@ const resetPassword = async (req, res) => {
             const sendH = "Your OTP is " + otp;
             const msg = {
               to: email, // Change to your recipient
-              from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-              subject: "MNIT Selling Platform",
+              from: "mnitmeteor@gmail.com", // Change to your verified sender
+              subject: "OTP Service",
               text: "Your OTP is " + otp,
               html: sendH,
             };
@@ -199,8 +204,8 @@ const resendOtp = async (req, res)=>{
    const sendH = "Your OTP is " + otp;
    const msg = {
      to: email, // Change to your recipient
-     from: "harshitgarg.edu@gmail.com", // Change to your verified sender
-     subject: "MNIT Selling Platform",
+     from: "mnitmeteor@gmail.com", // Change to your verified sender
+     subject: "OTP Service",
      text: "Your OTP is " + otp,
      html: sendH,
    };

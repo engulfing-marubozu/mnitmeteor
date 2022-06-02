@@ -12,7 +12,7 @@ cloudinary.config({
 const products = async (req, res) => {
   try {
 
-    console.log("came to save to database");
+  //  console.log("came to save to database");
     
     const image_array = req.body.details.images;
     const title = req.body.details.adTitle;
@@ -87,7 +87,7 @@ const admin_postLoad = async (req, res) => {
 
 // make changes to database according to the approval/disappproval by the admin
 const admin_response = async (req, res) => {
-  console.log("reached api");
+ // console.log("reached api");
   const { id, response } = req.body;
   const data = await Product.findOne({ _id: id });
   let user_id; let product_title;
@@ -102,7 +102,7 @@ const admin_response = async (req, res) => {
   
   try {
     if (response) {
-      console.log("came to save in database");
+   //   console.log("came to save in database");
       await Product.findOneAndUpdate({ _id: id }, { is_verified: true });
       await User.findByIdAndUpdate(user_id, {
         $addToSet: { products_posted: id },
@@ -185,18 +185,18 @@ const fetch_livedata = async (req, res) => {
         //token se user kaise extract krna 
       }
 
-      console.log(user);
+   //   console.log(user);
       const id = user._id;
 
       let favourites;
       const userd = await User.findById(id);
       favourites = userd.favourites;
-      console.log("182 " + favourites);
-      console.log("184 " + fetch_post);
+    //  console.log("182 " + favourites);
+   //   console.log("184 " + fetch_post);
 
       fetch_post.forEach((post) => {
 
-        console.log("187 " + post);
+  //      console.log("187 " + post);
         if (favourites.indexOf(post._id) !== -1) {
           console.log("Blued ");
           post.blue_heart = true;
@@ -217,20 +217,20 @@ const fetch_livedata = async (req, res) => {
 // sends the data of a unique card with is like value of true or false to show on the bigger page when the user clicks on ant specific post
 
 const send_specific_product = async (req, res) => {
-  console.log(req.body);
+ // console.log(req.body);
   try {
     const { email, product_id } = req.body;
     const product = await Product.findById(product_id);
     if (email) {
       const user = await User.findOne({ email });
-      console.log(user);
+    //  console.log(user);
 
       if (user.favourites.indexOf(product_id) !== -1) product.blue_heart = true;
 
       if (user.interested.indexOf(product_id) !== -1)
         product.show_interested = true;
     }
-    console.log(product);
+  //  console.log(product);
     res.status(200).send(product);
   } catch (err) {
     res.status(200).send("404");

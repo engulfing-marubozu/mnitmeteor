@@ -166,6 +166,8 @@ const admin_verification = async (req, res) => {
     } catch (error) {
         console.log("Cannot connect to client");
     }
+    let correct = 0;
+    let ic = 0;
     var admin_emails = process.env.ADMINS;
     const admin_email_list = admin_emails.split(' ');
     const authHeader = req.headers.authorization;
@@ -222,7 +224,7 @@ const admin_verification = async (req, res) => {
             bcrypt.compare(unicode, process.env.UNICODE, (err, data) => {
                 //if error than throw error
                 // if (err) throw err
-                var correct = 0;
+                // var correct = 0;
                 //if both match than you can do anything
                 if (data) {
                     console.log("Unicode is correct, now checking admin or not");
@@ -295,7 +297,7 @@ const admin_verification = async (req, res) => {
         code: 403,
         message: 'Authorization failed 4',
     }
-    if(correct!=1) res.status(200).send(to_send);
+    // if(correct!=1) res.status(200).send(to_send);
     
 };
 
@@ -384,7 +386,7 @@ const admin_verification_t = async (req, res, next) => {
                         const hits = await redis.incr(token);
                         if (hits > 2) {
                             await redis.set(token, -1);
-                            const blockingTime = 60*60*12;
+                            const blockingTime = 60;
                             var time_block = timeConvert(blockingTime);
 
                             await redis.expire(token, blockingTime); //40 seconds 

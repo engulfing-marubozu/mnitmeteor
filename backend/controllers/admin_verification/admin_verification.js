@@ -161,7 +161,9 @@ const admin_verification_r = async(req,res)=>{
     
 }
 const admin_verification = async (req, res) => {
+    let correct = 0;
     try {
+      
         await redis.connect();
     } catch (error) {
         console.log("Cannot connect to client");
@@ -222,9 +224,11 @@ const admin_verification = async (req, res) => {
             bcrypt.compare(unicode, process.env.UNICODE, (err, data) => {
                 //if error than throw error
                 // if (err) throw err
-                var correct = 0;
+               
+                
                 //if both match than you can do anything
                 if (data) {
+                    
                     console.log("Unicode is correct, now checking admin or not");
                     if (admin_email_list.includes(admin.email)) {
                         console.log("unicode verified and admin verified");

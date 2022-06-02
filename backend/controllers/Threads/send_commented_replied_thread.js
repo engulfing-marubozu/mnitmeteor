@@ -16,7 +16,7 @@ const send_commented_replied_threads = async (req, res) => {
       return datee;
     })
   );
-  console.log(data);
+ // console.log(data);
   res.status(200).send(data);
 };
 module.exports = { send_commented_replied_threads };

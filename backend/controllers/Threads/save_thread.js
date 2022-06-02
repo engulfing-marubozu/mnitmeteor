@@ -32,7 +32,7 @@ const save_threads = async (req,res)=>{
       console.log("Unsaved Thread");
       try {
         to_send =  await User.updateOne({_id : user_id}, { $pull: {threads_saved: {id : thread_id}}});  
-        console.log(to_send);
+     //   console.log(to_send);
         to_send = await User.findById(user_id);
         to_send = to_send.threads_saved;
         var to_send_data = await Promise.all(
@@ -47,7 +47,7 @@ const save_threads = async (req,res)=>{
         // let to_send_data = await Promise
         if(flag===2){
           console.log("flag is 2");
-          console.log(to_send_data);
+       //   console.log(to_send_data);
           return res.status(200).send(to_send_data);
         }
       } catch (error) {

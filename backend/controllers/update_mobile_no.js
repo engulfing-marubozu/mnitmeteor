@@ -10,14 +10,14 @@ const update_mobile_no = async(req,res)=>{
         return res.status(403).send("Issue with user login. ");
     }
     console.log("UID is " + uid);
-    console.log(body);
+    //console.log(body);
     const pno = body.phoneNo;
     const authHeader = req.headers.authorization;
    
     const token = authHeader.split(' ')[1];
     var comp_user = req.user;
-    console.log("comp_user " + comp_user);
-    console.log(comp_user);
+   // console.log("comp_user " + comp_user);
+    //console.log(comp_user);
     var email; var profile_pic;
     try {
         email = await User.findById(uid );
@@ -38,7 +38,7 @@ const update_mobile_no = async(req,res)=>{
         email: email,
         profile_pic: comp_user.profile_pic,
     }
-    console.log(to_send);
+    //console.log(to_send);
     res.status(200).send(to_send);  
     } catch (error) {
         const to_send = {
@@ -48,7 +48,7 @@ const update_mobile_no = async(req,res)=>{
             email: email,
             profile_pic: comp_user.profile_pic,
         }
-        console.log(to_send);
+       // console.log(to_send);
         res.status(200).send(to_send);    
     }finally{
         console.log("Done with phone number database operations ");

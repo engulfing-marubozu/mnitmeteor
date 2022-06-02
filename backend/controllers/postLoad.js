@@ -40,7 +40,7 @@ const products = async (req, res) => {
       })
     );
 
-    console.log(image_cloud_link);
+    //console.log(image_cloud_link);
 
     const Product_save = new Product({
       title: title,
@@ -51,7 +51,7 @@ const products = async (req, res) => {
     });
     try {
       const saved_product = await Product_save.save();
-      console.log(saved_product);
+    //  console.log(saved_product);
       // await User.findByIdAndUpdate(user_id, {
       //   $addToSet: { products_posted: saved_product._id },
       // });
@@ -148,7 +148,7 @@ const fetch_livedata = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
     console.log("home page ");
-    console.log("139 " + authHeader);
+   // console.log("139 " + authHeader);
     // console.log(process.env.CLOUDINARY_SECRET);
     // console.log(authHeader.split(' ')[1]);
 
@@ -185,7 +185,7 @@ const fetch_livedata = async (req, res) => {
       if (err) {
         //dont display hearts 
 
-      console.log("user inactive and posts "+fetch_post);
+    //  console.log("user inactive and posts "+fetch_post);
         return res.status(200).send(fetch_post);
         //token se user kaise extract krna 
       }
@@ -211,7 +211,7 @@ const fetch_livedata = async (req, res) => {
         //  console.log(post);
       });
       //     console.log(fetch_post);
-      console.log("user active and posts "+fetch_post);
+      //console.log("user active and posts "+fetch_post);
       return res.status(200).send(fetch_post);
     });
 

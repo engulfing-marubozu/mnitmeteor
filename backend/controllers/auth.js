@@ -42,10 +42,10 @@ const signUp = async (req, res) => {
       console.log("reached api");
       let password = req.body.password;
       // var name = req.body.name;
-      console.log("yaar");
+      //console.log("yaar");
       // check();
       value = await lib.value();
-      console.log("value is "+value);
+      //console.log("value is "+value);
       const username = email.split("@")[0];
       const loadavatar = `https://freekiimages.herokuapp.com/img_load.png?value=${value}`;
       

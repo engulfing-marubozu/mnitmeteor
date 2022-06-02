@@ -26,6 +26,7 @@ export function SignupForm(props) {
         notify("Already Registered");
       } else {
         const otpgen = response.data.otp;
+        console.log(otpgen);
         Switch({
           ...signupEmail,
           otp: otpgen,

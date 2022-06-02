@@ -99,3 +99,30 @@ export const UploadStyle = makeStyles({
     textAlign: "center",
   },
 });
+
+export const TermsofUseStyle = makeStyles({
+  topBox: {
+    padding: "0.5rem 0.8rem",
+    width: "560px",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "white ",
+    borderRadius: "7px",
+    "@media(max-width:900px)": {
+      width: "520px",
+    },
+    "@media(max-width:600px)": {
+      padding: "0.5rem 0.5rem",
+      width: "340px",
+    },
+  },
+  heading: {
+    fontWeight: "bold",
+    marginBottom: "0.5rem",
+  },
+  headingBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});

@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { FooterStyle } from "./footerStyling";
 import mnitmeteor from "../_Styling/Images/mnitmeteor.svg";
 import { useNavigate } from "react-router-dom";
+import TermsofUse from "../Links/termsofUse";
 function Footer() {
+  const [isShow, setIsShow] = useState(false);
   const Navigate = useNavigate();
   const classes = FooterStyle();
+
+  const ShowHandler = () => {
+    setIsShow(!isShow);
+  };
   return (
     <Box className={classes.mainBox}>
       <Box component="footer" className={classes.itemContainer}>
@@ -20,9 +26,14 @@ function Footer() {
           >
             <Typography>Feedback</Typography>
           </a>
-          {/* <Link > */}
-          <Typography>Terms of use</Typography>
-          {/* </Link> */}
+
+          <Typography
+            sx={{ cursor: "pointer", "&:hover": { color: "#673ab7" } }}
+            onClick={ShowHandler}
+          >
+            Terms of use
+          </Typography>
+          {isShow && <TermsofUse open={isShow} onClose={ShowHandler} />}
         </Box>
 
         <Box

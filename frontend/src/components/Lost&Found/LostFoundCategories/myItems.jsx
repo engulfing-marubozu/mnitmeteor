@@ -51,9 +51,6 @@ function LostFoundMyItems({ userAuthData }) {
     return () => (isSubscribed = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // console.log(myItems);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}

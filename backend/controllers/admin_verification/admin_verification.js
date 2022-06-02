@@ -47,10 +47,10 @@ const admin_verification_r = async(req,res)=>{
     const admin_email_list = admin_emails.split(' ');
     const authHeader = req.headers.authorization;
     const unicode = req.body.unicode;
-    console.log("unicode is " + unicode);
+   // console.log("unicode is " + unicode);
     //unicode 
     var check = authHeader.split(' ')[1];
-    console.log(typeof (check));
+   // console.log(typeof (check));
     if (check == "undefined") check = 0;
     if(check==0){
         const to_send = {
@@ -88,7 +88,7 @@ const admin_verification_r = async(req,res)=>{
             var admin;
             try {
                 admin = await User.findById(req.user._id);
-                console.log(admin);
+                //console.log(admin);
             } catch (error) {
                 return res.status(200).send(common_response);
             }
@@ -97,7 +97,7 @@ const admin_verification_r = async(req,res)=>{
             }
             bcrypt.compare(unicode, process.env.UNICODE, (err,data)=>{
                 if(data){
-                    console.log("data admin "+data);
+                    ("data admin "+data);
                     console.log("Correct unicode, checking authenticity of admin");
                     
                     if(admin_email_list.includes(admin.email)){
@@ -172,9 +172,9 @@ const admin_verification = async (req, res) => {
     const admin_email_list = admin_emails.split(' ');
     const authHeader = req.headers.authorization;
     const unicode = req.body.unicode;
-    console.log("unicode is " + unicode);
+   // console.log("unicode is " + unicode);
     var check = authHeader.split(' ')[1];
-    console.log(typeof (check));
+    //console.log(typeof (check));
     if(check==undefined){
         console.log("error");
                 const to_send = {
@@ -185,7 +185,7 @@ const admin_verification = async (req, res) => {
     };
     if (check) {
         const token = authHeader?.split(' ')[1];
-        console.log(token);
+     //   console.log(token);
         //iss token se login
         //jwt verify 
         //err return user authentication failed
@@ -202,9 +202,9 @@ const admin_verification = async (req, res) => {
             req.user = user;
             console.log(req.user)
             const admin = await User.findById(req.user._id);
-            console.log(admin.email);
-            console.log("Unicode given in env " + process.env.UNICODE);
-            console.log("Entered " + unicode);
+            // console.log(admin.email);
+            // console.log("Unicode given in env " + process.env.UNICODE);
+            // console.log("Entered " + unicode);
 
             const hs = await redis.ttl(admin.email);
             console.log("hs is "+hs);
@@ -349,9 +349,9 @@ const admin_verification_t = async (req, res, next) => {
             req.user = user;
             console.log(req.user)
             const admin = await User.findById(req.user._id);
-            console.log(admin.email);
-            console.log("Unicode given in env " + process.env.UNICODE);
-            console.log("Entered " + unicode);
+            // console.log(admin.email);
+            // console.log("Unicode given in env " + process.env.UNICODE);
+            // console.log("Entered " + unicode);
             bcrypt.compare(unicode, process.env.UNICODE, (err, data) => {
                 //if error than throw error
                 // if (err) throw err

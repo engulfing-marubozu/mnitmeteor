@@ -26,7 +26,7 @@ const un_interested_update = async (req, res) => {
     console.log(err);
   }
   // const attempts_left =  req.allowed_hits - req.number_of_req
-  console.log(buyer);
+ // console.log(buyer);
   const to_send = {
     interested_buyers: buyer.interested,
   }

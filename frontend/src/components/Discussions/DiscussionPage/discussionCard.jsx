@@ -40,7 +40,6 @@ import ReadMore from "../../_Styling/readmore";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data, flag, showDelete, setThread }) {
-  // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
   const [saved, setSaved] = useState(data?.is_saved);
@@ -66,7 +65,6 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   };
 
   // ===========================================================LIKEHANDLER=====================================================================================================================================================
-  // console.log(data);
   const likes = data.likes;
   const dislikes = data.dislikes;
   const likeStatus = LikeDislikeChecker(likes, userLoggedIn);

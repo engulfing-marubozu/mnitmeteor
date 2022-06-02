@@ -31,7 +31,7 @@ const fetch_live_threads = async (req, res) => {
       jwt.verify(token,process.env.JWT_SECRET,async (err,user)=>{
         if(err){
           return res.status(200).send({ universal_threads });
-          console.log({universal_threads});
+        //  console.log({universal_threads});
         }
         console.log("fist point ");
         console.log(user);
@@ -67,9 +67,9 @@ const fetch_live_threads = async (req, res) => {
           universal_threads.forEach((thread)=>{
             //to check if the array contains this thread
             if( saved_threads.indexOf(thread.id)!==-1){
-              console.log("reached here");
+              console.log("reached to fetch threads");
               thread.is_saved = true;
-              console.log(thread);
+            //  console.log(thread);
             }
             // console.log(thread);
           });
@@ -120,7 +120,7 @@ const fetch_own_threads = async (req, res) => {
     const user = await User.findById(user_id);
 
     const user_specific_threads = await Thread.find({ posted_by: user_id, is_verified: true }).sort({ date: -1 });
-    console.log(user_specific_threads);
+  //  console.log(user_specific_threads);
     let saved_threads;
     try {
       saved_threads = user.threads_saved;  
@@ -143,7 +143,7 @@ const fetch_own_threads = async (req, res) => {
       console.log(error);
     }
     try {
-      console.log(user_specific_threads);
+     // console.log(user_specific_threads);
       user_specific_threads.forEach((thread)=>{
         if(saved_threads_arr.indexOf(thread.id)!==-1){
           thread.is_saved = true;

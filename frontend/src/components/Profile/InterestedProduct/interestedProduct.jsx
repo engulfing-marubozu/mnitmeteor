@@ -36,7 +36,6 @@ function InterestedProduct() {
           setCardData(response.data);
         }
       } catch (err) {
-        console.log(err);
         if (err.response.status === 403) {
           dispatch(LogoutUser());
           Navigate(`/`);

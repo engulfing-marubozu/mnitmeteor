@@ -78,8 +78,8 @@ const send_un_interested_email = async (seller_email , seller_mobile_no, product
 }
 
 const delete_product_email =async (interested_users_array, product_title)=>{
-  console.log(interested_users_array);
-  console.log(product_title);
+  //console.log(interested_users_array);
+  //console.log(product_title);
    const msg_buyer = `Dear MNITian, The product, ${product_title} you were interested in has been deleted by the seller. We wish you some great deals in future.`
    const draft_seller ={
     to: interested_users_array, // Change to your recipient

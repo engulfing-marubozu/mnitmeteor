@@ -36,7 +36,7 @@ const favourites_update= async (req, res)=>
                      console.log(err);
                }
           }
-          console.log(updated_user);
+         // console.log(updated_user);
           res.status(200).json({updatedUser : updated_user.favourites});
 
 }
@@ -49,7 +49,7 @@ const send_favourites = async (req, res) => {
   console.log(req.user._id);
   user_id = req.user._id;
   const user = await User.findById(user_id);
-  console.log(user);
+  //console.log(user);
   const favourites_id = user.favourites;
   console.log(favourites_id);
   const data = await Promise.all(
@@ -59,7 +59,7 @@ const send_favourites = async (req, res) => {
     })
   );
   console.log("deepak madarchod");
-  console.log(data);
+//  console.log(data);
   res.status(200).send(data);
 };
 module.exports = { send_favourites, favourites_update };

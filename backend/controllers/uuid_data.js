@@ -6,7 +6,7 @@ const uuidinput = (req,res)=>{
 
     input_code = req.body.code;
     // res.send(req.body);
-    console.log(input_code);
+   // console.log(input_code);
     if(input_code === "harshit"){
         console.log("correct");
         const token =  jwt.sign({_id : input_code}, process.env.JWT_SECRET, {expiresIn: '7d'})

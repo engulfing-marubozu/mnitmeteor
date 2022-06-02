@@ -48,13 +48,13 @@ const new_thread = async (req, res) => {
   
     // console.log(Thread_save);
     try {
-      console.log("maza aa gaya")
+     // console.log("maza aa gaya")
       const saved_thread = await Thread_save.save();
-      console.log("maza aa gaya")
-       console.log(saved_thread);
-      console.log(saved_thread.posted_by);
-      console.log(saved_thread._id);
-      console.log("Saved unverified thread");
+      // console.log("maza aa gaya")
+      //  console.log(saved_thread);
+      // console.log(saved_thread.posted_by);
+      // console.log(saved_thread._id);
+      // console.log("Saved unverified thread");
       return res.status(200).send("saved");
     } catch (err) {
       return res.status(404).send("not saved");
@@ -90,7 +90,7 @@ const handle_admin_thread = async (req, res) => {
           },
         },
       });
-      console.log(xy);
+    //  console.log(xy);
       res
         .status(200)
         .send(
@@ -102,7 +102,7 @@ const handle_admin_thread = async (req, res) => {
     // console.log(id);
     // findByIdAndDelete(id)
     Thread.findByIdAndDelete(id, function (res) {
-      console.log(res);
+     // console.log(res);
     });
     await User.findByIdAndUpdate(req.body.posted_by, {
       $addToSet: {

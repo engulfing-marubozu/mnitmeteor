@@ -113,7 +113,6 @@ function DiscriptionCard({ descrpData, productId, userId }) {
     }
   };
   const classes = DescriptionStyle();
-  // console.log(descrpData);
   // ================================================================CardData =======================================
   const imageThumbnail = descrpData?.images;
   const title =

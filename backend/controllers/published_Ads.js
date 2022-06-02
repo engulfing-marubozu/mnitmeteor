@@ -9,17 +9,17 @@ const send_published_Ads = async (req, res) => {
     console.log(req.user._id);
   user_id = req.user._id;
   const user = await User.findById(user_id);
-  console.log(user);
+ // console.log(user);
   if(!user) return res.status(200).send();
   const posted_products_id = user.products_posted;
-  console.log(posted_products_id);
+ // console.log(posted_products_id);
   const data = await Promise.all(
     posted_products_id.map(async (product_id) => {
       const datee = await Product.findById(product_id);
       return datee;
     })
   );
-  console.log(data);
+ // console.log(data);
   res.status(200).send(data);  
   } catch (error) {
     let e = [];
@@ -37,7 +37,7 @@ const delete_published_Ads = async (req, res) => {
     const { interested_users, likes } = await Product.findById(
       product_id
     ).populate("interested_users");
-    console.log(interested_users);
+   // console.log(interested_users);
     const { title } = await Product.findByIdAndDelete(product_id);
     updated_user = await User.findByIdAndUpdate(
       user_id,

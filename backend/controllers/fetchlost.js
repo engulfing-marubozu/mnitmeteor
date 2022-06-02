@@ -7,8 +7,8 @@ const FetchLost = async (req, res) => {
   // console.log(req.query);
   // console.log(req.params);
   
-  console.log("lost items pointer "+pointer);
-  console.log(pointer);
+  //console.log("lost items pointer "+pointer);
+  //console.log(pointer);
   // res.send(pointer);
   // console.log("pointer is "+pointer);
   if(pointer==null){
@@ -120,7 +120,7 @@ const FetchFalse = async (req, res) => {
 };
 const FetchByID = async (req, res) => {
   const email = req.body.email;
-  console.log("fetching by id for " + email);
+ // console.log("fetching by id for " + email);
 
   const uid = req.body.lnfcard_id;
   try {

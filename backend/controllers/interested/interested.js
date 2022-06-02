@@ -46,7 +46,7 @@ const interested_update= async (req, res)=>
                  console.log(err);
                }
           
-          console.log(buyer);
+       //   console.log(buyer);
           res.status(200).json({updatedUser : buyer.interested,status:"success", buyer_id : buyer._id, seller_id: seller._id});
 
 }
@@ -62,14 +62,14 @@ const send_interested_products = async (req, res) => {
     console.log(req.user._id);
     user_id = req.user._id;
     const user = await User.findById(user_id);
-    console.log(user);
+ //   console.log(user);
     const interested_id = user.interested;
     console.log(interested_id);
       const data =await Promise.all (interested_id.map(async (product_id)=>{
              const datee = await Product.findById(product_id);
              return datee;
       }));
-    console.log(data);
+ //   console.log(data);
     res.status(200).send(data);
   };
 

@@ -11,7 +11,7 @@ const like_thread = async (user_id, thread_id) => {
       { $addToSet: { likes: user_id } },
       { new: true }
     );
-    console.log(updated_thread);
+  //  console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -25,7 +25,7 @@ const not_like_thread = async (user_id, thread_id) => {
       { $pull: { likes: user_id } },
       { new: true }
     );
-    console.log(updated_thread);
+ //   console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -36,7 +36,7 @@ const unlike_thread = async (user_id, thread_id) => {
   console.log("came to unlike  thread");
   try {
     const x = await Thread.findById(thread_id);
-    console.log(x);
+  //  console.log(x);
     await Thread.findOneAndUpdate(
     {_id: thread_id },
       { $pull: { likes: user_id } }
@@ -46,7 +46,7 @@ const unlike_thread = async (user_id, thread_id) => {
       { $addToSet: { dislikes: user_id } },
       { new: true }
     );
-    console.log(updated_thread);
+  //  console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -61,7 +61,7 @@ const not_unlike_thread = async (user_id, thread_id) => {
       { $pull: { dislikes: user_id } },
       { new: true }
     );
-    console.log(updated_thread);
+ //   console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -82,7 +82,7 @@ const like_comment = async (user_id, comment_id, thread_id) => {
       { $addToSet: { "discussions.$.likes": user_id } },
       { new: true }
     );
-    console.log(updated_thread);
+  //  console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -98,7 +98,7 @@ const not_like_comment = async (user_id, comment_id, thread_id) => {
       { new: true }
     );
 
-    console.log(updated_thread);
+    //console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -116,7 +116,7 @@ const unlike_comment = async (user_id, comment_id, thread_id) => {
       { $addToSet: { "discussions.$.dislikes": user_id } },
       { new: true }
     );
-    console.log(updated_thread);
+ //   console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -131,7 +131,7 @@ const not_unlike_comment = async (user_id, comment_id, thread_id) => {
       { new: true }
     );
 
-    console.log(updated_thread);
+  //  console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -154,7 +154,7 @@ const like_reply = async (user_id, reply_id, thread_id, comment_id) => {
         new: true,
       }
     );
-    console.log(updated_thread);
+  //  console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -172,7 +172,7 @@ const not_like_reply = async (user_id, reply_id, thread_id, comment_id) => {
         new: true,
       }
     );
-    console.log(updated_thread);
+   // console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -195,7 +195,7 @@ const unlike_reply = async (user_id, reply_id, thread_id, comment_id) => {
         new: true,
       }
     );
-    console.log(updated_thread);
+   // console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -213,7 +213,7 @@ const not_unlike_reply = async (user_id, reply_id, thread_id, comment_id) => {
         new: true,
       }
     );
-    console.log(updated_thread);
+   // console.log(updated_thread);
     return updated_thread;
   } catch (err) {
     console.log(err);
@@ -232,7 +232,7 @@ const like_and_dislike_threads = async (req, res) => {
     const comment_id = req.body.comment_id;
     const reply_id = req.body.reply_id;
     const status = req.body.status;
-    console.log(req.body);
+  //  console.log(req.body);
     if (
       comment_id === null &&
       reply_id === null &&

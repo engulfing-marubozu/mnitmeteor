@@ -10,7 +10,7 @@ cloudinary.config({
 const HandleAdmin = async (req, res) => {
   
   console.log("Admin bhai approve kro ");
-  console.log(req.body);
+//  console.log(req.body);
 try{
   approval = req.body.to_approve;
   id = req.body._id;
@@ -69,14 +69,14 @@ const SendLost = async (req, res) => {
   title = req.body.title;
   description = req.body.description;
   category = req.body.categories;
-  console.log(req.body.title);
-  console.log(req.body.description);
-  console.log(req.body.categories);
+  // console.log(req.body.title);
+  // console.log(req.body.description);
+  // console.log(req.body.categories);
   email = req.body.email;
   imgs = req.body.imgs;
   refID = req.body.posted_by;
-  console.log(email);
-  console.log("reached cloudinary part");
+  // console.log(email);
+  // console.log("reached cloudinary part");
   image_cloud_links = null;
   try {
     if (imgs.length > 0) {
@@ -140,14 +140,14 @@ const LostCheck = async (req, res) => {
     
     prof_pic = await User.findById(user._id);
     prof_pic = prof_pic.profile_pic;
-    console.log("1 "+prof_pic);
+//    console.log("1 "+prof_pic);
   } catch (error) {
     console.log(error);
   }
 
-  console.log(req.body.title);
-  console.log(req.body.description);
-  console.log(req.body.categories);
+  // console.log(req.body.title);
+  // console.log(req.body.description);
+  // console.log(req.body.categories);
   // console.log()
   email = req.body.email;
   imgs = req.body.imgs;

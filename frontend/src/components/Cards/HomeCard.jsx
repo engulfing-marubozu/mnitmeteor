@@ -45,7 +45,6 @@ export default function HomeCard({ cardData, index }) {
 
   const LikeButtonHandler = () => {
     if (isLogin) {
-      // console.log(token);
       setLikeButton(!likeButton);
       const likeData = { productId: cardData._id, userToken: token };
       !likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: true }));

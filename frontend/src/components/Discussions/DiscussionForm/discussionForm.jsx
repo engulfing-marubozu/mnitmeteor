@@ -106,7 +106,6 @@ function DiscussionForm() {
               if (navigator.onLine) {
                 if (values.document) {
                   const reader = new FileReader();
-                  console.log(values.document.name);
                   reader.onload = () => {
                    // const data = { ...values, document: reader.result };
                     const data = {

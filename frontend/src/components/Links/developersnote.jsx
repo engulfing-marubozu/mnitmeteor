@@ -41,7 +41,7 @@ function DevelopersNote() {
           <Box className={classes.imageBox}>
             <img
               src={
-                "https://res.cloudinary.com/mnitmarket/image/upload/v1654111297/map_jrgdol.svg"
+                "https://res.cloudinary.com/mnitmarket/image/upload/v1654159323/mnitmap_bhom5b.svg"
               }
               className={classes.image}
               alt="books"

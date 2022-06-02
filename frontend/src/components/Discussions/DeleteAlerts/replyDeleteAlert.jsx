@@ -43,7 +43,6 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
             );
             if (mountedRef.current) {
                 setLocalCommentData(response.data);
-                // console.log(response.data);
             }
 
         } catch (err) {

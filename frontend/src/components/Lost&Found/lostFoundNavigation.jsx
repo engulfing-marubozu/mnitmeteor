@@ -5,11 +5,13 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import CreateIcon from "@mui/icons-material/Create";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import SearchIcon from "@mui/icons-material/Search";
+import BoxIcon from "../_Styling/Images/box.svg";
 import { NavTabs, NavTab, VerticalNavTab } from "../_Styling/tabStyling";
 import { useNavigate, useLocation } from "react-router-dom";
 import { verticalNavigationStyle } from "../_Styling/tabStyling";
 import { useDispatch, useSelector } from "react-redux";
 import { modelPopUp } from "../../AStatemanagement/Actions/userActions";
+import { Avatar } from "@mui/material";
 
 export function LostFoundNavigation() {
   const [value, setValue] = React.useState(0);
@@ -77,8 +79,14 @@ export function LostFoundNavigation() {
           }}
         />
         <NavTab
-          icon={<SearchIcon />}
-          
+          icon={
+            <Avatar
+              src={BoxIcon}
+              alt="boxIcon"
+              sx={{ width: "1.5rem", height: "1.5rem" }}
+              variant="rounded"
+            />
+          }
           label="My Items"
           onClick={() => {
             ResTabClickHandler("myitems");
@@ -159,7 +167,14 @@ export function LostFoundVerticalNavigation() {
             }}
           />
           <VerticalNavTab
-            icon={<SearchIcon />}
+            icon={
+              <Avatar
+                src={BoxIcon}
+                alt="boxIcon"
+                sx={{ width: "1.5rem", height: "1.5rem" }}
+                variant="rounded"
+              />
+            }
             label="My Items"
             onClick={() => {
               ResTabClickHandler("myitems");

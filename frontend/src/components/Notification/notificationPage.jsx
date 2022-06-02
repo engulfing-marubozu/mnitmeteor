@@ -14,6 +14,7 @@ function NotificationPage({ setDrawer }) {
   const [notifications, setNotifications] = useState();
   const userAuthData = JSON.parse(window.localStorage.getItem("Zuyq!jef@}#e"));
   const token = userAuthData?.xezzi;
+  const isLogin = userAuthData?.oamp;
   useEffect(() => {
     const fetch_notification = async () => {
       const response = await axios.get(
@@ -26,11 +27,11 @@ function NotificationPage({ setDrawer }) {
       );
       setNotifications(response.data);
     };
-    fetch_notification();
+    isLogin && fetch_notification();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // ===========================================================================================
-  console.log(notifications);
   const classes = NotificationPageStyle();
   return (
     <Box className={classes.mainBox}>

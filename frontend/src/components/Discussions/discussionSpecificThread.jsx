@@ -23,7 +23,6 @@ export default function SpecificThread() {
           if (response.data === 404) {
             Navigate("/*");
           } else {
-            console.log(response.data);
             setDiscsnData(response.data.thread);
           }
         }

@@ -21,7 +21,6 @@ import {
 } from "../_Styling/cardStyling";
 
 export default function FavouritesCard({ cardData }) {
-  // console.log(cardData);
   // =============================================CARD DATA==============================================================================================
   const Image = cardData.images[0].image;
   const title =

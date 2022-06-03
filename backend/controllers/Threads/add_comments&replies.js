@@ -72,7 +72,10 @@ const add_comment =async (req,res)=>{
             )    
            const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
        //  console.log("hello " + updated_Thread.discussions[0]);
-           res.status(200).send(updated_Thread.discussions[0]);
+       if(updated_Thread.discussions[0] === {})
+       res.status(200).send("100");
+       else
+      res.status(200).send(updated_Thread.discussions[0]);
         }
        
         }

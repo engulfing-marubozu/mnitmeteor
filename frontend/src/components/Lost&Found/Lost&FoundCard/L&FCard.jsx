@@ -72,7 +72,11 @@ export default function LostFoundCard({
                 )}
                 <RWebShare
                   data={{
-                    text: `${category === "Lost" ? "Checkout this lost item!" : "Checkout this found item!"}`,
+                    text: `${
+                      category === "Lost"
+                        ? "Checkout this lost item!"
+                        : "Checkout this found item!"
+                    }`,
                     url: `${process.env.REACT_APP_REDIRECT}/lost&found/${data._id}`,
                     title: `${itemName}`,
                   }}
@@ -89,12 +93,11 @@ export default function LostFoundCard({
             subheader={properDate}
           />
           <Box className="lfImageStyle">
-            {images && (
+            {images.length > 0 && (
               <ImageGallery
                 items={images}
                 showThumbnails={false}
                 showPlayButton={false}
-                showFullscreenButton={false}
               />
             )}
           </Box>

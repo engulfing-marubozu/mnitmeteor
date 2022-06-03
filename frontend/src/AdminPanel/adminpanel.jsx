@@ -14,7 +14,7 @@ function AdminPanel() {
   const classes = AdminPanelStyle();
   const AdminLogout = () => {
     window.localStorage.removeItem("Bgp_pejbsv/+/&}s");
-    Navigate("/");
+    Navigate(-1);
   };
   return (
     <Box className={classes.panelMainBox}>
@@ -25,7 +25,7 @@ function AdminPanel() {
           </Typography>
         </Box>
         <Box>
-          <IconButton onClick={() => Navigate("/")}>
+          <IconButton onClick={() => Navigate(-1)}>
             <CloseIcon className={classes.closeIcon} />
           </IconButton>
         </Box>

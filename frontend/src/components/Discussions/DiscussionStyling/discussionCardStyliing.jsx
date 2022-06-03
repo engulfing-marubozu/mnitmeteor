@@ -3,7 +3,6 @@ export const DiscussionCardStyle = makeStyles({
   dmainBox: {
     display: "flex",
     alignItems: "flex-start",
-    flexDirection: "column",
     width: "100%",
     marginTop: "1rem ",
   },
@@ -24,6 +23,18 @@ export const DiscussionCardStyle = makeStyles({
       padding: "1rem 0.2rem 0.5rem",
     },
   },
+  dcontentBox: {
+    display: "flex",
+    flexDirection: "column",
+    width: "92%",
+    "@media (max-width: 780px)": {
+      width: "90%",
+    },
+    "@media (max-width: 380px)": {
+      width: "88%",
+    },
+  },
+
   dactionBox: {
     display: "flex",
     flexDirection: "row",
@@ -51,19 +62,11 @@ export const DiscussionCardStyle = makeStyles({
     width: "120px",
     padding: "0px 2px 3px ",
   },
-
-  
-
-
-
-
-
 });
 
 // ====================================================================================================================================================================================
 export const DiscussionCommonStyle = makeStyles({
   dProfileIcon: {
-    backgroundColor: "#673ab7",
     height: 30,
     width: 30,
     "@media (max-width: 600px)": {

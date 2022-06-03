@@ -44,7 +44,7 @@ const FORM_VALIDATION = Yup.object().shape({
 function SellFormNew() {
   const [formValue, setFormValue] = useState({});
   const [contactModel, setContactModel] = useState(false);
-  const [imagearray, setimagearray] = useState([]);
+  const [, setimagearray] = useState([]);
   const [isOffline, setIsOffline] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
   const Navigate = useNavigate();
@@ -57,26 +57,19 @@ function SellFormNew() {
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
-
+//images: imagearray,
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
       // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,
-        { images: imagearray, details: values },
+        {  details: values },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
-        {
-          onUploadProgress: (progressEvent) => {
-            let percentComplete = progressEvent.loaded / progressEvent.total;
-            percentComplete = parseInt(percentComplete * 100);
-            console.log(percentComplete);
-          },
-        }
       );
       setIsUpload(false);
       dispatch(sellPopUp(true));

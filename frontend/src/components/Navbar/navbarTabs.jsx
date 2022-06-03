@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Badge from "@mui/material/Badge";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { useEffect } from "react";
@@ -14,12 +15,8 @@ const AntTabs = styled(Tabs)({
 const AntTab = styled((props) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
     textTransform: "none",
-    padding: "0.3rem",
+    padding: "0.65rem",
     minWidth: 0,
-    [theme.breakpoints.up("md")]: {
-      minWidth: 0,
-      padding: "0.5rem",
-    },
     fontWeight: theme.typography.fontWeightRegular,
     color: "rgba(0, 0, 0, 0.85)",
     "&:hover": {
@@ -36,7 +33,7 @@ const AntTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 
-export default function NavbarTabs(props) {
+export default function NavbarTabs({ updateBadge, setPostPending }) {
   const Navigate = useNavigate();
   const location = useLocation();
   const [value, setValue] = React.useState(0);
@@ -55,9 +52,14 @@ export default function NavbarTabs(props) {
   return (
     <AntTabs value={value}>
       <AntTab
-        label="Home"
+        label={
+          <Badge badgeContent={updateBadge} color="error">
+            Home
+          </Badge>
+        }
         onClick={() => {
           Navigate("/");
+          setPostPending(0);
         }}
       />
       <AntTab

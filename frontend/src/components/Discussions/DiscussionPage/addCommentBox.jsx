@@ -5,9 +5,11 @@ import { AddCommentButton } from "../DiscussionStyling/discussionStyling";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { modelPopUp } from "../../../AStatemanagement/Actions/userActions";
+import PostDeletedPopup from "../../ModelPopUP/postDeletedPopup";
 
 function AddCommentBox({ addCommentData, setLocalCardData }) {
   const [disabledPost, setDisabledPost] = useState(true);
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const localUserData = useSelector((state) => state.loginlogoutReducer);
   const token = localUserData?.token;
@@ -42,10 +44,13 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
           },
         }
       );
-      console.log(response);
-      setLocalCardData(response.data.updated_Thread);
-      inputComment.current.value = null;
-      setDisabledPost(true);
+      if (response.data === 100) {
+        setVisible(true);
+      } else {
+        setLocalCardData(response.data.updated_Thread);
+        inputComment.current.value = null;
+        setDisabledPost(true);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -57,32 +62,43 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
       dispatch(modelPopUp(true));
     }
   };
+  const VisibleHandler = () => {
+    setVisible(!visible);
+  };
   // ==============================================================================================================================================
   return (
-    // <ThemeProvider theme={theme}>
-    <Box sx={{ mt: "1rem" }}>
-      <Box>
-        <TextField
-          color="primary"
-          fullWidth
-          placeholder="Add a comment..."
-          multiline
-          maxRows={4}
-          onKeyUp={EnablePost}
-          inputRef={inputComment}
-        />
-      </Box>
-      <Box sx={{ display: "flex", flexDirection: "flex-end" }}>
-        <AddCommentButton
-          disabled={disabledPost}
-          onClick={submitCheck}
-          size="large"
-        >
-          {" "}
-          Add Comment
-        </AddCommentButton>
-      </Box>
-    </Box>
+    <>
+      {!visible && (
+        <Box sx={{ mt: "1rem" }}>
+          <Box>
+            <TextField
+              color="primary"
+              fullWidth
+              placeholder="Add a comment..."
+              multiline
+              maxRows={4}
+              onKeyUp={EnablePost}
+              inputRef={inputComment}
+            />
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "flex-end" }}>
+            <AddCommentButton
+              disabled={disabledPost}
+              onClick={submitCheck}
+              size="large"
+            >
+              {" "}
+              Add Comment
+            </AddCommentButton>
+          </Box>
+        </Box>
+      )}
+      {visible && (
+        <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
+          User has deleted this thread , please refresh the page.
+        </PostDeletedPopup>
+      )}
+    </>
   );
 }
 

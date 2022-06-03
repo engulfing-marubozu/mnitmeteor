@@ -33,7 +33,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
-  console.log(data);
   const [expanded, setExpanded] = React.useState(false);
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);
@@ -42,9 +41,9 @@ export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
   const userEmail = data?.users_mnit_id;
   const description = data?.description;
   const profilePic = data?.profile_pic;
-  // const document = data?.document?.link;
-  // const documentName = data?.document?.name;
-  const document = data?.document;
+  const document = data?.document?.link;
+  const documentName = data?.document?.name;
+  
   // =======================================================================================
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -75,7 +74,7 @@ export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
               >
                 <PictureAsPdfIcon color="error" fontSize="small" />
                 <Typography noWrap className={classes.fileName}>
-                documentName
+                  {documentName}
                 </Typography>
               </Link>
             </Box>

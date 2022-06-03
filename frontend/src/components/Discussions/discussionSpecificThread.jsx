@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import DiscussionCard from "./DiscussionPage/discussionCard";
+import PostDeletedPopup from "../ModelPopUP/postDeletedPopup";
 export default function SpecificThread() {
   const [discsnData, setDiscsnData] = useState();
+  const [visible, setVisible] = useState(false);
   const Navigate = useNavigate();
   const params = useParams();
   const thread_id = params.threadId;
@@ -22,8 +24,9 @@ export default function SpecificThread() {
         if (isSubscribed) {
           if (response.data === 404) {
             Navigate("/*");
+          } else if (response.data === 100) {
+            setVisible(true);
           } else {
-            console.log(response.data);
             setDiscsnData(response.data.thread);
           }
         }
@@ -38,10 +41,19 @@ export default function SpecificThread() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [thread_id]);
 
+  const VisibleHandler = () => {
+    setVisible(!visible);
+    Navigate("/discussions");
+  };
   return (
     <>
-      {typeof discsnData !== "undefined" && (
+      {typeof discsnData !== "undefined" && !visible && (
         <DiscussionCard data={discsnData} flag={4} showDelete={false} />
+      )}
+      {visible && (
+        <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
+          User has deleted this thread.
+        </PostDeletedPopup>
       )}
     </>
   );

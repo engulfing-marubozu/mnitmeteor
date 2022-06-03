@@ -2,6 +2,7 @@ const {Thread, User} = require("../../Models")
 // recieves data as thread_id , commenter_id, comment
 const add_comment =async (req,res)=>{
     try{
+        console.log(req.body);
         console.log("aa gaya");
         const date = new Date()
         const user_id = req.user._id;
@@ -15,13 +16,13 @@ const add_comment =async (req,res)=>{
         const comment_id = req.body.comment_id;
         const content = req.body.content;
         const replied_to = req.body.replied_to;
-        console.log(replied_to);
-        console.log(user_id);
+     //   console.log(replied_to);
+       // console.log(user_id);
         let prof_pic;
         try {
             prof_pic = await User.findById(user_id);
             prof_pic = prof_pic.profile_pic;
-            console.log("backend ppic "+prof_pic );
+         //   console.log("backend ppic "+prof_pic );
         } catch (error) {
             console.log(error);
             return res.send("Error with profile pic");
@@ -29,8 +30,8 @@ const add_comment =async (req,res)=>{
         
         if(!comment_id)
         {   
-            console.log("helli")
-            console.log(date);
+             console.log("helli")
+            // console.log(date);
 
         const updated_Thread = await Thread.findByIdAndUpdate(thread_id, {
             $push :{
@@ -45,14 +46,17 @@ const add_comment =async (req,res)=>{
             }}, {new:true}
         ) 
        
-        console.log("hello there" + updated_Thread);
+       console.log("hello there" + updated_Thread);
+       if(updated_Thread === null)
+       res.status(200).send("100");
+       else
          res.status(200).send({updated_Thread})
         }
         else{
-            console.log("hello");
-            console.log(comment_id);
-            console.log(content);
-            console.log(user_id)
+             console.log("hello");
+            // console.log(comment_id);
+            // console.log(content);
+            // console.log(user_id)
            // const x = await Thread.find({ "discussions._id" : comment_id }).populate('discussions')
             // console.log(x)
            await Thread.updateOne({
@@ -70,8 +74,14 @@ const add_comment =async (req,res)=>{
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
-         console.log("hello " + updated_Thread.discussions[0]);
-           res.status(200).send(updated_Thread.discussions[0]);
+      console.log("hello " + updated_Thread);
+       if(updated_Thread === null)
+       res.status(200).send("100");
+       else
+      res.status(200).send(updated_Thread.discussions
+        
+        
+        [0]);
         }
        
         }

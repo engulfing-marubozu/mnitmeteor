@@ -19,7 +19,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ThreadDeleteAlert({ setThread, threadData, flag }) {
-  // console.log(setPointer,setThreadDelete)
   const [open, setOpen] = useState(false);
   const mountedRef = useRef(true);
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function ThreadDeleteAlert({ setThread, threadData, flag }) {
         <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this untur repeptio.
+            Are you sure you want to delete this thread.
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ px: "1.5rem" }}>

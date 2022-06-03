@@ -21,7 +21,7 @@ const send_interested_email = async (
   const draft_seller = {
     to: seller_email, // Change to your recipient
     from: "mnitmeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "buyer details",
     text: msg_seller,
     html: msg_seller,
   };
@@ -39,7 +39,7 @@ const send_interested_email = async (
   const draft_buyer = {
     to: buyer_email, // Change to your recipient
     from: "mnitmeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "seller details",
     text: msg_buyer,
     html: msg_buyer,
   };
@@ -61,30 +61,30 @@ const send_un_interested_email = async (seller_email , seller_mobile_no, product
   const draft_seller ={
     to: seller_email, // Change to your recipient
     from: "mnitmeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "deal cancellation",
     text: msg_seller,
     html: msg_seller,
   }
   let suc_text = "Deal cancelation Email sent to the seller";
-  // await sgMail
-  // .send(draft_seller)
-  // .then(() => {
-  //   console.log(suc_text);
-  // })
-  // .catch((error) => {
-  //   console.error(error);
-  // });
+  await sgMail
+  .send(draft_seller)
+  .then(() => {
+    console.log(suc_text);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
   await send_email(draft_seller,suc_text);
 }
 
 const delete_product_email =async (interested_users_array, product_title)=>{
-  console.log(interested_users_array);
-  console.log(product_title);
+  //console.log(interested_users_array);
+  //console.log(product_title);
    const msg_buyer = `Dear MNITian, The product, ${product_title} you were interested in has been deleted by the seller. We wish you some great deals in future.`
    const draft_seller ={
     to: interested_users_array, // Change to your recipient
     from: "mntimeteor@gmail.com", // Change to your verified sender
-    subject: "MNIT Meteor",
+    subject: "update regarding your order",
     text: msg_buyer,
     html: msg_buyer,
   }

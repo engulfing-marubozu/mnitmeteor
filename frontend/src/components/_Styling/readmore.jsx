@@ -10,19 +10,24 @@ const ReadMore = ({ children, words, classname }) => {
   return (
     <Typography
       color="text.secondary"
-      sx={{ mb: 1, whiteSpace: "pre-line" }}
+      sx={{ mb: 1, whiteSpace: "pre-line", overflowWrap: "break-word" }}
       className={classname}
     >
       {isReadMore ? text.slice(0, words) : text}
       {textLength > words && (
         <span
           onClick={toggleReadMore}
-          style={{ color: "#673ab7", fontWeight: "bold", fontSize: "14px" }}
+          style={{
+            color: "#673ab7",
+            fontWeight: "bold",
+            fontSize: "14px",
+            cursor: "pointer",
+          }}
         >
           {isReadMore ? "  ...read more" : "  show less"}
         </span>
       )}
     </Typography>
-  );  
+  );
 };
 export default ReadMore;

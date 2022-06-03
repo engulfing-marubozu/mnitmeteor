@@ -15,13 +15,21 @@ export const FormContainer = styled("form")({
 
 export const MutedLink = styled("a")({
   fontSize: "11px",
-  color: "rgba(200, 200, 200, 0.8)",
+  color: "rgba(0, 0, 0,0.7)",
   fontWeight: 500,
   textDecoration: "none",
   textAlign: "center",
   "&:hover": {
     cursor: "pointer",
   },
+});
+export const SpamText = styled("label")({
+  fontSize: "10px",
+  padding: "6px 0px",
+  // color: "rgba(200, 200, 200, 0.8)",
+  fontWeight: 500,
+  textDecoration: "none",
+  textAlign: "center",
 });
 
 export const MutedText = styled("p")({
@@ -31,7 +39,7 @@ export const MutedText = styled("p")({
   textDecoration: "none",
 });
 export const ColoredEmail = styled("p")({
-  fontSize: "12px",
+  fontSize: "14px",
   color: "#5b2da3",
   fontWeight: 500,
   textDecoration: "none",
@@ -98,9 +106,10 @@ export const Passwordlabel = styled("label")({
 });
 
 export const Validationlabel = styled("label")({
-  padding: "5px 0px",
+  padding: "6px 0px",
   fontSize: "10px",
   color: "#ff0000",
+  textAlign: "center",
 });
 export const Dogeimg = styled("img")({
   width: "200px",

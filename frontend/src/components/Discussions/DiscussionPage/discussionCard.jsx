@@ -40,7 +40,6 @@ import ReadMore from "../../_Styling/readmore";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 // ================================================================================================================================================================================================================================
 function DiscussionCard({ data, flag, showDelete, setThread }) {
-  // console.log(setThreadDelete,setPointer)
   const [localCardData, setLocalCardData] = useState(data);
   const [commentVisible, setCommentVisible] = useState(4);
   const [saved, setSaved] = useState(data?.is_saved);
@@ -66,7 +65,6 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   };
 
   // ===========================================================LIKEHANDLER=====================================================================================================================================================
-  // console.log(data);
   const likes = data.likes;
   const dislikes = data.dislikes;
   const likeStatus = LikeDislikeChecker(likes, userLoggedIn);
@@ -170,7 +168,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   const cardId = localCardData?._id;
   const commentCount = localCardData?.discussions.length;
   const document = localCardData?.document?.link;
-  const documentName=localCardData?.document?.name
+  const documentName = localCardData?.document?.name;
 
   // ============================================================================================================================
   const classes = DiscussionCardStyle();
@@ -187,7 +185,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
         const thread_id = cardId;
         const response = await axios.post(
           `${process.env.REACT_APP_API}/save_threads`,
-          { thread_id ,flag},
+          { thread_id, flag },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -242,7 +240,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
               </Tooltip>
             </IconButton>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+          <Box className={classes.dcontentBox}>
             <Box sx={{ width: "94%", borderBottom: "2px  solid #757575" }}>
               <CardHeader
                 avatar={<Avatar src={avatar} />}
@@ -254,7 +252,10 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
                 {title}
               </Typography>
               {/* <Typography color="text.secondary" sx={{ mb: 1 }} > */}
-              <ReadMore words={220}>{description}</ReadMore>
+              <Box>
+                <ReadMore words={220}>{description}</ReadMore>
+              </Box>
+
               {document && (
                 <Box>
                   <Link
@@ -320,7 +321,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
                 )}
                 <RWebShare
                   data={{
-                    text: "harshit_karde_please",
+                    text: "Check this out!",
                     url: `${process.env.REACT_APP_REDIRECT}/discussions/${cardId}`,
                     title: `${title}`,
                   }}

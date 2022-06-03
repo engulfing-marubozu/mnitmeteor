@@ -40,8 +40,9 @@ const sibemail = (to_send,suc_text)=>{
    ]
 
 }).then(function(data) {
-    console.log(suc_text);
-  console.log(data);
+ 
+     console.log(suc_text);
+  // console.log(data);
 }, function(error) {
   console.log(error);
 });

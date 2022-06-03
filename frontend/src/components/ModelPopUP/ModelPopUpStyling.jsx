@@ -85,17 +85,44 @@ export const UploadStyle = makeStyles({
   },
   imageBox: {
     width: "100%",
-    height: "240px",
+    height: "220px",
   },
   image: {
     width: "100%",
     objectFit: "contain",
-    height: "240px",
+    height: "220px",
   },
   typoBox: {
-    padding: "0rem 1rem 1rem",
+    padding: "1rem 1rem 1rem",
   },
   typo: {
     textAlign: "center",
+  },
+});
+
+export const TermsofUseStyle = makeStyles({
+  topBox: {
+    padding: "0.8rem 1.5rem",
+    width: "600px",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "white ",
+    borderRadius: "7px",
+    "@media(max-width:900px)": {
+      width: "560px",
+    },
+    "@media(max-width:600px)": {
+      padding: "1rem 1rem",
+      width: "340px",
+    },
+  },
+  heading: {
+    fontWeight: "bold",
+    marginBottom: "0.5rem",
+  },
+  headingBox: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

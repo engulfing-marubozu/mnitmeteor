@@ -50,7 +50,6 @@ function Favourites() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favouritesLength]);
-  // console.log(cardData);
   return (
     <motion.div>
       <Box sx={{ pb: "2rem" }}>
@@ -72,7 +71,7 @@ function Favourites() {
         >
           <Grid container spacing={{ xs: 2, sm: 4 }}>
             {typeof cardData === "undefined" ? (
-              Array.from(new Array(6)).map((data, index) => {
+              Array.from(new Array(8)).map((data, index) => {
                 return (
                   <Grid item xs={6} md={4} lg={3} key={index}>
                     <HomeCardSkeleton />

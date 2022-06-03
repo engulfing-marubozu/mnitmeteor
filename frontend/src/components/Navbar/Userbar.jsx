@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NotificationPage from "../Notification/notificationPage";
 const { io } = require("socket.io-client");
-const socket = io(process.env.REACT_APP_API, { reconnection: true });
+const socket = io(process.env.REACT_APP_SOCKET, { reconnection: true });
 
 function Userbar({ updateNotification, setNotificationPending }) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -43,7 +43,10 @@ function Userbar({ updateNotification, setNotificationPending }) {
 
   return (
     <Box>
-      <IconButton sx={{ p: 0.65, mr: { xs: 1, sm: 2 } }} onClick={BadgeHandler}>
+      <IconButton
+        sx={{ p: 0.6, mr: { xs: 1, sm: 1.5 } }}
+        onClick={BadgeHandler}
+      >
         <Badge badgeContent={updateNotification} color="error">
           <Tooltip title="Notifications" arrow>
             <NotificationsIcon

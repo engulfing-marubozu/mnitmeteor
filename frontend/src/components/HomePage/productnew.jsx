@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import useGetData from "./useGetData";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import HomeCardSkeleton from "../Cards/HomeCardSkeleton";
 import HomeCard from "../Cards/HomeCard";
 import { useSelector } from "react-redux";
@@ -38,11 +38,11 @@ function ProductNew() {
   );
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    // <motion.div
+    //   initial={{ opacity: 0 }}
+    //   animate={{ opacity: 1 }}
+    //   exit={{ opacity: 0 }}
+    // >
       <Container
         sx={{
           pt: { xs: 5 },
@@ -83,7 +83,7 @@ function ProductNew() {
           })}
         </Grid>
       </Container>
-    </motion.div>
+    // </motion.div>
   );
 }
 

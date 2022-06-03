@@ -1,5 +1,5 @@
 import * as React from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { RWebShare } from "react-web-share";
 import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
@@ -45,7 +45,6 @@ export default function HomeCard({ cardData, index }) {
 
   const LikeButtonHandler = () => {
     if (isLogin) {
-      // console.log(token);
       setLikeButton(!likeButton);
       const likeData = { productId: cardData._id, userToken: token };
       !likeButton && dispatch(fetchDataForATF({ ...likeData, isLiked: true }));
@@ -58,11 +57,11 @@ export default function HomeCard({ cardData, index }) {
   const classSec = CardStyleSecond();
   // ===================================================================================================================================
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
+    // <motion.div
+    //   initial={{ opacity: 0 }}
+    //   animate={{ opacity: 1 }}
+    //   exit={{ opacity: 0 }}
+    // >
       <HoverCard className={classSec.hoverCard}>
         <Link to={`/productdescription/${cardData._id}`}>
           <CardMedia
@@ -111,6 +110,6 @@ export default function HomeCard({ cardData, index }) {
           </CardActions>
         </CardContentNoPadding>
       </HoverCard>
-    </motion.div>
+    // </motion.div>
   );
 }

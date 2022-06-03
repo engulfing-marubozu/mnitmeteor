@@ -43,7 +43,6 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
             );
             if (mountedRef.current) {
                 setLocalCommentData(response.data);
-                // console.log(response.data);
             }
 
         } catch (err) {
@@ -66,7 +65,7 @@ export default function ReplyDeleteAlert({ replyData, setLocalCommentData }) {
                 <DialogTitle sx={{ py: "0.5rem" }}>{"Delete"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText >
-                        Are you sure you want to delete this untur repeptio.
+                        Are you sure you want to delete this Comment.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions sx={{ px: "1.5rem" }}>

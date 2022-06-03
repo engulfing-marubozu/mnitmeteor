@@ -20,13 +20,13 @@ const un_interested_update = async (req, res) => {
     product = await Product.findOneAndUpdate({ _id: product_id, is_verified: true }, { $pull: { interested_users: id } });
     buyer = await User.findByIdAndUpdate(id, { $pull: { interested: product_id } }, { new: true });
     seller = await User.findById(product.posted_by);
-    //  await send_un_interested_email(seller.email, seller.Mobile_no, product.title);
+    await send_un_interested_email(seller.email, seller.Mobile_no, product.title);
   }
   catch (err) {
     console.log(err);
   }
   // const attempts_left =  req.allowed_hits - req.number_of_req
-  console.log(buyer);
+ // console.log(buyer);
   const to_send = {
     interested_buyers: buyer.interested,
   }

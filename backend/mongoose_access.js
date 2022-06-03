@@ -1,4 +1,4 @@
-const { User, Product, LostItem, Thread } = require("./Models");
+const { User, Product, LostItem, Thread,Avatar } = require("./Models");
 const mongoose = require("mongoose");
 // const time = require("time");
 require("dotenv").config();
@@ -85,4 +85,12 @@ LostItem.deleteMany().then(() => {
 })
 
 };
-deleteCompleteDatabase();
+const getUsers = async()=>{
+  const t = await Avatar.findById("62817ca403e3e34eddd1abae");
+  console.log(t.current_counter);
+  // const y = await User.find().sort({createdAt: -1}).limit(3);
+  // console.log(y);
+
+
+}
+getUsers();

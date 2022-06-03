@@ -21,7 +21,7 @@ import { SellNowclick, modelPopUp, } from "../../AStatemanagement/Actions/userAc
 import { NavbarStyle } from "./NavabarStyle";
 import mnitmeteor from "../_Styling/Images/mnitmeteor.svg"
 const { io } = require("socket.io-client");
-const socket = io(process.env.REACT_APP_API, { reconnection: true });
+const socket = io(process.env.REACT_APP_SOCKET, { reconnection: true });
 // ===============================================================================================================================
 
 export const ColorButton = styled(Button)(({ theme }) => ({
@@ -104,7 +104,11 @@ function Navbar() {
         console.log(err);
       };
     }
+<<<<<<< HEAD
     call();
+=======
+     call();
+>>>>>>> 949405bd1a9366b2198eff416f6300921f2377c0
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPending]);
 

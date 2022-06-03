@@ -66,14 +66,14 @@ const send_un_interested_email = async (seller_email , seller_mobile_no, product
     html: msg_seller,
   }
   let suc_text = "Deal cancelation Email sent to the seller";
-  // await sgMail
-  // .send(draft_seller)
-  // .then(() => {
-  //   console.log(suc_text);
-  // })
-  // .catch((error) => {
-  //   console.error(error);
-  // });
+  await sgMail
+  .send(draft_seller)
+  .then(() => {
+    console.log(suc_text);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
   await send_email(draft_seller,suc_text);
 }
 

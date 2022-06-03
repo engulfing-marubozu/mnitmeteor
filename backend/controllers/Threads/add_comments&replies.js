@@ -2,6 +2,7 @@ const {Thread, User} = require("../../Models")
 // recieves data as thread_id , commenter_id, comment
 const add_comment =async (req,res)=>{
     try{
+        console.log(req.body);
         console.log("aa gaya");
         const date = new Date()
         const user_id = req.user._id;
@@ -45,7 +46,7 @@ const add_comment =async (req,res)=>{
             }}, {new:true}
         ) 
        
-      //  console.log("hello there" + updated_Thread);
+       console.log("hello there" + updated_Thread);
          res.status(200).send({updated_Thread})
         }
         else{
@@ -70,7 +71,7 @@ const add_comment =async (req,res)=>{
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
-     //    console.log("hello " + updated_Thread.discussions[0]);
+       //  console.log("hello " + updated_Thread.discussions[0]);
            res.status(200).send(updated_Thread.discussions[0]);
         }
        

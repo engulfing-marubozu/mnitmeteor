@@ -53,12 +53,21 @@ const delete_published_Ads = async (req, res) => {
         return null;
       });
     }
-
+    const date = new Date();
     if (interested_users.length > 0) {
       console.log("deleting");
       const interested_users_email = await Promise.all(
         interested_users.map(async (user) => {
           console.log("vbn");
+          await User.findByIdAndUpdate(user._id, {
+            $addToSet: {
+              notification: {
+                status: 0,
+                content: `Dear user,the product "${title}" you were interested in has been deleted by the seller. Please explore other products. We wish you many successfull deals in future.`,
+                createdAt: date,
+              },
+            },
+          });
           await User.findByIdAndUpdate(user._id, {
             $pull: { interested: product_id },
           });

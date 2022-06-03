@@ -33,7 +33,7 @@ const send_saved_threads = async (req, res) => {
       return res.status(200).send(e);
     }
     
-    // console.log(data);
+     //console.log(data);
     try {
       const check = data[0];
       if(check==null){
@@ -44,7 +44,7 @@ const send_saved_threads = async (req, res) => {
       console.log(error);
       return res.status(200).send(data);
     }
-    return res.status(200).send(data);
+    return res.status(200).send(data.reverse());
   };
   module.exports = { send_saved_threads };
   

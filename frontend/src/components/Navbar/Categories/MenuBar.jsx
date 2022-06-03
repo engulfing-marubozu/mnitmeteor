@@ -23,7 +23,7 @@ import {
   SellNowclick,
 } from "../../../AStatemanagement/Actions/userActions";
 const { io } = require("socket.io-client");
-const socket = io(process.env.REACT_APP_API, { reconnection: true });
+const socket = io(process.env.REACT_APP_SOCKET, { reconnection: true });
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

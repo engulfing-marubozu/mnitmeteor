@@ -68,7 +68,7 @@ const delete_thread = async (req, res) => {
       );
   //    console.log(array);
 
-      res.status(200).send(array);
+      res.status(200).send(array.reverse());
     }
     else{
       res.status(200).send();

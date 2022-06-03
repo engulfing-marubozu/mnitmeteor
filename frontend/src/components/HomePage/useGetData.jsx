@@ -25,8 +25,8 @@ function useGetData(token, pointer, category) {
               Authorization: `Bearer ${token}`,
             },
           }
-        );
-
+        );    
+    
         if (isSubscribed) {
           setData((prev) => [...prev, ...response.data]);
           setLoading(false);

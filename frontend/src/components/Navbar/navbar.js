@@ -104,7 +104,7 @@ function Navbar() {
         console.log(err);
       };
     }
-    isLogin && call();
+    call();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPending]);
 

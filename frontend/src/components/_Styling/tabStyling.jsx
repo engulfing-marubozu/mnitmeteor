@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled  from "@mui/material/styles/styled";
+import styled from "@mui/material/styles/styled";
 import { makeStyles } from "@mui/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -89,14 +89,14 @@ export const forumContainStyle = makeStyles({
       padding: "24px 42px 40px 42px",
     },
     "@media (max-width:900px)": {
-      padding: "24px 24px 40px 42px",
+      padding: "24px 42px 40px 42px",
     },
     "@media (max-width:600px)": {
       margin: "0rem",
       width: "100%",
       padding: "0px 0px 48px 0px",
     },
-  }, 
+  },
   verticalNavBox: {
     display: "flex",
     width: "27%",
@@ -108,7 +108,7 @@ export const forumContainStyle = makeStyles({
     },
   },
   cardBox: {
-    minHeight:"400px",
+    minHeight: "400px",
     width: "73%",
     display: "flex",
     marginLeft: "auto",
@@ -117,11 +117,11 @@ export const forumContainStyle = makeStyles({
       width: "72%",
     },
     "@media (max-width:900px)": {
-      width: "100%",
+      width: "77%",
       marginLeft: "156px",
     },
     "@media (max-width:700px)": {
-      width: "100%",
+      width: "77%",
       marginLeft: "136px",
     },
     "@media (max-width:600px)": {

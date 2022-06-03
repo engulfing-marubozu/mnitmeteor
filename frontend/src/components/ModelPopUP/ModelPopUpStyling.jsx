@@ -85,15 +85,15 @@ export const UploadStyle = makeStyles({
   },
   imageBox: {
     width: "100%",
-    height: "240px",
+    height: "220px",
   },
   image: {
     width: "100%",
     objectFit: "contain",
-    height: "240px",
+    height: "220px",
   },
   typoBox: {
-    padding: "0rem 1rem 1rem",
+    padding: "1rem 1rem 1rem",
   },
   typo: {
     textAlign: "center",

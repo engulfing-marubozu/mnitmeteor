@@ -101,7 +101,7 @@ const fetch_false_threads = async (req, res) => {
   console.log("Send threads to admin to approve/dis");
   try {
     //   const user_id = req.user._id;
-    const universal_threads_false = await Thread.find({ is_verified: false }).sort({ date: -1 });
+    const universal_threads_false = await Thread.find({ is_verified: false }).sort({ 'createdAt': -1 });
     //   const user_specific_threads = await Thread.find({posted_by:user_id});
     res.status(200).send(universal_threads_false);
   }
@@ -119,7 +119,7 @@ const fetch_own_threads = async (req, res) => {
 
     const user = await User.findById(user_id);
 
-    const user_specific_threads = await Thread.find({ posted_by: user_id, is_verified: true }).sort({ date: -1 });
+    const user_specific_threads = await Thread.find({ posted_by: user_id, is_verified: true }).sort({ 'createdAt': -1 });
   //  console.log(user_specific_threads);
     let saved_threads;
     try {

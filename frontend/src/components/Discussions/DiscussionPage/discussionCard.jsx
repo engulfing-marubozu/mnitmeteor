@@ -168,7 +168,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
   const cardId = localCardData?._id;
   const commentCount = localCardData?.discussions.length;
   const document = localCardData?.document?.link;
-  const documentName=localCardData?.document?.name
+  const documentName = localCardData?.document?.name;
 
   // ============================================================================================================================
   const classes = DiscussionCardStyle();
@@ -185,7 +185,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
         const thread_id = cardId;
         const response = await axios.post(
           `${process.env.REACT_APP_API}/save_threads`,
-          { thread_id ,flag},
+          { thread_id, flag },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -240,7 +240,7 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
               </Tooltip>
             </IconButton>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+          <Box className={classes.dcontentBox}>
             <Box sx={{ width: "94%", borderBottom: "2px  solid #757575" }}>
               <CardHeader
                 avatar={<Avatar src={avatar} />}
@@ -252,7 +252,10 @@ function DiscussionCard({ data, flag, showDelete, setThread }) {
                 {title}
               </Typography>
               {/* <Typography color="text.secondary" sx={{ mb: 1 }} > */}
-              <ReadMore words={220}>{description}</ReadMore>
+              <Box>
+                <ReadMore words={220}>{description}</ReadMore>
+              </Box>
+
               {document && (
                 <Box>
                   <Link

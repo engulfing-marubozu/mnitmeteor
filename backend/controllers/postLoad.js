@@ -237,7 +237,7 @@ const send_specific_product = async (req, res) => {
       if (user.interested.indexOf(product_id) !== -1)
         product.show_interested = true;
     }
-  //  console.log(product);
+    console.log(product);
     res.status(200).send(product);
   } catch (err) {
     res.status(200).send("404");

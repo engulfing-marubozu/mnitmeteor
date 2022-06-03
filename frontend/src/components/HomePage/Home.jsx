@@ -13,7 +13,7 @@ export default function Home() {
       exit={{ opacity: 0 }}
     >
       <CssBaseline />
-      <FrontBanner/>
+      <FrontBanner />
       <CategorySlider></CategorySlider>
       <Outlet />
     </motion.div>

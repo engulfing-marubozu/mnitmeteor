@@ -50,7 +50,7 @@ function Navbar() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const [windowWidth, setwindowWidth] = useState(window.innerWidth);
-  const [postsPending, setpostPending] = useState(0);
+  const [postsPending, setPostPending] = useState(0);
   const [notificationPending, setNotificationPending] = useState(0);
   const [menuDrawer, setMenuDrawer] = useState(false);
 
@@ -104,15 +104,15 @@ function Navbar() {
         console.log(err);
       };
     }
-     call();
+    call();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPending]);
 
   React.useEffect(() => {
     socket.on("approve_post_update", () => {
-      console.log("dasklfj")
-      setpostPending(postsPending + 1);
-
+      setPostPending((prev) => {
+        return prev + 1;
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -171,7 +171,7 @@ function Navbar() {
           </Stack>
           {windowWidth > 600 && (
             <Stack display={{ sm: "flex" }}>
-              <NavbarTabs updateBadge={postsPending} />
+              <NavbarTabs updateBadge={postsPending} setPostPending={setPostPending} />
             </Stack>
           )}
           <Stack

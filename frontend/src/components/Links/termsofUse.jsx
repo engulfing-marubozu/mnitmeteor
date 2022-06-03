@@ -40,7 +40,7 @@ function TermsofUse({ open, onClose }) {
           </Box>
           <Box>
             <Typography variant="body1">
-              By accessing or using the Website or any part thereof, you
+              By accessing or using the website or any part thereof, you
               indicate your understanding and acceptance of these terms. If you
               do not agree to these terms, please do not use or further access
               this website.

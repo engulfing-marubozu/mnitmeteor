@@ -28,7 +28,7 @@ export default function RenderDiscriptionCard() {
         if (isSubscribed) {
           console.log(response.data);
           if (response.data === 404) {
-            Navigate("*");
+            Navigate("/*");
           } else if (response.data === 100) {
             setVisible(true);
           } else {
@@ -48,7 +48,7 @@ export default function RenderDiscriptionCard() {
 
   const VisibleHandler = () => {
     setVisible(!visible);
-    Navigate(-1);
+    Navigate("/");
   };
 
   return (
@@ -62,9 +62,9 @@ export default function RenderDiscriptionCard() {
       )}
       {visible && (
         <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
-          Seems this post has been deleted,please refresh the page.
+          User has deleted this product.
         </PostDeletedPopup>
       )}
     </>
-  ); 
+  );
 }

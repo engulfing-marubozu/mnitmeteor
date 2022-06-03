@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LostFoundCard from "./Lost&FoundCard/L&FCard";
+import PostDeletedPopup from "../ModelPopUP/postDeletedPopup";
 
 export default function SpecificLostFound() {
   const [lnfData, setLnfData] = useState();
+  const [visible, setVisible] = useState(false);
   const Navigate = useNavigate();
   const params = useParams();
   const lnfcard_id = params.lnfCardId;
@@ -15,11 +17,14 @@ export default function SpecificLostFound() {
       try {
         const response = await axios.post(
           `${process.env.REACT_APP_API}/send_specific_lost`,
-          {lnfcard_id }
+          { lnfcard_id }
         );
+        console.log(response.data);
         if (isSubscribed) {
           if (response.data === 404) {
             Navigate("/*");
+          } else if (response.data === 100) {
+            setVisible(true);
           } else {
             setLnfData(response.data);
           }
@@ -32,13 +37,22 @@ export default function SpecificLostFound() {
     return () => {
       isSubscribed = false;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const VisibleHandler = () => {
+    setVisible(!visible);
+    Navigate("/lost&found");
+  };
   return (
     <>
-      {typeof lnfData !== "undefined" && (
+      {typeof lnfData !== "undefined" && !visible && (
         <LostFoundCard data={lnfData} flag={5} showDelete={false} />
+      )}
+      {visible && (
+        <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
+          User has deleted this item.
+        </PostDeletedPopup>
       )}
     </>
   );

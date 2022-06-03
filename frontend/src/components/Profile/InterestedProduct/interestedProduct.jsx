@@ -49,6 +49,7 @@ function InterestedProduct() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interestedList]);
 
+  console.log(cardData);
   // ====================================================================================================================================
   return (
     <motion.div

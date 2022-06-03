@@ -97,7 +97,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
       )}
       {visible && (
         <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
-          Seems user deleted this thread, please refresh the page.
+          User has deleted this thread , please refresh the page.
         </PostDeletedPopup>
       )}
     </>

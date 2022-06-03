@@ -102,17 +102,17 @@ export const UploadStyle = makeStyles({
 
 export const TermsofUseStyle = makeStyles({
   topBox: {
-    padding: "0.5rem 0.8rem",
-    width: "560px",
+    padding: "0.8rem 1.5rem",
+    width: "600px",
     display: "flex",
     flexDirection: "column",
     backgroundColor: "white ",
     borderRadius: "7px",
     "@media(max-width:900px)": {
-      width: "520px",
+      width: "560px",
     },
     "@media(max-width:600px)": {
-      padding: "0.5rem 0.5rem",
+      padding: "1rem 1rem",
       width: "340px",
     },
   },

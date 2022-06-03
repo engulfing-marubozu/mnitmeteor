@@ -86,7 +86,7 @@ function ReplyCommentBox({
       )}
       {visible && (
         <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
-          Seems user deleted this comment, please refresh the page.
+          User has deleted this comment, please refresh the page.
         </PostDeletedPopup>
       )}
     </>

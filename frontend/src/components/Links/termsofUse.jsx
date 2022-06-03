@@ -40,16 +40,29 @@ function TermsofUse({ open, onClose }) {
           </Box>
           <Box>
             <Typography variant="body1">
-              Hold on! Our database, debbie, is saving your details...
+              By accessing or using the Website or any part thereof, you
+              indicate your understanding and acceptance of these terms. If you
+              do not agree to these terms, please do not use or further access
+              this website.
               <br />
-              Hold on! Our database, debbie, is saving your details...
               <br />
-              Hold on! Our database, debbie, is saving your details...
+              For the purpose of these terms and wherever the context so
+              requires, the terms "you", and "your" and "user" shall mean any
+              person who accesses or uses the website.
               <br />
-              Hold on! Our database, debbie, is saving your details...
               <br />
-              Hold on! Our database, debbie, is saving your details...
+              1. mnitmeteor may revoke your rights to use this website or the
+              content at any time and for any reason. mnitmeteor can do this
+              without giving you any notice or informing you of this.
               <br />
+              2. You must not post nude, partially nude, or sexually suggestive
+              photos.
+              <br />
+              3. You must not abuse, harass, threaten, impersonate or intimidate
+              other mnitmeteor users in the discussion community.
+              <br />
+              4. Any post on this website should not violate the rules and
+              regulations of the institute.
             </Typography>
           </Box>
         </Box>

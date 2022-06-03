@@ -233,7 +233,9 @@ const send_specific_product = async (req, res) => {
   try {
     const { email, product_id } = req.body;
     const product = await Product.findById(product_id);
-
+    if (!product) res.status(200).send("100");
+    else{
+  console.log(product)
     if (email) {
       const user = await User.findOne({ email });
       //  console.log(user);
@@ -244,8 +246,8 @@ const send_specific_product = async (req, res) => {
         product.show_interested = true;
     }
     // console.log(product);
-    if (product === null) res.status(200).send("100");
-    else res.status(200).send(product);
+    
+     res.status(200).send(product);}
   } catch (err) {
     res.status(200).send("404");
     console.log(err);

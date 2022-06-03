@@ -15,12 +15,8 @@ const AntTabs = styled(Tabs)({
 const AntTab = styled((props) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
     textTransform: "none",
-    padding: "0.3rem",
+    padding: "0.65rem",
     minWidth: 0,
-    [theme.breakpoints.up("md")]: {
-      minWidth: 0,
-      padding: "0.5rem",
-    },
     fontWeight: theme.typography.fontWeightRegular,
     color: "rgba(0, 0, 0, 0.85)",
     "&:hover": {
@@ -53,12 +49,11 @@ export default function NavbarTabs({ updateBadge, setPostPending }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
-  console.log(updateBadge);
   return (
     <AntTabs value={value}>
       <AntTab
         label={
-          <Badge badgeContent={1} color="error">
+          <Badge badgeContent={updateBadge} color="error">
             Home
           </Badge>
         }

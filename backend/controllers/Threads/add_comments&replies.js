@@ -78,7 +78,10 @@ const add_comment =async (req,res)=>{
        if(updated_Thread === null)
        res.status(200).send("100");
        else
-      res.status(200).send(updated_Thread.discussions[0]);
+      res.status(200).send(updated_Thread.discussions
+        
+        
+        [0]);
         }
        
         }

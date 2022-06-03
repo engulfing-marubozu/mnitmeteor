@@ -33,7 +33,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function ThreadPanel({ ApproveRequest, DeclineRequest, data }) {
-  console.log(data);
   const [expanded, setExpanded] = React.useState(false);
   const date = new Date(data.createdAt);
   const properDate = TimeSince(date);

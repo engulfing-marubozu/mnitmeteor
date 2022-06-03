@@ -42,6 +42,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
           },
         }
       );
+      console.log(response.data.updated_thread);
       setLocalCardData(response.data.updated_Thread);
       inputComment.current.value = null;
       setDisabledPost(true);

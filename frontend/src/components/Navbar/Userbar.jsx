@@ -43,7 +43,7 @@ function Userbar({ updateNotification, setNotificationPending }) {
 
   return (
     <Box>
-      <IconButton sx={{ p: 0.65, mr: { xs: 1, sm: 2 } }} onClick={BadgeHandler}>
+      <IconButton sx={{ p: 0.6, mr: { xs: 1, sm: 2 } }} onClick={BadgeHandler}>
         <Badge badgeContent={updateNotification} color="error">
           <Tooltip title="Notifications" arrow>
             <NotificationsIcon

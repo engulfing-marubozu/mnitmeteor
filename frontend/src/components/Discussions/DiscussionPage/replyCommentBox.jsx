@@ -42,7 +42,7 @@ function ReplyCommentBox({
         }
       );
       let updatedComment = response.data;
-
+     console.log(updatedComment);
       setLocalCommentData(updatedComment);
       inputReply.current.value = "";
       setExpandedReplies && setExpandedReplies(true);

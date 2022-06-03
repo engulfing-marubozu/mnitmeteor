@@ -43,7 +43,7 @@ function NotificationPage({ setDrawer }) {
       </Box>
       <Box>
         {typeof notifications === "undefined" ? (
-          Array.from(new Array(6)).map((data, index) => {
+          Array.from(new Array(7)).map((data, index) => {
             return <NotificationSkeleton key={index} />;
           })
         ) : notifications.length > 0 ? (

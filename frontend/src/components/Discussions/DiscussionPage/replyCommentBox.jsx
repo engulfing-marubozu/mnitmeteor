@@ -43,12 +43,10 @@ function ReplyCommentBox({
           },
         }
       );
-      console.log(response.data);
       if (response.data === 100) {
         setVisible(true);
       } else {
         let updatedComment = response.data;
-        console.log(updatedComment);
         setLocalCommentData(updatedComment);
         inputReply.current.value = "";
         setExpandedReplies && setExpandedReplies(true);

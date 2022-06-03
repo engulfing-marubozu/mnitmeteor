@@ -1,16 +1,16 @@
 export const DiscussionEmpty = {
   explore: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652273577/Exploring-pana_1_t4jdxu.svg",
-    text: "Get the conversation started by clicking the create topic button.",
+    text: "Get the conversation started by clicking the create thread button.",
   },
   savedTopics: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1650805862/Bookmarks-pana_ndlfbq.svg",
-    text: "Go ahead and save a topic now by clicking the  button. ",
+    text: "Go ahead and save a thread now by clicking the  button. ",
   },
 
   myTopics: {
     svg: "https://res.cloudinary.com/mnitmarket/image/upload/v1652368885/blankmytopic_cd3m5g.svg",
-    text: "Create  by clicking the Create Topic button.",
+    text: "Create  by clicking the create thread button.",
   },
 };
 export const lostFoundEmpty = {

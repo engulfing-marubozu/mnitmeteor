@@ -26,6 +26,15 @@ export const CustomButton = styled("button")({
     padding: "6px 16px",
     fontSize: "14px",
   },
+  "@media (max-width:900px)": {
+    borderRadius: "8px",
+    padding: "4px 14px",
+    fontSize: "12px",
+  },
+  "@media (max-width:600px)": {
+    padding: "6px 16px",
+    fontSize: "14px",
+  },
 });
 const CustomDiv = styled("div")({
   width: "260px",

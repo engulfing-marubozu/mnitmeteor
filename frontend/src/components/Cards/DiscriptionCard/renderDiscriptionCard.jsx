@@ -26,7 +26,6 @@ export default function RenderDiscriptionCard() {
           { email, product_id }
         );
         if (isSubscribed) {
-          console.log(response.data);
           if (response.data === 404) {
             Navigate("/*");
           } else if (response.data === 100) {

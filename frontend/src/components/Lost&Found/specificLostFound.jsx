@@ -19,7 +19,6 @@ export default function SpecificLostFound() {
           `${process.env.REACT_APP_API}/send_specific_lost`,
           { lnfcard_id }
         );
-        console.log(response.data);
         if (isSubscribed) {
           if (response.data === 404) {
             Navigate("/*");

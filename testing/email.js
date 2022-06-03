@@ -49,7 +49,7 @@ new SibApiV3Sdk.TransactionalEmailsApi().sendTransacEmail({
    ]
 
 }).then(function(data) {
-  console.log(data);
+//   console.log(data);
 }, function(error) {
   console.error(error);
 });

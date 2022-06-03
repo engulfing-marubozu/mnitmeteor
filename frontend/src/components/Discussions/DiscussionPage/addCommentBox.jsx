@@ -44,11 +44,9 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
           },
         }
       );
-      console.log(response.data);
       if (response.data === 100) {
         setVisible(true);
       } else {
-        console.log(response.data.updated_thread);
         setLocalCardData(response.data.updated_Thread);
         inputComment.current.value = null;
         setDisabledPost(true);

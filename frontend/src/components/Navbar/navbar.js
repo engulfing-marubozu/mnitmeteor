@@ -110,7 +110,9 @@ function Navbar() {
 
   React.useEffect(() => {
     socket.on("approve_post_update", () => {
+      console.log("dasklfj")
       setpostPending(postsPending + 1);
+
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

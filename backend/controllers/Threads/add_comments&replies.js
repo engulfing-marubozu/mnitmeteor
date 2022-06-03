@@ -30,7 +30,7 @@ const add_comment =async (req,res)=>{
         
         if(!comment_id)
         {   
-            // console.log("helli")
+             console.log("helli")
             // console.log(date);
 
         const updated_Thread = await Thread.findByIdAndUpdate(thread_id, {
@@ -47,10 +47,13 @@ const add_comment =async (req,res)=>{
         ) 
        
        console.log("hello there" + updated_Thread);
+       if(updated_Thread === null)
+       res.status(200).send("100");
+       else
          res.status(200).send({updated_Thread})
         }
         else{
-            // console.log("hello");
+             console.log("hello");
             // console.log(comment_id);
             // console.log(content);
             // console.log(user_id)
@@ -71,8 +74,8 @@ const add_comment =async (req,res)=>{
                 }}, {new:true}
             )    
            const updated_Thread = await Thread.findOne({ 'discussions._id' : comment_id}, {'discussions.$':1});
-       //  console.log("hello " + updated_Thread.discussions[0]);
-       if(updated_Thread.discussions[0] === {})
+      console.log("hello " + updated_Thread);
+       if(updated_Thread === null)
        res.status(200).send("100");
        else
       res.status(200).send(updated_Thread.discussions[0]);

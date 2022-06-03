@@ -43,6 +43,7 @@ function ReplyCommentBox({
           },
         }
       );
+      console.log(response.data);
       if (response.data === 100) {
         setVisible(true);
       } else {
@@ -85,7 +86,7 @@ function ReplyCommentBox({
       )}
       {visible && (
         <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
-          reply delted
+          Seems user deleted this comment, please refresh the page.
         </PostDeletedPopup>
       )}
     </>

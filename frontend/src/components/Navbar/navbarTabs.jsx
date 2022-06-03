@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Badge from "@mui/material/Badge";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { useEffect } from "react";
@@ -36,7 +37,7 @@ const AntTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 
-export default function NavbarTabs(props) {
+export default function NavbarTabs({ updateBadge }) {
   const Navigate = useNavigate();
   const location = useLocation();
   const [value, setValue] = React.useState(0);
@@ -52,10 +53,15 @@ export default function NavbarTabs(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
+  console.log(updateBadge);
   return (
     <AntTabs value={value}>
       <AntTab
-        label="Home"
+        label={
+          <Badge badgeContent={updateBadge} color="primary">
+           Home
+          </Badge>
+        }
         onClick={() => {
           Navigate("/");
         }}

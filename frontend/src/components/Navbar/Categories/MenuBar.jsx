@@ -116,7 +116,14 @@ export default function MymenuBar({ menuClose }) {
         </MenuItem>
         {!isLogin && (
           <MenuItem
-            sx={{ color: "white", bgcolor: "#673ab7", mt: "0.8rem" }}
+            sx={{
+              color: "white",
+              bgcolor: "#673ab7",
+              mt: "0.8rem",
+              "&:hover": {
+                bgcolor: "#7e57c2",
+              },
+            }}
             onClick={() => {
               dispatch(modelPopUp(true));
               dispatch(SellNowclick(false));
@@ -129,7 +136,14 @@ export default function MymenuBar({ menuClose }) {
         )}
         {isLogin && (
           <MenuItem
-            sx={{ color: "white", bgcolor: "#673ab7", mt: "0.8rem" }}
+            sx={{
+              color: "white",
+              bgcolor: "#673ab7",
+              mt: "0.8rem",
+              "&:hover": {
+                bgcolor: "#7e57c2",
+              },
+            }}
             onClick={() => {
               email && socket.emit("log_out_socket", email);
               dispatch(LogoutUser());

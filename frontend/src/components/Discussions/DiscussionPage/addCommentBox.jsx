@@ -44,6 +44,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
           },
         }
       );
+      console.log(response.data);
       if (response.data === 100) {
         setVisible(true);
       } else {
@@ -96,7 +97,7 @@ function AddCommentBox({ addCommentData, setLocalCardData }) {
       )}
       {visible && (
         <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
-          comment deleted
+          Seems user deleted this thread, please refresh the page.
         </PostDeletedPopup>
       )}
     </>

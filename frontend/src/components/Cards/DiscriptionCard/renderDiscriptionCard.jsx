@@ -48,7 +48,7 @@ export default function RenderDiscriptionCard() {
 
   const VisibleHandler = () => {
     setVisible(!visible);
-    Navigate("/");
+    Navigate(-1);
   };
 
   return (
@@ -62,9 +62,9 @@ export default function RenderDiscriptionCard() {
       )}
       {visible && (
         <PostDeletedPopup Open={visible} OnClose={VisibleHandler}>
-          Seems this post has been deleted please refresh the page.
+          Seems this post has been deleted,please refresh the page.
         </PostDeletedPopup>
       )}
     </>
-  );
+  ); 
 }

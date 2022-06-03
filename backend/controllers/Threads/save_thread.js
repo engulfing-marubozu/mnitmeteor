@@ -48,7 +48,7 @@ const save_threads = async (req,res)=>{
         if(flag===2){
           console.log("flag is 2");
        //   console.log(to_send_data);
-          return res.status(200).send(to_send_data);
+          return res.status(200).send(to_send_data.reverse());
         }
       } catch (error) {
         console.log(error);

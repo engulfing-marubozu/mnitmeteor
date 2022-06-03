@@ -81,8 +81,9 @@ io.on("connect", (socket) => {
 
   socket.on("admin decline/approve/interested event", async (user_id) => {
     console.log("dbvjsbvknskvn");
+    console.log(user_id)
     const user = await User.findById(user_id);
-    // console.log(user);
+     console.log(user);
     console.log(users_scoket_id[user.email]);
     console.log(users_scoket_id);
     if (users_scoket_id[user.email]) {

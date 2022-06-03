@@ -32,7 +32,6 @@ export default function FetchThread() {
       );
 
       if (response.data === "product approved") {
-        socket.emit("admin approve event");
         socket.emit(
           "admin decline/approve/interested event",
           cardData.posted_by

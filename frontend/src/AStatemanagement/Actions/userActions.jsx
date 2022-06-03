@@ -13,7 +13,7 @@ import {
 } from "./types";
 import axios from "axios";
 const { io } = require("socket.io-client");
-const socket = io(process.env.REACT_APP_API, { reconnection: true });
+const socket = io(process.env.REACT_APP_SOCKET, { reconnection: true });
 export const AuthUser = (data = {}) => {
   return { type: AUTH_USER, payload: data };
 };

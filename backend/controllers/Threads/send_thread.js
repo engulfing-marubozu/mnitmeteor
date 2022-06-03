@@ -170,7 +170,7 @@ const specific_thread = async (req, res) => {
     if (email) {
       const thread = await Thread.findById(thread_id);
       if (!thread)
-        res.status(200).send("404");
+        res.status(200).send("100");
       else {
         const user = await User.findOne({ email });
         const saved_status = user.threads_saved.includes(thread_id);
@@ -182,7 +182,7 @@ const specific_thread = async (req, res) => {
     else {
       const thread = await Thread.findById(thread_id);
       if (!thread)
-        res.status(200).send("404");
+        res.status(200).send("100");
       else {
         res.status(200).send({ thread, saved_status: false });
       }

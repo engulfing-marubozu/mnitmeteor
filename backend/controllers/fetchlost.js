@@ -125,6 +125,9 @@ const FetchByID = async (req, res) => {
   const uid = req.body.lnfcard_id;
   try {
     const data = await LostItem.find({ is_verified: true, _id: uid });
+    if(data === null)
+     res.status(200).send("100");
+     else
     res.status(200).send(data[0]);
 
   } catch (err) {

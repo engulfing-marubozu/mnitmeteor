@@ -37,7 +37,7 @@ const AntTab = styled((props) => <Tab disableRipple {...props} />)(
   })
 );
 
-export default function NavbarTabs({ updateBadge }) {
+export default function NavbarTabs({ updateBadge, setPostPending }) {
   const Navigate = useNavigate();
   const location = useLocation();
   const [value, setValue] = React.useState(0);
@@ -58,12 +58,13 @@ export default function NavbarTabs({ updateBadge }) {
     <AntTabs value={value}>
       <AntTab
         label={
-          <Badge badgeContent={updateBadge} color="primary">
-           Home
+          <Badge badgeContent={1} color="error">
+            Home
           </Badge>
         }
         onClick={() => {
           Navigate("/");
+          setPostPending(0);
         }}
       />
       <AntTab

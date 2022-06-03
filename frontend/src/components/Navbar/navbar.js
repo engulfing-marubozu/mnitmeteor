@@ -104,11 +104,7 @@ function Navbar() {
         console.log(err);
       };
     }
-<<<<<<< HEAD
     call();
-=======
-     call();
->>>>>>> 949405bd1a9366b2198eff416f6300921f2377c0
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPending]);
 

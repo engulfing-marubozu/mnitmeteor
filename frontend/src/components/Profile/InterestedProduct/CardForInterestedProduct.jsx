@@ -25,7 +25,7 @@ export default function CardForInterestedProduct({ cardData }) {
   // =============================================CARD DATA===================================
   const Image = cardData.images[0].image;
   const title =
-    cardData.title.trim().charAt(1).toUpperCase() +
+    cardData.title.trim().charAt(0).toUpperCase() +
     cardData.title.trim().slice(1);
   const date = new Date(cardData?.createdAt);
   const properDate = TimeSince(date);

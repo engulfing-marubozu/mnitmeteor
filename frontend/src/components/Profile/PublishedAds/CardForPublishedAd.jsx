@@ -20,7 +20,7 @@ import ProductDeleteAlert from "../../ModelPopUP/deleteAlert";
 export default function CardForPublishedAds({ cardData }) {
   const Image = cardData?.images[0]?.image;
   const title =
-    cardData.title.trim().charAt(0).toUpperCase() +
+    cardData.title.charAt(0).trim().toUpperCase() +
     cardData.title.trim().slice(1);
   const date = new Date(cardData.createdAt);
   const properDate = TimeSince(date);
@@ -62,7 +62,7 @@ export default function CardForPublishedAds({ cardData }) {
             >
               <Tooltip title="Share" arrow>
                 <IconButton className={classes.iconButton}>
-                  <ShareIcon className={classes.Icon}  aria-label="share" />
+                  <ShareIcon className={classes.Icon} aria-label="share" />
                 </IconButton>
               </Tooltip>
             </RWebShare>

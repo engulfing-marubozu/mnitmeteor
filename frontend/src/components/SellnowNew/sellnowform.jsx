@@ -16,10 +16,9 @@ import { useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import noInternet from "../_Styling/Images/noInternet.svg";
 import UploadImage from "../_formData/gettingFiles/uploadImage";
 import { sellCategories } from "../_formData/formData";
-import FormSubmission from "../ModelPopUP/onFormSubmission";
+import NoInternet from "../ModelPopUP/noInternet";
 import DataUploadingPopup from "../ModelPopUP/uploadingData";
 import {
   sellPopUp,
@@ -178,10 +177,10 @@ function SellFormNew() {
           onClose={setIsOffline}
           portelId={"portal"}
         >
-          <FormSubmission onClose={setIsOffline} source={noInternet}>
+          <NoInternet onClose={setIsOffline}>
             Couldn't connect to debbie, our database. Please check all
             connections and try again.
-          </FormSubmission>
+          </NoInternet>
         </POPUPElement>
       )}
       {isLogin && isUpload && <DataUploadingPopup open={isUpload} />}

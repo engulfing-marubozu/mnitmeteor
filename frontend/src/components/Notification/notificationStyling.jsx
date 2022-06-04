@@ -31,6 +31,7 @@ export const NotificationCardStyle = makeStyles({
     width: "100%",
   },
   readMore: {
+    cursor: "pointer",
     color: (prop) => (prop > 0 ? "#2e7d32" : prop < 0 ? "#c62828" : "#673ab7"),
   },
 });

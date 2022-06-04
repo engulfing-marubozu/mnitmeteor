@@ -83,7 +83,7 @@ export function Otpform(props) {
       <ColoredEmail>{props.signUpDetails.email}</ColoredEmail>
       <FormContainer onSubmit={verifyOtpHandler}>
         <Input
-          autoFocus={true}
+          // autoFocus={true}
           type="number"
           placeholder="OTP"
           value={otpValue}

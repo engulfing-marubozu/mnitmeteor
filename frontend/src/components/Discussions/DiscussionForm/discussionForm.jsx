@@ -74,8 +74,10 @@ function DiscussionForm() {
       dispatch(forumPopUp(true));
       Navigate("/discussions/mytopics");
     } catch (err) {
-      console.log(err);
-      if (err?.response?.status === 403) {
+      if (!err?.response) {
+        setIsUpload(false);
+        setIsOffline(true);
+      } else if (err?.response?.status === 403) {
         dispatch(LogoutUser());
         Navigate(`/`);
       }
@@ -107,7 +109,7 @@ function DiscussionForm() {
                 if (values.document) {
                   const reader = new FileReader();
                   reader.onload = () => {
-                   // const data = { ...values, document: reader.result };
+                    // const data = { ...values, document: reader.result };
                     const data = {
                       ...values,
                       document: {

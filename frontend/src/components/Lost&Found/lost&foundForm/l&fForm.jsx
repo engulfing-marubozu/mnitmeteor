@@ -73,9 +73,12 @@ function LostFoundForm() {
         dispatch(lnfPopUp(true));
         Navigate("/lost&found/myitems");
       })
-      .catch(function (error) {
-        console.log(error);
-        if (error?.response?.status === 403) {
+      .catch(function (err) {
+        console.log(err);
+        if (!err?.response) {
+          setIsUpload(false);
+          setIsOffline(true);
+        } else if (err?.response?.status === 403) {
           dispatch(LogoutUser());
           Navigate(`/`);
         }

@@ -68,7 +68,7 @@ export function SignupForm(props) {
       <MutedText> Please enter your college email Id</MutedText>
       <FormContainer onSubmit={OTPHandler}>
         <Input
-          autoFocus={true}
+          // autoFocus={true}
           type="email"
           placeholder="Email"
           name="email"

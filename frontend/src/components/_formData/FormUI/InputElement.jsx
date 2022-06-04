@@ -7,7 +7,7 @@ export function TextfieldWrapper({ name, ...otherProps }) {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
   const handleChange = (event) => {
-    if (event.target.value.split("\n").length > 1000) {
+    if (event.target.value.split("\n").length > 500) {
       event.target.value = " ";
       return;
     }

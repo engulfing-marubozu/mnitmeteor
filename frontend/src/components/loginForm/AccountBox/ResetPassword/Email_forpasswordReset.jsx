@@ -21,9 +21,12 @@ export function EmailForResetPassword(props) {
   const verifyResetPasswordEmail = async () => {
     try {
       const { email } = signupEmail;
-      const response = await axios.post(`${process.env.REACT_APP_API}/resetPassword`, {
-        email,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/resetPassword`,
+        {
+          email,
+        }
+      );
       if (response.data === "Use different e-mail") {
         notify("Email is not registered");
       } else {
@@ -72,7 +75,7 @@ export function EmailForResetPassword(props) {
       <BoxContainer>
         <FormContainer onSubmit={OTPHandler}>
           <Input
-            autoFocus={true}
+            // autoFocus={true}
             type="email"
             placeholder="Email"
             name="email"
@@ -81,9 +84,7 @@ export function EmailForResetPassword(props) {
           />
           <Validationlabel>{formErrors.email}</Validationlabel>
           <Marginer direction="vertical" margin={10} />
-          <SubmitButton type="submit">
-            Send OTP
-          </SubmitButton>
+          <SubmitButton type="submit">Send OTP</SubmitButton>
         </FormContainer>
         <Marginer direction="vertical" margin="1em" />
         <MutedText style={{ fontSize: "11px" }}>
@@ -97,3 +98,4 @@ export function EmailForResetPassword(props) {
     </MarginTopBox>
   );
 }
+ 

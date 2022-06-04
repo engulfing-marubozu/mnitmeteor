@@ -100,6 +100,34 @@ export const UploadStyle = makeStyles({
   },
 });
 
+export const NoInternetStyle = makeStyles({
+  topBox: {
+    width: "460px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "white ",
+    borderRadius: "7px",
+    "@media(max-width:600px)": {
+      width: "320px",
+    },
+  },
+  iconBox: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  closeIcon: {
+    padding: "4px",
+    margin: "4px 4px 0 0",
+  },
+  typoBox: {
+    padding: "0rem 1.5rem 1rem",
+  },
+  typo: {
+    textAlign: "center",
+  },
+});
 export const TermsofUseStyle = makeStyles({
   topBox: {
     padding: "0.8rem 1.5rem",

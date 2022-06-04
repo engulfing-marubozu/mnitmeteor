@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { UploadStyle } from "./ModelPopUpStyling";
+import { NoInternetStyle } from "./ModelPopUpStyling";
 export default function NoInternet({ onClose, children, source }) {
   // ==========================================================GETTING DETAILS FROM STATE-REDUX ================
-  const classes = UploadStyle();
+  const classes = NoInternetStyle();
   return (
     <Box className={classes.topBox}>
       <Box className={classes.iconBox}>

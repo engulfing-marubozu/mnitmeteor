@@ -50,13 +50,17 @@ export function LoginForm(props) {
         // ===========================New =============
         const userAuthData = { oamp: true, xezzi: response.data?.token };
         const userData = {
-          profilePic:response.data?.profile_pic,
+          profilePic: response.data?.profile_pic,
           email: response.data?.email,
           phoneNo: response.data?.phone_No,
           userId: response.data?.user,
         };
         dispatch(
-          AuthUser({ isLogin: true, token: userAuthData.xezzi, userData: userData })
+          AuthUser({
+            isLogin: true,
+            token: userAuthData.xezzi,
+            userData: userData,
+          })
         );
 
         window.localStorage.setItem(
@@ -99,7 +103,7 @@ export function LoginForm(props) {
     <BoxContainer>
       <FormContainer onSubmit={submitHandler}>
         <Input
-          autoFocus={true}
+          // autoFocus={true}
           type="email"
           placeholder="Email"
           name="email"

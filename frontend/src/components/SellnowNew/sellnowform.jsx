@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import UploadImage from "../_formData/gettingFiles/uploadImage";
 import { sellCategories } from "../_formData/formData";
-import FormSubmission from "../ModelPopUP/onFormSubmission";
+import NoInternet from "../ModelPopUP/noInternet";
 import DataUploadingPopup from "../ModelPopUP/uploadingData";
 import {
   sellPopUp,
@@ -57,26 +57,28 @@ function SellFormNew() {
   const onDrop = (pictures) => {
     setimagearray(pictures);
   };
-//images: imagearray,
+  //images: imagearray,
   // ========================================================================================================================================================================================================
   const merge = async (values) => {
     try {
       // const response =
       await axios.post(
         `${process.env.REACT_APP_API}/product_details`,
-        {  details: values },
+        { details: values },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
       setIsUpload(false);
       dispatch(sellPopUp(true));
       Navigate("/profile");
     } catch (err) {
-      console.log(err);
-      if (err?.response?.status === 403) {
+      if (!err?.response) {
+        setIsUpload(false);
+        setIsOffline(true);
+      } else if (err?.response?.status === 403) {
         dispatch(LogoutUser());
         Navigate(`/`);
       }
@@ -175,15 +177,10 @@ function SellFormNew() {
           onClose={setIsOffline}
           portelId={"portal"}
         >
-          <FormSubmission
-            onClose={setIsOffline}
-            source={
-              "https://res.cloudinary.com/mnitmarket/image/upload/v1652281961/No_connection-amico_w156bz.svg"
-            }
-          >
+          <NoInternet onClose={setIsOffline}>
             Couldn't connect to debbie, our database. Please check all
             connections and try again.
-          </FormSubmission>
+          </NoInternet>
         </POPUPElement>
       )}
       {isLogin && isUpload && <DataUploadingPopup open={isUpload} />}

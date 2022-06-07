@@ -15,29 +15,32 @@ import { AccountContext } from "../../../_ContextFolder/webContext";
 import { PasswordValidator } from "./validator";
 
 export function CreatePassword(props) {
-
   // backend ----------------------------------------------------------------------------------------
   const Credentials = async (details) => {
     const { email, password } = details;
     try {
       // const response =
-       await axios.post(`${process.env.REACT_APP_API}/signUp`, { email, password });
-    }
-    catch (err) {
+      await axios.post(`${process.env.REACT_APP_API}/signUp`, {
+        email,
+        password,
+      });
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   const resetPassword = async (details) => {
     const { email, password } = details;
     try {
-      // const response = 
-      await axios.post(`${process.env.REACT_APP_API}/resetPassword`, { email, password });
-    }
-    catch (err) {
+      // const response =
+      await axios.post(`${process.env.REACT_APP_API}/resetPassword`, {
+        email,
+        password,
+      });
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   //---------------------------------------------------------------------------------------------------
   const { Switch } = useContext(AccountContext);
@@ -63,11 +66,16 @@ export function CreatePassword(props) {
         email: props.data.email,
         password: password.newpassword,
       };
-      if (props.data.flag === "createpassword")
+      if (props.data.flag === "createpassword") {
         Credentials(details);
-      else
+      } else {
         resetPassword(details);
-      const active = (props.data.flag === "createpassword") ? "signupsuccessfully" : "passwordresetsuccessful";
+      }
+
+      const active =
+        props.data.flag === "createpassword"
+          ? "signupsuccessfully"
+          : "passwordresetsuccessful";
       Switch({ ...details, active: active });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +84,7 @@ export function CreatePassword(props) {
     <BoxContainer>
       <FormContainer onSubmit={RegisterHandler}>
         <Input
-          autoFocus={true}
+          // autoFocus={true}
           type="password"
           placeholder="New Password"
           name="newpassword"

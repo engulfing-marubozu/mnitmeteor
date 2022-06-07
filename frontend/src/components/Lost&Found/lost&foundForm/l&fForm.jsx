@@ -21,8 +21,8 @@ import {
   LogoutUser,
 } from "../../../AStatemanagement/Actions/userActions";
 import POPUPElement from "../../ModelPopUP/POPUPElement";
-import FormSubmission from "../../ModelPopUP/onFormSubmission";
 import DataUploadingPopup from "../../ModelPopUP/uploadingData";
+import NoInternet from "../../ModelPopUP/noInternet";
 // =================================================================================================================================================================================================================
 
 const INITIAL_FORM_STATE = {
@@ -73,9 +73,12 @@ function LostFoundForm() {
         dispatch(lnfPopUp(true));
         Navigate("/lost&found/myitems");
       })
-      .catch(function (error) {
-        console.log(error);
-        if (error?.response?.status === 403) {
+      .catch(function (err) {
+        console.log(err);
+        if (!err?.response) {
+          setIsUpload(false);
+          setIsOffline(true);
+        } else if (err?.response?.status === 403) {
           dispatch(LogoutUser());
           Navigate(`/`);
         }
@@ -153,15 +156,10 @@ function LostFoundForm() {
           onClose={setIsOffline}
           portelId={"portal"}
         >
-          <FormSubmission
-            onClose={setIsOffline}
-            source={
-              "https://res.cloudinary.com/mnitmarket/image/upload/v1652281961/No_connection-amico_w156bz.svg"
-            }
-          >
+          <NoInternet onClose={setIsOffline}>
             Couldn't connect to debbie, our database. Please check all
             connections and try again.
-          </FormSubmission>
+          </NoInternet>
         </POPUPElement>
       )}
       {isUpload && <DataUploadingPopup open={isUpload} />}

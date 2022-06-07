@@ -55,8 +55,8 @@ const send_interested_email = async (
   await send_email(draft_buyer,suc_text);
 };
 
-const send_un_interested_email = async (seller_email , seller_mobile_no, product_title)=>{
-  const msg_seller = `Dear MNITian, the buyer with contact number ${seller_mobile_no} has cancelled the deal for product, ${product_title}.
+const send_un_interested_email = async (seller_email , buyer_mobile_no, product_title)=>{
+  const msg_seller = `Dear MNITian, the buyer with contact number ${buyer_mobile_no} has cancelled the deal for product, ${product_title}.
   We wish you successful deals in future :)`
   const draft_seller ={
     to: seller_email, // Change to your recipient
